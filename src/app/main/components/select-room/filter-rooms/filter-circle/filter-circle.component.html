@@ -1,0 +1,45 @@
+<div class="filter-circle__circle">
+    <!-- Count players -->
+    <app-layout-round-slider
+        *ngIf="false"
+        #roundSlider
+        [width]="480"
+        [height]="480"
+        [radius]="205"
+        [thick]="72"
+        [(value)]="value"
+        [min]="minCountPlayers"
+        [max]="maxCountPlayers"
+        class="filter-circle__slider"
+    >
+        <div class="filter-circle__small-circle">
+            <div class="filter-circle__count-players">
+                <h2 class="filter-circle__title">GRACZE</h2>
+                <input
+                    (input)="value = $event.target.value"
+                    type="number"
+                    class="filter-circle__input"
+                    #input
+                >
+                <span class="filter-circle__description">osób</span>
+            </div>
+        </div>
+    </app-layout-round-slider>
+    <!-- End count players -->
+
+    <!--Genre-->
+    <app-layout-round-slider-gender
+        *ngIf="true"
+        [width]="480"
+        [height]="480"
+        [radius]="205"
+        [thick]="72"
+        [genres]="genres"
+        (selectedGender)="selectedGenre = $event"
+    >
+        <div class="filter-circle__small-circle filter-circle__small-circle--genre">
+            <h2 class="filter-circle__title filter-circle__title--genre">{{ selectedGenre?.legend }}</h2>
+        </div>
+    </app-layout-round-slider-gender>
+    <!--End genre-->
+</div>

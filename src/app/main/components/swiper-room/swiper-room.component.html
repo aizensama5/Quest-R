@@ -1,0 +1,16 @@
+<swiper [config]="config">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let room of rooms">
+            <div class="swiper-room__slide" [ngStyle]="{'background-image': 'url(' + room.img + ')'}">
+                <h3 class="swiper-room__title">
+                    POKÓJ <br>
+                    {{ room.name }}
+                </h3>
+                <button class="btn swiper-room__btn">
+                    Read more
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</swiper>

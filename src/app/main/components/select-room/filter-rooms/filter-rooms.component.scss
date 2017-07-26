@@ -1,0 +1,19 @@
+@import '../../../../../assets/styles/variables';
+
+:host /deep/ {
+  .filter-rooms {
+    &__list {
+      display: flex;
+      max-width: 960px;
+      margin: 0 auto;
+      justify-content: space-between;
+    }
+
+    &__item {
+      @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+  }
+}

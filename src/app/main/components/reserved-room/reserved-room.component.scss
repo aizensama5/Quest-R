@@ -1,0 +1,21 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 960px;
+  margin: 0 auto;
+  justify-content: space-between;
+  .reserved-room {
+    &__title {
+      margin-top: 70px;
+    }
+
+    &__select {
+      color: red;
+    }
+  }
+  app-layout-select-list-rooms {
+    margin: 0 auto;
+  }
+}

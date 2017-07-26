@@ -1,0 +1,105 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  max-width: 960px;
+  margin: 0 auto;
+  display: block;
+  .org-rule {
+    &__title {
+      margin-top: 90px;
+      margin-bottom: 65px;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      line-height: 21px;
+      position: relative;
+      &--key {
+        width: 40%;
+        &::before {
+          position: absolute;
+          top: -40px;
+          left: -50px;
+          content: '';
+          background-image: url("../../../../assets/images/key.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 100px;
+          display: block;
+          height: 100px;
+          transform: rotate(100deg);
+        }
+      }
+
+      &--lock {
+        width: 40%;
+      }
+
+      &--bag {
+        flex-grow: 1;
+        p {
+          position: relative;
+          width: 32.5%;
+          margin: 0 auto;
+          padding-right: 100px;
+          &::before {
+            position: absolute;
+            top: -75px;
+            left: -62px;
+            content: '';
+            display: block;
+            background-image: url("../../../../assets/images/bag.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 125px;
+            height: 95px;
+          }
+        }
+      }
+
+      &--key-2 {
+        width: 40%;
+        padding-top: 75px;
+        &::before {
+          position: absolute;
+          top: 16px;
+          left: -18px;
+          display: block;
+          content: '';
+          background-image: url("../../../../assets/images/key-2.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 63px;
+          height: 91px;
+        }
+      }
+
+      &--binoculars {
+        width: 35%;
+        margin-left: auto;
+        &::before {
+          position: absolute;
+          top: -15px;
+          left: -97px;
+          display: block;
+          content: '';
+          background-image: url("../../../../assets/images/binoculars.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 130px;
+          height: 60px;
+        }
+      }
+    }
+
+    &__arrow {
+      width: 20%;
+
+    }
+  }
+}

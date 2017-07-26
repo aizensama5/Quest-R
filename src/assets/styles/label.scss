@@ -1,0 +1,6 @@
+@import "variables";
+
+.label {
+  @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+  margin-bottom: 8px;
+}

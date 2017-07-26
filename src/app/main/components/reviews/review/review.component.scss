@@ -1,0 +1,53 @@
+@import "../../../../../assets/styles/variables";
+
+:host /deep/ {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 30px;
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 20%;
+    min-width: 200px;
+    &__img {
+      width: 80px;
+      margin: 0 auto;
+      height: 80px;
+      border-radius: 8px;
+      border: 1px solid $color-grey-light;
+      object-fit: cover;
+    }
+
+    &__time {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      line-height: 21px;
+    }
+
+    &__name {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+  .right-column {
+    padding-left: 70px;
+    flex-grow: 1;
+    width: 70%;
+    &__title {
+      @include text-mixin($color-white, 24px, $font-gotham-pro-bold);
+      margin-bottom: 15px;
+    }
+
+    &__description {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      line-height: 24px;
+    }
+  }
+  .line {
+    background-color: $color-white;
+    height: 1px;
+    margin: 35px auto 0;
+    width: 90%;
+  }
+}

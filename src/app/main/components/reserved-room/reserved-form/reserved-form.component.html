@@ -1,0 +1,23 @@
+<h3 class="title reserved-form__title">ОФОРМИТЕ ЗАКАЗ</h3>
+<div class="reserved-form__wrapper">
+    <div class="reserved-form__room" [ngStyle]="{'background-image': room.img}">
+        <ul class="reserved-form__list">
+            <li class="reserved-form__list-item">Комната: ROOM_NAME</li>
+            <li class="reserved-form__list-item">Начало игры: SELECTED_DATE</li>
+            <li class="reserved-form__list-item">Стоимость: ROOM_PRICE</li>
+            <li class="reserved-form__list-item">ROOM_ADDRESS</li>
+        </ul>
+    </div>
+    <form class="reserved-form__form">
+        <label for="reserved-form__form-name" class="reserved-form__label">Имя</label>
+        <input type="text" class="reserved-form__input" id="reserved-form__form-name">
+
+        <label for="reserved-form__form-tel" class="reserved-form__label">Телефон</label>
+        <input type="text" class="reserved-form__input" id="reserved-form__form-tel">
+
+        <label for="reserved-form__form-email" class="reserved-form__label">Email</label>
+        <input type="email" class="reserved-form__input" id="reserved-form__form-email">
+
+        <input type="submit" class="btn reserved-form__btn" value="Rezervuj">
+    </form>
+</div>

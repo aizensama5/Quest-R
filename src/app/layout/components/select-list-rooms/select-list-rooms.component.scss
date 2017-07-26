@@ -1,0 +1,30 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  md-select {
+    margin: 30px auto 45px;
+    width: 300px;
+    border-radius: 3px;
+    border: 1px solid $color-white;
+    .mat-select-placeholder {
+      @include text-mixin($color-grey, 16px, $font-gotham-pro-regular);
+      padding-left: 10px;
+    }
+    .mat-select-arrow {
+      background-image: url("../../../../assets/images/arrow.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 10px;
+      height: 6px;
+      border: none;
+      margin-right: 15px;
+    }
+    .mat-select-value-text {
+      padding-left: 10px;
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+    }
+    md-option {
+      font-family: $font-gotham-pro-regular;
+    }
+  }
+}

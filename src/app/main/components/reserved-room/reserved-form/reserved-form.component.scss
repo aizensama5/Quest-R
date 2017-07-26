@@ -1,0 +1,63 @@
+@import "../../../../../assets/styles/variables";
+
+:host /deep/ {
+  width: 100%;
+  .reserved-form {
+    &__title {
+      margin-bottom: 60px;
+    }
+
+    &__wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__room {
+      height: 280px;
+      outline: 1px solid red;
+      width: 450px;
+      margin-right: 50px;
+    }
+
+    &__list {
+      padding: 30px 0 30px 30px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 30px - 30px);
+    }
+
+    &__list-item {
+      width: 100%;
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      &:not(:last-child) { margin-bottom: 5px; }
+      &:last-child { margin-top: auto; }
+    }
+
+    &__form {
+      display: flex;
+      width: 250px;
+      flex-direction: column;
+    }
+
+    &__label {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      margin-bottom: 5px;
+    }
+
+    &__input {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      border-radius: 3px;
+      background-color: transparent;
+      border: 1px solid $color-white;
+      padding: 10px;
+      width: auto;
+      margin-bottom: 10px;
+    }
+
+    &__btn {
+      width: 100%;
+      padding: 10px 0;
+      margin-top: auto;
+    }
+  }
+}

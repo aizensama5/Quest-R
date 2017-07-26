@@ -1,0 +1,39 @@
+<agm-map [latitude]="firstMarkRoom.latitude" [longitude]="firstMarkRoom.longitude">
+    <agm-marker *ngFor="let mark of marksRoom" [latitude]="mark.latitude" [longitude]="mark.longitude"></agm-marker>
+</agm-map>
+<div class="map__bg">
+    <div class="map__wrapper">
+        <div class="map__contact">
+            <h3 class="title map__title">SKONTAKTUJ SIĘ Z NAMI:</h3>
+            <form class="map__form">
+                <label class="label" for="email-contact-1">Email</label>
+                <input class="input" type="email" id="email-contact-1">
+                <label class="label map__label" for="message-contact-2">Ваше сообщение</label>
+                <textarea class="input input--textarea" id="message-contact-2"></textarea>
+                <input class="btn btn--full-width map__btn" type="submit">
+            </form>
+            <h4 class="title">MAIL:</h4>
+            <a href="mailto:biuro@piwnica-quest.com" class="map__text">biuro@piwnica-quest.com</a>
+            <h4 class="title">TELEFON:</h4>
+            <a href="tel:+48535994722"  class="map__text">+48 535 994 722</a>
+            <h4 class="title">ADRES:</h4>
+            <p class="map__text">
+                Wrocław 53-601 <br>
+                Ulica TĘCZOWA 7 <br>
+                Okolice dworca Świebodzkiego
+            </p>
+            <ul class="map__list-icon">
+                <li class="map__list-icon-item">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="map__list-icon-item">
+                    <a href="https://ru.foursquare.com/" target="_blank">
+                        <i class="fa fa-foursquare" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+@import "../../../../assets/styles/variables";
+
+.footer {
+  width: 100%;
+  background-color: $color-dark;
+
+  &__wrapper {
+    padding: 30px 0;
+    display: flex;
+    max-width: 960px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 120px;
+    .logo .logo__img {
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  &__img {
+    transition: transform 0.5s;
+    vertical-align: middle;
+  }
+
+  &__link {
+    padding-left: 10px;
+  }
+
+  &__dev {
+    @include text-mixin($color-white, 16px, $font-roboto-regular);
+  }
+
+  &__copyright {
+    @include text-mixin($color-white, 16px, $font-roboto-regular);
+    text-align: center;
+  }
+}
+
+@media (max-width: $tablet) {
+  .footer {
+    &__wrapper {
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+
+    &__dev, &__copyright {
+      font-size: 14px;
+    }
+
+    &__logo {
+      width: 70px;
+    }
+  }
+}
+
+@media (max-width: $mobile) {
+  .footer {
+    &__wrapper {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      justify-content: center;
+    }
+    &__logo {
+      margin-right: 15px;
+    }
+    &__dev {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+//colors
+$color-white: #ffffff;
+$color-yellow: #FFCE0E;
+$color-yellow-light: #ffe381;
+$color-yellow-light-2: #ffff00;
+$color-black: rgba(42, 42, 42, 0.64);
+$color-dark: #000000;
+$color-grey-light: #979797;
+$color-grey: #6c6c6c;
+$color-dark-light: #1a1a1a;
+$color-red: #c21313;
+$color-blue: #002249;
+$color-blue-2: #003e83;
+$color-orange-light: #ffc500;
+$color-orange: #ff9200;
+$color-orange-darken: #f88e00;
+
+//fonts
+$font-gotham-pro-regular: 'GothamProRegular';
+$font-gotham-pro-bold: 'GothamProBold';
+$font-gotham-pro-black: 'GothamProBlack';
+$font-gotham-pro-italic: 'GothamProItalic';
+$font-gotham-pro-medium: 'GothamProMedium';
+$font-gotham-pro-light: 'GothamProLight';
+$font-gotham-pro-medium-italic: 'GothamProMediumItalic';
+$font-gotham-pro-light-italic: 'GothamProLightItalic';
+$font-gotham-pro-bold-italic: 'GothamProBoldItalic';
+$font-gotham-pro-black-italic: 'GothamProBlackItalic';
+$font-awesome: 'FontAwesome';
+$font-roboto-regular: 'RobotoRegular';
+$font-roboto-medium: 'RobotoMedium';
+
+//media queries
+$laptop: 1200px;
+$tablet: 1024px;
+$mobile: 500px;
+
+//mixins
+@mixin text-mixin($color, $font-size, $font-family) {
+  color: $color;
+  font-size: $font-size;
+  font-family: $font-family;
+}
+
+body {
+  background-image: linear-gradient(214deg, #000000, #2a2c2e 54%, #131313);
+}

@@ -1,0 +1,17 @@
+@import "variables";
+
+.input {
+  @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+  width: auto;
+  height: 40px;
+  border-radius: 3px;
+  border: solid 1px $color-white;
+  background: transparent;
+  padding-left: 10px;
+
+  &--textarea {
+    padding: 10px;
+    height: 94px;
+    resize: none;
+  }
+}

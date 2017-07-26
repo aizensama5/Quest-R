@@ -1,0 +1,34 @@
+<header class="toolbar">
+    <input id="toolbar__checkbox" type="checkbox">
+
+    <label for="toolbar__checkbox" class="toolbar__toggle-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+    <div class="toolbar__logo">
+        <a class="logo">
+            <img class="logo__img" src="./assets/images/logo.svg" alt="logo">
+        </a>
+    </div>
+
+    <div class="toolbar__menu">
+        <div class="menu">
+            <a class="menu__link" *ngFor="let link of links">{{ link }}</a>
+        </div>
+        <div class="toolbar__lang-mob">
+            <span class="active">PL</span>
+            <span>EN</span>
+        </div>
+    </div>
+
+    <div class="toolbar__lang">
+        <span class="toolbar__lang-text">Вход и регистрация</span>
+        <app-layout-select-language></app-layout-select-language>
+    </div>
+
+    <div class="toolbar__user">
+        <i class="fa fa-user-o toolbar__user-icon" aria-hidden="true"></i>
+    </div>
+</header>

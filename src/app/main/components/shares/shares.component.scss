@@ -1,0 +1,80 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  position: relative;
+  max-width: 960px;
+  display: block;
+  margin: 0 auto;
+  .shares {
+    &__title {
+      margin-bottom: 35px;
+      margin-top: 55px;
+    }
+
+    &__img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    &__description {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      line-height: 21px;
+      margin-top: 20px;
+    }
+  }
+  swiper {
+    margin: 0 auto;
+    width: 800px;
+    .swiper-slide {
+      width: 390px;
+    }
+    .swiper-lazy-preloader {
+      left: 0;
+      top: -155px;
+      display: block;
+      margin: 0 auto -35px;
+      width: 29px;
+      height: 29px;
+      position: relative;
+      border: 4px solid $color-yellow;
+      animation: cssload-loader 3.2s infinite ease;
+      &::after { background: none; }
+    }
+    .swiper-lazy-loader-inner {
+      vertical-align: top;
+      display: inline-block;
+      width: 100%;
+      background-color: $color-yellow;
+      animation: cssload-loader-inner 3.2s infinite ease-in;
+    }
+  }
+  .swiper-button-prev {
+    background-image: url('../../../../assets/images/arrow-slider.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    left: 0;
+  }
+  .swiper-button-next {
+    background-image: url('../../../../assets/images/arrow-slider.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+    right: 0;
+  }
+}
+@keyframes cssload-loader {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(180deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cssload-loader-inner {
+  0% { height: 0; }
+  25% { height: 0; }
+  50% { height: 100%; }
+  75% { height: 100%; }
+  100% { height: 0; }
+}

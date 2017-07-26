@@ -1,0 +1,11 @@
+<div class="left-column">
+    <img class="left-column__img" alt="logo-user" [src]="review.img">
+    <span class="left-column__name">{{ review.name }}</span>
+    <span class="left-column__time">{{ review.created }}</span>
+    <span class="left-column__time">data wizyty: {{ review.visited }}</span>
+</div>
+<div class="right-column">
+    <h4 class="right-column__title">{{ review.title }}</h4>
+    <p class="right-column__description">{{ review.description }}</p>
+</div>
+<div class="line"></div>

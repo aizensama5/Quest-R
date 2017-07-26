@@ -1,0 +1,7 @@
+@import "variables";
+
+.title {
+  @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
+  text-align: center;
+  width: 100%;
+}

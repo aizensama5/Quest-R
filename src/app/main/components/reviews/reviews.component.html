@@ -1,0 +1,17 @@
+<h3 class="reviews__title title">ОТЗЫВЫ</h3>
+<div class="reviews__list">
+    <div class="reviews__list-item" *ngFor="let review of pagedItems">
+        <app-main-review [review]="review"></app-main-review>
+    </div>
+</div>
+<div class="reviews__pagination">
+    Zobacz więcej opinii:
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+    </ul>
+</div>
+<h4 class="reviews__auth">
+    Musisz się zalogować, aby oznaczyć pokój
+</h4>

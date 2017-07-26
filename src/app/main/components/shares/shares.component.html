@@ -1,0 +1,17 @@
+<h3 class="title shares__title">АКЦИИ</h3>
+<swiper [config]="config">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let share of shares">
+            <img class="shares__img swiper-lazy"  [attr.data-src]="share.img">
+            <div class="spinner-preload swiper-lazy-preloader">
+                <span class="spinner-preload__inner"></span>
+            </div>
+            <p class="shares__description">
+                {{ share.descriptions }}
+            </p>
+        </div>
+    </div>
+</swiper>
+<!-- navigation buttons -->
+<div class="swiper-button-prev"></div>
+<div class="swiper-button-next"></div>

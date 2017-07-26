@@ -1,0 +1,47 @@
+@import "variables";
+
+.spinner-preload {
+  left: 0;
+  top: -155px;
+  display: block;
+  margin: 0 auto -35px;
+  width: 29px;
+  height: 29px;
+  position: relative;
+  border: 4px solid $color-yellow;
+  animation: cssload-loader 3.2s infinite ease;
+
+  &::after { background: none; }
+
+  &--bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -14.5px;
+    margin-left: -14.5px;
+  }
+
+  &__inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: $color-yellow;
+    animation: cssload-loader-inner 3.2s infinite ease-in;
+  }
+}
+
+@keyframes cssload-loader {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(180deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cssload-loader-inner {
+  0% { height: 0; }
+  25% { height: 0; }
+  50% { height: 100%; }
+  75% { height: 100%; }
+  100% { height: 0; }
+}

@@ -1,0 +1,83 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  height: 800px;
+  width: 100%;
+  display: block;
+  position: relative;
+  agm-map {
+    height: 100%;
+    width: 100%;
+  }
+  .map {
+    &__bg {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background-color: $color-black;
+    }
+
+    &__contact {
+      padding: 25px;
+      background-image: linear-gradient(213deg, #3a3b3d, #373d43 34%, #0e0f10);
+      height: 640px;
+      width: 340px;
+    }
+
+    &__title {
+      letter-spacing: 1px;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+      margin: 20px auto 0;
+    }
+
+    &__label {
+      margin-top: 12px;
+    }
+
+    &__btn {
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+      height: 100%;
+    }
+
+    &__text {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      line-height: 21px;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 25px;
+      text-decoration: none;
+      display: block;
+      &:last-child { line-height: 24px; }
+    }
+
+    &__list-icon {
+      display: flex;
+      justify-content: center;
+      &-item {
+        &:not(:last-child) { margin-right: 25px; }
+        a i.fa {
+          color: $color-white;
+          font-size: 27.5px;
+          transition: color 0.5s;
+          &:hover { color: $color-yellow; }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<ul class="filter-rooms__list">
+    <li class="filter-rooms__item">
+        <app-layout-select-dropdown
+            placeholder="ZŁOŻONOŚĆ"
+            [listOptions]="complexity"
+        ></app-layout-select-dropdown>
+    </li>
+    <li class="filter-rooms__item">
+        GRACZE
+    </li>
+    <li class="filter-rooms__item">
+        GANRE
+    </li>
+    <li class="filter-rooms__item">
+        CENA
+    </li>
+    <li class="filter-rooms__item">
+        <app-layout-select-dropdown
+            placeholder="OZNACZENIA"
+            [listOptions]="marking"
+        ></app-layout-select-dropdown>
+    </li>
+</ul>
+<app-main-filter-circle></app-main-filter-circle>

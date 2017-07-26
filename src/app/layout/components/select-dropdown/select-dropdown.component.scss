@@ -1,0 +1,60 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  position: relative;
+  .select-dropdown {
+
+    &__wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &__placeholder {
+      @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
+      cursor: pointer;
+      display: block;
+    }
+
+    &__arrow {
+      width: 20px;
+      height: 8px;
+      display: block;
+      padding-left: 20px;
+      background-image: url("../../../../assets/images/triangle.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: scaleY(-1);
+      transition: transform 0.5s;
+
+      &--active { transform: rotate(0deg); }
+    }
+
+    &__list {
+      width: 210px;
+      position: absolute;
+      z-index: 1;
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.93);
+      box-shadow: 2px 5px 8px 0 $color-blue;
+      border-radius: 6px;
+    }
+
+    &__item {
+
+    }
+
+    &__checkbox .mat-checkbox {
+      &-frame { border-color: $color-dark; }
+      &-label {
+        @include text-mixin($color-dark, 16px, $font-gotham-pro-regular);
+        text-transform: none;
+      }
+      &-background {
+        background-color: transparent;
+        border: 1.5px solid $color-dark;
+      }
+      &-checkmark-path { stroke: $color-dark !important; }
+    }
+  }
+
+}

@@ -1,0 +1,76 @@
+@import "../../../../../../assets/styles/variables";
+
+:host /deep/ {
+  width: 471px;
+  height: 460px;
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  .room {
+
+    &__header {
+      display: none;
+
+      padding: 20px 20px 0;
+      .fa {
+        color: $color-white;
+        font-size: 30px;
+        cursor: pointer;
+        &:not(:last-child) { margin-right: 15px; }
+        &:last-child { margin-left: auto; }
+      }
+    }
+
+    &__wrapper {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &__title {
+      text-align: center;
+      @include text-mixin($color-white, 36px, $font-gotham-pro-bold);
+      letter-spacing: 2px;
+      line-height: 48px;
+    }
+
+    &__details {
+      display: none;
+
+      margin-top: 30px;
+      justify-content: space-between;
+      padding: 0 50px;
+      &-item {
+      }
+      &-icon {
+
+      }
+      &-text {
+        @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      }
+    }
+
+    &__btn {
+      display: none;
+
+      padding: 10px 0;
+      width: 170px;
+      margin: 30px auto 0;
+    }
+    &__bg {
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
+
+:host:hover {
+  .room {
+    &__header { display: flex; }
+    &__details { display: flex; }
+    &__btn { display: block; }
+  }
+}
