@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  .main {
+    &__description {
+      text-align: center;
+      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      line-height: 28px;
+      padding-top: 50px;
+      padding-bottom: 75px;
+    }
+  }
+}
