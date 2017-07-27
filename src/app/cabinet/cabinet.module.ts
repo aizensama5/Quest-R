@@ -9,6 +9,7 @@ import { AgmCoreModule } from '@agm/core';
 
 // components
 import { MainComponent } from './components/main/main.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { MainComponent } from './components/main/main.component';
   ],
   declarations: [
     MainComponent,
+    ProfileComponent
   ],
   exports: []
 })

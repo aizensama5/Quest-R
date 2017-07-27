@@ -1,0 +1,28 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  .profile-block {
+    display: inline-block;
+    margin: 0 20px;
+    &__small {
+      width: 25%;
+    }
+
+    &__image {
+      border-radius: 50%;
+      width: 145px;
+      height: 145px;
+    }
+
+    &__text {
+      @include text-mixin($color-white, 20px, $font-gotham-pro-regular);
+
+      &--ta-center {
+        text-align: center;
+      }
+      &--font-medium {
+        font-family: $font-gotham-pro-medium;
+      }
+    }
+  }
+}
