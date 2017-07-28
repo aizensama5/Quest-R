@@ -6,7 +6,8 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       // {path: 'brand', loadChildren: () => BrandModule, canActivateChild: [UserGuard]},
       // {path: 'influencer', loadChildren: () => InfluencerModule, canActivateChild: [UserGuard]},
-      {path: '', loadChildren: 'app/main/main.module#MainModule' }
+      {path: '', loadChildren: 'app/main/main.module#MainModule' },
+      {path: 'cabinet', loadChildren: 'app/cabinet/cabinet.module#CabinetModule' }
       // { path: '**', redirectTo: '' }
     ])
   ],

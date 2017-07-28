@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "watch": "./node_modules/.bin/ng serve --port 4222 --host petrashenko.quest-r.local --watch --poll=2000",
+    "watch": "./node_modules/.bin/ng serve --port 4333 --host pastukh.quest-r.local --watch --poll=2000",
     "hmr": "./node_modules/.bin/ng serve --port 4222 --host petrashenko.quest-r.local --hmr -e=hmr --poll=2000",
     "app-build-prod": "./node_modules/.bin/ng build --prod --env=prod"
   },
