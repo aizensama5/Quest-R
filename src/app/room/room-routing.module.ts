@@ -1,20 +1,19 @@
-import { RouterModule } from '@angular/router';
-import { RoomComponent } from './components/room/room.component';
+import {RouterModule} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RoomMainComponent} from './components/main/main.component';
 
 
-RouterModule.forChild([
-  {
-    path: '',
-    component: RoomComponent,
-    children: [
+@NgModule({
+  imports: [
+    RouterModule.forChild([
       {
         path: '',
-        component: RoomComponent
+        component: RoomMainComponent
       }
-    ]
-  }
-]);
+    ])
+  ],
+  exports: [RouterModule]
+})
 
-
-export class RoomRoutingModule { }
+export class RoomRoutingModule {}
 
