@@ -1,0 +1,14 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  .cabinet {
+    &-block-wrapper {
+      margin-left: 460px;
+    }
+    &__title {
+      @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
+      line-height: 21px;
+      text-transform: uppercase;
+    }
+  }
+}

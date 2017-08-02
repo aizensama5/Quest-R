@@ -15,6 +15,7 @@ import './operators';
 
 // components
 import { AppComponent } from './app/app.component';
+import { CabinetModule } from './cabinet/cabinet.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AppComponent } from './app/app.component';
     LayoutModule.forRoot(),
     ServiceModule.forRoot(),
     MainModule.forRoot(),
+    CabinetModule,
     BrowserAnimationsModule,
   ],
   providers: [],
