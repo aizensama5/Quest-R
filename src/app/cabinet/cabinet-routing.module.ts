@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MainComponent } from './components/main/main.component';
+import { CabinetMainComponent } from './components/main/main.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
-      {path: '', component: MainComponent}
+      {path: ':id', component: CabinetMainComponent}
     ])
   ],
   exports: [RouterModule]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { RoomModel } from '../../../models/room.model';
 import { RoomService } from '../../../service/http/room.service';
 
@@ -10,11 +10,12 @@ import { RoomService } from '../../../service/http/room.service';
 })
 export class ReservedRoomComponent implements OnInit {
 
+  @Input() title: string;
     rooms: RoomModel[] = [];
 
     constructor(
         private roomService: RoomService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.getAllRooms();

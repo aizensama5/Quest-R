@@ -9,58 +9,87 @@ export class RoomService {
     {
       id: 1,
       name: 'SCHRON BANKOWY',
-      description: '',
-      img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ISsLluSac5tg2ii/739cc73618ba7df0de238a4486132345.png',
+      description: 'Zawsze zastanawiałem się, jak to jest, aby włamać się do skarbca banku?\n' +
+      'Teraz starają się stamtąd wydostać, a ta produkcja.\n',
+      img: 'http://loremflickr.com/500/500/dog',
       duration: '60 minut',
       countPerson: '2-5',
       level: 'Sredni',
-      position: {latitude: 50.4666641, longitude: 30.5}
+      position: {latitude: 50.4666641, longitude: 30.5},
+      additionalAbilities: 'Możliwość gry po angielsku',
+      prevention: 'Możliwość gry po angielsku'
     },
     {
       id: 2,
       name: 'Fantazja',
-      description: '',
-      img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/E1Oja5VCz4JTcH6/e85efdc584718c74adda00aac8691e5e.png',
+      description: 'Zawsze zastanawiałem się, jak to jest, aby włamać się do skarbca banku?\n' +
+      'Teraz starają się stamtąd wydostać, a ta produkcja.\n',
+      img: 'http://loremflickr.com/500/500/dog',
       duration: '60 minut',
       countPerson: '2-5',
       level: 'Sredni',
-      position: {latitude: 50.4666641, longitude: 30.1}
+      position: {latitude: 50.4666641, longitude: 30.1},
+      additionalAbilities: 'Możliwość gry po angielsku',
+      prevention: 'Możliwość gry po angielsku'
     },
     {
       id: 3,
       name: 'Midnight killer mk II',
-      description: '',
-      img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ww9WDbxwKJfWnX3/kontener_logo_pokoj_zdj_2%20copy.png',
+      description: 'Zawsze zastanawiałem się, jak to jest, aby włamać się do skarbca banku?\n' +
+      'Teraz starają się stamtąd wydostać, a ta produkcja.\n',
+      img: 'http://loremflickr.com/500/500/dog',
       duration: '60 minut',
       countPerson: '2-5',
       level: 'Sredni',
-      position: {latitude: 50.2, longitude: 30.2}
+      position: {latitude: 50.2, longitude: 30.2},
+      additionalAbilities: 'Możliwość gry po angielsku',
+      prevention: 'Możliwość gry po angielsku'
     },
     {
       id: 4,
       name: 'Midnight killer mk II',
-      description: '',
-      img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ISsLluSac5tg2ii/739cc73618ba7df0de238a4486132345.png',
+      description: 'Zawsze zastanawiałem się, jak to jest, aby włamać się do skarbca banku?\n' +
+      'Teraz starają się stamtąd wydostać, a ta produkcja.\n',
+      img: 'http://loremflickr.com/500/500/dog',
       duration: '60 minut',
       countPerson: '2-5',
       level: 'Sredni',
-      position: {latitude: 50.5, longitude: 30.4}
+      position: {latitude: 50.5, longitude: 30.4},
+      additionalAbilities: 'Możliwość gry po angielsku',
+      prevention: 'Możliwość gry po angielsku'
     },
     {
       id: 5,
       name: 'Midnight killer mk II',
-      description: '',
-      img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/XpzFrlwyEuRgX9F/kontener_logo_pokoj_zdj_3.png',
+      description: 'Zawsze zastanawiałem się, jak to jest, aby włamać się do skarbca banku?\n' +
+      'Teraz starają się stamtąd wydostać, a ta produkcja.\n',
+      img: 'http://loremflickr.com/500/500/dog',
       duration: '60 minut',
       countPerson: '2-5',
       level: 'Sredni',
-      position: {latitude: 50.7, longitude: 30.7}
+      position: {latitude: 50.7, longitude: 30.7},
+      additionalAbilities: 'Możliwość gry po angielsku',
+      prevention: 'Możliwość gry po angielsku'
     }
   ];
 
-  getRoomById (room: RoomModel) {
-    // room = this.rooms;
+  getRooms () {
+    return this.rooms;
   }
+
+   getRoomById (roomId?: number): RoomModel {
+    const rooms = this.rooms;
+    for (let i = 0; i < rooms.length; i++) {
+      const room = rooms[i];
+      for (const key in room) {
+        if (room[key] === roomId) {
+          return room;
+        }
+      }
+    }
+    return;
+  }
+
 
   constructor() {
   }
@@ -73,4 +102,3 @@ export class RoomService {
     return Observable.of(this.rooms);
   }
 }
-

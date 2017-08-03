@@ -6,7 +6,7 @@
                     POKÓJ <br>
                     {{ room.name }}
                 </h3>
-                <button class="btn swiper-room__btn">
+                <button class="btn swiper-room__btn" [routerLink]="['/room/'+room.id]">
                     Read more
                 </button>
             </div>

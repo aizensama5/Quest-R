@@ -9,4 +9,6 @@ export class RoomModel {
     countPerson: string;
     level: string;
     position: Marker;
+    additionalAbilities: string;
+    prevention: string;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class RoomMainComponent implements OnInit {
-  constructor() {
+  constructor(
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
+    // console.log(this.route.snapshot.params.id);
   }
 }

@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {RoomModel} from '../../../models/room.model';
+import {RoomService} from '../../../service/http/room.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -8,30 +10,16 @@ import {RoomModel} from '../../../models/room.model';
   templateUrl: 'room.component.html',
   styleUrls: ['room.component.scss']
 })
-
-export class RoomInfoComponent implements OnInit {
-
-  private roomMock: RoomModel = {
-    id: 1,
-    name: 'SCHRON BANKOWY',
-    description: 'Zawsze zastanawiałem się, jak to jest, aby włamać się do skarbca banku?\n' +
-    'Teraz starają się stamtąd wydostać, a ta produkcja.\n',
-    img: 'http://loremflickr.com/500/500/dog',
-    duration: '60 minut',
-    countPerson: '2-4',
-    level: 'Średni',
-    position: {
-      latitude: 40,
-      longitude: 30
-    }
-  };
+@Injectable()
+export class RoomInfoComponent {
   room: RoomModel;
 
-  constructor() {
-    console.log(this.roomMock);
-  }
-
-  ngOnInit() {
-    this.room = this.roomMock;
+  constructor(
+    private route: ActivatedRoute,
+    private roomService: RoomService
+  ) {
+    let getId = this.route.snapshot.params.id;
+    getId = parseInt(getId, 10);
+    this.room = this.roomService.getRoomById(getId);
   }
 }
