@@ -54,9 +54,20 @@ import { FilterCircleComponent } from './components/select-room/filter-rooms/fil
         ReviewsComponent,
         ReviewComponent,
         MapComponent,
-        FilterCircleComponent
+        FilterCircleComponent,
     ],
     exports: [
+      FilterRoomsComponent,
+      SelectRoomComponent,
+      ReservedRoomComponent,
+      ReservedCalendarComponent,
+      ReservedFormComponent,
+      OrgRuleComponent,
+      BookingRoomComponent,
+      SharesComponent,
+      ReviewsComponent,
+      ReviewComponent,
+      MapComponent
     ]
 })
 export class MainModule {

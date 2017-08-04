@@ -3,12 +3,22 @@
 :host /deep/ {
   .cabinet {
     &-block-wrapper {
-      margin-left: 460px;
+      background-color: #fff;
+      border: solid 1px #979797;
+      opacity: 0.21;
+      height: 267px;
+      position: absolute;
+      bottom: 472px;
+      width: 100%;
     }
     &__title {
       @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
-      line-height: 21px;
+      line-height: 1;
       text-transform: uppercase;
+      text-align: left;
+      padding-bottom: 31px;
+      max-width: 960px;
+      margin: 0 auto;
     }
   }
 }

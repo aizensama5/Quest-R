@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceModule } from './service/service.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from './main/main.module';
+import { RoomModule } from './room/room.module';
 
 // operators
 import './operators';
@@ -27,6 +28,7 @@ import { CabinetModule } from './cabinet/cabinet.module';
     HttpModule,
 
     AppRoutingModule,
+    RoomModule,
     LayoutModule.forRoot(),
     ServiceModule.forRoot(),
     MainModule.forRoot(),

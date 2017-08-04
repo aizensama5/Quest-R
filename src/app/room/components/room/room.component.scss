@@ -1,0 +1,73 @@
+
+.room-info-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.room-info {
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  &__image {
+    width: 471px;
+    height: 460px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  &__info {
+    width: 455px;
+    &-name {
+      font-size: 24px;
+      line-height: 1.17;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    &-description {
+      font-size: 18px;
+      line-height: 1.39;
+      color: #fff;
+      padding: 22px 0 28px;
+    }
+  }
+  &__details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    &-item {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: flex-start;
+    }
+    &-text {
+      color: #fff;
+      font-size: 16px;
+      padding-left: 11px;
+      top: 9px;
+      position: relative;
+    }
+    &:first-child {
+      .room-info__details-text {
+        font-weight: 500;
+      }
+    }
+  }
+  &__details-additional {
+    padding: 17px 0 0;
+    .room-info__details-text {
+      font-size: 18px;
+      line-height: 1.56;
+      top: 2px;
+      padding-left: 19px;
+    }
+  }
+}
