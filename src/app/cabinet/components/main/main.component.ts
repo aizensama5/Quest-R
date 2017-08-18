@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['main.component.scss']
 })
 export class CabinetMainComponent implements OnInit {
-  constructor(    private route: ActivatedRoute
+  constructor(private route: ActivatedRoute
   ) {
   }
 
