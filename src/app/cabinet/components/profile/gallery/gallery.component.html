@@ -1,3 +1,16 @@
-<p style="padding: 50px; color: #fff; font-size: 50px;">
-gallery works!
-</p>
+<div class="gallery-wrapper">
+  <div class="gallery" *ngFor="let gallery of galleryData">
+    <div class="gallery__top">
+      <p class="gallery__room-name">{{ gallery.roomName }}</p>
+      <p class="gallery__date">{{ gallery.date }}</p>
+      <button class="gallery__add-photo">Добавить фото</button>
+    </div>
+    <div class="gallery__bottom">
+      <!--<swiper [config]="sliderConfig">-->
+        <!--<div class="swiper-slide">-->
+          <div class="gallery__image" *ngFor="let photo of gallery.photo" [ngStyle]="{'background-image': 'url(' + photo.path + ')'}"></div>
+        <!--</div>-->
+      <!--</swiper>-->
+    </div>
+  </div>
+</div>

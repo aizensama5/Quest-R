@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RoomModel } from '../../../../models/room.model';
+import { FavoritesService } from '../../../../service/profile/favorites.service';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss']
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent {
+  favoritesData: RoomModel[];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(favoritesService: FavoritesService) {
+    this.favoritesData = favoritesService.getFavoritesRooms();
   }
 
 }

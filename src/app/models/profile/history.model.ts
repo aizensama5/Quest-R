@@ -1,4 +1,4 @@
-export class ProfileHistory {
+export class HistoryModel {
   roomName: string;
   date: string;
   passingTime: string;

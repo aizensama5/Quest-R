@@ -1,0 +1,62 @@
+@import "../../../../../assets/styles/variables";
+
+:host /deep/ {
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 960px;
+  height: auto;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .room {
+
+    &__wrapper {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &__title {
+      text-align: center;
+      @include text-mixin($color-white, 24px, $font-gotham-pro-bold);
+      letter-spacing: 2px;
+      line-height: 48px;
+    }
+
+    &__details {
+      display: flex;
+
+      margin-top: 30px;
+      justify-content: space-between;
+      padding: 0 50px;
+      &-item {
+      }
+      &-icon {
+
+      }
+      &-text {
+        @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+      }
+    }
+
+    &__btn {
+      display: block;
+
+      padding: 10px 0;
+      width: 170px;
+      margin: 30px auto 0;
+    }
+    &__bg {
+      height: 290px;
+      width: 297px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
+

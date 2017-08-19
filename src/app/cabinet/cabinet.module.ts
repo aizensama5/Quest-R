@@ -1,3 +1,4 @@
+// modules
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
@@ -11,14 +12,18 @@ import {AgmCoreModule} from '@agm/core';
 import {CabinetMainComponent} from './components/main/main.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ProfileMenuComponent} from './components/profile-menu/profile-menu.component';
-import {UserService} from '../service/http/user.service';
 import {HttpClient} from '../service/http.client';
 import { HistoryComponent } from './components/profile/history/history.component';
 import { GalleryComponent } from './components/profile/gallery/gallery.component';
 import { FavoritesComponent } from './components/profile/favorites/favorites.component';
 import { FriendsComponent } from './components/profile/friends/friends.component';
 import { ReviewsComponent } from './components/profile/reviews/reviews.component';
+
+// services
+import {UserService} from '../service/http/user.service';
 import {HistoryService} from '../service/profile/history.service';
+import {GalleryService} from '../service/profile/gallery.service';
+import { FavoritesService } from '../service/profile/favorites.service';
 
 @NgModule({
   imports: [
@@ -47,7 +52,9 @@ import {HistoryService} from '../service/profile/history.service';
   providers: [
     UserService,
     HttpClient,
-    HistoryService
+    HistoryService,
+    GalleryService,
+    FavoritesService
   ]
 })
 export class CabinetModule {

@@ -1,0 +1,50 @@
+.gallery-wrapper {
+  max-width: 960px;
+  margin: 41px auto 0;
+  width: 100%;
+  .gallery {
+    height: auto;
+    width: 100%;
+    &__room-name {
+      color: #fff;
+      font-size: 18px;
+      font-family: GothamProLight;
+      display: inline-block;
+      float: left;
+    }
+    &__date {
+      display: inline-block;
+      padding-left: 17px;
+      color: #fff;
+      font-size: 16px;
+      float: left;
+      font-family: Roboto;
+    }
+    &__add-photo {
+      position: relative;
+      bottom: 11px;
+      cursor: pointer;
+      color: #c21313;
+      font-size: 14px;
+      width: 170px;
+      border: 2px solid #ffce0e;
+      background-color: #ffce0e;
+      border-radius: 5px;
+      line-height: 1.29;
+      font-family: GothamProLight;
+      text-align: center;
+      padding: 11px 0;
+      display: inline-block;
+      float: right;
+    }
+    &__bottom {
+      padding: 49px 0 44px;
+    }
+    &__image {
+      display: inline-block;
+      height: 160px;
+      width: 160px;
+      margin-right: 15px;
+    }
+  }
+}

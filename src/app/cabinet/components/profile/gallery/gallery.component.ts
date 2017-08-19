@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { GalleryService } from '../../../../service/profile/gallery.service';
+import { GalleryModel } from '../../../../models/profile/gallery.model';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent {
 
-  constructor() { }
+  sliderConfig: Object = {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    slidesPerView: 5,
+    centeredSlides: true,
+    loop: true,
+    speed: 1000,
+    lazyLoading: true
+  };
 
-  ngOnInit() {
+  galleryData: GalleryModel[];
+
+  constructor( galleryService: GalleryService ) {
+    this.galleryData = galleryService.getGalleryData();
   }
 
 }
