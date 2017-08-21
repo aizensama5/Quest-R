@@ -1,3 +1,3 @@
-export class PhotoModel {
+export interface PhotoModel {
   path: string;
 }

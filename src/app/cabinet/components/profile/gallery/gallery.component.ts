@@ -22,7 +22,9 @@ export class GalleryComponent {
   galleryData: GalleryModel[];
 
   constructor( galleryService: GalleryService ) {
-    this.galleryData = galleryService.getGalleryData();
+    galleryService.all().subscribe((galData) => {
+      this.galleryData = galData;
+    });
   }
 
 }

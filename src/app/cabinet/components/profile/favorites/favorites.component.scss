@@ -1,45 +1,54 @@
 @import "../../../../../assets/styles/variables";
 
 :host /deep/ {
-  display: block;
   position: relative;
-  margin-bottom: 20px;
   width: 100%;
   max-width: 960px;
   height: auto;
   border-radius: 4px;
   display: flex;
+  margin: 38px auto 124px;
   justify-content: space-between;
   flex-wrap: wrap;
 
   .room {
 
     &__wrapper {
+      width: inherit;
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
     &__title {
+      padding: 69px 0 17px;
       text-align: center;
       @include text-mixin($color-white, 24px, $font-gotham-pro-bold);
-      letter-spacing: 2px;
-      line-height: 48px;
+      line-height: 1.58;
     }
 
     &__details {
       display: flex;
 
-      margin-top: 30px;
       justify-content: space-between;
-      padding: 0 50px;
+      padding: 0 17px;
+      .clock {
+        width: 18.4px;
+        height: 17.3px;
+      }
+      .person {
+        width: 13.7px;
+        height: 16.8px;
+      }
+      .genre {
+        width: 18.5px;
+        height: 18.5px;
+      }
       &-item {
       }
       &-icon {
 
       }
       &-text {
-        @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
+        @include text-mixin($color-white, 14px, $font-gotham-pro-regular);
       }
     }
 
@@ -56,6 +65,13 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
+    }
+    &__bg-darkened {
+      position: absolute;
+      width: inherit;
+      height: inherit;
+      background-color: rgba(3, 3, 2, 0.74);
+      opacity: .5;
     }
   }
 }

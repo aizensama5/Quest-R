@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {FriendModel} from '../../../../models/profile/friend.model';
+import {FriendsService} from '../../../../service/profile/friends.service';
 
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.scss']
 })
-export class FriendsComponent implements OnInit {
+export class FriendsComponent {
+  friendsData: FriendModel[];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor( friendsService: FriendsService ) {
+    friendsService.all().subscribe((frndsData) => {
+      this.friendsData = frndsData;
+    });
   }
 
 }

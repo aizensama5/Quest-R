@@ -1,3 +1,14 @@
-<p style="padding: 50px; color: #fff; font-size: 50px;">
-reviews works!
-</p>
+<div class="reviews__list">
+  <div class="reviews__list-item" *ngFor="let profileReview of profilePagedItems">
+    <app-cabinet-review [profileReview]="profileReview"></app-cabinet-review>
+  </div>
+</div>
+<div class="reviews__pagination">
+  Zobacz więcej opinii:
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a (click)="setPage(page)">{{page}}</a>
+    </li>
+  </ul>
+</div>
+

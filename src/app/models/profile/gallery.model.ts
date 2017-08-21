@@ -1,6 +1,6 @@
 import {PhotoModel} from './photo.model';
 
-export class GalleryModel {
+export interface GalleryModel {
   id: number;
   roomName: string;
   date: string;

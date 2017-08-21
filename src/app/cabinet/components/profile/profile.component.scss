@@ -42,14 +42,12 @@
         display: flex;
         justify-content: flex-start;
         &__text--left {
-          font-size: 20px;
+          @include text-mixin($color-white, 20px, $font-gotham-pro-light);
           line-height: 1.05;
-          color: #fff;
         }
         &__text--right {
-          font-size: 20px;
+          @include text-mixin(rgba(255, 255, 255, 0.49), 20px, $font-gotham-pro-medium);
           line-height: 1.05;
-          color: rgba(255, 255, 255, 0.49);
         }
         &__progress-container {
           width: 287px;
@@ -75,10 +73,15 @@
       }
       .rooms-passed {
         padding: 19px 0 0;
-        i {
-          color: #fff;
-          font-size: 34px;
-          transform: rotate(90deg);
+        &__image {
+          display: inline-block;
+          height: 37.2px;
+          width: 21.9px;
+          padding-right: 15px;
+          background-image: url(../../../../assets/images/profile-key.svg);
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: contain;
         }
       }
     }

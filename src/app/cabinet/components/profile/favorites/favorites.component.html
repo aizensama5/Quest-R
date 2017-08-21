@@ -1,5 +1,6 @@
 <ng-container *ngFor="let favoriteRoom of favoritesData" class="favorites-rooms-wrapper">
   <div class="room__bg" [ngStyle]="{'background-image': 'url(' + favoriteRoom.img + ')'}">
+    <div class="room__bg-darkened"></div>
     <div class="room__wrapper">
       <h3 class="room__title">
         POKÓJ <br>
@@ -7,15 +8,15 @@
       </h3>
       <div class="room__details">
         <div class="room__details-item">
-          <img class="room__details-icon" src="../../../../../../assets/images/clock.svg" alt="img details clock">
+          <img class="room__details-icon clock" src="../../../../../../assets/images/clock.svg" alt="img details clock">
           <span class="room__details-text">{{ favoriteRoom.duration }}</span>
         </div>
         <div class="room__details-item">
-          <img class="room__details-icon" src="../../../../../../assets/images/person.svg" alt="img details person">
+          <img class="room__details-icon person" src="../../../../../../assets/images/person.svg" alt="img details person">
           <span class="room__details-text">{{ favoriteRoom.countPerson }} osob</span>
         </div>
         <div class="room__details-item">
-          <img class="room__details-icon" src="../../../../../../assets/images/clock.svg" alt="img details genre">
+          <img class="room__details-icon genre" src="../../../../../../assets/images/clock.svg" alt="img details genre">
           <span class="room__details-text">{{ favoriteRoom.level }}</span>
         </div>
       </div>

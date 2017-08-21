@@ -1,4 +1,4 @@
-export interface Review {
+export interface ReviewModel {
     id: number;
     name: string;
     created: string;

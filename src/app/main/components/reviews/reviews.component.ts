@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewService } from '../../../service/http/review.service';
-import { Review } from '../../../models/review.model';
+import { ReviewModel } from '../../../models/review.model';
 import { PagerService } from '../../../service/pager.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class ReviewsComponent implements OnInit {
 
     static COUNT_REVIEW_PER_PAGE = 2;
 
-    reviews: Review[] = [];
+    reviews: ReviewModel[] = [];
     pager: any = {};
     pagedItems: any[];
 
@@ -27,7 +27,7 @@ export class ReviewsComponent implements OnInit {
     }
 
     getAllReviews() {
-        this._reviewService.all().subscribe((reviews: Review[]) => {
+        this._reviewService.all().subscribe((reviews: ReviewModel[]) => {
            this.reviews = reviews;
 
             // initialize to page 1

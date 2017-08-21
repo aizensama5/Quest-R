@@ -1,3 +1,10 @@
-<p style="padding: 50px; color: #fff; font-size: 50px;">
-friends works!
-</p>
+<div class="friends-wrapper">
+  <div class="friend" *ngFor="let friend of friendsData">
+    <div class="friend__photo" [ngStyle]="{'background-image': 'url(' + friend.profilePhoto + ')'}"></div>
+    <div class="friend__name">
+      <p class="friend__name--firstname">{{ friend.firstName }}</p>
+      <p class="friend__name--lastname">{{ friend.lastName }}</p>
+    </div>
+    <a class="friend__facebook" href="{{ friend.facebookLink }}" alt="look at facebook profile" target="_blank>">Profil<i class="fa fa-facebook"></i></a>
+  </div>
+</div>

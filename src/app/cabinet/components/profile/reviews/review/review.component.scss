@@ -1,0 +1,42 @@
+@import "../../../../../../assets/styles/variables";
+
+:host /deep/ {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 29px;
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 25%;
+    min-width: 300px;
+
+    &__time {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-light);
+      line-height: 21px;
+    }
+
+    &__name {
+      @include text-mixin($color-white, 18px, $font-gotham-pro-light);
+      line-height: 1.22;
+      margin-bottom: 10px;
+    }
+  }
+  .right-column {
+    padding-left: 70px;
+    flex-grow: 1;
+    width: 60%;
+    &__description {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-light);
+      line-height: 1.31;
+    }
+  }
+  .line {
+    background-color: $color-white;
+    height: 1px;
+    opacity: .23;
+    margin: 15px auto 0;
+    width: 98%;
+  }
+}

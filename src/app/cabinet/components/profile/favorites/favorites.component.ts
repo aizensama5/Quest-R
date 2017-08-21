@@ -11,7 +11,9 @@ export class FavoritesComponent {
   favoritesData: RoomModel[];
 
   constructor(favoritesService: FavoritesService) {
-    this.favoritesData = favoritesService.getFavoritesRooms();
+    favoritesService.all().subscribe((favData) => {
+      this.favoritesData = favData;
+    });
   }
 
 }

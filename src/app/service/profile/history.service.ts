@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HistoryModel} from '../../models/profile/history.model';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HistoryModel } from '../../models/profile/history.model';
 
 @Injectable()
 export class HistoryService {
@@ -27,8 +28,12 @@ export class HistoryService {
     }
   ];
 
-  getHistoryData(): HistoryModel[] {
-    return this.historyData;
+  /**
+   * Get all histories.
+   * @returns <Observable<HistoryModel[]>>
+   */
+  all(): Observable<HistoryModel[]> {
+    return Observable.of(this.historyData);
   }
 
   constructor() {

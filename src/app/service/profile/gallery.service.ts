@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { GalleryModel } from '../../models/profile/gallery.model';
 
 @Injectable()
@@ -56,8 +57,12 @@ export class GalleryService {
     }
   ];
 
-  getGalleryData(): GalleryModel[] {
-    return this.galleryData;
+  /**
+   * Get all photos for gallery.
+   * @returns <Observable<GalleryModel[]>>
+   */
+  all(): Observable<GalleryModel[]> {
+    return Observable.of(this.galleryData);
   }
 
   constructor() { }
