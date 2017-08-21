@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
       // {path: 'brand', loadChildren: () => BrandModule, canActivateChild: [UserGuard]},
       // {path: 'influencer', loadChildren: () => InfluencerModule, canActivateChild: [UserGuard]},
       {path: '', loadChildren: 'app/main/main.module#MainModule' },
-      {path: 'cabinet', loadChildren: 'app/cabinet/cabinet.module#CabinetModule' }
+      // {path: 'cabinet', loadChildren: 'app/cabinet/cabinet.module#CabinetModule' }
       // { path: '**', redirectTo: '' }
     ])
   ],

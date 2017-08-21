@@ -1,0 +1,18 @@
+<div class="history-wrapper wrap">
+  <table class="history-table">
+    <tr class="history-table__header-wrapper">
+      <th class="history-table__header">Название комнаты</th>
+      <th class="history-table__header">Дата</th>
+      <th class="history-table__header">Время прохождения</th>
+      <th class="history-table__header">Отзыв</th>
+      <th class="history-table__header">Фото</th>
+    </tr>
+    <tr *ngFor="let history of historyData" class="history-table__content-wrapper">
+      <td class="history-table__content" align="left">{{ history.roomName }}</td>
+      <td class="history-table__content" align="center">{{ history.date }}</td>
+      <td class="history-table__content" align="center">{{ history.passingTime }}</td>
+      <td class="history-table__content" align="center">{{ history.review }}</td>
+      <td class="history-table__content" align="center">{{ history.photo }}</td>
+    </tr>
+  </table>
+</div>

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Review } from '../../models/review.model';
+import { ReviewModel } from '../../models/review.model';
 
 @Injectable()
 export class ReviewService {
 
-    private reviews: Review[] = [
+    private reviews: ReviewModel[] = [
         {
             id: 1,
             name: 'Name S.',
@@ -93,9 +93,9 @@ export class ReviewService {
 
     /**
      * Get all rooms.
-     * @returns <Observable<Review[]>>
+     * @returns <Observable<ReviewModel[]>>
      */
-    all(): Observable<Review[]> {
+    all(): Observable<ReviewModel[]> {
         return Observable.of(this.reviews);
     }
 }

@@ -1,0 +1,36 @@
+@import "../../../../assets/styles/variables";
+
+.profile-menu-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 960px;
+  margin: 0 auto;
+  &__left-transition {
+    flex-basis: 10%;
+    background: linear-gradient(to left,rgba(255, 255, 255, 0.64),transparent);
+  }
+  &__right-transition {
+    flex-basis: 10%;
+    background: linear-gradient(to right,rgba(255, 255, 255, 0.64),transparent);
+  }
+  .profile-menu {
+    background-color: rgba(255, 255, 255, 0.64);
+    //box-shadow: 0 2px 4px 0 rgba(0, 0, 0.5);
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 80%;
+    &__menu-item {
+      padding: 21px 0;
+      a {
+        padding: 21px 0;
+        line-height: 1.05;
+        opacity: 0.45;
+        @include text-mixin($color-black, 20px, $font-gotham-pro-medium);
+        text-decoration: none;
+      }
+      &:active {
+        font-weight: 500;
+      }
+    }
+  }
+}

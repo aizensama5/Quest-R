@@ -1,0 +1,53 @@
+@import "../../../../../assets/styles/variables";
+
+.friends-wrapper {
+  margin: 38px auto 267px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 960px;
+  width: 100%;
+  flex-wrap: wrap;
+  .friend {
+    flex-grow: 1;
+    width: 120px;
+    height: auto;
+    &__photo {
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 85px;
+      height: 85px;
+      margin: 0 auto;
+      border-radius: 4px;
+    }
+    &__name {
+      display: flex;
+      justify-content: center;
+      padding: 14px 0 7px;
+      line-height: 1.05;
+      width: auto;
+      margin: 0 auto;
+      & > p {
+        @include text-mixin($color-white, 20px, $font-gotham-pro-light);
+        display: inline-block;
+      }
+      &--firstname {
+        padding-right: 4px;
+      }
+    }
+    &__facebook {
+      .fa-facebook {
+       padding-left: 6px;
+      }
+      @include text-mixin($color-white, 16px, $font-gotham-pro-light);
+      padding: 9px 0 6px;
+      display: block;
+      text-align: center;
+      width: 86px;
+      margin: 0 auto;
+      background-color: #3f5b9a;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+  }
+}
