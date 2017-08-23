@@ -16,9 +16,11 @@ export class ProfileMenuComponent {
   id: number;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private route: Router
-  ) {
+              private route: Router,
+              private userService: UserService,
+              private httpClient: HttpClient) {
     this.id = this.activatedRoute.snapshot.params.id;
+
   }
 }
 
