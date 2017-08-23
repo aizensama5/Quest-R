@@ -24,7 +24,6 @@ export class GalleryComponent {
   constructor( galleryService: GalleryService ) {
     galleryService.all().subscribe((galData) => {
       this.galleryData = galData;
-      console.log(this.galleryData);
     });
   }
 
