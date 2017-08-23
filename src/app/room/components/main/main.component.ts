@@ -15,6 +15,5 @@ export class RoomMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.route.snapshot.params.id);
   }
 }

@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MdCheckboxModule, MdSelectModule, MdListModule, MdSliderModule } from '@angular/material';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
@@ -16,11 +15,7 @@ import { RoundSliderGenderComponent } from './components/round-slider-genre/roun
     imports: [
         CommonModule,
         RouterModule,
-        FormsModule,
-        MdSelectModule,
-        MdCheckboxModule,
-        MdListModule,
-        MdSliderModule
+        FormsModule
     ],
     declarations: [
         ToolbarComponent,
@@ -35,12 +30,8 @@ import { RoundSliderGenderComponent } from './components/round-slider-genre/roun
         ToolbarComponent,
         SelectLanguageComponent,
         FooterComponent,
-        MdSelectModule,
         SelectListRoomsComponent,
-        MdCheckboxModule,
         SelectDropdownComponent,
-        MdListModule,
-        MdSliderModule,
         RoundSliderComponent,
         RoundSliderGenderComponent
     ]

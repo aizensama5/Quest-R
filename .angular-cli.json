@@ -28,7 +28,8 @@
       "scripts": [
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/swiper/dist/js/swiper.min.js",
-        "../node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.min.js",
+        "../node_modules/angular-chosen-localytics"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

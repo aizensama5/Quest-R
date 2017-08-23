@@ -1,8 +1,8 @@
-<md-select placeholder="Выберите комнату" (change)="onSelectedRoom($event)">
-    <md-option
+<select placeholder="Выберите комнату" (change)="onSelectedRoom($event)">
+    <option
         *ngFor="let room of rooms"
         [value]="room.name"
     >
         {{ room.name }}
-    </md-option>
-</md-select>
+    </option>
+</select>

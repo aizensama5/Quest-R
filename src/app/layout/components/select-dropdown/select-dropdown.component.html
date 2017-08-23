@@ -2,18 +2,17 @@
     <span class="select-dropdown__placeholder">{{ placeholder }}</span>
     <span class="select-dropdown__arrow" [ngClass]="{'select-dropdown__arrow--active': isShowListOptions}"></span>
 </div>
-<md-list class="select-dropdown__list" *ngIf="isShowListOptions">
-    <md-list-item
+<select class="select-dropdown__list" *ngIf="isShowListOptions">
+    <option
         class="select-dropdown__item"
         *ngFor="let item of listOptions"
     >
-        <md-checkbox
+        <input type="checkbox" name="select-dropdown__checkbox"
             disableRipple
             class="select-dropdown__checkbox"
             (change)="updateListOptions($event, item)"
         >
             {{ item }}
-        </md-checkbox>
-    </md-list-item>
-</md-list>
+    </option>
+</select>
 

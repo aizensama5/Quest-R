@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {RoomModel} from '../../../models/room.model';
-// import {RoomService} from '../../../service/http/room.service';
+import {RoomService} from '../../../service/http/room.service';
 import {ActivatedRoute} from '@angular/router';
 
 
@@ -15,11 +15,11 @@ export class RoomInfoComponent {
   room: RoomModel;
 
   constructor(
-    private route: ActivatedRoute
-    // private roomService: RoomService
+    private route: ActivatedRoute,
+    private roomService: RoomService
   ) {
     let getId = this.route.snapshot.params.id;
     getId = parseInt(getId, 10);
-    // this.room = this.roomService.getRoomById(getId);
+    this.room = this.roomService.getRoomById(getId);
   }
 }

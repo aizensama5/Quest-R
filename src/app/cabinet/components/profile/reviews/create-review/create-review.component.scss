@@ -1,0 +1,75 @@
+@import "../../../../../../assets/styles/variables";
+
+:host /deep/ {
+  width: 100%;
+  height: auto;
+  .create-review-wrapper {
+  margin: 57px auto 14px;
+  max-width: 960px;
+  width: 100%;
+  &__title {
+    @include text-mixin($color-white, 20px, $font-gotham-pro-medium);
+    line-height: 1.7;
+    font-weight: bold;
+    text-align: center;
+  }
+  .create-review {
+    height: auto;
+    margin-top: 43px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &__select-room {
+      margin-bottom: 23px;
+    }
+    &__select,
+    &__date,
+    &__textarea {
+      -webkit-appearance: none;
+      padding: 0 10px;
+      height: 40px;
+      width: 250px;
+      border-radius: 3px;
+      background: transparent;
+      border: solid #fff 1px;
+      @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
+    }
+    &__select {
+      option {
+        @include text-mixin($color-black, 14px, $font-gotham-pro-medium);
+        padding: 10px;
+        background: #fff;
+      }
+    }
+    &__date {
+      width: 228px;
+      height: 38px;
+    }
+    &__textarea {
+      width: 563px;
+      height: 105px;
+      @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
+      resize: none;
+      padding: 10px;
+    }
+    .label {
+      @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
+      margin-bottom: 7px;
+      display: block;
+    }
+  }
+    .create-review__submit {
+      border-radius: 5px;
+      border: solid 2px #ffce0e;
+      background-color: #ffce0e;
+      margin: 20px 0 10px;
+      display: inline-block;
+      float: right;
+      width: 250px;
+      text-align: center;
+      @include text-mixin($color-red, 14px, $font-gotham-pro-light);
+      line-height: 1.29;
+      padding: 11px 0;
+    }
+}
+}

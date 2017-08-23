@@ -4,11 +4,8 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      // {path: 'brand', loadChildren: () => BrandModule, canActivateChild: [UserGuard]},
-      // {path: 'influencer', loadChildren: () => InfluencerModule, canActivateChild: [UserGuard]},
-      {path: '', loadChildren: 'app/main/main.module#MainModule' },
-      // {path: 'cabinet', loadChildren: 'app/cabinet/cabinet.module#CabinetModule' }
-      // { path: '**', redirectTo: '' }
+      {path: 'cabinet', loadChildren: 'app/cabinet/cabinet.module#CabinetModule' },
+      {path: 'room', loadChildren: 'app/room/room.module#RoomModule' }
     ])
   ],
   exports: [RouterModule]

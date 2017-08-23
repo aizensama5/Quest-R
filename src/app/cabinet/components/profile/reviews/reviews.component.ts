@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { ProfileReviewModel } from '../../../../models/profile/profileReview.model';
 import { ProfileReviewService } from '../../../../service/profile/profileReview.service';
 import { PagerService } from '../../../../service/pager.service';
