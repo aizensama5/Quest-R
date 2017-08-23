@@ -11,7 +11,7 @@ import { ReviewsComponent } from './components/profile/reviews/reviews.component
   imports: [
     RouterModule.forChild([
       {path: ':id', component: CabinetMainComponent, children: [
-        {path: ':id', redirectTo: 'id:/history', pathMatch: 'full'},
+        {path: '', redirectTo: 'history', pathMatch: 'full'},
         {path: 'history', component: HistoryComponent},
         {path: 'gallery', component: GalleryComponent},
         {path: 'favorites', component: FavoritesComponent},
