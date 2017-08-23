@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import {ProfileReviewModel} from '../../../../../models/profile/profileReview.model';
 import {RoomService} from '../../../../../service/http/room.service';
 import {RoomModel} from '../../../../../models/room.model';
@@ -9,8 +9,8 @@ import {ProfileReviewService} from '../../../../../service/profile/profileReview
   templateUrl: './create-review.component.html',
   styleUrls: ['./create-review.component.scss']
 })
-export class CreateReviewComponent implements OnInit {
-  newReview: any = {};
+export class CreateReviewComponent {
+  @Input() newReview: any = {};
   rooms: RoomModel[];
   profileReviewService: ProfileReviewService = new ProfileReviewService();
 
@@ -31,9 +31,6 @@ export class CreateReviewComponent implements OnInit {
       description: review.value
     };
     this.profileReviewService.addReview(this.newReview).subscribe((res) => {});
-  }
-
-  ngOnInit() {
   }
 
 }

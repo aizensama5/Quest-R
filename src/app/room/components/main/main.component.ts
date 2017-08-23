@@ -8,12 +8,4 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['main.component.scss']
 })
 
-export class RoomMainComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute
-  ) {
-  }
-
-  ngOnInit() {
-  }
-}
+export class RoomMainComponent {}

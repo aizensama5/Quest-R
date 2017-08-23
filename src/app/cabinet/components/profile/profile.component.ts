@@ -20,11 +20,5 @@ export class ProfileComponent {
     let getId = this.route.snapshot.params.id;
     getId = parseInt(getId, 10);
     this.user = this.userService.getUserById(getId);
-
-    // this.httpClient.get('/api/authenticate', {
-    //   param1: 'sad'
-    // }).subscribe((response: any) => {
-    //   console.log(response);
-    // });
   }
 }
