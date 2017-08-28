@@ -9,13 +9,14 @@ import { ServiceModule } from './service/service.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from './main/main.module';
 import { RoomModule } from './room/room.module';
+import { CabinetModule } from './cabinet/cabinet.module';
+
 
 // operators
 import './operators';
 
 // components
 import { AppComponent } from './app/app.component';
-import { CabinetModule } from './cabinet/cabinet.module';
 
 
 @NgModule({

@@ -1,3 +1,39 @@
-<p>
-  create-review works!
-</p>
+<div class="create-review-wrapper">
+  <h1 class="create-review-wrapper__title">ДОБАВИТЬ ОТЗЫВ</h1>
+  <div class="create-review">
+    <div class="create-review__left">
+      <div class="create-review__select-room create-review__left-field">
+        <label class="label">Название комнаты</label>
+        <select [(ngModel)]="newReview.roomName"
+                class="create-review__select"
+                #roomName>
+          <option name="review-room-option"
+              *ngFor="let room of rooms"
+              [value]="room.name">
+            {{ room.name }}
+          </option>
+        </select>
+      </div>
+      <div class="create-review__select-date create-review__left-field">
+        <label class="label">Дата прохождения</label>
+        <input [(ngModel)]="newReview.visited"
+               class="create-review__date"
+               name="review-date"
+               type="date"
+               #visitDate
+        />
+      </div>
+    </div>
+    <div class="create-review__right">
+      <label class="label">Ваш отзыв</label>
+      <textarea [(ngModel)]="newReview.description"
+                name="review-textarea"
+                class="create-review__textarea"
+                #userReview>
+      </textarea>
+    </div>
+  </div>
+  <button class="create-review__submit"
+         (click)="save(roomName, visitDate, userReview)"
+  >Добавить</button>
+</div>

@@ -1,5 +1,9 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, Output} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../service/http/user.service';
+import {HttpClient} from '../../../service/http.client';
+import {UserModel} from '../../../models/user.model';
+
 
 @Component ({
   moduleId: module.id,
@@ -9,6 +13,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 
 export class ProfileMenuComponent {
-  constructor () {
+  id: number;
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private route: Router,
+              private userService: UserService,
+              private httpClient: HttpClient) {
+    this.id = this.activatedRoute.snapshot.params.id;
+
   }
 }
+

@@ -7,8 +7,7 @@ import {RoomMainComponent} from './components/main/main.component';
   imports: [
     RouterModule.forChild([
       {
-        path: ':id',
-        component: RoomMainComponent
+        path: ':id', component: RoomMainComponent
       }
     ])
   ],

@@ -37,4 +37,11 @@ export class ProfileReviewService {
     return Observable.of(this.userReviews);
   }
 
+  /**
+   * Add new user's review
+   */
+  addReview(review: ProfileReviewModel) {
+    return Observable.of(this.userReviews.push(review));
+  }
+
 }

@@ -12,9 +12,9 @@ export class GalleryComponent {
   sliderConfig: Object = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
-    slidesPerView: 5,
+    slidesPerView: 4,
     centeredSlides: true,
-    loop: true,
+    loop: false,
     speed: 1000,
     lazyLoading: true
   };

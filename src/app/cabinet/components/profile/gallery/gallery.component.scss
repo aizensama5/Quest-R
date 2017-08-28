@@ -39,6 +39,13 @@
     }
     &__bottom {
       padding: 49px 0 44px;
+      &-swiper {
+        position: relative;
+        right: 360px;
+        &--slide {
+          width: 175px !important;
+        }
+      }
     }
     &__image {
       display: inline-block;

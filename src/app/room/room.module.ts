@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     RoomRoutingModule,
-    MainModule
+    MainModule.forRoot()
   ],
   exports: [
     RoomMainComponent

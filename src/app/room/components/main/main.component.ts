@@ -8,13 +8,4 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['main.component.scss']
 })
 
-export class RoomMainComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute
-  ) {
-  }
-
-  ngOnInit() {
-    // console.log(this.route.snapshot.params.id);
-  }
-}
+export class RoomMainComponent {}

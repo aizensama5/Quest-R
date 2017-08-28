@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, Output} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../../service/http/user.service';
+import {HttpClient} from '../../../service/http.client';
+import {UserModel} from '../../../models/user.model';
 
 @Component({
   moduleId: module.id,
@@ -7,12 +10,6 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: 'main.component.html',
   styleUrls: ['main.component.scss']
 })
-export class CabinetMainComponent implements OnInit {
-  constructor(private route: ActivatedRoute
-  ) {
-  }
+export class CabinetMainComponent {
 
-  ngOnInit() {
-    console.log('cabinet');
-  }
 }
