@@ -23,21 +23,49 @@
         width: 40%;
         &::before {
           position: absolute;
-          top: -40px;
-          left: -50px;
+          top: -63px;
+          left: -1px;
           content: '';
           background-image: url("../../../../assets/images/key.svg");
           background-repeat: no-repeat;
           background-position: center;
-          width: 100px;
+          width: 50px;
           display: block;
-          height: 100px;
-          transform: rotate(100deg);
+          height: 118px;
+          transform: rotate(252deg);
         }
       }
 
       &--lock {
+        max-width: 364px;
         width: 40%;
+        &::before {
+          position: absolute;
+          top: -50px;
+          left: -77px;
+          content: '';
+          background-image: url("../../../../assets/images/lock.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: 94px;
+          display: block;
+          height: 115px;
+        }
+        &::after {
+          position: absolute;
+          top: 85px;
+          left: 10px;
+          transform: rotate(23deg);
+          content: '';
+          background-image: url("../../../../assets/images/org-rule-arrow-2.png");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: 108px;
+          display: block;
+          height: 144px;
+        }
       }
 
       &--bag {
@@ -59,6 +87,20 @@
             width: 125px;
             height: 95px;
           }
+          &::after {
+            position: absolute;
+            top: 89px;
+            left: 160px;
+            content: '';
+            display: block;
+            background-image: url("../../../../assets/images/org-rule-arrow-3.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            width: 74px;
+            height: 89px;
+            transform: rotate(330deg);
+          }
         }
       }
 
@@ -76,6 +118,20 @@
           background-position: center;
           width: 63px;
           height: 91px;
+        }
+        &::after {
+          position: absolute;
+          top: 62px;
+          left: auto;
+          right: -206px;
+          display: block;
+          content: '';
+          background-image: url("../../../../assets/images/org-rule-arrow-4.png");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: 180px;
+          height: 96px;
         }
       }
 
@@ -99,7 +155,16 @@
 
     &__arrow {
       width: 20%;
-
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    &__arrow-first {
+      position: relative;
+      bottom: 60px;
+      right: -2px;
+      transform: rotate(-42deg);
+      background-image: url("/assets/images/org-rule-arrow-3.png");
+      height: 89px;
     }
   }
 }

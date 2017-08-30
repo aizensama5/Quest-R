@@ -7,6 +7,9 @@ import { MainRoutingModule } from './main-routing.module';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { AgmCoreModule } from '@agm/core';
 
+// services
+import { ReservationService } from '../service/http/reservation.service';
+
 // components
 import { MainComponent } from './components/main/main.component';
 import { SwiperRoomComponent } from './components/swiper-room/swiper-room.component';
@@ -68,6 +71,9 @@ import { FilterCircleComponent } from './components/select-room/filter-rooms/fil
       ReviewsComponent,
       ReviewComponent,
       MapComponent
+    ],
+    providers: [
+      ReservationService
     ]
 })
 export class MainModule {

@@ -1,11 +1,24 @@
 @import "../../../../assets/styles/variables";
 
 :host /deep/ {
-  md-select {
-    margin: 30px auto 45px;
-    width: 300px;
+  .reserved-select {
+    width: 309px;
+    height: 40px;
+    padding: 0 6px;
     border-radius: 3px;
     border: 1px solid $color-white;
+    background-color: transparent;
+    @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
+    line-height: 1.31px;
+    &::-webkit-input-placeholder {
+      color: #6c6c6c;
+    }
+    option {
+      color: #000;
+      height: 25px;
+    }
+  }
+  md-select {
     .mat-select-placeholder {
       @include text-mixin($color-grey, 16px, $font-gotham-pro-regular);
       padding-left: 10px;
