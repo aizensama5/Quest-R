@@ -39,12 +39,41 @@
     }
     &__bottom {
       padding: 49px 0 44px;
+      //display: flex;
+      .gallery-swiper {
+
+        .swiper-slide-disable {
+          display: none;
+        }
+      }
       &-swiper {
         position: relative;
-        right: 360px;
+        right: 384px;
+        width: 860px;
         &--slide {
           width: 175px !important;
         }
+
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        background-image: url("/assets/images/arrow-slider.svg");
+        background-size: contain;
+        margin-top: -30px;
+        height: 60px;
+        width: 48px;
+      }
+      .swiper-button-next {
+        right: -10px;
+      }
+      .swiper-button-prev {
+        top: 49%;
+        left: auto;
+        right: 30px;
+        transform: rotate(180deg);
+      }
+      .swiper-button-disabled {
+        display: none;
       }
     }
     &__image {

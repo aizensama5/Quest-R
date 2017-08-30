@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild, ElementRef} from '@angular/core';
 import { GalleryService } from '../../../../service/profile/gallery.service';
 import { GalleryModel } from '../../../../models/profile/gallery.model';
 
@@ -8,18 +8,33 @@ import { GalleryModel } from '../../../../models/profile/gallery.model';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent {
+  galleryData: GalleryModel[];
+  @Output() swiper = new EventEmitter<{swClass: any }>();
+  @ViewChild('swiperClass') swiperClass: ElementRef;
 
   sliderConfig: Object = {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
     pagination: '.swiper-pagination',
     paginationClickable: true,
-    slidesPerView: 4,
+    slidesPerView: 5,
     centeredSlides: true,
     loop: false,
     speed: 1000,
-    lazyLoading: true
+    lazyLoading: true,
+
   };
 
-  galleryData: GalleryModel[];
+  slidePrev() {
+
+  }
+
+  slideNext() {
+    this.swiper.emit({
+      swClass: this.swiperClass.nativeElement
+    });
+  }
+
 
   constructor( galleryService: GalleryService ) {
     galleryService.all().subscribe((galData) => {

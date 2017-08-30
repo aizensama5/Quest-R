@@ -29,6 +29,6 @@ export class SelectListRoomsComponent implements OnInit {
     }
 
     onSelectedRoom(room: RoomModel) {
-        this.selectedRoom.emit(room);
+      this.selectedRoom.emit(room);
     }
 }

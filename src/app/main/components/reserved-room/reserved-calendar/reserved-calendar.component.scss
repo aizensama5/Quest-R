@@ -1,3 +1,65 @@
+@import "../../../../../assets/styles/variables";
+
 :host /deep/ {
   width: 100%;
+  .reservation-table {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 44px auto 52px;
+    &__wrap {
+      tbody {
+        display: block;
+      }
+    }
+    &__item-day {
+      text-align: center;
+      margin-bottom: 26px;
+      th {
+        position: relative;
+        left: 8px;
+        @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
+      }
+    }
+    &__item {
+      width: 64px;
+      height: 61px;
+      border-radius: 2px;
+      margin: 0 19px 11px 0;
+      transition: .3s ease-in;
+      cursor: pointer;
+      &-info {
+        text-align: center;
+        @include text-mixin(#012c6a, 16px, $font-gotham-pro-medium);
+        &--price {
+          padding: 11px 0 5px;
+        }
+      }
+      &:hover {
+        color: #fff;
+        background-color: #303336 !important;
+        .reservation-table__item-info {
+          color: #fff;
+        }
+      }
+    }
+    td {
+      vertical-align: -webkit-baseline-middle;
+    }
+    td, tr {
+      display: block;
+    }
+    &__time-wrap {
+      margin: 42px 21px 0 0;
+    }
+    &__time {
+      margin: 0 0 11px;
+      width: 64px;
+      text-align: center;
+      position: relative;
+      top: 22px;
+      height: 61px;
+      @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
+    }
+  }
 }
