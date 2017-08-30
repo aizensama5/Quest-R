@@ -33,8 +33,6 @@ export class GalleryComponent {
     this.swiper.emit({
       swClass: this.swiperClass.nativeElement
     });
-    console.log(this.swiper);
-    console.log(this.swiperClass);
   }
 
 
