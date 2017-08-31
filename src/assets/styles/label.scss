@@ -1,6 +1,7 @@
 @import "variables";
 
 .label {
+  display: block;
   @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
   margin-bottom: 8px;
 }

@@ -1,11 +1,11 @@
 <h3 class="title reserved-form__title">ОФОРМИТЕ ЗАКАЗ</h3>
-<div class="reserved-form__wrapper">
-    <div class="reserved-form__room" [ngStyle]="{'background-image': room.img}">
-        <ul class="reserved-form__list">
-            <li class="reserved-form__list-item">Комната: ROOM_NAME</li>
-            <li class="reserved-form__list-item">Начало игры: SELECTED_DATE</li>
-            <li class="reserved-form__list-item">Стоимость: ROOM_PRICE</li>
-            <li class="reserved-form__list-item">ROOM_ADDRESS</li>
+<div class="reserved-form__wrapper" >
+    <div class="reserved-form__room" [ngStyle]="{'background-image': room?.img}">
+        <ul class="reserved-form__list" *ngIf="room && reserveData">
+            <li class="reserved-form__list-item">Комната: {{room?.name || ''}}</li>
+            <li class="reserved-form__list-item">Начало игры: {{reserveData?.day || '' + ' ' + reserveData?.time?.time || ''}}</li>
+            <li class="reserved-form__list-item">Стоимость: {{reserveData?.time?.price || ''}}</li>
+            <li class="reserved-form__list-item">{{room?.position}}</li>
         </ul>
     </div>
     <form class="reserved-form__form">

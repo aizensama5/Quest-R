@@ -1,0 +1,43 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  max-width: 960px;
+  display: block;
+  margin: 140px auto 145px;
+  .booking__title {
+    @include text-mixin($color-white, 20px, $font-gotham-pro-medium);
+    text-align: center;
+    padding-bottom: 25px;
+    letter-spacing: 1px;
+  }
+  .booking {
+    display: flex;
+    width: 800px;
+    margin: 0 auto;
+    justify-content: space-between;
+    input,
+    select {
+      width: 250px;
+      height: 40px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    input[type=date],
+    select {
+      -webkit-appearance: none;
+      padding: 0 10px;
+      background: transparent;
+      border: solid #fff 1px;
+      @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
+    }
+    select {
+      option {
+        @include text-mixin($color-black, 14px, $font-gotham-pro-medium);
+      }
+    }
+    &__button {
+      position: relative;
+      top: 25px;
+    }
+  }
+}

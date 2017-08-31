@@ -1,4 +1,4 @@
 <h3 class="reserved-room__title title">REZERWUJ</h3>
 <app-layout-select-list-rooms></app-layout-select-list-rooms>
-<app-main-reserved-calendar></app-main-reserved-calendar>
-<app-main-reserved-form></app-main-reserved-form>
+<app-main-reserved-calendar (onSelectItem)="onSelectItem($event)"></app-main-reserved-calendar>
+<app-main-reserved-form [reserveData]="reserveData"></app-main-reserved-form>
