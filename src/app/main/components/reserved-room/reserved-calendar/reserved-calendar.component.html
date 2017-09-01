@@ -5,7 +5,7 @@
     </div>
     <div class="reservation-table__wrap" *ngFor="let rsrv of reservationData">
       <tr class="reservation-table__item-day">
-        <th>{{rsrv.day}}</th>
+        <th>{{convert(rsrv.day)}}</th>
       </tr>
       <tr class="reservation-table__items">
         <td *ngFor="let rsrvItem of rsrv.time">

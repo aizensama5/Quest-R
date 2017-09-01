@@ -18,6 +18,7 @@ export class ReservedCalendarComponent {
   reservationData: ReservationModel[];
   timeList = [];
   timeTableItem: ReservationModel = new ReservationModel();
+  resService = new ReservationService();
 
   constructor(reservationService: ReservationService) {
     reservationService.all().subscribe((response) => {
@@ -26,6 +27,10 @@ export class ReservedCalendarComponent {
     reservationService.getTime().subscribe((response) => {
       this.timeList = response;
     });
+  }
+
+  convert (day: string) {
+    return this.resService.convertDateSeparatedBySlash(day);
   }
 
   onSelectedItem(item: TimeModel[], day: string) {

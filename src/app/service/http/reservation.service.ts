@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ReservationModel } from '../../models/reservation.model';
 import { TimeModel } from '../../models/time.model';
+import * as moment from 'moment';
+import _date = moment.unitOfTime._date;
 
 @Injectable()
 export class ReservationService {
   daysInWeek = 7;
   private reservationData: ReservationModel[] = [
     {
-      day: '05/03',
+      day: '2017-03-05',
       time: [
         {
           timeSlotId: 1,
@@ -83,7 +85,7 @@ export class ReservationService {
       ]
     },
     {
-      day: '06/03',
+      day: '2017-03-06',
       time: [
         {
           timeSlotId: 8,
@@ -158,7 +160,7 @@ export class ReservationService {
       ]
     },
     {
-      day: '07/03',
+      day: '2017-03-07',
       time: [
         {
           timeSlotId: 8,
@@ -233,7 +235,7 @@ export class ReservationService {
       ]
     },
     {
-      day: '08/03',
+      day: '2017-03-08',
       time: [
         {
           timeSlotId: 8,
@@ -308,7 +310,7 @@ export class ReservationService {
       ]
     },
     {
-      day: '09/03',
+      day: '2017-03-09',
       time: [
         {
           timeSlotId: 8,
@@ -383,7 +385,7 @@ export class ReservationService {
       ]
     },
     {
-      day: '10/03',
+      day: '2017-03-10',
       time: [
         {
           timeSlotId: 8,
@@ -458,7 +460,7 @@ export class ReservationService {
       ]
     },
     {
-      day: '11/03',
+      day: '2017-03-11',
       time: [
         {
           timeSlotId: 8,
@@ -553,5 +555,44 @@ export class ReservationService {
       timeList.push(this.reservationData[0].time[i].time);
     }
     return Observable.of(timeList);
+  }
+
+  getMonthsName() {
+    return [
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декября'
+    ];
+  }
+
+  checkDayMonthFormat (el) {
+    return el.length > 1 ? el : '0' + el;
+  }
+
+  convertDateSeparatedBySlash (date: string) {
+    const fullDate = new Date(date);
+    let day = fullDate.getDate().toString(10),
+        month = (fullDate.getMonth() + 1).toString(10);
+    day = this.checkDayMonthFormat(day);
+    month = this.checkDayMonthFormat(month);
+    return day + '/' + month;
+  }
+
+  convertDateToString (date: string) {
+    const fullDate = new Date(date);
+    let day = fullDate.getDate().toString(10);
+    const monthIndex = fullDate.getMonth(),
+          monthsName = this.getMonthsName();
+    day = this.checkDayMonthFormat(day);
+    return day + ' ' + monthsName[monthIndex];
   }
 }

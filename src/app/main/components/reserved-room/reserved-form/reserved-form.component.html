@@ -8,21 +8,21 @@
         <div class="reserved-form__room-darkened">
           <ul class="reserved-form__list" *ngIf="room && reserveData">
               <li class="reserved-form__list-item">Комната: {{room?.name || ''}}</li>
-              <li class="reserved-form__list-item">Начало игры: {{reserveData?.day + ' ' + reserveData?.time?.time || ''}}</li>
-              <li class="reserved-form__list-item">Стоимость: {{reserveData?.time?.price + ' ' + reserveData?.time?.currency || ''}}</li>
+              <li class="reserved-form__list-item">Начало игры: {{convert(reserveData?.day)}} {{reserveData?.time?.time}}</li>
+              <li class="reserved-form__list-item">Стоимость: {{reserveData?.time?.price + ' ' + reserveData?.time?.currency}}</li>
               <li class="reserved-form__list-item">{{room?.position?.latitude + ' ' +room?.position?.longitude}}</li>
           </ul>
         </div>
       </div>
-      <form class="reserved-form__form">
+      <form class="reserved-form__form" #formData="ngForm" (ngSubmit)="order(formData)">
           <label for="reserved-form__form-name" class="reserved-form__label">Имя</label>
-          <input type="text" class="reserved-form__input" id="reserved-form__form-name">
+          <input type="text" class="reserved-form__input" id="reserved-form__form-name" name="name" ngModel>
 
           <label for="reserved-form__form-tel" class="reserved-form__label">Телефон</label>
-          <input type="text" class="reserved-form__input" id="reserved-form__form-tel">
+          <input type="text" class="reserved-form__input" id="reserved-form__form-tel" name="phone" ngModel>
 
           <label for="reserved-form__form-email" class="reserved-form__label">Email</label>
-          <input type="email" class="reserved-form__input" id="reserved-form__form-email">
+          <input type="email" class="reserved-form__input" id="reserved-form__form-email" name="email" ngModel>
 
           <input type="submit" class="btn reserved-form__btn" value="Rezervuj">
       </form>
