@@ -11,9 +11,12 @@ import {ReservationModel} from '../../../models/reservation.model';
 })
 export class ReservedRoomComponent implements OnInit {
 
-  @Input() title: string;
+    @Input() title: string;
     rooms: RoomModel[] = [];
     reserveData: ReservationModel = new ReservationModel();
+    selectedRoom: RoomModel = new RoomModel();
+    showReservationTable = false;
+    showOrderingTable = false;
 
     constructor(
         private roomService: RoomService
@@ -24,12 +27,19 @@ export class ReservedRoomComponent implements OnInit {
     }
 
     getAllRooms() {
-        this.roomService.all().subscribe((rooms: RoomModel[]) => {
-            this.rooms = rooms;
-        });
+      this.roomService.all().subscribe((rooms: RoomModel[]) => {
+        this.rooms = rooms;
+      });
+    }
+
+    onSelectRoom(room: RoomModel) {
+      this.selectedRoom = room;
+      this.showReservationTable = true;
+      this.showOrderingTable = false;
     }
 
     onSelectItem(item: ReservationModel) {
       this.reserveData = item;
+      this.showOrderingTable = true;
     }
 }

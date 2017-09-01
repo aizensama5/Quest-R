@@ -13,10 +13,17 @@
     }
 
     &__room {
-      height: 280px;
-      outline: 1px solid red;
-      width: 450px;
-      margin-right: 50px;
+      margin-right: 47.2px;
+      height: 282px;
+      width: 437.8px;
+      background-repeat: no-repeat;
+      &-darkened {
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.3), #000000);
+        background-position: center center;
+        margin-right: 50px;
+      }
     }
 
     &__list {
@@ -59,5 +66,10 @@
       padding: 10px 0;
       margin-top: auto;
     }
+  }
+  .spinner-preload.spinner-preload-reserved-form {
+    margin: 0;
+    top: 115px;
+    left: 250px;
   }
 }

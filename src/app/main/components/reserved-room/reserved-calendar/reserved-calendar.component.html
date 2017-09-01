@@ -1,21 +1,23 @@
-<table class="reservation-table">
-  <div class="reservation-table__time-wrap">
-    <p class="reservation-table__time" *ngFor="let tm of timeList">{{ tm }}</p>
-  </div>
-  <div class="reservation-table__wrap" *ngFor="let rsrv of reservationData">
-    <tr class="reservation-table__item-day">
-      <th>{{rsrv.day}}</th>
-    </tr>
-    <tr class="reservation-table__items">
-      <td *ngFor="let rsrvItem of rsrv.time">
-        <div class="reservation-table__item" (click)="onSelectedItem(rsrvItem, rsrv.day)" [ngStyle]="{'background-color': rsrvItem.background }">
-          <div class="reservation-table__item-info"
-               *ngIf="!rsrvItem.is_booked && !rsrvItem.is_bought && !rsrvItem.is_past">
-            <p class="reservation-table__item-info--price">{{rsrvItem.price}}</p>
-            <p class="reservation-table__item-info--currency">{{rsrvItem.currency}}</p>
+<div *ngIf="showReservationTable">
+  <table class="reservation-table">
+    <div class="reservation-table__time-wrap">
+      <p class="reservation-table__time" *ngFor="let tm of timeList">{{ tm }}</p>
+    </div>
+    <div class="reservation-table__wrap" *ngFor="let rsrv of reservationData">
+      <tr class="reservation-table__item-day">
+        <th>{{convert(rsrv.day)}}</th>
+      </tr>
+      <tr class="reservation-table__items">
+        <td *ngFor="let rsrvItem of rsrv.time">
+          <div class="reservation-table__item" (click)="onSelectedItem(rsrvItem, rsrv.day)" [ngStyle]="{'background-color': rsrvItem.background }">
+            <div class="reservation-table__item-info"
+                 *ngIf="!rsrvItem.is_booked && !rsrvItem.is_bought && !rsrvItem.is_past">
+              <p class="reservation-table__item-info--price">{{rsrvItem.price}}</p>
+              <p class="reservation-table__item-info--currency">{{rsrvItem.currency}}</p>
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-  </div>
-</table>
+        </td>
+      </tr>
+    </div>
+  </table>
+</div>
