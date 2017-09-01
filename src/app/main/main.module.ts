@@ -6,6 +6,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { MainRoutingModule } from './main-routing.module';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { AgmCoreModule } from '@agm/core';
+import { SelectModule } from 'angular2-select';
 
 // services
 import { ReservationService } from '../service/http/reservation.service';
@@ -34,7 +35,7 @@ import { FilterCircleComponent } from './components/select-room/filter-rooms/fil
         RouterModule,
         FormsModule,
         LayoutModule,
-
+        SelectModule,
         MainRoutingModule,
         SwiperModule,
         AgmCoreModule.forRoot({

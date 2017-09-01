@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RoomModel } from '../../../../models/room.model';
+import {ReservationModel} from '../../../../models/reservation.model';
 
 @Component({
     moduleId: module.id,
@@ -9,7 +10,8 @@ import { RoomModel } from '../../../../models/room.model';
 })
 export class ReservedFormComponent implements OnInit {
 
-    @Input() room: RoomModel = new RoomModel();
+    @Input() room: RoomModel;
+    @Input() reserveData: ReservationModel;
 
     constructor() {
     }

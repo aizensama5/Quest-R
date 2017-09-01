@@ -1,2 +1,22 @@
 <h3 class="booking__title">ЗАБРОНИРОВАТЬ КОМНАТУ</h3>
-<app-layout-select-list-rooms></app-layout-select-list-rooms>
+<div class="booking">
+  <div class="booking__room-select">
+    <label class="label">Выберите комнату</label>
+    <select placeholder="Выберите комнату" (change)="onSelectedRoom($event)" class="reserved-select">
+    <option
+      *ngFor="let room of rooms"
+      [value]="room"
+    >
+      {{ room.name }}
+    </option>
+  </select>
+  </div>
+  <div class="booking__date-select">
+    <label class="label">Выберите дату</label>
+    <input class="create-review__date"
+           name="review-date"
+           type="date"
+    />
+  </div>
+  <input type="submit" class="btn reserved-form__btn booking__button" value="Rezervuj">
+</div>

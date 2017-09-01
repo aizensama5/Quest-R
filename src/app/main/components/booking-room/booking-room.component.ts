@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RoomService } from '../../../service/http/room.service';
+import { RoomModel } from '../../../models/room.model';
 
 @Component({
     moduleId: module.id,
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['booking-room.component.scss']
 })
 export class BookingRoomComponent implements OnInit {
-    constructor() {
-    }
+  @Output() selectedRoom: EventEmitter<RoomModel> = new EventEmitter<RoomModel>();
 
-    ngOnInit() {
-    }
+  rooms: RoomModel[] = [];
+
+  constructor(
+    private roomService: RoomService
+  ) {}
+
+  ngOnInit() {
+    this.getAllRooms();
+  }
+
+  getAllRooms() {
+    this.roomService.all().subscribe((rooms: RoomModel[]) => {
+      this.rooms = rooms;
+    });
+  }
+
+  onSelectedRoom(room: RoomModel) {
+    this.selectedRoom.emit(room);
+  }
 }

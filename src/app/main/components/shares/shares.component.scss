@@ -49,17 +49,24 @@
       animation: cssload-loader-inner 3.2s infinite ease-in;
     }
   }
+  .swiper-button-next,
+  .swiper-button-prev {
+    margin-top: -80px;
+    height: 60px;
+    width: 48px;
+    background-size: contain;
+  }
   .swiper-button-prev {
     background-image: url('../../../../assets/images/arrow-slider.svg');
     background-position: center;
     background-repeat: no-repeat;
     left: 0;
+    transform: rotate(180deg);
   }
   .swiper-button-next {
     background-image: url('../../../../assets/images/arrow-slider.svg');
     background-position: center;
     background-repeat: no-repeat;
-    transform: rotate(180deg);
     right: 0;
   }
 }
