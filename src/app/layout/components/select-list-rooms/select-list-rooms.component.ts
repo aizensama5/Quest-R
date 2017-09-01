@@ -11,6 +11,7 @@ import { RoomModel } from '../../../models/room.model';
 export class SelectListRoomsComponent implements OnInit {
 
     @Output() selectedRoom: EventEmitter<RoomModel> = new EventEmitter<RoomModel>();
+    sRoom: RoomModel;
 
     rooms: RoomModel[] = [];
 
@@ -23,12 +24,12 @@ export class SelectListRoomsComponent implements OnInit {
     }
 
     getAllRooms() {
-        this.roomService.all().subscribe((rooms: RoomModel[]) => {
-            this.rooms = rooms;
-        });
+      this.roomService.all().subscribe((rooms: RoomModel[]) => {
+        this.rooms = rooms;
+      });
     }
 
-    onSelectedRoom(room: RoomModel) {
-      this.selectedRoom.emit(room);
+    onSelectedRoom() {
+      this.selectedRoom.emit(this.sRoom);
     }
 }

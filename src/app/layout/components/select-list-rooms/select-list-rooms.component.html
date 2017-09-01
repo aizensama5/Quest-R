@@ -1,7 +1,7 @@
-<select placeholder="Выберите комнату" (change)="onSelectedRoom($event)" class="reserved-select">
+<select placeholder="Выберите комнату" (change)="onSelectedRoom()" class="reserved-select" [(ngModel)]="sRoom">
     <option
         *ngFor="let room of rooms"
-        [value]="room"
+        [ngValue]="room"
     >
         {{ room.name }}
     </option>
