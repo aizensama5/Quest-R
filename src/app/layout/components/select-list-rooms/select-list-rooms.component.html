@@ -1,4 +1,5 @@
-<select placeholder="Выберите комнату"
+<select *ngIf="!isOpenedRoomPage"
+        placeholder="Выберите комнату"
         (change)="onSelectedRoom()"
         class="reserved-select"
         [(ngModel)]="sRoom">

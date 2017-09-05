@@ -16,7 +16,8 @@ export class SelectListRoomsComponent implements OnInit {
 
     @Output() selectedRoom: EventEmitter<RoomModel> = new EventEmitter<RoomModel>();
     @Input() preSelectedRoom$: Observable<RoomModel>;
-    preSelectedRoom: RoomModel;
+    @Input() isOpenedRoomPage: boolean;
+  preSelectedRoom: RoomModel;
 
     sRoom: RoomModel;
 

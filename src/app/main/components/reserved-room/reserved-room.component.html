@@ -1,5 +1,8 @@
 <h3 class="reserved-room__title title">REZERWUJ</h3>
-<app-layout-select-list-rooms [preSelectedRoom$]="selectedRoom$" (selectedRoom)="onSelectRoom($event)"></app-layout-select-list-rooms>
+<app-layout-select-list-rooms [preSelectedRoom$]="selectedRoom$"
+                              (selectedRoom)="onSelectRoom($event)"
+                              [isOpenedRoomPage]="isOpenedRoomPage"
+></app-layout-select-list-rooms>
 <app-main-reserved-calendar (selectedItem)="onSelectItem($event)"
                             [showReservationTable]="showReservationTable"
                             [room]="selectedRoom"

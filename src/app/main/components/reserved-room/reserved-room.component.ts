@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { RoomModel } from '../../../models/room.model';
 import { RoomService } from '../../../service/http/room.service';
 import { ReservationModel } from '../../../models/reservation.model';
@@ -8,6 +8,7 @@ import * as mainReducer from '../../../reducers';
 import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import * as roomAction from '../../../action/room.action';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -27,11 +28,14 @@ export class ReservedRoomComponent implements OnInit {
     showReservationTable = false;
     showOrderingTable = false;
     selectedRoom$: Observable<RoomModel>;
+    roomId: number;
+    isOpenedRoomPage: boolean;
 
     constructor(
         private roomService: RoomService,
         private reservationService: ReservationService,
-        private store: Store<mainReducer.State>
+        private store: Store<mainReducer.State>,
+        private route: ActivatedRoute
     ) {
       this.selectedRoom$ = this.store.select(mainReducer.getRoom);
       this.selectedRoom$.subscribe((room: RoomModel) => {
@@ -42,6 +46,11 @@ export class ReservedRoomComponent implements OnInit {
       reservationService.all().subscribe((response) => {
         this.allReservationData = response;
       });
+      this.roomId = parseInt(this.route.snapshot.params.id, 10);
+      this.isOpenedRoomPage = !!this.roomId;
+      if (this.isOpenedRoomPage) {
+        this.onSelectRoom(this.roomService.getRoomById(this.roomId));
+      }
     }
 
     /**
