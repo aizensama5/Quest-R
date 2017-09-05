@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { ReservationService } from '../../../../service/http/reservation.service';
 import { ReservationModel } from '../../../../models/reservation.model';
+import { MainReservationModel } from '../../../../models/main-reservation.model';
 import { TimeModel } from '../../../../models/time.model';
-import {RoomModel} from '../../../../models/room.model';
+import { RoomModel } from '../../../../models/room.model';
 
 @Component({
     moduleId: module.id,
@@ -15,19 +16,12 @@ export class ReservedCalendarComponent {
   @Output() selectedItem = new EventEmitter<ReservationModel>();
   @Input() showReservationTable: boolean;
   @Input() room: RoomModel;
-  reservationData: ReservationModel[];
-  timeList = [];
+  @Input() roomReservationData: ReservationModel[];
+  @Input() timeList;
   timeTableItem: ReservationModel = new ReservationModel();
   resService = new ReservationService();
 
-  constructor(reservationService: ReservationService) {
-    reservationService.all().subscribe((response) => {
-      this.reservationData = response;
-    });
-    reservationService.getTime().subscribe((response) => {
-      this.timeList = response;
-    });
-  }
+  constructor() {}
 
   convert (day: string) {
     return this.resService.convertDateSeparatedBySlash(day);
@@ -35,7 +29,7 @@ export class ReservedCalendarComponent {
 
   onSelectedItem(item: TimeModel[], day: string) {
     this.timeTableItem.time = item;
-    this.timeTableItem.day = day;
-    this.selectedItem.emit(this.timeTableItem);
+    this.timeTableItem.day= day;
+    this.selectedItem.emit( this.timeTableItem);
   }
 }

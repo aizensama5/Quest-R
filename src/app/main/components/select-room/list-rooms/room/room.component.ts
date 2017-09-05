@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RoomModel } from '../../../../../models/room.model';
+import * as mainReducer from '../../../../../reducers';
+import { Store } from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import * as roomAction from '../../../../../action/room.action';
+
 
 @Component({
     moduleId: module.id,
@@ -11,9 +16,13 @@ export class RoomComponent implements OnInit {
 
     @Input() room: RoomModel = new RoomModel();
 
-    constructor() {}
+    constructor(private store: Store<mainReducer.State>) {}
 
     ngOnInit() {
+    }
+
+    reserve () {
+      this.store.dispatch(new roomAction.Select(this.room));
     }
 
 }

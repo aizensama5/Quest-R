@@ -16,7 +16,8 @@
     <input class="create-review__date"
            name="review-date"
            type="date"
+           #date
     />
   </div>
-  <input type="submit" class="btn reserved-form__btn booking__button" value="Rezervuj">
+  <input type="submit" class="btn reserved-form__btn booking__button" value="Rezervuj" (click)="reserve(date)">
 </div>

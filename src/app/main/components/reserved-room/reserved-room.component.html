@@ -1,9 +1,11 @@
 <h3 class="reserved-room__title title">REZERWUJ</h3>
-<app-layout-select-list-rooms (selectedRoom)="onSelectRoom($event)"></app-layout-select-list-rooms>
+<app-layout-select-list-rooms [preSelectedRoom$]="selectedRoom$" (selectedRoom)="onSelectRoom($event)"></app-layout-select-list-rooms>
 <app-main-reserved-calendar (selectedItem)="onSelectItem($event)"
                             [showReservationTable]="showReservationTable"
-                            [room]="selectedRoom">
-</app-main-reserved-calendar>
+                            [room]="selectedRoom"
+                            [roomReservationData]="roomReservationData"
+                            [timeList]="timeList"
+></app-main-reserved-calendar>
 <app-main-reserved-form [reserveData]="reserveData"
                         [showOrderingTable]="showOrderingTable"
                         [room]="selectedRoom"
