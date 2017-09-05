@@ -1,3 +1,4 @@
+@import "../../../../assets/styles/variables";
 
 .room-info-wrapper {
   max-width: 960px;
@@ -21,15 +22,13 @@
   &__info {
     width: 455px;
     &-name {
-      font-size: 24px;
+      @include text-mixin($color-white, 24px, $font-gotham-pro-medium);
       line-height: 1.17;
-      letter-spacing: 2px;
       color: #fff;
     }
     &-description {
-      font-size: 18px;
+      @include text-mixin($color-white, 18px, $font-roboto-medium);
       line-height: 1.39;
-      color: #fff;
       padding: 22px 0 28px;
     }
   }
@@ -49,8 +48,7 @@
       justify-content: flex-start;
     }
     &-text {
-      color: #fff;
-      font-size: 16px;
+      @include text-mixin($color-white, 16px, $font-roboto-medium);
       padding-left: 11px;
       top: 9px;
       position: relative;
@@ -64,7 +62,7 @@
   &__details-additional {
     padding: 17px 0 0;
     .room-info__details-text {
-      font-size: 18px;
+      @include text-mixin($color-white, 18px, $font-roboto-medium);
       line-height: 1.56;
       top: 2px;
       padding-left: 19px;

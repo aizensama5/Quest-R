@@ -3,7 +3,7 @@
     <div class="reservation-table__time-wrap">
       <p class="reservation-table__time" *ngFor="let tm of timeList">{{ tm }}</p>
     </div>
-    <div class="reservation-table__wrap" *ngFor="let rsrv of reservationData">
+    <div class="reservation-table__wrap" *ngFor="let rsrv of roomReservationData">
       <tr class="reservation-table__item-day">
         <th>{{convert(rsrv.day)}}</th>
       </tr>

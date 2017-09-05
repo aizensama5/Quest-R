@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from './main/main.module';
 import { RoomModule } from './room/room.module';
 import { CabinetModule } from './cabinet/cabinet.module';
+import { StoreModule } from '@ngrx/store';
+import * as reducersMain from './reducers';
+
 
 
 // operators
@@ -33,6 +36,7 @@ import { AppComponent } from './app/app.component';
     LayoutModule.forRoot(),
     ServiceModule.forRoot(),
     MainModule.forRoot(),
+    StoreModule.provideStore(reducersMain.reducer),
     CabinetModule,
     BrowserAnimationsModule,
   ],

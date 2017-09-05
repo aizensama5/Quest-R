@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuLinkModel } from '../../../models/menu-link.model';
 
 @Component({
     moduleId: module.id,
@@ -8,17 +9,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-    private links: string[] = [
-        'Квесты',
-        'Как играть',
-        'Акции',
-        'Отзывы',
-        'Контакты'
+    private links: MenuLinkModel[] = [
+      {
+        name: 'Квесты',
+        target: 'quests'
+      },
+      {
+        name: 'Как играть',
+        target: 'org-rule'
+      },
+      {
+        name: 'Акции',
+        target: 'shares',
+      },
+      {
+        name: 'Отзывы',
+        target: 'reviews',
+      },
+      {
+        name: 'Контакты',
+        target: 'contacts'
+      }
     ];
 
     constructor() {
     }
 
     ngOnInit() {
+    }
+
+    scrollTo(target) {
+      document.getElementById(target).scrollIntoView({
+        block: 'start',
+        behavior: 'smooth'
+      });
     }
 }

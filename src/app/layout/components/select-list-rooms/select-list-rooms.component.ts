@@ -1,6 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { RoomService } from '../../../service/http/room.service';
 import { RoomModel } from '../../../models/room.model';
+import { Store } from '@ngrx/store';
+import * as mainReducer from '../../../reducers';
+import {Observable} from 'rxjs/Observable';
+import * as roomAction from '../../../action/room.action';
 
 @Component({
     moduleId: module.id,
@@ -11,13 +15,24 @@ import { RoomModel } from '../../../models/room.model';
 export class SelectListRoomsComponent implements OnInit {
 
     @Output() selectedRoom: EventEmitter<RoomModel> = new EventEmitter<RoomModel>();
+    @Input() preSelectedRoom$: Observable<RoomModel>;
+    @Input() isOpenedRoomPage: boolean;
+  preSelectedRoom: RoomModel;
+
     sRoom: RoomModel;
 
     rooms: RoomModel[] = [];
 
     constructor(
-        private roomService: RoomService
-    ) {}
+        private roomService: RoomService,
+        private store: Store<mainReducer.State>
+
+    ) {
+      this.preSelectedRoom$ = this.store.select(mainReducer.getRoom);
+      this.preSelectedRoom$.subscribe((room: RoomModel) => {
+          this.preSelectedRoom = room;
+      });
+    }
 
     ngOnInit() {
         this.getAllRooms();

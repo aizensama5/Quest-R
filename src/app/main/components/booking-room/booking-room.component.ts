@@ -10,11 +10,12 @@ import { RoomModel } from '../../../models/room.model';
 })
 export class BookingRoomComponent implements OnInit {
   @Output() selectedRoom: EventEmitter<RoomModel> = new EventEmitter<RoomModel>();
+  @Output() selectedDate: EventEmitter<string> = new EventEmitter<string>();
 
   rooms: RoomModel[] = [];
 
   constructor(
-    private roomService: RoomService
+    private roomService: RoomService,
   ) {}
 
   ngOnInit() {
@@ -29,5 +30,10 @@ export class BookingRoomComponent implements OnInit {
 
   onSelectedRoom(room: RoomModel) {
     this.selectedRoom.emit(room);
+
+  }
+
+  reserve(date) {
+    this.selectedDate.emit(date);
   }
 }

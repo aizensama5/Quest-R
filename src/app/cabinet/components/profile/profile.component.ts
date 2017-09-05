@@ -17,8 +17,7 @@ export class ProfileComponent {
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private httpClient: HttpClient) {
-    let getId = this.route.snapshot.params.id;
-    getId = parseInt(getId, 10);
-    this.user = this.userService.getUserById(getId);
+    const getId = this.route.snapshot.params.id;
+    this.user = this.userService.getUserById(parseInt(getId, 10));
   }
 }

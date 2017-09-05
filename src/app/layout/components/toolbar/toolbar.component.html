@@ -14,8 +14,8 @@
     </div>
 
     <div class="toolbar__menu">
-        <div class="menu">
-            <a class="menu__link" *ngFor="let link of links">{{ link }}</a>
+        <div class="menu" [routerLink]="'/'">
+            <a class="menu__link" *ngFor="let link of links" (click)="scrollTo(link.target)">{{ link.name }}</a>
         </div>
         <div class="toolbar__lang-mob">
             <span class="active">PL</span>
