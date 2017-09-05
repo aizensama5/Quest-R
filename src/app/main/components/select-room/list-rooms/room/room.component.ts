@@ -23,6 +23,10 @@ export class RoomComponent implements OnInit {
 
     reserve () {
       this.store.dispatch(new roomAction.Select(this.room));
+      document.getElementById('reserved-room').scrollIntoView({
+        block: 'start',
+        behavior: 'smooth'
+      });
     }
 
 }

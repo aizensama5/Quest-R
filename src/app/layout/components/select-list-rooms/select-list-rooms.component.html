@@ -5,7 +5,7 @@
           <option
             *ngFor="let room of rooms"
             [ngValue]="room"
-            [selected]="preSelectedRoom.id === room.id">
+            [selected]="preSelectedRoom?.id === room?.id">
               {{ room.name }}
           </option>
 </select>

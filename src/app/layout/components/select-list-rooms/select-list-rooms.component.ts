@@ -29,9 +29,7 @@ export class SelectListRoomsComponent implements OnInit {
     ) {
       this.preSelectedRoom$ = this.store.select(mainReducer.getRoom);
       this.preSelectedRoom$.subscribe((room: RoomModel) => {
-        if (room) {
           this.preSelectedRoom = room;
-        }
       });
     }
 

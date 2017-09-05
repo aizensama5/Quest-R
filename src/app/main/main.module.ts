@@ -58,7 +58,7 @@ import { FilterCircleComponent } from './components/select-room/filter-rooms/fil
         ReviewsComponent,
         ReviewComponent,
         MapComponent,
-        FilterCircleComponent,
+        FilterCircleComponent
     ],
     exports: [
       FilterRoomsComponent,
