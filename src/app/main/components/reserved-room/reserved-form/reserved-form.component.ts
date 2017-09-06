@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RoomModel } from '../../../../models/room.model';
 import { ReservationModel } from '../../../../models/reservation.model';
 import { NgForm } from '@angular/forms';
@@ -11,19 +11,18 @@ import { ReservationService } from '../../../../service/http/reservation.service
     templateUrl: 'reserved-form.component.html',
     styleUrls: ['reserved-form.component.scss']
 })
-export class ReservedFormComponent implements OnInit {
+export class ReservedFormComponent {
 
     @Input() room: RoomModel;
     @Input() reserveData: ReservationModel;
     @Input() showOrderingTable: boolean;
     orderData: OrderModel = new OrderModel();
-    resService = new ReservationService();
 
-    ngOnInit() {
-    }
+
+    constructor(private reservationService: ReservationService) {}
 
     convert (day: string) {
-      return this.resService.convertDateToString(day);
+      return this.reservationService.convertDateToString(day);
     }
 
     order(formData: NgForm) {

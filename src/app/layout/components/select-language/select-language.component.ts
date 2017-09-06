@@ -43,8 +43,8 @@ export class SelectLanguageComponent implements OnInit {
         { code: 'en', img: 'assets/images/english.svg' },
     ];
 
-    private selectedLang: ISelectLanguage;
-    private isShowList = false;
+    selectedLang: ISelectLanguage;
+    isShowList = false;
 
     constructor(
         private eRef: ElementRef

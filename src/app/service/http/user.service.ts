@@ -1,22 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {UserModel} from '../../models/user.model';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 
 @Injectable()
 
 export class UserService {
-  private users: UserModel[] = [{
-    id: 1,
-    name: 'Best',
-    surname: 'User',
-    img: 'http://loremflickr.com/150/150/face',
-    level: 30,
-    roomsPassed: 3,
-    token: 'sdasda3121dsq1'
-  }];
+  private static readonly dataBaseName = 'user/';
 
-  getUserById (userId: number): UserModel {
-    const users = this.users;
+  static getUserById (users: UserModel[], userId: number) {
     for (let i = 0; i < users.length; i++) {
       const user = users[i];
       for (const key in user) {
@@ -28,15 +19,16 @@ export class UserService {
     return;
   }
 
-  constructor() {
+  constructor(private dataBaseService: AngularFireDatabase) {}
+
+  addUser(user: UserModel): Promise<void> {
+    return <Promise<void>>this.dataBaseService.object(UserService.dataBaseName + user.id).set(user.toJSON());
   }
 
-  /**
-   * Get all rooms.
-   * @returns <Observable<UserModel[]>>
-   */
-  all(): Observable<UserModel[]> {
-    return Observable.of(this.users);
+  all(): FirebaseListObservable<UserModel[]> {
+    return <FirebaseListObservable<UserModel[]>>this.dataBaseService
+      .list(UserService.dataBaseName)
+      .map((items) => items.map(UserModel.fromJSON));
   }
 }
 

@@ -12,12 +12,12 @@ import {UserModel} from '../../../models/user.model';
   styleUrls: ['profile.component.scss']
 })
 export class ProfileComponent {
-  user: UserModel;
+  user: UserModel[] = [];
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private httpClient: HttpClient) {
     const getId = this.route.snapshot.params.id;
-    this.user = this.userService.getUserById(parseInt(getId, 10));
+    // this.user = this.userService.getUserById(parseInt(getId, 10));
   }
 }

@@ -8,7 +8,7 @@ import { RoomService } from '../../../service/http/room.service';
     templateUrl: 'swiper-room.component.html',
     styleUrls: ['swiper-room.component.scss']
 })
-export class SwiperRoomComponent implements OnInit {
+export class SwiperRoomComponent {
 
     @Input() rooms: RoomModel[] = [];
 
@@ -23,17 +23,13 @@ export class SwiperRoomComponent implements OnInit {
         lazyLoading: true
     };
 
-    constructor(
-        private _roomService: RoomService
-    ) { }
-
-    ngOnInit() {
-        this.getAllRooms();
+    constructor(private _roomService: RoomService) {
+      this.getAllRooms();
     }
 
     protected getAllRooms() {
-        this._roomService.all().subscribe((rooms: RoomModel[]) => {
-            this.rooms = rooms;
-        });
+      this._roomService.all().subscribe((rooms: RoomModel[]) => {
+        this.rooms = rooms;
+      });
     }
 }

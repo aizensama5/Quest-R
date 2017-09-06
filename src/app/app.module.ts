@@ -12,6 +12,11 @@ import { RoomModule } from './room/room.module';
 import { CabinetModule } from './cabinet/cabinet.module';
 import { StoreModule } from '@ngrx/store';
 import * as reducersMain from './reducers';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment.prod';
+
 
 
 
@@ -20,16 +25,21 @@ import './operators';
 
 // components
 import { AppComponent } from './app/app.component';
+import {LoginComponent} from './shared/popup/login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
 
     AppRoutingModule,
     RoomModule,
@@ -38,7 +48,7 @@ import { AppComponent } from './app/app.component';
     MainModule.forRoot(),
     StoreModule.provideStore(reducersMain.reducer),
     CabinetModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

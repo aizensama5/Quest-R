@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MenuLinkModel } from '../../../models/menu-link.model';
 
 @Component({
@@ -8,8 +8,9 @@ import { MenuLinkModel } from '../../../models/menu-link.model';
     styleUrls: ['toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
+    @Output() showLoginPopup = false;
 
-    private links: MenuLinkModel[] = [
+    links: MenuLinkModel[] = [
       {
         name: 'Квесты',
         target: 'quests'
@@ -43,5 +44,9 @@ export class ToolbarComponent implements OnInit {
         block: 'start',
         behavior: 'smooth'
       });
+    }
+
+    showPopup() {
+      this.showLoginPopup = true;
     }
 }

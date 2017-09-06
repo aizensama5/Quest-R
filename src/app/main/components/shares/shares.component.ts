@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Shares } from '../../../models/shares.model';
+import { SharesModel } from '../../../models/shares.model';
 import { SharesService } from '../../../service/http/shares.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { SharesService } from '../../../service/http/shares.service';
 })
 export class SharesComponent implements OnInit {
 
-    @Input() shares: Shares[] = [];
+    @Input() shares: SharesModel[] = [];
 
     config: Object = {
         slidesPerView: 2,
@@ -31,7 +31,7 @@ export class SharesComponent implements OnInit {
     }
 
     getAllShares() {
-        this._sharesService.all().subscribe((shares: Shares[]) => {
+        this._sharesService.all().subscribe((shares: SharesModel[]) => {
            this.shares = shares;
         });
     }
