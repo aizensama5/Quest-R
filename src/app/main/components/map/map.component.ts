@@ -11,17 +11,13 @@ import 'rxjs/add/operator/map';
     templateUrl: 'map.component.html',
     styleUrls: ['map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
 
     marksRoom: Marker[] = [];
-    firstMarkRoom: Marker;
+    firstMarkRoom: Marker = new Marker();
 
-    constructor(
-        private _roomService: RoomService,
-    ) { }
-
-    ngOnInit() {
-        this.getMarksRooms();
+    constructor(private _roomService: RoomService) {
+      this.getMarksRooms();
     }
 
     getMarksRooms() {

@@ -4,7 +4,6 @@ import { RoomModel } from '../../../models/room.model';
 import { Store } from '@ngrx/store';
 import * as mainReducer from '../../../reducers';
 import {Observable} from 'rxjs/Observable';
-import * as roomAction from '../../../action/room.action';
 
 @Component({
     moduleId: module.id,
@@ -17,7 +16,7 @@ export class SelectListRoomsComponent implements OnInit {
     @Output() selectedRoom: EventEmitter<RoomModel> = new EventEmitter<RoomModel>();
     @Input() preSelectedRoom$: Observable<RoomModel>;
     @Input() isOpenedRoomPage: boolean;
-  preSelectedRoom: RoomModel;
+    preSelectedRoom: RoomModel;
 
     sRoom: RoomModel;
 

@@ -37,6 +37,7 @@ export class ReservedRoomComponent implements OnInit {
         private store: Store<mainReducer.State>,
         private route: ActivatedRoute
     ) {
+      this.getAllRooms();
       this.selectedRoom$ = this.store.select(mainReducer.getRoom);
       this.selectedRoom$.subscribe((room: RoomModel) => {
         if (room) {
@@ -49,7 +50,7 @@ export class ReservedRoomComponent implements OnInit {
       this.roomId = parseInt(this.route.snapshot.params.id, 10);
       this.isOpenedRoomPage = !!this.roomId;
       if (this.isOpenedRoomPage) {
-        this.onSelectRoom(this.roomService.getRoomById(this.roomId));
+        this.onSelectRoom(this.roomService.getRoomById(this.rooms, this.roomId));
       }
     }
 
@@ -61,7 +62,7 @@ export class ReservedRoomComponent implements OnInit {
     getTime(id: number) {
       const timeList = [];
       this.allReservationData.forEach((roomReservationData) => {
-        if (roomReservationData.id === id) {
+        if (roomReservationData.roomId === id) {
           roomReservationData.reservation[0].time.forEach((dayResInfo) => {
             timeList.push(dayResInfo.time);
           });
@@ -71,7 +72,6 @@ export class ReservedRoomComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.getAllRooms();
     }
 
     getAllRooms() {
@@ -91,7 +91,7 @@ export class ReservedRoomComponent implements OnInit {
     roomReservation(id: number) {
       let resData = [];
       this.allReservationData.forEach((roomReservationData) => {
-        if (roomReservationData.id === id) {
+        if (roomReservationData.roomId === id) {
           resData = roomReservationData.reservation;
         }
       });

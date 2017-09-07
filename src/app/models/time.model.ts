@@ -7,4 +7,15 @@ export class TimeModel {
   price: number;
   currency: string;
   background: string;
+
+  constructor () {
+    this.timeSlotId = null;
+    this.time = '';
+    this.is_past = false;
+    this.is_booked = false;
+    this.is_bought = false;
+    this.price = null;
+    this.currency = '';
+    this.background = '';
+  }
 }

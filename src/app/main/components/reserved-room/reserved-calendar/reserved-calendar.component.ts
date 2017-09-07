@@ -19,17 +19,16 @@ export class ReservedCalendarComponent {
   @Input() roomReservationData: ReservationModel[];
   @Input() timeList;
   timeTableItem: ReservationModel = new ReservationModel();
-  resService = new ReservationService();
 
-  constructor() {}
+  constructor(private reservationService: ReservationService) {}
 
   convert (day: string) {
-    return this.resService.convertDateSeparatedBySlash(day);
+    return this.reservationService.convertDateSeparatedBySlash(day);
   }
 
   onSelectedItem(item: TimeModel[], day: string) {
     this.timeTableItem.time = item;
-    this.timeTableItem.day= day;
+    this.timeTableItem.day = day;
     this.selectedItem.emit( this.timeTableItem);
   }
 }

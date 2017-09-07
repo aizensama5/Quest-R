@@ -1,40 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Shares } from '../../models/shares.model';
+import { SharesModel } from '../../models/shares.model';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 
 @Injectable()
 export class SharesService {
+    private static readonly dataBaseName = 'share/';
 
-    private shares: Shares[] = [
-        {
-            img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ojeVTzEVmC4wdYM/photodune-3561813.jpg',
-            descriptions: 'Дорогие именинники и те, кто не знает, что подарить на День Рождения! Лучший подарок - это эмоции!Вы сможете за час стать героем невероятного приключения! Только в Ваш День Рождения мы дарим Вам скидку 100 грн. на каждую комнату!Акции и скидки не суммируются!'
-        },
-        {
-            img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ojeVTzEVmC4wdYM/photodune-3561813.jpg',
-            descriptions: 'Дорогие именинники и те, кто не знает, что подарить на День Рождения! Лучший подарок - это эмоции!Вы сможете за час стать героем невероятного приключения! Только в Ваш День Рождения мы дарим Вам скидку 100 грн. на каждую комнату!Акции и скидки не суммируются!'
-        },
-        {
-            img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ojeVTzEVmC4wdYM/photodune-3561813.jpg',
-            descriptions: 'Дорогие именинники и те, кто не знает, что подарить на День Рождения! Лучший подарок - это эмоции!Вы сможете за час стать героем невероятного приключения! Только в Ваш День Рождения мы дарим Вам скидку 100 грн. на каждую комнату!Акции и скидки не суммируются!'
-        },
-        {
-            img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ojeVTzEVmC4wdYM/photodune-3561813.jpg',
-            descriptions: 'Дорогие именинники и те, кто не знает, что подарить на День Рождения! Лучший подарок - это эмоции!Вы сможете за час стать героем невероятного приключения! Только в Ваш День Рождения мы дарим Вам скидку 100 грн. на каждую комнату!Акции и скидки не суммируются!'
-        },
-        {
-            img: 'https://s3.amazonaws.com/uploads.hipchat.com/531492/4408974/ojeVTzEVmC4wdYM/photodune-3561813.jpg',
-            descriptions: 'Дорогие именинники и те, кто не знает, что подарить на День Рождения! Лучший подарок - это эмоции!Вы сможете за час стать героем невероятного приключения! Только в Ваш День Рождения мы дарим Вам скидку 100 грн. на каждую комнату!Акции и скидки не суммируются!'
-        }
-    ];
+    constructor(private dataBaseService: AngularFireDatabase) {}
 
-    constructor() {}
+    addShare(share: SharesModel): Promise<void> {
+      return <Promise<void>>this.dataBaseService.object(SharesService.dataBaseName + share.id).set(share.toJSON());
+    }
 
-    /**
-     * Get all shares.
-     * @returns <Observable<Shares[]>>
-     */
-    all(): Observable<Shares[]> {
-        return Observable.of(this.shares);
+    all(): FirebaseListObservable<SharesModel[]> {
+      return <FirebaseListObservable<SharesModel[]>>this.dataBaseService
+        .list(SharesService.dataBaseName)
+        .map((items) => items.map(SharesModel.fromJSON));
     }
 }

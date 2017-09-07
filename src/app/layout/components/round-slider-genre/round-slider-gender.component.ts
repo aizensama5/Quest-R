@@ -30,9 +30,9 @@ export class RoundSliderGenderComponent implements OnInit {
 
     container: any;
 
-    private leftArr = [];
-    private rightArr = [];
-    private _genres: any[];
+    leftArr = [];
+    rightArr = [];
+    _genres: any[];
 
     constructor() {}
 

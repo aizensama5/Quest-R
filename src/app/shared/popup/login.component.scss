@@ -1,0 +1,46 @@
+@import "../../../assets/styles/variables";
+
+
+.login-popup {
+  width: 800px;
+  margin: 0 auto;
+  height: auto;
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 0 38px 1px rgba(255, 255, 255, 0.37);
+  &__title {
+    @include text-mixin($color-black, 18px, $font-gotham-pro-medium);
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-align: center;
+    padding: 25px 0 34px;
+  }
+  &__social-wrapper {
+    width: 574px;
+    margin: 0 auto 38px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__social {
+    width: 60.6px;
+    height: 60.6px;
+    margin: 0 auto;
+    border-radius: 50%;
+    &--facebook {
+      background-color: #3b5998;
+    }
+    &--vk {
+      background-color: #4d76a1;
+    }
+    &--twitter {
+      background-color: #55acee;
+    }
+    &--google {
+      background-color: #dc4e41;
+    }
+    i {
+      font-size: 46px;
+      text-align: center;
+    }
+  }
+}
