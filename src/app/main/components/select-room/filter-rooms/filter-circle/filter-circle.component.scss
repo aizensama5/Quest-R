@@ -33,7 +33,7 @@
             transform: translateX(-50%) translateY(-50%);
             z-index: 1000;
             &--genre {
-                background-color: $color-yellow-light-2;
+                background-color: transparent;
             }
         }
 
@@ -54,7 +54,7 @@
             margin-bottom: 36px;
             &--genre {
                 margin: auto;
-                color: $color-blue-2;
+                color: $color-white;
                 letter-spacing: normal;
             }
         }

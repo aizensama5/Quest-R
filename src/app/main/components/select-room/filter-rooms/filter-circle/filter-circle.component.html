@@ -1,15 +1,17 @@
 <div class="filter-circle__circle">
     <!-- Count players -->
     <app-layout-round-slider
-        *ngIf="false"
+        *ngIf="displayPlayersCircle"
         #roundSlider
         [width]="480"
         [height]="480"
         [radius]="205"
         [thick]="72"
-        [(value)]="value"
+        [(value)]="valuePlayers"
         [min]="minCountPlayers"
         [max]="maxCountPlayers"
+        [step]="playerStep"
+        [valueStep]="playerValueStep"
         class="filter-circle__slider"
     >
         <div class="filter-circle__small-circle">
@@ -27,18 +29,53 @@
     </app-layout-round-slider>
     <!-- End count players -->
 
+  <!-- Price -->
+  <app-layout-round-slider
+    *ngIf="displayPriceCircle"
+    #roundSlider
+    [width]="480"
+    [height]="480"
+    [radius]="205"
+    [thick]="72"
+    [(value)]="valuePrice"
+    [min]="minPrice"
+    [max]="maxPrice"
+    [step]="priceStep"
+    [valueStep]="priceValueStep"
+    class="filter-circle__slider"
+  >
+    <div class="filter-circle__small-circle">
+      <div class="filter-circle__count-players">
+        <h2 class="filter-circle__title">CENA</h2>
+        <input
+          (input)="value = $event.target.value"
+          type="number"
+          class="filter-circle__input"
+          #input
+        >
+        <span class="filter-circle__description">złoty</span>
+      </div>
+    </div>
+  </app-layout-round-slider>
+  <!-- End price -->
+
     <!--Genre-->
     <app-layout-round-slider-gender
-        *ngIf="true"
+        *ngIf="displayGenreCircle"
         [width]="480"
         [height]="480"
         [radius]="205"
         [thick]="72"
         [genres]="genres"
         (selectedGender)="selectedGenre = $event"
+        (state)="_state"
+        [@circleAnimation]="_state"
     >
-        <div class="filter-circle__small-circle filter-circle__small-circle--genre">
-            <h2 class="filter-circle__title filter-circle__title--genre">{{ selectedGenre?.legend }}</h2>
+        <div class="filter-circle__small-circle filter-circle__small-circle--genre" *ngIf="!selectedGenre">
+          <h2 class="filter-circle__title filter-circle__title--genre">GANRE</h2>
+        </div>
+        <div class="filter-circle__small-circle filter-circle__small-circle--genre" [ngStyle]="{'background-color': selectedGenre?.color}">
+          <h2 class="filter-circle__title filter-circle__title--genre">{{ selectedGenre?.legend }}</h2>
         </div>
     </app-layout-round-slider-gender>
     <!--End genre-->

@@ -12,18 +12,21 @@ export class RoundSliderComponent implements OnInit {
     @Input() width = 120;
     @Input() height = 120;
     @Input() radius = 45;
-
     @Input() thick = 5;
 
-    @Input() max = 8;
-    @Input() min = 0;
+    @Input() max: number;
+    @Input() min: number;
 
-    private _value: number;
+    @Input() step: number;
+    @Input() valueStep: number;
+
+
+  private _value: number;
     @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Input()
     get value(): number {
-        return this._value;
+      return this._value;
     }
 
     set value(value: number) {
@@ -31,7 +34,7 @@ export class RoundSliderComponent implements OnInit {
         this._value = value || 0;
 
         if (this.dot) {
-            const crossCoord = this.getCoordByAngle(this.gradToRad(this._value * (360 / this.max)));
+            const crossCoord = this.getCoordByAngle(this.gradToRad(this._value * (this.step)));
             this.moveDotToPosition(crossCoord.x, crossCoord.y, this.dot.node());
         }
     }
@@ -41,7 +44,7 @@ export class RoundSliderComponent implements OnInit {
     arc: any;
     dot: any;
 
-    constructor(private element: ElementRef) { }
+    constructor(private element: ElementRef) {}
 
     ngOnInit() {
 
@@ -98,10 +101,7 @@ export class RoundSliderComponent implements OnInit {
     }
 
     private drawCircleScale() {
-
-        const step = 360 / this.max;
-
-        for (let i = 0; i <= 360; i += step) {
+        for (let i = 0; i <= 360; i += this.step) {
             const angle = this.getCoordByAngle(this.gradToRad(i));
             this.container
                 .append('g')
@@ -157,18 +157,21 @@ export class RoundSliderComponent implements OnInit {
     }
 
     private getNearestAngle(angleGrad: number): {angle: number, index: number} {
-        const step = 360 / this.max;
         let min = 360;
         let currentAngle = 0;
         let currentIndex = 0;
 
-        for (let i = 0, index = 0; i <= 360; i += step, index++) {
+        for (let i = 0, index = 0; i <= 360; i += this.step, index += this.valueStep) {
+          console.log(this.step);
+          console.log(index);
+          console.log(i);
             const diff = Math.abs(angleGrad - i);
             if (diff < min) {
                 min = diff;
                 currentAngle = i;
                 currentIndex = index;
             }
+          console.log(i);
         }
         return { angle: currentAngle, index: currentIndex };
     }

@@ -11,6 +11,7 @@ import { SelectModule } from 'angular2-select';
 // services
 import { ReservationService } from '../service/http/reservation.service';
 
+
 // components
 import { MainComponent } from './components/main/main.component';
 import { SwiperRoomComponent } from './components/swiper-room/swiper-room.component';

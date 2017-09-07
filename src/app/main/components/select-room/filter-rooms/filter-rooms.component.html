@@ -5,13 +5,13 @@
             [listOptions]="complexity"
         ></app-layout-select-dropdown>
     </li>
-    <li class="filter-rooms__item">
+    <li class="filter-rooms__item" (click)="displayPlayersCircle()">
         GRACZE
     </li>
-    <li class="filter-rooms__item">
+    <li class="filter-rooms__item" (click)="displayGenreCircle()">
         GANRE
     </li>
-    <li class="filter-rooms__item">
+    <li class="filter-rooms__item" (click)="displayPriceCircle()">
         CENA
     </li>
     <li class="filter-rooms__item">
@@ -21,4 +21,7 @@
         ></app-layout-select-dropdown>
     </li>
 </ul>
-<app-main-filter-circle></app-main-filter-circle>
+<app-main-filter-circle [displayPlayersCircle]="isDisplayPlayersCircle"
+                        [displayGenreCircle]="isDisplayGenreCircle"
+                        [displayPriceCircle]="isDisplayPriceCircle"
+></app-main-filter-circle>

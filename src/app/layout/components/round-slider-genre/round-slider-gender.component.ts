@@ -2,122 +2,130 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
-    moduleId: module.id,
-    selector: 'app-layout-round-slider-gender',
-    templateUrl: 'round-slider-gender.component.html',
-    styleUrls: ['round-slider-gender.component.scss']
+  moduleId: module.id,
+  selector: 'app-layout-round-slider-gender',
+  templateUrl: 'round-slider-gender.component.html',
+  styleUrls: ['round-slider-gender.component.scss'],
 })
 export class RoundSliderGenderComponent implements OnInit {
 
-    @Input() width = 120;
-    @Input() height = 120;
-    @Input() radius = 45;
-    @Input() thick = 5;
+  @Input() width = 120;
+  @Input() height = 120;
+  @Input() radius = 45;
+  @Input() thick = 5;
 
-    @Input() set genres(genres: any[]) {
-        this._genres = genres.map(item => Object.assign({}, item, {value: 1}));
+  @Input()
+  set genres(genres: any[]) {
+    this._genres = genres.map(item => Object.assign({}, item, {value: 1}));
 
-        const arr = this.divideArray(this._genres);
-        this.leftArr = arr.left;
-        this.rightArr = arr.right;
-    }
+    const arr = this.divideArray(this._genres);
+    this.leftArr = arr.left;
+    this.rightArr = arr.right;
+  }
 
-    get genres(): any[] {
-        return this._genres;
-    }
+  get genres(): any[] {
+    return this._genres;
+  }
 
-    @Output() selectedGender: EventEmitter<any> = new EventEmitter<any>();
 
-    container: any;
+  @Output() selectedGender: EventEmitter<any> = new EventEmitter<any>();
+  @Output() state: EventEmitter<string> = new EventEmitter<string>();
 
-    leftArr = [];
-    rightArr = [];
-    _genres: any[];
 
-    constructor() {}
+  container: any;
 
-    ngOnInit() {
-        const host = d3.selectAll('.round-slider-genre__container');
+  leftArr = [];
+  rightArr = [];
+  _genres: any[];
+  _state = 'start';
 
-        const svg = host.append('svg')
-            .attr('width', this.width)
-            .attr('height', this.height)
-            .attr('class', 'container')
-            .append('g')
-            .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
+  constructor() {
+  }
 
-        this.container = svg.append('g');
+  ngOnInit() {
+    const host = d3.selectAll('.round-slider-genre__container');
 
-        const arc = d3.arc()
-            .innerRadius(this.radius - (this.thick / 2))
-            .outerRadius(this.radius + (this.thick / 2));
+    const svg = host.append('svg')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .attr('class', 'container')
+      .append('g')
+      .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
 
-        const pie = d3.pie()
-            .sort(null)
-            .value(d => d.value);
+    this.container = svg.append('g');
 
-        const g = svg.selectAll('.fan')
-            .data(pie(this.genres))
-            .enter()
-            .append('g')
-            .attr('class', 'fan')
-            .on('click', (d: any) => {
-                this.selectedGender.emit(d.data);
-            });
+    const arc = d3.arc()
+      .innerRadius(this.radius - (this.thick / 2))
+      .outerRadius(this.radius + (this.thick / 2));
 
-        // this.drawFilterPie();
+    const pie = d3.pie()
+      .sort(null)
+      .value(d => d.value);
 
-        g.append('path')
-            .attr('d', arc)
-            .attr('fill', d => d.data.color);
-    }
+    const g = svg.selectAll('.fan')
+      .data(pie(this.genres))
+      .enter()
+      .append('g')
+      .attr('class', 'fan')
+      .on('click', (d: any) => {
+        this.selectedGender.emit(d.data);
+      });
 
-    selectedCircle(genre: any) {
-        this.selectedGender.emit(genre);
-    }
+    // this.drawFilterPie();
 
-    private drawFilterPie() {
-        const defs = this.container.append('defs'),
-            filter = defs.append('filter')
-                .attr('id', 'dropshadow');
+    g.append('path')
+      .attr('d', arc)
+      .attr('fill', d => d.data.color);
+  }
 
-        filter.append('feGaussianBlur')
-            .attr('in', 'SourceAlpha')
-            .attr('stdDeviation', 9)
-            .attr('result', 'blur');
-        filter.append('feOffset')
-            .attr('in', 'blur')
-            .attr('dx', 2)
-            .attr('dy', 2)
-            .attr('result', 'offsetBlur');
+  selectedCircle(genre: any) {
+    this.selectedGender.emit(genre);
+    this._state = (this._state === 'start' ? 'finish' : 'start');
+    this.state.emit(this._state);
+  }
 
-        filter.append('feFlood')
-            .attr('in', 'offsetBlur')
-            .attr('flood-color', '#ffffff')
-            .attr('flood-opacity', '0.66')
-            .attr('result', 'offsetColor');
+  private drawFilterPie() {
+    const defs = this.container.append('defs'),
+      filter = defs.append('filter')
+        .attr('id', 'dropshadow');
 
-        filter.append('feComposite')
-            .attr('in', 'offsetColor')
-            .attr('in2', 'offsetBlur')
-            .attr('operator', 'in')
-            .attr('result', 'offsetBlur');
+    filter.append('feGaussianBlur')
+      .attr('in', 'SourceAlpha')
+      .attr('stdDeviation', 9)
+      .attr('result', 'blur');
+    filter.append('feOffset')
+      .attr('in', 'blur')
+      .attr('dx', 2)
+      .attr('dy', 2)
+      .attr('result', 'offsetBlur');
 
-        const feMerge = filter.append('feMerge');
+    filter.append('feFlood')
+      .attr('in', 'offsetBlur')
+      .attr('flood-color', '#ffffff')
+      .attr('flood-opacity', '0.66')
+      .attr('result', 'offsetColor');
 
-        feMerge.append('feMergeNode')
-            .attr('in', 'offsetBlur');
+    filter.append('feComposite')
+      .attr('in', 'offsetColor')
+      .attr('in2', 'offsetBlur')
+      .attr('operator', 'in')
+      .attr('result', 'offsetBlur');
 
-        feMerge.append('feMergeNode')
-            .attr('in', 'SourceGraphic');
-    }
+    const feMerge = filter.append('feMerge');
 
-    private divideArray(arr: any[]): {left: any[], right: any[]} {
-        const mid = Math.ceil(arr.length / 2);
-        return {
-            left: arr.slice(0, mid),
-            right: arr.slice(mid)
-        };
-    }
+    feMerge.append('feMergeNode')
+      .attr('in', 'offsetBlur');
+
+    feMerge.append('feMergeNode')
+      .attr('in', 'SourceGraphic');
+  }
+
+  private divideArray(arr: any[]): { left: any[], right: any[] } {
+    const mid = Math.ceil(arr.length / 2);
+    return {
+      left: arr.slice(0, mid),
+      right: arr.slice(mid)
+    };
+  }
 
 }
