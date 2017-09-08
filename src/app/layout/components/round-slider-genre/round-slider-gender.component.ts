@@ -1,11 +1,26 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as d3 from 'd3';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import {GenreModel} from '../../../models/genre.model';
+
 
 @Component({
   moduleId: module.id,
   selector: 'app-layout-round-slider-gender',
   templateUrl: 'round-slider-gender.component.html',
   styleUrls: ['round-slider-gender.component.scss'],
+  animations: [
+    trigger('circleAnimation',
+      [
+        state('start', style({
+          transform: 'rotate(0deg)'
+        })),
+        state('finish', style({
+          transform: 'rotate(360deg)'
+        })),
+        transition('start => finish', animate('1s ease-in'))
+      ]),
+  ]
 })
 export class RoundSliderGenderComponent implements OnInit {
 
@@ -28,8 +43,7 @@ export class RoundSliderGenderComponent implements OnInit {
   }
 
 
-  @Output() selectedGender: EventEmitter<any> = new EventEmitter<any>();
-  @Output() state: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selectedGender: EventEmitter<GenreModel> = new EventEmitter<GenreModel>();
 
 
   container: any;
@@ -37,7 +51,7 @@ export class RoundSliderGenderComponent implements OnInit {
   leftArr = [];
   rightArr = [];
   _genres: any[];
-  _state = 'start';
+  state = 'start';
 
   constructor() {
   }
@@ -78,10 +92,9 @@ export class RoundSliderGenderComponent implements OnInit {
       .attr('fill', d => d.data.color);
   }
 
-  selectedCircle(genre: any) {
+  selectedCircle(genre: GenreModel) {
     this.selectedGender.emit(genre);
-    this._state = (this._state === 'start' ? 'finish' : 'start');
-    this.state.emit(this._state);
+    this.state = 'finish';
   }
 
   private drawFilterPie() {
@@ -126,6 +139,14 @@ export class RoundSliderGenderComponent implements OnInit {
       left: arr.slice(0, mid),
       right: arr.slice(mid)
     };
+  }
+
+  animationDone () {
+    this.state = 'start';
+  }
+
+  animationStart () {
+    this.state = 'finish';
   }
 
 }

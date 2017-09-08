@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RoomModel } from '../../../../../models/room.model';
 import * as mainReducer from '../../../../../reducers';
 import { Store } from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 import * as roomAction from '../../../../../action/room.action';
 
 

@@ -162,16 +162,12 @@ export class RoundSliderComponent implements OnInit {
         let currentIndex = 0;
 
         for (let i = 0, index = 0; i <= 360; i += this.step, index += this.valueStep) {
-          console.log(this.step);
-          console.log(index);
-          console.log(i);
             const diff = Math.abs(angleGrad - i);
             if (diff < min) {
                 min = diff;
                 currentAngle = i;
                 currentIndex = index;
             }
-          console.log(i);
         }
         return { angle: currentAngle, index: currentIndex };
     }

@@ -1,26 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import {GenreService} from '../../../../../service/genre.service';
 import {GenreModel} from '../../../../../models/genre.model';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import * as mainReducer from '../../../../../reducers';
+import {Store} from '@ngrx/store';
+import * as genreAction from '../../../../../action/genre.action';
+
 
 
 @Component({
     moduleId: module.id,
     selector: 'app-main-filter-circle',
     templateUrl: 'filter-circle.component.html',
-    styleUrls: ['filter-circle.component.scss'],
-    animations: [
-      trigger('circleAnimation',
-        [
-          state('start', style({
-            transform: 'rotate(0deg)'
-          })),
-          state('finish', style({
-            transform: 'rotate(360deg)'
-          })),
-          transition('start => finish', animate('500ms ease-in'))
-        ]),
-    ]
+    styleUrls: ['filter-circle.component.scss']
 })
 export class FilterCircleComponent implements OnInit {
 
@@ -31,13 +22,13 @@ export class FilterCircleComponent implements OnInit {
     minCountPlayers = 0;
     maxCountPlayers = 8;
 
+
     priceValueStep = 10;
     playerValueStep = 1;
 
     minPrice = 0;
     maxPrice = 100;
 
-    _state: string;
 
     priceStep = 36;
     playerStep = 360 / this.maxCountPlayers;
@@ -84,7 +75,8 @@ export class FilterCircleComponent implements OnInit {
     }
 
     set selectedGenre(genre: any) {
-        this._genre = genre;
+      this.store.dispatch(new genreAction.Select(genre));
+      this._genre = genre;
     }
 
     get selectedGenre(): any {
@@ -102,7 +94,10 @@ export class FilterCircleComponent implements OnInit {
         {id: 8, legend: 'Книги/кино', color: '#ff0080'}
     ];
 
-    constructor(private genreService: GenreService) {}
+    constructor(
+      private genreService: GenreService,
+      private store: Store<mainReducer.State>
+    ) {}
 
     ngOnInit() {
       this.genreService.all().subscribe((genres) => {

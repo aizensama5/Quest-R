@@ -68,8 +68,6 @@
         [thick]="72"
         [genres]="genres"
         (selectedGender)="selectedGenre = $event"
-        (state)="_state"
-        [@circleAnimation]="_state"
     >
         <div class="filter-circle__small-circle filter-circle__small-circle--genre" *ngIf="!selectedGenre">
           <h2 class="filter-circle__title filter-circle__title--genre">GANRE</h2>
