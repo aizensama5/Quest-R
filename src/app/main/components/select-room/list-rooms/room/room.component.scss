@@ -2,11 +2,13 @@
 
 :host /deep/ {
   width: 471px;
+  max-width: 471px;
   height: 460px;
   display: block;
   position: relative;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   border-radius: 4px;
+  flex-grow: 1;
   .room {
 
     &__header {

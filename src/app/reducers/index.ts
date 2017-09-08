@@ -1,4 +1,5 @@
 import * as roomReducer from './room.reducer';
+import * as genreReducer from './genre.reducer';
 import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { ActionReducer, combineReducers } from '@ngrx/store';
@@ -7,10 +8,12 @@ import { createSelector } from 'reselect';
 
 export interface State {
   room: roomReducer.State;
+  genre: genreReducer.State;
 }
 
 export const reducers = {
-  room: roomReducer.reducer
+  room: roomReducer.reducer,
+  genre: genreReducer.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -30,6 +33,15 @@ export function reducer(state: any, action: any) {
 export const getRoomState = (state: State) => state.room;
 
 export const getRoom = createSelector(getRoomState, roomReducer.getSelectedRoom);
+
+/**
+ * Genre Reducers
+ */
+export const getGenreState = (state: State) => state.genre;
+
+export const getGenre = createSelector(getGenreState, genreReducer.getSelectedGenre);
+
+
 
 
 

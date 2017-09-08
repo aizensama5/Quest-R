@@ -1,10 +1,18 @@
 <div class="round-slider-genre__wrapper round-slider-genre__wrapper--left">
-    <div class="round-slider-genre__item" *ngFor="let item of leftArr" (click)="selectedCircle(item)">
+    <div class="round-slider-genre__item"
+         *ngFor="let item of leftArr"
+         (click)="selectedCircle(item)"
+    >
         <div class="round-slider-genre__color" [ngStyle]="{'background-color': item.color}"></div>
         <div class="round-slider-genre__text">{{ item.legend }}</div>
     </div>`
 </div>
-<div class="round-slider-genre__container" [ngStyle]="{'width':width+'px', 'height':height+'px'}">
+<div class="round-slider-genre__container"
+     [ngStyle]="{'width':width+'px', 'height':height+'px'}"
+     [@circleAnimation]="state"
+     (@circleAnimation.done)="animationDone()"
+     (@circleAnimation.start)="animationStart()"
+>
     <ng-content></ng-content>
 </div>
 <div class="round-slider-genre__wrapper round-slider-genre__wrapper--right">

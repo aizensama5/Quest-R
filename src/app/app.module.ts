@@ -16,6 +16,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
+import { GenreService } from './service/genre.service';
+
 
 
 
@@ -37,6 +39,7 @@ import {LoginComponent} from './shared/popup/login.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -50,7 +53,9 @@ import {LoginComponent} from './shared/popup/login.component';
     CabinetModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    GenreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Marker } from './marker.model';
 import { FirebaseUtils } from '../shared/firebase.utils';
+import {GenreModel} from './genre.model';
 
 export class RoomModel {
   id: number;
@@ -12,6 +13,8 @@ export class RoomModel {
   position: Marker;
   additionalAbilities: string;
   prevention: string;
+  ganre: GenreModel;
+  displayOnMain: boolean;
 
   static fromJSON(values) {
     const room = new RoomModel();
@@ -43,5 +46,7 @@ export class RoomModel {
     this.position = new Marker();
     this.additionalAbilities = '';
     this.prevention = '';
+    this.ganre = new GenreModel();
+    this.displayOnMain = false;
   }
 }
