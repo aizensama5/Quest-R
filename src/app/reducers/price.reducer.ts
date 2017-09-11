@@ -1,7 +1,8 @@
 import * as priceAction from '../action/price.action';
+import { SelectedPriceModel } from '../models/selected-price.model';
 
 export interface State {
-  selectedPrice: number;
+  selectedPrice: SelectedPriceModel;
 }
 
 export const initialState: State = {

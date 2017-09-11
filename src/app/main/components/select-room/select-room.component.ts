@@ -5,6 +5,8 @@ import { GenreModel } from '../../../models/genre.model';
 import * as mainReducer from '../../../reducers';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import {SelectedPriceModel} from '../../../models/selected-price.model';
+import {SelectedPlayersCountModel} from '../../../models/selected-playersCount.model';
 
 
 @Component({
@@ -18,10 +20,10 @@ export class SelectRoomComponent implements OnInit {
   allRooms: RoomModel[] = [];
   selectedGenre: GenreModel = new GenreModel();
   selectedGenre$: Observable<GenreModel>;
-  selectedPrice = null;
-  selectedPrice$: Observable<number>;
-  selectedCountPlayers = null;
-  selectedCountPlayers$: Observable<number>;
+  selectedPrice: SelectedPriceModel = new SelectedPriceModel();
+  selectedPrice$: Observable<SelectedPriceModel>;
+  selectedCountPlayers: SelectedPlayersCountModel = new SelectedPlayersCountModel();
+  selectedCountPlayers$: Observable<SelectedPlayersCountModel>;
 
   constructor(
     private roomService: RoomService,
@@ -38,15 +40,13 @@ export class SelectRoomComponent implements OnInit {
     });
 
     this.selectedPrice$ = this.store.select(mainReducer.getPrice);
-    this.selectedPrice$.subscribe((price: number) => {
-      console.log('price -- ', price);
+    this.selectedPrice$.subscribe((price: SelectedPriceModel) => {
       this.selectedPrice = price;
       this.getFilteredByPrice();
     });
 
     this.selectedCountPlayers$ = this.store.select(mainReducer.getPlayersCount);
-    this.selectedCountPlayers$.subscribe((count: number) => {
-      console.log('count of players -- ', count);
+    this.selectedCountPlayers$.subscribe((count: SelectedPlayersCountModel) => {
       this.selectedCountPlayers = count;
       this.getFilteredByCountOfPlayers();
     });
@@ -66,7 +66,7 @@ export class SelectRoomComponent implements OnInit {
 
   getFilteredByCountOfPlayers(): void {
     if (this.selectedCountPlayers) {
-      this.roomService.filterByCountOfPlayers(this.allRooms, this.selectedCountPlayers).subscribe((filteredRooms: RoomModel[]) => {
+      this.roomService.filterByCountOfPlayers(this.allRooms, this.selectedCountPlayers.countPlayers).subscribe((filteredRooms: RoomModel[]) => {
         this.rooms = filteredRooms;
       });
     }
@@ -74,7 +74,7 @@ export class SelectRoomComponent implements OnInit {
 
   getFilteredByPrice(): void {
     if (this.selectedPrice) {
-      this.roomService.filterByPrice(this.allRooms, this.selectedPrice).subscribe((filteredRooms: RoomModel[]) => {
+      this.roomService.filterByPrice(this.allRooms, this.selectedPrice.price).subscribe((filteredRooms: RoomModel[]) => {
         this.rooms = filteredRooms;
       });
     }

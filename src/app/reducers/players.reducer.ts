@@ -1,7 +1,8 @@
 import * as playersAction from '../action/players.action';
+import { SelectedPlayersCountModel } from '../models/selected-playersCount.model';
 
 export interface State {
-  selectedCountPlayers: number;
+  selectedCountPlayers: SelectedPlayersCountModel;
 }
 
 export const initialState: State = {

@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import * as genreAction from '../../../../../action/genre.action';
 import * as playerAction from '../../../../../action/players.action';
 import * as priceAction from '../../../../../action/price.action';
+import { SelectedPlayersCountModel } from '../../../../../models/selected-playersCount.model';
+import { SelectedPriceModel } from '../../../../../models/selected-price.model';
 
 
 
@@ -29,8 +31,8 @@ export class FilterCircleComponent implements OnInit {
     minPrice = 0;
     maxPrice = 100;
 
-    _valuePlayersFixed = 0;
-    _valuePriceFixed = 0;
+    _valuePlayersFixed: SelectedPlayersCountModel = new SelectedPlayersCountModel();
+    _valuePriceFixed: SelectedPriceModel = new SelectedPriceModel();
 
 
     priceStep = 360 / this.maxPrice;
@@ -40,6 +42,8 @@ export class FilterCircleComponent implements OnInit {
 
     @ViewChild('inputPrice') inputPrice: ElementRef;
     @ViewChild('inputPlayers') inputPlayers: ElementRef;
+
+    @Output() valueChanged: EventEmitter<number> = new EventEmitter<number>();
 
     private _valuePrice = 0;
     private _valuePlayers = 0;
@@ -65,11 +69,13 @@ export class FilterCircleComponent implements OnInit {
 
     get valuePrice(): number {
       return this._valuePrice;
-    }
+      }
 
     set selectedGenre(genre: any) {
-      this._genre = genre;
-      this.store.dispatch(new genreAction.Select(this._genre));
+      setTimeout(() => {
+        this._genre = genre;
+        this.store.dispatch(new genreAction.Select(this._genre));
+      });
     }
 
     get selectedGenre(): any {
@@ -77,23 +83,29 @@ export class FilterCircleComponent implements OnInit {
     }
 
     set valuePlayersOnFixedPos(value: number) {
-      this.checkValuePlayers(value);
-      this._valuePlayersFixed = this._valuePlayers;
-      this.store.dispatch(new playerAction.Select(this._valuePlayersFixed));
+      setTimeout(() => {
+        this.checkValuePlayers(value);
+        this._valuePlayersFixed = new SelectedPlayersCountModel();
+        this._valuePlayersFixed.countPlayers = this._valuePlayers;
+        this.store.dispatch(new playerAction.Select(this._valuePlayersFixed));
+      });
     }
 
     get valuePlayersOnFixedPos(): number {
-      return this._valuePlayersFixed;
+      return this._valuePlayersFixed.countPlayers;
     }
 
     set valuePriceOnFixedPos(value: number) {
-      this.checkValuePlayers(value);
-      this._valuePriceFixed = this._valuePrice;
-      this.store.dispatch(new priceAction.Select(this._valuePriceFixed));
+      setTimeout(() => {
+        this.checkValuePlayers(value);
+        this._valuePriceFixed = new SelectedPriceModel();
+        this._valuePriceFixed.price = this._valuePrice;
+        this.store.dispatch(new priceAction.Select(this._valuePriceFixed));
+      });
     }
 
     get valuePriceOnFixedPos(): number {
-      return this._valuePriceFixed;
+      return this._valuePriceFixed.price;
     }
 
     private mockGenres: any = [
