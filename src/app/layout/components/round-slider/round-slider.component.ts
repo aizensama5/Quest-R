@@ -18,7 +18,7 @@ export class RoundSliderComponent implements OnInit {
   @Input() min: number;
 
   @Input() step: number;
-  @Input() valueStep: number;
+  @Input() stepMarkValue = 0;
 
 
   private _value: number;
@@ -114,21 +114,26 @@ export class RoundSliderComponent implements OnInit {
   }
 
   private drawCircleScale() {
-    for (let i = 0; i <= 360; i += this.step) {
+    const gContainer = this.container
+      .append('g')
+      .attr('class', 'g-lines');
+    for (let i = 0, index = 0; i <= 360; i += this.step, index++) {
       const angle = this.getCoordByAngle(this.gradToRad(i));
-      this.container
-        .append('g')
-        .attr('transform', () => 'translate(' + (angle.x) + ', ' + angle.y + ')')
-        .append('line')
-        .attr('x1', 0)
-        .attr('y1', -10)
-        .attr('x2', 0)
-        .attr('y2', +10)
-        .attr('transform', () => 'rotate(' + i + ')')
-        .attr('class', 'line');
+      if (!this.stepMarkValue || (this.stepMarkValue && !(index % this.stepMarkValue))) {
+        gContainer
+          .append('g')
+          .attr('transform', () => 'translate(' + (angle.x) + ', ' + angle.y + ')')
+          .attr('id', index)
+          .append('line')
+          .attr('x1', 0)
+          .attr('y1', -10)
+          .attr('x2', 0)
+          .attr('y2', +10)
+          .attr('transform', () => 'rotate(' + i + ')')
+          .attr('class', 'line');
+      }
     }
   }
-
 
   private getCoordByAngle(angle: number) {
 
@@ -176,7 +181,7 @@ export class RoundSliderComponent implements OnInit {
     let currentAngle = 0;
     let currentIndex = 0;
 
-    for (let i = 0, index = 0; i <= 360; i += this.step, index += this.valueStep) {
+    for (let i = 0, index = 0; i <= 360; i += this.step, index++) {
       const diff = Math.abs(angleGrad - i);
       if (diff < min) {
         min = diff;

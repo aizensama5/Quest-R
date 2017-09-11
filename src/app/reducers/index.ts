@@ -1,6 +1,7 @@
 import * as roomReducer from './room.reducer';
 import * as genreReducer from './genre.reducer';
 import * as playersReducer from './players.reducer';
+import * as priceReducer from './price.reducer';
 import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { ActionReducer, combineReducers } from '@ngrx/store';
@@ -10,13 +11,15 @@ import { createSelector } from 'reselect';
 export interface State {
   room: roomReducer.State;
   genre: genreReducer.State;
-  countPlayers: playersReducer.State;
+  playersCount: playersReducer.State;
+  price: priceReducer.State;
 }
 
 export const reducers = {
   room: roomReducer.reducer,
   genre: genreReducer.reducer,
-  playersCount: playersReducer.reducer
+  playersCount: playersReducer.reducer,
+  price: priceReducer.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -48,9 +51,17 @@ export const getGenre = createSelector(getGenreState, genreReducer.getSelectedGe
 /**
  * Players Reducers
  */
-export const getPlayersState = (state: State) => state.countPlayers;
+export const getPlayersState = (state: State) => state.playersCount;
 
-export const getCountPlayers = createSelector(getPlayersState, playersReducer.getSelectCountPlayers);
+export const getPlayersCount = createSelector(getPlayersState, playersReducer.getSelectedCountPlayers);
+
+/**
+ * Price Reducers
+ */
+export const getPriceState = (state: State) => state.price;
+
+export const getPrice = createSelector(getPriceState, priceReducer.getSelectedPrice);
+
 
 
 

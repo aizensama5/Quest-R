@@ -68,7 +68,17 @@ export class RoomService {
   filterByCountOfPlayers(rooms: RoomModel[], count: number): Observable<RoomModel[]> {
     const filteredRooms: RoomModel[] = [];
     rooms.filter((room: RoomModel) => {
-      if (room.maxCountPlayers >= count && room.minCountPlayers <= count) {
+      if (room.countPlayers.maxCountPlayers >= count && room.countPlayers.minCountPlayers <= count) {
+        filteredRooms.push(room);
+      }
+    });
+    return Observable.of(filteredRooms);
+  }
+
+  filterByPrice(rooms: RoomModel[], price: number): Observable<RoomModel[]> {
+    const filteredRooms: RoomModel[] = [];
+    rooms.filter((room: RoomModel) => {
+      if (room.price.maxPrice >= price && room.price.minPrice <= price) {
         filteredRooms.push(room);
       }
     });

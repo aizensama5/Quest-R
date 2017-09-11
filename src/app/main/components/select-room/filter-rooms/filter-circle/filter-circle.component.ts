@@ -5,6 +5,7 @@ import * as mainReducer from '../../../../../reducers';
 import { Store } from '@ngrx/store';
 import * as genreAction from '../../../../../action/genre.action';
 import * as playerAction from '../../../../../action/players.action';
+import * as priceAction from '../../../../../action/price.action';
 
 
 
@@ -23,17 +24,16 @@ export class FilterCircleComponent implements OnInit {
     minCountPlayers = 0;
     maxCountPlayers = 8;
 
-
-    priceValueStep = 10;
-    playerValueStep = 1;
+    stepMarkValue = 10;
 
     minPrice = 0;
     maxPrice = 100;
 
-    _valueFixed = 0;
+    _valuePlayersFixed = 0;
+    _valuePriceFixed = 0;
 
 
-    priceStep = 36;
+    priceStep = 360 / this.maxPrice;
     playerStep = 360 / this.maxCountPlayers;
 
     genres: GenreModel[];
@@ -78,12 +78,22 @@ export class FilterCircleComponent implements OnInit {
 
     set valuePlayersOnFixedPos(value: number) {
       this.checkValuePlayers(value);
-      this.store.dispatch(new playerAction.Select(this._valuePlayers));
+      this._valuePlayersFixed = this._valuePlayers;
+      this.store.dispatch(new playerAction.Select(this._valuePlayersFixed));
     }
 
     get valuePlayersOnFixedPos(): number {
-      return this._valueFixed;
+      return this._valuePlayersFixed;
+    }
 
+    set valuePriceOnFixedPos(value: number) {
+      this.checkValuePlayers(value);
+      this._valuePriceFixed = this._valuePrice;
+      this.store.dispatch(new priceAction.Select(this._valuePriceFixed));
+    }
+
+    get valuePriceOnFixedPos(): number {
+      return this._valuePriceFixed;
     }
 
     private mockGenres: any = [

@@ -79,6 +79,9 @@
             }
 
         }
+      &__input-price {
+        width: 135px;
+      }
 
         &__description {
             @include text-mixin($color-white, 20px, $font-gotham-pro-regular);
