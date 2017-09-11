@@ -54,21 +54,21 @@ export class RoomService {
       .map((items) => items.map(RoomModel.fromJSON));
   }
 
-  // filterByGenre(genreId): FirebaseListObservable<RoomModel[]>  {
-  //   return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
-  //     .list(RoomService.dataBaseName + 'ganre/', {
-  //       query: {
-  //         orderByChild: 'id',
-  //         equalTo: genreId
-  //       }
-  //     })
-  //     .map((items) => items.map(RoomModel.fromJSON));
-  // }
 
   filterByGenre(rooms: RoomModel[], genreId: number): Observable<RoomModel[]> {
     const filteredRooms: RoomModel[] = [];
     rooms.filter((room: RoomModel) => {
       if (room.ganre.id === genreId) {
+        filteredRooms.push(room);
+      }
+    });
+    return Observable.of(filteredRooms);
+  }
+
+  filterByCountOfPlayers(rooms: RoomModel[], count: number): Observable<RoomModel[]> {
+    const filteredRooms: RoomModel[] = [];
+    rooms.filter((room: RoomModel) => {
+      if (room.maxCountPlayers >= count && room.minCountPlayers <= count) {
         filteredRooms.push(room);
       }
     });

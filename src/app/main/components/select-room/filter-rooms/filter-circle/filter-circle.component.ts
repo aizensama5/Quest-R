@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
-import {GenreService} from '../../../../../service/genre.service';
-import {GenreModel} from '../../../../../models/genre.model';
+import { GenreService } from '../../../../../service/genre.service';
+import { GenreModel } from '../../../../../models/genre.model';
 import * as mainReducer from '../../../../../reducers';
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as genreAction from '../../../../../action/genre.action';
+import * as playerAction from '../../../../../action/players.action';
 
 
 
@@ -29,58 +30,60 @@ export class FilterCircleComponent implements OnInit {
     minPrice = 0;
     maxPrice = 100;
 
+    _valueFixed = 0;
+
 
     priceStep = 36;
     playerStep = 360 / this.maxCountPlayers;
 
     genres: GenreModel[];
 
-    @ViewChild('input') input: ElementRef;
+    @ViewChild('inputPrice') inputPrice: ElementRef;
+    @ViewChild('inputPlayers') inputPlayers: ElementRef;
 
-    private _value = 0;
+    private _valuePrice = 0;
+    private _valuePlayers = 0;
     private _genre: any;
 
     set valuePlayers(value: number) {
-        if (value > this.maxCountPlayers) {
-            this._value = this.maxCountPlayers;
-        } else if (value < this.minCountPlayers) {
-            this._value = this.minCountPlayers;
-        } else {
-            this._value = value;
-        }
-        setTimeout(() => {
-            this.input.nativeElement.value = this._value;
-        });
+      this.checkValuePlayers(value);
+      setTimeout(() => {
+        this.inputPlayers.nativeElement.value = this._valuePlayers;
+      });
     }
 
     get valuePlayers(): number {
-        return this._value;
+      return this._valuePlayers;
     }
 
     set valuePrice(value: number) {
-      if (value > this.maxPrice) {
-        this._value = this.maxPrice;
-      } else if (value < this.minPrice) {
-        this._value = this.minPrice;
-      } else {
-        this._value = value;
-      }
+      this.checkValuePrice(value);
       setTimeout(() => {
-        this.input.nativeElement.value = this._value;
+        this.inputPrice.nativeElement.value = this._valuePrice;
       });
     }
 
     get valuePrice(): number {
-      return this._value;
+      return this._valuePrice;
     }
 
     set selectedGenre(genre: any) {
-      this.store.dispatch(new genreAction.Select(genre));
       this._genre = genre;
+      this.store.dispatch(new genreAction.Select(this._genre));
     }
 
     get selectedGenre(): any {
         return this._genre;
+    }
+
+    set valuePlayersOnFixedPos(value: number) {
+      this.checkValuePlayers(value);
+      this.store.dispatch(new playerAction.Select(this._valuePlayers));
+    }
+
+    get valuePlayersOnFixedPos(): number {
+      return this._valueFixed;
+
     }
 
     private mockGenres: any = [
@@ -93,6 +96,26 @@ export class FilterCircleComponent implements OnInit {
         {id: 7, legend: 'Ужасы', color: '#ff0000'},
         {id: 8, legend: 'Книги/кино', color: '#ff0080'}
     ];
+
+    checkValuePlayers (value: number): void {
+      if (value > this.maxCountPlayers) {
+        this._valuePlayers = this.maxCountPlayers;
+      } else if (value < this.minCountPlayers) {
+        this._valuePlayers = this.minCountPlayers;
+      } else {
+        this._valuePlayers = value;
+      }
+    }
+
+    checkValuePrice (value: number): void {
+      if (value > this.maxPrice) {
+        this._valuePrice = this.maxPrice;
+      } else if (value < this.minPrice) {
+        this._valuePrice = this.minPrice;
+      } else {
+        this._valuePrice = value;
+      }
+    }
 
     constructor(
       private genreService: GenreService,

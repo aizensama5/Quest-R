@@ -8,6 +8,7 @@
         [radius]="205"
         [thick]="72"
         [(value)]="valuePlayers"
+        [(valueFixed)]="valuePlayersOnFixedPos"
         [min]="minCountPlayers"
         [max]="maxCountPlayers"
         [step]="playerStep"
@@ -18,10 +19,11 @@
             <div class="filter-circle__count-players">
                 <h2 class="filter-circle__title">GRACZE</h2>
                 <input
-                    (input)="value = $event.target.value"
+                    (input)="valuePlayers = $event.target.value;
+                    valuePlayersOnFixedPos = $event.target.value"
                     type="number"
                     class="filter-circle__input"
-                    #input
+                    #inputPlayers
                 >
                 <span class="filter-circle__description">osób</span>
             </div>
@@ -48,10 +50,10 @@
       <div class="filter-circle__count-players">
         <h2 class="filter-circle__title">CENA</h2>
         <input
-          (input)="value = $event.target.value"
+          (input)="valuePrice = $event.target.value"
           type="number"
           class="filter-circle__input"
-          #input
+          #inputPrice
         >
         <span class="filter-circle__description">złoty</span>
       </div>

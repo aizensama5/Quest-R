@@ -8,13 +8,14 @@ export class RoomModel {
   name: string;
   img: string;
   duration: string;
-  countPerson: string;
   level: string;
   position: Marker;
   additionalAbilities: string;
   prevention: string;
   ganre: GenreModel;
   displayOnMain: boolean;
+  minCountPlayers: number;
+  maxCountPlayers: number;
 
   static fromJSON(values) {
     const room = new RoomModel();
@@ -41,12 +42,13 @@ export class RoomModel {
     this.name = '';
     this.img = '';
     this.duration = '';
-    this.countPerson = '';
     this.level = '';
     this.position = new Marker();
     this.additionalAbilities = '';
     this.prevention = '';
     this.ganre = new GenreModel();
     this.displayOnMain = false;
+    this.minCountPlayers = null;
+    this.maxCountPlayers = null;
   }
 }
