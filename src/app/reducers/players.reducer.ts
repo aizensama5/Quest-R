@@ -22,4 +22,4 @@ export function reducer(
   }
 }
 
-export const getSelectCountPlayers = (state: State) => state.selectedCountPlayers;
+export const getSelectedCountPlayers = (state: State) => state.selectedCountPlayers;

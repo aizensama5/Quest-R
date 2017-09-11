@@ -1,6 +1,8 @@
 import { Marker } from './marker.model';
 import { FirebaseUtils } from '../shared/firebase.utils';
-import {GenreModel} from './genre.model';
+import { GenreModel } from './genre.model';
+import { PlayerModel } from './player.model';
+import { PriceModel } from './price.model';
 
 export class RoomModel {
   id: number;
@@ -14,8 +16,8 @@ export class RoomModel {
   prevention: string;
   ganre: GenreModel;
   displayOnMain: boolean;
-  minCountPlayers: number;
-  maxCountPlayers: number;
+  countPlayers: PlayerModel;
+  price: PriceModel;
 
   static fromJSON(values) {
     const room = new RoomModel();
@@ -48,7 +50,7 @@ export class RoomModel {
     this.prevention = '';
     this.ganre = new GenreModel();
     this.displayOnMain = false;
-    this.minCountPlayers = null;
-    this.maxCountPlayers = null;
+    this.countPlayers = new PlayerModel();
+    this.price = new PriceModel();
   }
 }

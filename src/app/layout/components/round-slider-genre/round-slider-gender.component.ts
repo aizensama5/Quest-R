@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as d3 from 'd3';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import {GenreModel} from '../../../models/genre.model';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { GenreModel } from '../../../models/genre.model';
 
 
 @Component({
@@ -66,6 +66,7 @@ export class RoundSliderGenderComponent implements OnInit {
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
 
+
     this.container = svg.append('g');
 
     const arc = d3.arc()
@@ -82,7 +83,7 @@ export class RoundSliderGenderComponent implements OnInit {
       .append('g')
       .attr('class', 'fan')
       .on('click', (d: any) => {
-        this.selectedGender.emit(d.data);
+        this.selectedCircle(d.data);
       });
 
     // this.drawFilterPie();
