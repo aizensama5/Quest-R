@@ -1,0 +1,14 @@
+<app-layout-round-slider-gender
+  [width]="480"
+  [height]="480"
+  [radius]="205"
+  [thick]="72"
+  (selectedGender)="selectedGenre = $event"
+>
+  <div class="filter-circle__small-circle filter-circle__small-circle--genre" *ngIf="!selectedGenre.id">
+    <h2 class="filter-circle__title filter-circle__title--genre">GANRE</h2>
+  </div>
+  <div class="filter-circle__small-circle filter-circle__small-circle--genre" [ngStyle]="{'background-color': selectedGenre?.color}">
+    <h2 class="filter-circle__title filter-circle__title--genre">{{ selectedGenre?.legend }}</h2>
+  </div>
+</app-layout-round-slider-gender>

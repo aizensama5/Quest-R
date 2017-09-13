@@ -1,0 +1,15 @@
+<div class="select-dropdown__wrapper" (click)="toggleListOptions()">
+  <span class="select-dropdown__placeholder">{{ placeholder }}</span>
+  <span class="select-dropdown__arrow" [ngClass]="{'select-dropdown__arrow--active': isShowListOptions}"></span>
+</div>
+
+<ul *ngIf="isShowListOptions" class="complexity marking">
+  <li *ngFor="let item of listOptions" class="complexity__item">
+    <input type="radio" name="complexity{{item.id}}" value="{{item}}"
+           (change)="updateListOptions($event, item)"
+    >
+    <label> {{ item?.marking }} </label>
+  </li>
+</ul>
+
+

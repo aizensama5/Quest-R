@@ -3,6 +3,8 @@ import { FirebaseUtils } from '../shared/firebase.utils';
 import { GenreModel } from './genre.model';
 import { PlayerModel } from './player.model';
 import { PriceModel } from './price.model';
+import { ComplexityModel } from './complexity.model';
+import { MarkingModel } from './marking.model';
 
 export class RoomModel {
   id: number;
@@ -12,12 +14,12 @@ export class RoomModel {
   duration: string;
   level: string;
   position: Marker;
-  additionalAbilities: string;
-  prevention: string;
   ganre: GenreModel;
   displayOnMain: boolean;
   countPlayers: PlayerModel;
   price: PriceModel;
+  complexity: ComplexityModel;
+  marking: MarkingModel[];
 
   static fromJSON(values) {
     const room = new RoomModel();
@@ -46,11 +48,11 @@ export class RoomModel {
     this.duration = '';
     this.level = '';
     this.position = new Marker();
-    this.additionalAbilities = '';
-    this.prevention = '';
     this.ganre = new GenreModel();
     this.displayOnMain = false;
     this.countPlayers = new PlayerModel();
     this.price = new PriceModel();
+    this.complexity = new ComplexityModel();
+    this.marking = [];
   }
 }

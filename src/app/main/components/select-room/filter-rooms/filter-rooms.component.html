@@ -1,28 +1,77 @@
 <ul class="filter-rooms__list">
-    <li class="filter-rooms__item">
-        <app-layout-select-dropdown
-            placeholder="ZŁOŻONOŚĆ"
-            [listOptions]="complexity"
-        ></app-layout-select-dropdown>
-    </li>
-    <li class="filter-rooms__item" (click)="displayPlayersCircle()">
-        GRACZE
-    </li>
-    <li class="filter-rooms__item" (click)="displayGenreCircle()">
-        GANRE
-    </li>
-    <li class="filter-rooms__item" (click)="displayPriceCircle()">
-        CENA
-    </li>
-    <li class="filter-rooms__item">
-        <app-layout-select-dropdown
-            placeholder="OZNACZENIA"
-            [listOptions]="marking"
-        ></app-layout-select-dropdown>
-    </li>
+  <li class="filter-rooms__item">
+    <div class="filter-hint" *ngIf="filterArray?.complexity.id" (click)="deleteFilterComplexity()">
+      <ul>
+        <li>{{ filterArray?.complexity.complexity }}</li>
+      </ul>
+    </div>
+    <app-filter-complexity
+      placeholder="ZŁOŻONOŚĆ"
+      [listOptions]="complexity"
+      (onChangeComplexity)="onChangeComplexity($event)"
+    ></app-filter-complexity>
+  </li>
+
+  <li class="filter-rooms__item">
+    <div class="filter-hint filter-hint-players" *ngIf="filterArray?.countPlayers > 0" (click)="deleteFilterPlayers()">
+      <ul>
+        <li>{{ filterArray?.countPlayers }}</li>
+      </ul>
+    </div>
+    <span (click)="displayPlayersCircle()">GRACZE</span>
+  </li>
+
+  <li class="filter-rooms__item">
+    <div class="filter-hint filter-hint-genre" *ngIf="filterArray?.genre" (click)="deleteFilterGenre()">
+      <ul>
+        <li>{{ filterArray?.genre.legend }}</li>
+      </ul>
+    </div>
+    <span (click)="displayGenreCircle()">GANRE</span>
+  </li>
+
+  <li class="filter-rooms__item">
+    <div class="filter-hint filter-hint-price" *ngIf="filterArray?.price > 0" (click)="deleteFilterPrice()">
+      <ul>
+        <li>{{ filterArray?.price }}</li>
+      </ul>
+    </div>
+    <span (click)="displayPriceCircle()">CENA</span>
+  </li>
+
+  <li class="filter-rooms__item">
+    <div class="filter-hint" *ngIf="filterArray?.marking">
+      <ul>
+        <li *ngFor="let mark of filterArray?.marking"
+            (click)="deleteFilterMarkingItem(mark.id)"
+        >{{ mark?.marking}}</li>
+      </ul>
+    </div>
+    <app-filter-marking
+      placeholder="OZNACZENIA"
+      [listOptions]="marking"
+      (onChangeMarking)="onChangeMarking($event)"
+    ></app-filter-marking>
+  </li>
 </ul>
-<app-main-filter-circle [displayPlayersCircle]="isDisplayPlayersCircle"
-                        [displayGenreCircle]="isDisplayGenreCircle"
-                        [displayPriceCircle]="isDisplayPriceCircle"
-                        [(valuePlayers)]="valuePlayers"
-></app-main-filter-circle>
+
+<app-filter-players
+  *ngIf="isDisplayPlayersCircle"
+  [value]="filterArray.countPlayers"
+  [initValue]="filterArray.countPlayers"
+  (onChangeCountPlayers)="onChangeCountPlayers($event)"
+></app-filter-players>
+
+<app-filter-genre
+  *ngIf="isDisplayGenreCircle"
+  [selectedGenre]="filterArray.genre"
+  (onChangeGenre)="onChangeGenre($event)"
+></app-filter-genre>
+
+<app-filter-price
+  *ngIf="isDisplayPriceCircle"
+  [initValue]="filterArray.price"
+  [value]="filterArray.price"
+  (onChangePrice)="onChangePrice($event)"
+></app-filter-price>
+

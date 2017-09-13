@@ -25,7 +25,7 @@ export class GenreModel {
   }
 
   constructor () {
-    this.id = 1;
+    this.id = null;
     this.legend = '';
     this.color = '';
   }
