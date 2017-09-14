@@ -89,16 +89,6 @@ export class RoomService {
     return filteredRooms;
   }
 
-  filterByComplexity(rooms: RoomModel[], complexityId: number): RoomModel[] {
-    const filteredRooms: RoomModel[] = [];
-    rooms.filter((room: RoomModel) => {
-      if (room.complexity.id === complexityId) {
-        filteredRooms.push(room);
-      }
-    });
-    return filteredRooms;
-  }
-
   filterByMarking(rooms: RoomModel[], marking: MarkingModel[]): RoomModel[] {
     const all: number[] = [];
     const countFilters = marking.length;
@@ -121,6 +111,28 @@ export class RoomService {
     return filteredRooms;
   }
 
+  filterByComplexity(rooms: RoomModel[], complexity: ComplexityModel[]): RoomModel[] {
+    const all: number[] = [];
+    const countFilters = complexity.length;
+    let sortedAll: number[] = [];
+    let filteredRooms: RoomModel[] = [];
+
+    rooms.filter((room: RoomModel) => {
+      complexity.forEach((comp) => {
+        room.complexity.filter((roomComplexity: ComplexityModel) => {
+          if (roomComplexity.id === comp.id) {
+            all.push(room.id);
+          }
+        });
+      });
+    });
+
+    sortedAll = all.slice().sort();
+    filteredRooms = this.filterRoomsBySortedRoomIds(rooms, sortedAll, countFilters);
+
+    return filteredRooms;
+  }
+
   filterRooms(rooms: RoomModel[], filterArray: FilterModel): Observable<RoomModel[]> {
     const all: number[] = [];
     let filteredRoom: RoomModel[] = [];
@@ -128,7 +140,7 @@ export class RoomService {
     let countFilters = 0;
 
     const filterElement = {
-      complexityId: filterArray.complexity.id,
+      complexityLength: filterArray.complexity.length,
       countPlayers: filterArray.countPlayers,
       genreId: filterArray.genre.id,
       price: filterArray.price,
@@ -139,7 +151,7 @@ export class RoomService {
       roomsByPrice: filterElement.price ? this.filterByPrice(rooms, filterElement.price) : [],
       roomsByGenre: filterElement.genreId ? this.filterByGenre(rooms, filterElement.genreId) : [],
       roomsByCountPlayers: filterElement.countPlayers ? this.filterByCountOfPlayers(rooms, filterElement.countPlayers) : [],
-      roomsByComplexity: filterElement.complexityId ? this.filterByComplexity(rooms, filterElement.complexityId) : [],
+      roomsByComplexity: filterElement.complexityLength ? this.filterByComplexity(rooms, filterArray.complexity) : [],
       roomsByMarking: filterElement.markingLength ? this.filterByMarking(rooms, filterArray.marking) : []
     };
 

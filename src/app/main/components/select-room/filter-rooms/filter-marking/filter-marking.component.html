@@ -4,11 +4,16 @@
 </div>
 
 <ul *ngIf="isShowListOptions" class="complexity marking">
-  <li *ngFor="let item of listOptions" class="complexity__item">
-    <input type="radio" name="complexity{{item.id}}" value="{{item}}"
+  <li *ngFor="let item of listOptions"
+      class="complexity__item checkbox-item">
+    <input id="filter-checkbox-{{item.id}}"
+           type="checkbox"
+           name="marking{{item.id}}"
+           value="{{item}}"
            (change)="updateListOptions($event, item)"
+           [checked]="item.checked"
     >
-    <label> {{ item?.marking }} </label>
+    <label for="filter-checkbox-{{item.id}}"> {{ item?.marking }} </label>
   </li>
 </ul>
 

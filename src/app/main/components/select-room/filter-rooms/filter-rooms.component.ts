@@ -85,7 +85,7 @@ export class FilterRoomsComponent implements OnInit {
     this.filterArray.countPlayers = countPlayers;
   }
 
-  onChangeComplexity(complexity: ComplexityModel) {
+  onChangeComplexity(complexity: ComplexityModel[]) {
     this.filterArray.complexity = complexity;
   }
 
@@ -106,7 +106,7 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   deleteFilterComplexity() {
-    this.filterArray.complexity = new ComplexityModel();
+    this.filterArray.complexity = [];
   }
 
   deleteFilterMarkingItem(markingId: number) {

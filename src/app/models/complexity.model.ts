@@ -24,7 +24,7 @@ export class ComplexityModel {
   }
 
   constructor() {
-    this.id = 0;
+    this.id = null;
     this.complexity = '';
   }
 }

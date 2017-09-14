@@ -59,9 +59,11 @@
   }
 
   .complexity {
+    margin-top: 20px;
+    padding-bottom: 10px;
     position: absolute;
     z-index: 10;
-    min-width: 210px;
+    min-width: 215px;
     top: 21px;
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.93);
@@ -69,8 +71,34 @@
     &__item {
       padding: 10px 14.5px;
       label {
-        @include text-mixin($color-black, 14px, $font-gotham-pro-medium);
+        @include text-mixin(#000, 14px, $font-gotham-pro-medium);
       }
+    }
+  }
+
+  .checkbox-item {
+    input {
+      display: none;
+    }
+    label {
+      line-height: 20px;
+      padding-left: 28px;
+      position: relative;
+      display: block;
+      &::before {
+        position: absolute;
+        left: 0;
+        content: '';
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        border: 1px solid #000;
+      }
+    }
+    input:checked + label:before {
+      background-image: url("../../../../../../assets/images/filter-checkbox-checked.svg");
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
 

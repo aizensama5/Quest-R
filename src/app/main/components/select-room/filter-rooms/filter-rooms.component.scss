@@ -11,6 +11,7 @@
     }
 
     &__item {
+      display: flex;
       @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
       text-transform: uppercase;
       cursor: pointer;
@@ -18,24 +19,38 @@
     }
   }
   .filter-hint.filter-hint-players {
-    bottom: 30px;
-    left: 18px;
-    ul {
-      min-width: 50px;
+    left: 87px;
+    bottom: -12px;
+    i {
+      top: 12px;
     }
   }
   .filter-hint.filter-hint-genre {
-    bottom: 30px;
-    right: -35px;
-    ul {
-      min-width: 150px;
-    }
+    left: 84px;
   }
   .filter-hint.filter-hint-price {
-    bottom: 30px;
-    left: 4px;
-    ul {
-      min-width: 50px;
+    left: 57px;
+    bottom: -12px;
+    i {
+      top: 12px;
+    }
+  }
+  .filter-hint.filter-hint-marking {
+    left: 170px;
+    bottom: -12px;
+    li {
+      &:not(:last-child) {
+        display: none;
+      }
+    }
+  }
+  .filter-hint.filter-hint-complexity {
+    left: 160px;
+    bottom: -12px;
+    li {
+      &:not(:last-child) {
+        display: none;
+      }
     }
   }
 }

@@ -2,19 +2,20 @@
 
 .filter-hint {
   position: absolute;
+  display: flex;
   z-index: 100;
-  bottom: 30px;
   ul {
-    min-width: 150px;
     li {
-      opacity: 0.67;
       border-radius: 5px;
-      background-color: #ffffff;
       text-align: center;
-      @include text-mixin($color-black, 12px, $font-gotham-pro-medium);
+      @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
       line-height: 2.2;
       padding: 0 10px;
       margin: 5px 0;
     }
+  }
+  &__delete {
+    position: relative;
+    color: #c21313;
   }
 }

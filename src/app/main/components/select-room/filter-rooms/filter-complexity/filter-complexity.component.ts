@@ -10,12 +10,12 @@ import { ComplexityModel } from '../../../../../models/complexity.model';
 export class FilterComplexityComponent {
 
   @Input() placeholder: string;
-  @Input() listOptions: ComplexityModel[];
+  @Input() listOptions: any[];
 
-  @Output() onChangeComplexity: EventEmitter<ComplexityModel> = new EventEmitter<ComplexityModel>();
+  @Output() onChangeComplexity: EventEmitter<ComplexityModel[]> = new EventEmitter<ComplexityModel[]>();
 
   private _isShowListOptions = false;
-  private _listChecked: ComplexityModel;
+  private _listChecked: ComplexityModel[] = [];
 
   constructor(
     private eRef: ElementRef,
@@ -29,12 +29,59 @@ export class FilterComplexityComponent {
   }
 
   toggleListOptions() {
+    this.listOptions.forEach((list) => {
+      list.checked = false;
+    });
+    this.findCheckedValues();
     this.isShowListOptions = !this.isShowListOptions;
   }
 
   updateListOptions(res: any, item: ComplexityModel) {
-    this._listChecked = item;
+    let indexForDeleting = 0;
+    const complexity: ComplexityModel[] = [];
+
+    if (res.target.checked) {
+      this._listChecked.push(item);
+      this._listChecked.forEach((comp: ComplexityModel) => {
+        if (comp.id === item.id) {
+          complexity.push(item);
+        }
+      });
+    } else {
+      indexForDeleting = this.findIndexForDeleting(item.id);
+      this.deleteRepetativeValues(indexForDeleting);
+    }
+
+    if (complexity.length > 1) {
+      this.deleteRepetativeValues(this._listChecked.length - 1);
+    }
+
+    this.findCheckedValues();
     this.onChangeComplexity.emit(this._listChecked);
+  }
+
+  findCheckedValues(): void {
+    this.listOptions.forEach((opt: any) => {
+      this._listChecked.forEach((list: ComplexityModel) => {
+        if (opt.id === list.id) {
+          opt.checked = true;
+        }
+      });
+    });
+  }
+
+  findIndexForDeleting(itemId: number): number {
+    let returnIndex = 0;
+    for (let i = 0; i < this._listChecked.length; i++) {
+      if (this._listChecked[i].id === itemId) {
+        returnIndex = i;
+      }
+    }
+    return returnIndex;
+  }
+
+  deleteRepetativeValues(indexForDeleting: number): void {
+    this._listChecked.splice(indexForDeleting, 1);
   }
 
   get isShowListOptions(): boolean {

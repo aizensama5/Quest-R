@@ -18,7 +18,7 @@ export class RoomModel {
   displayOnMain: boolean;
   countPlayers: PlayerModel;
   price: PriceModel;
-  complexity: ComplexityModel;
+  complexity: ComplexityModel[];
   marking: MarkingModel[];
 
   static fromJSON(values) {
@@ -52,7 +52,7 @@ export class RoomModel {
     this.displayOnMain = false;
     this.countPlayers = new PlayerModel();
     this.price = new PriceModel();
-    this.complexity = new ComplexityModel();
+    this.complexity = [];
     this.marking = [];
   }
 }
