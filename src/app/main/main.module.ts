@@ -28,7 +28,13 @@ import { SharesComponent } from './components/shares/shares.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ReviewComponent } from './components/reviews/review/review.component';
 import { MapComponent } from './components/map/map.component';
-import { FilterCircleComponent } from './components/select-room/filter-rooms/filter-circle/filter-circle.component';
+import { MarkingService } from '../service/marking.service';
+import { ComplexityService } from '../service/complexity.service';
+import { FilterGenreComponent } from './components/select-room/filter-rooms/filter-genre/filter-genre.component';
+import { FilterPriceComponent } from './components/select-room/filter-rooms/filter-price/filter-price.component';
+import { FilterPlayersComponent } from './components/select-room/filter-rooms/filter-players/filter-players.component';
+import { FilterComplexityComponent } from './components/select-room/filter-rooms/filter-complexity/filter-complexity.component';
+import { FilterMarkingComponent } from './components/select-room/filter-rooms/filter-marking/filter-marking.component';
 
 @NgModule({
     imports: [
@@ -59,7 +65,11 @@ import { FilterCircleComponent } from './components/select-room/filter-rooms/fil
         ReviewsComponent,
         ReviewComponent,
         MapComponent,
-        FilterCircleComponent
+        FilterGenreComponent,
+        FilterPriceComponent,
+        FilterPlayersComponent,
+        FilterComplexityComponent,
+        FilterMarkingComponent
     ],
     exports: [
       FilterRoomsComponent,
@@ -75,7 +85,9 @@ import { FilterCircleComponent } from './components/select-room/filter-rooms/fil
       MapComponent
     ],
     providers: [
-      ReservationService
+      ReservationService,
+      MarkingService,
+      ComplexityService
     ]
 })
 export class MainModule {

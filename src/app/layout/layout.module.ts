@@ -7,7 +7,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SelectListRoomsComponent } from './components/select-list-rooms/select-list-rooms.component';
-import { SelectDropdownComponent } from './components/select-dropdown/select-dropdown.component';
 import { RoundSliderComponent } from './components/round-slider/round-slider.component';
 import { RoundSliderGenderComponent } from './components/round-slider-genre/round-slider-gender.component';
 
@@ -22,7 +21,6 @@ import { RoundSliderGenderComponent } from './components/round-slider-genre/roun
         SelectLanguageComponent,
         FooterComponent,
         SelectListRoomsComponent,
-        SelectDropdownComponent,
         RoundSliderComponent,
         RoundSliderGenderComponent
     ],
@@ -31,7 +29,6 @@ import { RoundSliderGenderComponent } from './components/round-slider-genre/roun
         SelectLanguageComponent,
         FooterComponent,
         SelectListRoomsComponent,
-        SelectDropdownComponent,
         RoundSliderComponent,
         RoundSliderGenderComponent
     ]

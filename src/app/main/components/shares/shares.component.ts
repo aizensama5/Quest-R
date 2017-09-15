@@ -31,8 +31,8 @@ export class SharesComponent implements OnInit {
     }
 
     getAllShares() {
-        this._sharesService.all().subscribe((shares: SharesModel[]) => {
-           this.shares = shares;
-        });
+      this._sharesService.all().subscribe((shares: SharesModel[]) => {
+        this.shares = shares;
+      });
     }
 }

@@ -1,0 +1,19 @@
+<div class="select-dropdown__wrapper" (click)="toggleListOptions()">
+  <span class="select-dropdown__placeholder">{{ placeholder }}</span>
+  <span class="select-dropdown__arrow" [ngClass]="{'select-dropdown__arrow--active': isShowListOptions}"></span>
+</div>
+
+<ul *ngIf="isShowListOptions" class="complexity">
+  <li *ngFor="let item of listOptions" class="complexity__item checkbox-item">
+    <input id="filter-checkbox-{{item.id}}"
+           type="checkbox"
+           name="complexity{{item.id}}"
+           value="{{item}}"
+           (change)="updateListOptions($event, item)"
+           [checked]="item.checked"
+    >
+    <label for="filter-checkbox-{{item.id}}"> {{ item.complexity }} </label>
+  </li>
+</ul>
+
+

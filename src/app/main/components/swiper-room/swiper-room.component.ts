@@ -1,35 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RoomModel } from '../../../models/room.model';
 import { RoomService } from '../../../service/http/room.service';
 
 @Component({
-    moduleId: module.id,
-    selector: 'app-main-swiper-room',
-    templateUrl: 'swiper-room.component.html',
-    styleUrls: ['swiper-room.component.scss']
+  moduleId: module.id,
+  selector: 'app-main-swiper-room',
+  templateUrl: 'swiper-room.component.html',
+  styleUrls: ['swiper-room.component.scss']
 })
-export class SwiperRoomComponent {
+export class SwiperRoomComponent implements OnInit {
 
-    @Input() rooms: RoomModel[] = [];
+  rooms: RoomModel[] = [];
 
-    config: Object = {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        slidesPerView: 3,
-        centeredSlides: true,
-        loop: true,
-        speed: 1000,
-        // Enable lazy loading
-        lazyLoading: true
-    };
+  config: Object = {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    loop: true,
+    loopedSlides: 3,
+    slidesPerView: 3,
+    centeredSlides: true,
+    speed: 1000,
+    lazyLoading: true
+  };
 
-    constructor(private _roomService: RoomService) {
-      this.getAllRooms();
-    }
+  constructor(private _roomService: RoomService) {}
 
-    protected getAllRooms() {
-      this._roomService.all().subscribe((rooms: RoomModel[]) => {
-        this.rooms = rooms;
-      });
-    }
+  ngOnInit() {
+    this.roomsCollection();
+  }
+
+  roomsCollection(): void {
+    this._roomService.all().subscribe((rooms: RoomModel[]) => {
+      this.rooms = rooms;
+    });
+  }
 }

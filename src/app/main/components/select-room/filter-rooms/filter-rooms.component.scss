@@ -1,4 +1,5 @@
 @import '../../../../../assets/styles/variables';
+@import '../../../../../assets/styles/filter-hint';
 
 :host /deep/ {
   .filter-rooms {
@@ -10,10 +11,46 @@
     }
 
     &__item {
+      display: flex;
       @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
       text-transform: uppercase;
       cursor: pointer;
+      position: relative;
     }
-
+  }
+  .filter-hint.filter-hint-players {
+    left: 87px;
+    bottom: -12px;
+    i {
+      top: 12px;
+    }
+  }
+  .filter-hint.filter-hint-genre {
+    left: 84px;
+  }
+  .filter-hint.filter-hint-price {
+    left: 57px;
+    bottom: -12px;
+    i {
+      top: 12px;
+    }
+  }
+  .filter-hint.filter-hint-marking {
+    left: 170px;
+    bottom: -12px;
+    li {
+      &:not(:last-child) {
+        display: none;
+      }
+    }
+  }
+  .filter-hint.filter-hint-complexity {
+    left: 160px;
+    bottom: -12px;
+    li {
+      &:not(:last-child) {
+        display: none;
+      }
+    }
   }
 }

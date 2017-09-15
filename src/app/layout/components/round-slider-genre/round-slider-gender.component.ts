@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as d3 from 'd3';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { GenreModel } from '../../../models/genre.model';
+import { GenreService } from '../../../service/genre.service';
 
 
 @Component({
@@ -29,68 +30,61 @@ export class RoundSliderGenderComponent implements OnInit {
   @Input() radius = 45;
   @Input() thick = 5;
 
-  @Input()
-  set genres(genres: any[]) {
-    this._genres = genres.map(item => Object.assign({}, item, {value: 1}));
-
-    const arr = this.divideArray(this._genres);
-    this.leftArr = arr.left;
-    this.rightArr = arr.right;
-  }
-
-  get genres(): any[] {
-    return this._genres;
-  }
-
-
   @Output() selectedGender: EventEmitter<GenreModel> = new EventEmitter<GenreModel>();
-
 
   container: any;
 
   leftArr = [];
   rightArr = [];
-  _genres: any[];
+  _genres: GenreModel[] = [];
   state = 'start';
 
-  constructor() {
-  }
+  constructor(
+    private genreService: GenreService,
+  ) {}
 
   ngOnInit() {
-    const host = d3.selectAll('.round-slider-genre__container');
+    this.genreService.all().subscribe((genres: GenreModel[]) => {
+      this._genres = genres.map(item => Object.assign({}, item, {value: 1}));
+      const arr = this.divideArray(this._genres);
+      this.leftArr = arr.left;
+      this.rightArr = arr.right;
 
-    const svg = host.append('svg')
-      .attr('width', this.width)
-      .attr('height', this.height)
-      .attr('class', 'container')
-      .append('g')
-      .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
+      const host = d3.selectAll('.round-slider-genre__container');
+
+      const svg = host.append('svg')
+        .attr('width', this.width)
+        .attr('height', this.height)
+        .attr('class', 'container')
+        .append('g')
+        .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
 
 
-    this.container = svg.append('g');
+      this.container = svg.append('g');
 
-    const arc = d3.arc()
-      .innerRadius(this.radius - (this.thick / 2))
-      .outerRadius(this.radius + (this.thick / 2));
+      const arc = d3.arc()
+        .innerRadius(this.radius - (this.thick / 2))
+        .outerRadius(this.radius + (this.thick / 2));
 
-    const pie = d3.pie()
-      .sort(null)
-      .value(d => d.value);
+      const pie = d3.pie()
+        .sort(null)
+        .value(d => d.value);
 
-    const g = svg.selectAll('.fan')
-      .data(pie(this.genres))
-      .enter()
-      .append('g')
-      .attr('class', 'fan')
-      .on('click', (d: any) => {
-        this.selectedCircle(d.data);
-      });
+      const g = svg.selectAll('.fan')
+        .data(pie(this._genres))
+        .enter()
+        .append('g')
+        .attr('class', 'fan')
+        .on('click', (d: any) => {
+          this.selectedCircle(d.data);
+        });
 
-    // this.drawFilterPie();
+      this.drawFilterPie();
 
-    g.append('path')
-      .attr('d', arc)
-      .attr('fill', d => d.data.color);
+      g.append('path')
+        .attr('d', arc)
+        .attr('fill', d => d.data.color);
+    });
   }
 
   selectedCircle(genre: GenreModel) {
@@ -134,7 +128,7 @@ export class RoundSliderGenderComponent implements OnInit {
       .attr('in', 'SourceGraphic');
   }
 
-  private divideArray(arr: any[]): { left: any[], right: any[] } {
+  private divideArray(arr: GenreModel[]): { left: any[], right: any[] } {
     const mid = Math.ceil(arr.length / 2);
     return {
       left: arr.slice(0, mid),

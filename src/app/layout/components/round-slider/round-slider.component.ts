@@ -21,8 +21,9 @@ export class RoundSliderComponent implements OnInit {
   @Input() stepMarkValue = 0;
 
 
-  private _value: number;
-  private _valueFixed: number;
+  private _value = 0;
+  private _valueFixed = 0;
+
   @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() valueFixedChange: EventEmitter<number> = new EventEmitter<number>();
 
@@ -34,7 +35,6 @@ export class RoundSliderComponent implements OnInit {
   set value(value: number) {
     this.valueChange.emit(value);
     this._value = value || 0;
-
     if (this.dot) {
       const crossCoord = this.getCoordByAngle(this.gradToRad(this._value * (this.step)));
       this.moveDotToPosition(crossCoord.x, crossCoord.y, this.dot.node());
@@ -114,16 +114,12 @@ export class RoundSliderComponent implements OnInit {
   }
 
   private drawCircleScale() {
-    const gContainer = this.container
-      .append('g')
-      .attr('class', 'g-lines');
     for (let i = 0, index = 0; i <= 360; i += this.step, index++) {
       const angle = this.getCoordByAngle(this.gradToRad(i));
       if (!this.stepMarkValue || (this.stepMarkValue && !(index % this.stepMarkValue))) {
-        gContainer
+        this.container
           .append('g')
           .attr('transform', () => 'translate(' + (angle.x) + ', ' + angle.y + ')')
-          .attr('id', index)
           .append('line')
           .attr('x1', 0)
           .attr('y1', -10)
