@@ -10,8 +10,7 @@ import { ReviewsComponent } from './components/profile/reviews/reviews.component
 @NgModule({
   imports: [
     RouterModule.forChild([
-      {path: ':id', component: CabinetMainComponent, children: [
-        {path: '', redirectTo: 'history', pathMatch: 'full'},
+      {path: '', component: CabinetMainComponent, children: [
         {path: 'history', component: HistoryComponent},
         {path: 'gallery', component: GalleryComponent},
         {path: 'favorites', component: FavoritesComponent},

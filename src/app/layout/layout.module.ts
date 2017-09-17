@@ -1,7 +1,8 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
@@ -14,7 +15,8 @@ import { RoundSliderGenderComponent } from './components/round-slider-genre/roun
     imports: [
         CommonModule,
         RouterModule,
-        FormsModule
+        FormsModule,
+        SharedModule
     ],
     declarations: [
         ToolbarComponent,
@@ -31,13 +33,7 @@ import { RoundSliderGenderComponent } from './components/round-slider-genre/roun
         SelectListRoomsComponent,
         RoundSliderComponent,
         RoundSliderGenderComponent
-    ]
+    ],
+    providers: []
 })
-export class LayoutModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: LayoutModule,
-            providers: []
-        };
-    }
-}
+export class LayoutModule {}

@@ -2,15 +2,6 @@
 
 :host /deep/ {
   .cabinet {
-    &-block-wrapper {
-      background-color: #fff;
-      border: solid 1px #979797;
-      opacity: 0.21;
-      height: 267px;
-      position: absolute;
-      bottom: 469px;
-      width: 100%;
-    }
     &__title {
       @include text-mixin($color-white, 20px, $font-gotham-pro-bold);
       line-height: 1;

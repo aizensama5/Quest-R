@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../../service/http/user.service';
-import {HttpClient} from '../../../service/http.client';
-import {UserModel} from '../../../models/user.model';
+import {AuthenticationService} from '../../../service/http/authentication.service';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -12,12 +11,9 @@ import {UserModel} from '../../../models/user.model';
   styleUrls: ['profile.component.scss']
 })
 export class ProfileComponent {
-  user: UserModel[] = [];
+  private user: Observable<firebase.User>;
 
-  constructor(private route: ActivatedRoute,
-              private userService: UserService,
-              private httpClient: HttpClient) {
-    const getId = this.route.snapshot.params.id;
-    // this.user = this.userService.getUserById(parseInt(getId, 10));
+  constructor(private authService: AuthenticationService) {
+    this.user = authService.currentUser();
   }
 }

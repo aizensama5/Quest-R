@@ -1,10 +1,17 @@
 @import "../../../../assets/styles/variables";
 
 :host /deep/ {
-  .profile-wrapper {
-    display: flex;
-    justify-content: space-between;
+  .profile {
     padding: 40px 26px 46px;
+    background: rgba(255, 255, 255, 0.21);
+    border: solid 1px #979797;
+    width: 100%;
+    &__wrapper {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+    }
     .profile-block {
       margin: 0 20px;
       &__small {
@@ -12,6 +19,7 @@
       }
 
       &__image {
+        margin: auto;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;

@@ -24,7 +24,11 @@
     </div>
 
     <div class="toolbar__lang">
-        <span class="toolbar__lang-text" (click)="showPopup()">Вход и регистрация</span>
+        <span class="toolbar__lang-text" *ngIf="!(user | async)" (click)="showLoginPopup()">Вход и регистрация</span>
+        <div class="toolbar__user-exist" *ngIf="(user | async)">
+          <span class="toolbar__lang-text toolbar__cabinet" routerLink="/cabinet/">Личный кабинет</span>
+          <span class="toolbar__lang-text toolbar__logout" (click)="logout()" routerLink="/">Выйти</span>
+        </div>
         <app-layout-select-language></app-layout-select-language>
     </div>
 
@@ -32,3 +36,8 @@
         <i class="fa fa-user-o toolbar__user-icon" aria-hidden="true"></i>
     </div>
 </header>
+
+<app-login
+  [isShowLoginPopup]="isShowLoginPopup"
+  (onClosePopup)="closeLoginPopup()"
+></app-login>

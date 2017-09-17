@@ -1,8 +1,4 @@
-import {Component, Output} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../../service/http/user.service';
-import {HttpClient} from '../../../service/http.client';
-import {UserModel} from '../../../models/user.model';
+import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,

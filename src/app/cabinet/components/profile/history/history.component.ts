@@ -10,7 +10,8 @@ import { HistoryService } from '../../../../service/profile/history.service';
 export class HistoryComponent {
   historyData: HistoryModel[];
 
-  constructor(historyService: HistoryService) {
+  constructor(historyService: HistoryService
+  ) {
    historyService.all().subscribe((hisData) => {
      this.historyData = hisData;
    });

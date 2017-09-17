@@ -27,13 +27,11 @@ import './operators';
 
 // components
 import { AppComponent } from './app/app.component';
-import {LoginComponent} from './shared/popup/login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +44,7 @@ import {LoginComponent} from './shared/popup/login.component';
 
     AppRoutingModule,
     RoomModule,
-    LayoutModule.forRoot(),
+    LayoutModule,
     ServiceModule.forRoot(),
     MainModule.forRoot(),
     StoreModule.provideStore(reducersMain.reducer),

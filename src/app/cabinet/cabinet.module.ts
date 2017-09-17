@@ -29,6 +29,7 @@ import { FavoritesService } from '../service/profile/favorites.service';
 import { FriendsService } from '../service/profile/friends.service';
 import { ProfileReviewService } from '../service/profile/profileReview.service';
 import { CreateReviewComponent } from './components/profile/reviews/create-review/create-review.component';
+import { AuthenticationService } from '../service/http/authentication.service';
 
 @NgModule({
   imports: [
@@ -63,7 +64,8 @@ import { CreateReviewComponent } from './components/profile/reviews/create-revie
     GalleryService,
     FavoritesService,
     FriendsService,
-    ProfileReviewService
+    ProfileReviewService,
+    AuthenticationService
   ]
 })
 export class CabinetModule {

@@ -5,10 +5,10 @@
       [listOptions]="complexity"
       (onChangeComplexity)="onChangeComplexity($event)"
     ></app-filter-complexity>
-    <div class="filter-hint filter-hint-complexity" *ngIf="filterArray?.complexity.id">
+    <div class="filter-hint filter-hint-complexity" *ngIf="filterArray?.complexity">
       <ul>
-        <li>
-          (1)
+        <li *ngFor="let comp of filterArray?.complexity; let i = index;">
+          ({{ i + 1 }})
         </li>
       </ul>
     </div>

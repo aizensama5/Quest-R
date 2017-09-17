@@ -1,0 +1,103 @@
+@import "../../../../assets/styles/variables";
+
+
+.login-popup {
+  position: absolute;
+  top: 180px;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  width: 800px;
+  margin: 0 auto;
+  height: auto;
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 0 38px 1px rgba(255, 255, 255, 0.37);
+  &__title {
+    @include text-mixin(#000, 18px, $font-gotham-pro-medium);
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-align: center;
+    padding: 25px 0 34px;
+  }
+  &__social-wrapper {
+    width: 574px;
+    margin: 0 auto;
+    padding-bottom: 38px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__social {
+    margin: 0 auto;
+    &-icon {
+      cursor: pointer;
+      margin: auto;
+    }
+    &--facebook {
+      background-color: #3b5998;
+    }
+    &--vk {
+      background-color: #4d76a1;
+    }
+    &--twitter {
+      background-color: #55acee;
+    }
+    &--google {
+      background-color: #dc4e41;
+    }
+    i {
+      color: #fff;
+      font-size: 40px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      &::before {
+        display: block;
+        margin: auto;
+      }
+    }
+    i.fa.fa-google-plus {
+      font-size: 30px;
+    }
+    i.fa.fa-twitter {
+      position: relative;
+      top: 3px;
+    }
+    i.fa.fa-facebook {
+      position: relative;
+      top: 3px;
+      right: 2px;
+    }
+    & > div {
+      width: 60.6px;
+      height: 60.6px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      transition: .2s ease-in;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  &__social-name {
+    cursor: pointer;
+    margin: 35.4px 0 0;
+    @include text-mixin(#000, 18px, $font-gotham-pro-bold);
+  }
+  &__close {
+    transform: rotate(45deg);
+    transition: .2s ease-in;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-weight: 500;
+    font-size: 38px;
+    color: #666;
+    cursor: pointer;
+    &:hover {
+      transform: rotate(45deg) scale(1.2);
+    }
+  }
+}

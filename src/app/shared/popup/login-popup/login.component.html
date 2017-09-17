@@ -1,0 +1,24 @@
+<div class="login-popup" *ngIf="isShowLoginPopup">
+  <h4 class="login-popup__title">Войти с помощью аккаунта</h4>
+  <div class="login-popup__social-wrapper">
+    <div class="login-popup__social">
+      <div class="login-popup__social-icon login-popup__social--facebook" (click)="facebookLogin()">
+        <i class="fa fa-facebook"></i>
+      </div>
+      <p class="login-popup__social-name" (click)="facebookLogin()">Facebook</p>
+    </div>
+    <div class="login-popup__social">
+      <div class="login-popup__social-icon login-popup__social--twitter" (click)="twitterLogin()">
+        <i class="fa fa-twitter"></i>
+      </div>
+      <p class="login-popup__social-name" (click)="twitterLogin()">Twitter</p>
+    </div>
+    <div class="login-popup__social">
+      <div class="login-popup__social-icon login-popup__social--google" (click)="googleLogin()">
+        <i class="fa fa-google-plus"></i>
+      </div>
+      <p class="login-popup__social-name" (click)="googleLogin()">Google+</p>
+    </div>
+  </div>
+  <p class="login-popup__close" (click)="closeLoginPopup()">+</p>
+</div>
