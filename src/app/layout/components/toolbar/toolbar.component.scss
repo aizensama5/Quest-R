@@ -94,6 +94,17 @@
       cursor: pointer;
     }
   }
+
+  &__cabinet,
+  &__logout {
+    display: block;
+  }
+
+  &__user-exist {
+    position: relative;
+    top: 4px;
+  }
+
 }
 
 @media (max-width: $laptop) {

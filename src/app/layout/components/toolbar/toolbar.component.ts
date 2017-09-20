@@ -1,5 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuLinkModel } from '../../../models/menu-link.model';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+import { AuthenticationService } from '../../../service/http/authentication.service';
 
 @Component({
     moduleId: module.id,
@@ -8,9 +11,11 @@ import { MenuLinkModel } from '../../../models/menu-link.model';
     styleUrls: ['toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-    @Output() showLoginPopup = false;
+    isShowLoginPopup = false;
+    private user: Observable<firebase.User>;
 
-    links: MenuLinkModel[] = [
+
+  links: MenuLinkModel[] = [
       {
         name: 'Квесты',
         target: 'quests'
@@ -33,7 +38,8 @@ export class ToolbarComponent implements OnInit {
       }
     ];
 
-    constructor() {
+    constructor(private authService: AuthenticationService) {
+      this.user = authService.currentUser();
     }
 
     ngOnInit() {
@@ -46,7 +52,15 @@ export class ToolbarComponent implements OnInit {
       });
     }
 
-    showPopup() {
-      this.showLoginPopup = true;
+    showLoginPopup() {
+      this.isShowLoginPopup = true;
+    }
+
+    closeLoginPopup() {
+      this.isShowLoginPopup = false;
+    }
+
+    logout() {
+      this.authService.logout();
     }
 }

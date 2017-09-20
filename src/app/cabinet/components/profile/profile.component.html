@@ -1,27 +1,29 @@
-<div class="profile-wrapper wrap">
-  <div class="profile-block profile-block--small">
-    <div class="profile-block__image" [ngStyle]="{'background-image': 'url(' + user.img + ')'}"></div>
-    <div class="profile-block__text profile-block__text--ta-inline">
-      <div class="profile-block__text profile-block__text--ta-name">{{user.name}}</div>
-      <div class="profile-block__text profile-block__text--ta-surname">{{user.surname}}</div>
-    </div>
-  </div>
-  <div class="profile-block">
-    <div class="profile-block__text profile-block__text--font-medium">Ваш уровень:</div>
-    <div class="level">
-      <div class="level__text level__text--left">Początkujący</div>
-      <div class="level__progress-container">
-        <div class="level__progress-maximum"></div>
-        <div class="level__progress" [ngStyle]="{'width': user.level + '%'}"></div>
+<div class="profile">
+  <div class="profile__wrapper wrap">
+    <div class="profile-block profile-block--small">
+      <div class="profile-block__image"
+           [ngStyle]="{'background-image': 'url(' + (user | async)?.photoURL  + ')'}"></div>
+      <div class="profile-block__text profile-block__text--ta-inline">
+        <div class="profile-block__text profile-block__text--ta-name">{{(user | async)?.displayName}}</div>
       </div>
-      <div class="level__text level__text--right">EKSPERCI</div>
     </div>
+    <div class="profile-block">
+      <div class="profile-block__text profile-block__text--font-medium">Ваш уровень:</div>
+      <div class="level">
+        <div class="level__text level__text--left">Początkujący</div>
+        <div class="level__progress-container">
+          <div class="level__progress-maximum"></div>
+          <div class="level__progress" [ngStyle]="{'width': user?.level + '%'}"></div>
+        </div>
+        <div class="level__text level__text--right">EKSPERCI</div>
+      </div>
 
-    <div class="profile-block__text profile-block__text--font-medium">Пройдено комнат:</div>
-    <div class="rooms-passed">
-      <div class="rooms-passed__image"></div>
-      <div class="rooms-passed__image"></div>
-      <div class="rooms-passed__image"></div>
+      <div class="profile-block__text profile-block__text--font-medium">Пройдено комнат:</div>
+      <div class="rooms-passed">
+        <div class="rooms-passed__image"></div>
+        <div class="rooms-passed__image"></div>
+        <div class="rooms-passed__image"></div>
+      </div>
     </div>
   </div>
 </div>
