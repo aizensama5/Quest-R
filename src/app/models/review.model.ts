@@ -6,8 +6,7 @@ export class ReviewModel {
   userId: number;
   created: string;
   visited: string;
-  title: string;
-  description: string;
+  review: string;
 
   static fromJSON(values) {
     const room = new ReviewModel();
@@ -34,7 +33,6 @@ export class ReviewModel {
     this.userId = null;
     this.created = '';
     this.visited = '';
-    this.title = '';
-    this.description = '';
+    this.review = '';
   }
 }

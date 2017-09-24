@@ -13,13 +13,17 @@ import {ActivatedRoute} from '@angular/router';
 @Injectable()
 export class RoomInfoComponent {
   room: RoomModel;
+  rooms: RoomModel[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private roomService: RoomService
   ) {
-    let getId = this.route.snapshot.params.id;
-    getId = parseInt(getId, 10);
-    this.room = this.roomService.getRoomById(getId);
+    this.roomService.all().subscribe((rooms: RoomModel[]) => {
+      this.rooms = rooms;
+      let roomId = this.route.snapshot.params.id;
+      roomId = parseInt(roomId, 10);
+      this.room = this.roomService.roomById(roomId, this.rooms);
+    });
   }
 }

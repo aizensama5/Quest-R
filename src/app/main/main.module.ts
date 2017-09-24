@@ -10,7 +10,12 @@ import { SelectModule } from 'angular2-select';
 
 // services
 import { ReservationService } from '../service/http/reservation.service';
-
+import { OrderService } from '../service/http/order.service';
+import { DescriptionService } from '../service/description.service';
+import { MarkingService } from '../service/marking.service';
+import { ComplexityService } from '../service/complexity.service';
+import { OrgRuleService } from '../service/org-rule.service';
+import { ContactService } from '../service/http/contact.service';
 
 // components
 import { MainComponent } from './components/main/main.component';
@@ -28,8 +33,6 @@ import { SharesComponent } from './components/shares/shares.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ReviewComponent } from './components/reviews/review/review.component';
 import { MapComponent } from './components/map/map.component';
-import { MarkingService } from '../service/marking.service';
-import { ComplexityService } from '../service/complexity.service';
 import { FilterGenreComponent } from './components/select-room/filter-rooms/filter-genre/filter-genre.component';
 import { FilterPriceComponent } from './components/select-room/filter-rooms/filter-price/filter-price.component';
 import { FilterPlayersComponent } from './components/select-room/filter-rooms/filter-players/filter-players.component';
@@ -87,7 +90,11 @@ import { FilterMarkingComponent } from './components/select-room/filter-rooms/fi
     providers: [
       ReservationService,
       MarkingService,
-      ComplexityService
+      ComplexityService,
+      OrderService,
+      DescriptionService,
+      OrgRuleService,
+      ContactService
     ]
 })
 export class MainModule {

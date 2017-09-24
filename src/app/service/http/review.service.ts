@@ -9,7 +9,9 @@ export class ReviewService {
   constructor(private dataBaseService: AngularFireDatabase) {}
 
   addReview(review: ReviewModel): Promise<void> {
-    return <Promise<void>>this.dataBaseService.object(ReviewService.dataBaseName + review.id).set(review.toJSON());
+    return <Promise<void>>this.dataBaseService
+      .object(ReviewService.dataBaseName + review.id)
+      .set(review.toJSON());
   }
 
   all(): FirebaseListObservable<ReviewModel[]> {

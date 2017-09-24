@@ -1,4 +1,4 @@
-import {TimeModel} from './time.model';
+import { TimeModel } from './time.model';
 
 export class ReservationModel {
   dayId: number;

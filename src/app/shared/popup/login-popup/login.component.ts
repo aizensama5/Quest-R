@@ -7,14 +7,16 @@ import { AuthenticationService } from '../../../service/http/authentication.serv
   templateUrl: 'login.component.html',
   styleUrls: ['./login.component.scss']
 })
-@Injectable()
+
 export class LoginComponent {
   @Input() isShowLoginPopup: boolean;
   @Output() onClosePopup: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private authService: AuthenticationService
-  ) {}
+  ) {
+    this.authService.addNewUser();
+  }
 
   closeLoginPopup() {
     this.onClosePopup.emit(false);

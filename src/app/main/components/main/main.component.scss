@@ -3,6 +3,8 @@
 :host /deep/ {
   .main {
     &__description {
+      width: 380px;
+      margin: 0 auto;
       text-align: center;
       @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
       line-height: 28px;

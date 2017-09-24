@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../../service/http/authentication.service';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
 
 @Component({
   moduleId: module.id,
@@ -7,5 +10,11 @@ import { Component } from '@angular/core';
   styleUrls: ['main.component.scss']
 })
 export class CabinetMainComponent {
-
+  private user: Observable<firebase.User>;
+  private userSocialNetwork: any;
+  constructor (private authService: AuthenticationService) {
+    this.user = authService.currentUser();
+    // this.userSocialNetwork = authService.userSocialNetwork();
+    // console.log(this.userSocialNetwork);
+  }
 }

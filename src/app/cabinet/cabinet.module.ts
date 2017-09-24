@@ -7,6 +7,8 @@ import { LayoutModule } from '../layout/layout.module';
 import { CabinetRoutingModule } from './cabinet-routing.module';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { AgmCoreModule } from '@agm/core';
+import { SharedModule} from '../shared/shared.module';
+
 
 // components
 import { CabinetMainComponent } from './components/main/main.component';
@@ -30,6 +32,7 @@ import { FriendsService } from '../service/profile/friends.service';
 import { ProfileReviewService } from '../service/profile/profileReview.service';
 import { CreateReviewComponent } from './components/profile/reviews/create-review/create-review.component';
 import { AuthenticationService } from '../service/http/authentication.service';
+import { UserRoomHistoryService } from '../service/http/user-room-history.service';
 
 @NgModule({
   imports: [
@@ -37,12 +40,10 @@ import { AuthenticationService } from '../service/http/authentication.service';
     RouterModule,
     FormsModule,
     LayoutModule,
+    SharedModule,
 
     CabinetRoutingModule,
-    SwiperModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBviSA3Z0xaZegK_tWyxwPMdc15lVVwWFk'
-    }),
+    SwiperModule
   ],
   declarations: [
     CabinetMainComponent,
@@ -65,7 +66,8 @@ import { AuthenticationService } from '../service/http/authentication.service';
     FavoritesService,
     FriendsService,
     ProfileReviewService,
-    AuthenticationService
+    AuthenticationService,
+    UserRoomHistoryService
   ]
 })
 export class CabinetModule {

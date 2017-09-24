@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { ReservationService } from '../../../../service/http/reservation.service';
 import { ReservationModel } from '../../../../models/reservation.model';
-import { MainReservationModel } from '../../../../models/main-reservation.model';
 import { TimeModel } from '../../../../models/time.model';
 import { RoomModel } from '../../../../models/room.model';
 
@@ -18,7 +17,19 @@ export class ReservedCalendarComponent {
   @Input() room: RoomModel;
   @Input() roomReservationData: ReservationModel[];
   @Input() timeList;
+  @Input() reservationDays: string[];
   timeTableItem: ReservationModel = new ReservationModel();
+
+  sliderConfig: Object = {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    slidesPerView: 1,
+    loop: false,
+    speed: 500,
+    lazyLoading: true,
+  };
 
   constructor(private reservationService: ReservationService) {}
 
@@ -29,6 +40,6 @@ export class ReservedCalendarComponent {
   onSelectedItem(item: TimeModel[], day: string) {
     this.timeTableItem.time = item;
     this.timeTableItem.day = day;
-    this.selectedItem.emit( this.timeTableItem);
+    this.selectedItem.emit(this.timeTableItem);
   }
 }

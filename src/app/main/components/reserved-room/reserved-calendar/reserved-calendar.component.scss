@@ -2,7 +2,21 @@
 
 :host /deep/ {
   width: 100%;
+  overflow: hidden;
+  .swiper {
+    position: relative;
+    width: 585px;
+    padding-bottom: 80px;
+    padding-left: 65px;
+    padding-right: 65px;
+    right: 65px;
+    .swiper-container-horizontal {
+      padding-bottom: 35px;
+    }
+  }
   .reservation-table {
+    position: relative;
+    left: 65px;
     display: flex;
     justify-content: center;
     width: auto;
@@ -60,6 +74,29 @@
       top: 22px;
       height: 61px;
       @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
+    }
+    &__slide {
+      display: flex;
+      justify-content: center;
+      width: 100% !important;
+    }
+    &__button {
+      top: auto;
+      height: auto;
+      background-image: none;
+      position: absolute;
+      min-width: 145px;
+      background-color: #ffce0e;
+      border-radius: 5px;
+      border: 2px solid #ffce0e;
+      @include text-mixin($color-red, 18px, $font-roboto-regular);
+      font-weight: 500;
+      line-height: 1;
+      padding: 8px 0 10px;
+      text-align: center;
+    }
+    &__button-left {
+      left: 0;
     }
   }
 }

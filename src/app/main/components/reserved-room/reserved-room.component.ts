@@ -7,7 +7,6 @@ import { MainReservationModel } from '../../../models/main-reservation.model';
 import * as mainReducer from '../../../reducers';
 import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import * as roomAction from '../../../action/room.action';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -21,7 +20,7 @@ export class ReservedRoomComponent implements OnInit {
     @Input() title: string;
     @Input() selectedRoom: RoomModel = new RoomModel();
     allReservationData: MainReservationModel[];
-    roomReservationData: ReservationModel[];
+    roomReservationData: ReservationModel[] = [];
     rooms: RoomModel[] = [];
     timeList = [];
     reserveData: ReservationModel = new ReservationModel();
@@ -30,6 +29,8 @@ export class ReservedRoomComponent implements OnInit {
     selectedRoom$: Observable<RoomModel>;
     roomId: number;
     isOpenedRoomPage: boolean;
+    reservationDays: any[];
+    currentDayOfWeek: number;
 
     constructor(
         private roomService: RoomService,
@@ -46,13 +47,17 @@ export class ReservedRoomComponent implements OnInit {
       });
       reservationService.all().subscribe((response) => {
         this.allReservationData = response;
+        this.reservationDays = reservationService.days();
+        this.currentDayOfWeek = reservationService.getCurrentDayOfWeek(this.reservationDays[0].day);
+        this.allReservationData = reservationService.prepareReservationData(this.allReservationData, this.currentDayOfWeek);
       });
       this.roomId = parseInt(this.route.snapshot.params.id, 10);
       this.isOpenedRoomPage = !!this.roomId;
       if (this.isOpenedRoomPage) {
-        this.onSelectRoom(this.roomService.getRoomById(this.rooms, this.roomId));
+        this.onSelectRoom(this.roomService.roomById(this.roomId, this.rooms));
       }
     }
+
 
     /**
      * Get List of time
@@ -89,13 +94,30 @@ export class ReservedRoomComponent implements OnInit {
     }
 
     roomReservation(id: number) {
-      let resData = [];
+      const resData = [];
+      let dayIndex = 0;
       this.allReservationData.forEach((roomReservationData) => {
         if (roomReservationData.roomId === id) {
-          resData = roomReservationData.reservation;
+          roomReservationData.reservation = this.duplicate(4,  roomReservationData.reservation);
+          for (let i = 0; i < ReservationService.RESERVATION_WEEKS_COUNT; i++) {
+            resData[i] = [];
+            for (let j = 0; j < ReservationService.RESERVATION_DAYS_IN_WEEKS_COUNT; j++) {
+              resData[i][j] = [[]];
+              resData[i][j] = resData[i][j].concat(roomReservationData.reservation[dayIndex],  this.reservationDays[dayIndex].day);
+              dayIndex++;
+            }
+          }
         }
       });
       return resData;
+    }
+
+    duplicate(count: number, data: any[]): any[] {
+      const arrayToDuplicate = data;
+      for (let i = 1; i <= count - 1; i++) {
+        data = data.concat(arrayToDuplicate);
+      }
+      return data;
     }
 
     onSelectItem(item: ReservationModel) {

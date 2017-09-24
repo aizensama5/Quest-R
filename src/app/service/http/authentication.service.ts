@@ -1,14 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {error} from 'util';
+import { PopupNotificationService } from '../popup.notification.service';
+import {Observable} from 'rxjs/Observable';
+import {UserModel} from '../../models/user.model';
+import {UserService} from './user.service';
+import { UserRoomsHistoryModel } from '../../models/user-room-history.model';
+import {RoomHistoryModel} from '../../models/room-history.model';
+import {User} from 'firebase/app';
 
 @Injectable()
 export class AuthenticationService {
+  allUsers: UserModel[] = [];
 
   constructor(
-    private af: AngularFireAuth
-  ) { }
+    private af: AngularFireAuth,
+    public popupNotificationService: PopupNotificationService,
+    private userService: UserService
+  ) {
+    userService.all().subscribe((users: UserModel[]) => {
+      this.allUsers = users;
+    });
+  }
 
 
   googleLogin() {
@@ -25,10 +38,11 @@ export class AuthenticationService {
   facebookLogin() {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
-    firebase.auth().signInWithPopup(provider).then(() => {
+    firebase.auth().signInWithPopup(provider).then((authInfo: any) => {
+      console.log(authInfo);
       window.location.href = '/cabinet/';
     }, (error) => {
-      console.log(error);
+
     });
   }
 
@@ -41,11 +55,34 @@ export class AuthenticationService {
     });
   }
 
-  currentUser () {
+  currentUser (): Observable<firebase.User> {
     return this.af.authState;
   }
 
   logout() {
     this.af.auth.signOut();
+  }
+
+  addNewUser() {
+    let existingUser = false;
+    let newUser: any;
+    this.currentUser().subscribe((user) => {
+      if (user) {
+        this.userService.all().subscribe((users: UserModel[]) => {
+          if (users) {
+            existingUser = this.userService.getCoincidenceId(users, user.uid);
+            if (!existingUser) {
+              newUser = {
+                id: user.uid,
+                name: user.displayName,
+                photo: user.photoURL,
+                email: user.email
+              };
+              this.userService.addUser(newUser).then();
+            }
+          }
+        });
+      }
+    });
   }
 }
