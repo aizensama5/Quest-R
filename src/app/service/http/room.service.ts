@@ -12,16 +12,8 @@ import {MarkingModel} from '../../models/marking.model';
 export class RoomService {
   private static readonly dataBaseName = 'room/';
 
-  getRoomById (rooms: RoomModel[], roomId?: number) {
-    for (let i = 0; i < rooms.length; i++) {
-      const room = rooms[i];
-      for (const key in room) {
-        if (room[key] === roomId) {
-          return room;
-        }
-      }
-    }
-    return;
+  roomById (roomId: number, rooms?: RoomModel[]): RoomModel {
+    return rooms.filter((room: RoomModel) => room.id === roomId)[0] || new RoomModel();
   }
 
   constructor (private dataBaseService: AngularFireDatabase) {}
@@ -179,7 +171,7 @@ export class RoomService {
     const filteredRooms: RoomModel[] = [];
     for (let i = 0; i < sortedRoomsIds.length; i++) {
       if (sortedRoomsIds.length > (i + countFilters - 1) && sortedRoomsIds[i + countFilters - 1] === sortedRoomsIds[i]) {
-        filteredRooms.push(this.getRoomById(rooms, sortedRoomsIds[i]));
+        filteredRooms.push(this.roomById(sortedRoomsIds[i], rooms));
       }
     }
     return filteredRooms;

@@ -1,22 +1,22 @@
 <div class="gallery-wrapper">
-      <div class="gallery" *ngFor="let gallery of galleryData">
-        <div class="gallery__top">
-          <p class="gallery__room-name">{{ gallery.roomName }}</p>
-          <p class="gallery__date">{{ gallery.date }}</p>
-          <button class="gallery__add-photo">Добавить фото</button>
-        </div>
-        <div class="gallery__bottom" >
-          <swiper [config]="sliderConfig" class="gallery-swiper" #swiperClass>
-            <div class="swiper-wrapper gallery__bottom-swiper">
-              <div class="swiper-slide gallery__bottom-swiper--slide" *ngFor="let photo of gallery.photo">
-                <div class="gallery__image" [ngStyle]="{'background-image': 'url(' + photo.path + ')'}"></div>
-              </div>
-            </div>
-            <div class="swiper-button-prev gallery-swiper-button-prev"></div>
-            <div class="swiper-button-next gallery-swiper-button-next"></div>
-          </swiper>
-        </div>
-      </div>
+  <div class="gallery" *ngFor="let gallery of galleryData">
+    <div class="gallery__top">
+      <p class="gallery__room-name">{{ gallery.roomName }}</p>
+      <p class="gallery__date">{{ gallery.date }}</p>
+      <button class="gallery__add-photo">Добавить фото</button>
     </div>
+    <div class="gallery__bottom">
+      <swiper [config]="sliderConfig" class="gallery-swiper" #swiperClass>
+        <div class="swiper-wrapper gallery__bottom-swiper">
+          <div class="swiper-slide gallery__bottom-swiper--slide" *ngFor="let photo of gallery.photo">
+            <div class="gallery__image" [ngStyle]="{'background-image': 'url(' + photo.path + ')'}"></div>
+          </div>
+        </div>
+        <div class="swiper-button-prev gallery-swiper-button-prev"></div>
+        <div class="swiper-button-next gallery-swiper-button-next"></div>
+      </swiper>
+    </div>
+  </div>
+</div>
 
 

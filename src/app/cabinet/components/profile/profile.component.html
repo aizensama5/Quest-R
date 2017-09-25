@@ -2,9 +2,9 @@
   <div class="profile__wrapper wrap">
     <div class="profile-block profile-block--small">
       <div class="profile-block__image"
-           [ngStyle]="{'background-image': 'url(' + (user | async)?.photoURL  + ')'}"></div>
+           [ngStyle]="{'background-image': 'url(' + (user$ | async)?.photoURL  + ')'}"></div>
       <div class="profile-block__text profile-block__text--ta-inline">
-        <div class="profile-block__text profile-block__text--ta-name">{{(user | async)?.displayName}}</div>
+        <div class="profile-block__text profile-block__text--ta-name">{{(user$ | async)?.displayName}}</div>
       </div>
     </div>
     <div class="profile-block">
@@ -13,7 +13,7 @@
         <div class="level__text level__text--left">Początkujący</div>
         <div class="level__progress-container">
           <div class="level__progress-maximum"></div>
-          <div class="level__progress" [ngStyle]="{'width': user?.level + '%'}"></div>
+          <div class="level__progress" [ngStyle]="{'width': user$?.level + '%'}"></div>
         </div>
         <div class="level__text level__text--right">EKSPERCI</div>
       </div>

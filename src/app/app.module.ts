@@ -18,16 +18,13 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
 import { GenreService } from './service/genre.service';
 
-
-
-
-
 // operators
 import './operators';
 
 // components
 import { AppComponent } from './app/app.component';
 
+import { TimeService } from './service/time.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +49,8 @@ import { AppComponent } from './app/app.component';
     BrowserAnimationsModule
   ],
   providers: [
-    GenreService
+    GenreService,
+    TimeService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,22 +1,19 @@
+@import "../../../../../assets/styles/variables";
+
 .history-wrapper {
   max-width: 960px;
-  margin: 40px auto 0;
-  min-height: 425px;
+  margin: 40px auto;
   height: auto;
   .history-table {
     width: 100%;
     &__header {
+      @include text-mixin($color-yellow-light, 18px, $font-gotham-pro-medium);
       padding-bottom: 43px;
-      color: #ffe381;
-      font-size: 18px;
       font-weight: 500;
       line-height: 1.17;
-      font-family: GothamProRegular;
     }
     &__content {
-      color: #fff;
-      font-size: 16px;
-      font-family: GothamProLight;
+      @include text-mixin($color-white, 16px, $font-gotham-pro-light);
       padding-bottom: 30px;
     }
   }

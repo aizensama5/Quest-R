@@ -1,12 +1,10 @@
-import {FirebaseUtils} from '../shared/firebase.utils';
+import { FirebaseUtils } from '../shared/firebase.utils';
 
 export class UserModel {
-  id: number;
+  id: string;
   name: string;
-  surname: string;
-  img: string;
-  level: number;
-  roomsPassed: number;
+  photo: string;
+  email: string;
 
   static fromJSON(values) {
     const user = new UserModel();
@@ -28,11 +26,9 @@ export class UserModel {
   }
 
   constructor() {
-    this.id = null;
+    this.id = '';
     this.name = '';
-    this.surname = '';
-    this.img = '';
-    this.level = null;
-    this.roomsPassed = null;
+    this.photo = '';
+    this.email = '';
   }
 }

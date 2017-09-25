@@ -1,26 +1,23 @@
 <h3 class="title org-rule__title">ОГРАНИЗАЦИОННЫЕ ПРАВИЛА ИГРЫ В КВЕСТЫ</h3>
 <div class="org-rule__wrapper">
-    <div class="org-rule__item org-rule__item--key">
-        Участники должны быть на месте за 15 минут до игры. Это необходимо для уточнения всех деталей, ответов на имеющиеся вопросы и подготовки игроков к квесту.
+    <div class="org-rule__item org-rule__item--key" *ngIf="orgRules[0]">
+      {{ orgRules[0] }}
     </div>
     <div class="org-rule__arrow org-rule__arrow-first"></div>
-    <div class="org-rule__item org-rule__item--lock">
+    <div class="org-rule__item org-rule__item--lock" *ngIf="orgRules[1]">
       <p>
-        К участию в квесте не допускаются дети до 10 лет. Они наверняка не смогут решить представленные задачи и помешают в этом взрослым, поэтому не стоит брать их с собой. На «страшные» квесты ограничения по возрасту выше. Но все же участие игроков младше 16 лет необходимо уточнять
-        у организаторов.
+        {{ orgRules[1] }}
       </p>
     </div>
-    <div class="org-rule__item org-rule__item--bag">
+    <div class="org-rule__item org-rule__item--bag" *ngIf="orgRules[2]">
         <p>
-            На время игры отводится определенное время. Квест можно завершить раньше, однако по истечению времени дверь будет открыта, а игроки будут признаны проигравшими.
+          {{ orgRules[2] }}
         </p>
     </div>
-    <div class="org-rule__item org-rule__item--key-2">
-        Нельзя использовать любые другие предметы помимо квестовых во время игры. Во время игры нельзя применять физическую силу. Все квесты легко проходятся с помощью смекалки и наблюдательности.
+    <div class="org-rule__item org-rule__item--key-2" *ngIf="orgRules[3]">
+      {{ orgRules[3] }}
     </div>
-    <div class="org-rule__item org-rule__item--binoculars">
-        Не стоит проходить квест методом подбора, если необходимо ввести какой-то ключ или пароль. Все ответы расположены
-        в помещении, игрокам необходимо лишь
-        найти их.
+    <div class="org-rule__item org-rule__item--binoculars" *ngIf="orgRules[4]">
+      {{ orgRules[4] }}
     </div>
 </div>

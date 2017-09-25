@@ -18,7 +18,6 @@ export class SharesComponent implements OnInit {
         spaceBetween: 20,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        // Enable lazy loading
         lazyLoading: true
     };
 
@@ -27,7 +26,7 @@ export class SharesComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getAllShares();
+      this.getAllShares();
     }
 
     getAllShares() {

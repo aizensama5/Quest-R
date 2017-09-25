@@ -14,17 +14,40 @@
           </ul>
         </div>
       </div>
-      <form class="reserved-form__form" #formData="ngForm" (ngSubmit)="order(formData)">
+      <form class="reserved-form__form">
           <label for="reserved-form__form-name" class="reserved-form__label">Имя</label>
-          <input type="text" class="reserved-form__input" id="reserved-form__form-name" name="name" ngModel>
+          <input class="reserved-form__input"
+                 value="{{(user$ | async)?.displayName}}"
+                 id="reserved-form__form-name"
+                 name="name"
+                 required
+                 ngModel
+                 #name
+          >
 
           <label for="reserved-form__form-tel" class="reserved-form__label">Телефон</label>
-          <input type="text" class="reserved-form__input" id="reserved-form__form-tel" name="phone" ngModel>
+          <input class="reserved-form__input"
+                 value="{{(user$ | async)?.phoneNumber}}"
+                 id="reserved-form__form-tel"
+                 name="phone"
+                 [required]="true"
+                 ngModel
+                 #phone
+          >
 
           <label for="reserved-form__form-email" class="reserved-form__label">Email</label>
-          <input type="email" class="reserved-form__input" id="reserved-form__form-email" name="email" ngModel>
+          <input
+            type="email"
+            class="reserved-form__input"
+            value="{{(user$ | async)?.email}}"
+            id="reserved-form__form-email"
+            name="email"
+            required
+            ngModel
+            #email
+          >
 
-          <input type="submit" class="btn reserved-form__btn" value="Rezervuj">
+          <input type="submit" class="btn reserved-form__btn" value="Rezervuj" (click)="order(name, phone, email)">
       </form>
   </div>
 </div>

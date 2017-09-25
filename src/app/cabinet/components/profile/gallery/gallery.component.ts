@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild, ElementRef} from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { GalleryService } from '../../../../service/profile/gallery.service';
 import { GalleryModel } from '../../../../models/profile/gallery.model';
 
@@ -17,12 +17,11 @@ export class GalleryComponent {
     prevButton: '.swiper-button-prev',
     pagination: '.swiper-pagination',
     paginationClickable: true,
-    slidesPerView: 5,
+    slidesPerView: 7,
     centeredSlides: true,
     loop: false,
     speed: 1000,
     lazyLoading: true,
-
   };
 
   slidePrev() {
