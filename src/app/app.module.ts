@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { LayoutModule } from './layout/layout.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceModule } from './service/service.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +15,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
-import { GenreService } from './service/genre.service';
+import { AdminModule } from './admin/admin.module';
 
 // operators
 import './operators';
@@ -25,6 +24,8 @@ import './operators';
 import { AppComponent } from './app/app.component';
 
 import { TimeService } from './service/time.service';
+import { GenreService } from './service/genre.service';
+
 
 @NgModule({
   declarations: [
@@ -41,11 +42,11 @@ import { TimeService } from './service/time.service';
 
     AppRoutingModule,
     RoomModule,
-    LayoutModule,
     ServiceModule.forRoot(),
-    MainModule.forRoot(),
+    MainModule,
     StoreModule.provideStore(reducersMain.reducer),
     CabinetModule,
+    AdminModule,
     BrowserAnimationsModule
   ],
   providers: [

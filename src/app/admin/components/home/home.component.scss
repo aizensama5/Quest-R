@@ -1,0 +1,27 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  .admin-home {
+    flex-grow: 1;
+    padding: 15px;
+    &__title {
+      @include text-mixin(#000, 24px, $font-source-sans-pro-regular);
+    }
+    &__greeting {
+      margin: 20px 0;
+      border-radius: 3px;
+      background: #fff;
+      border-top: 3px solid #d2d6de;
+      width: 100%;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      @include text-mixin(#000, 14px, $font-source-sans-pro-regular);
+      & > p {
+        padding: 10px;
+      }
+      &-title {
+        font-size: 18px;
+        border-bottom: 1px solid #f4f4f4;
+      }
+    }
+  }
+}

@@ -1,10 +1,8 @@
-import { RoomHistoryModel } from './room-history.model';
 import { FirebaseUtils } from '../shared/firebase.utils';
 
 export class UserRoomsHistoryModel {
   userId: number;
   roomId: number;
-  roomHistory: RoomHistoryModel[];
 
   static fromJSON(values) {
     const userRoomHistory = new UserRoomsHistoryModel();
@@ -28,6 +26,5 @@ export class UserRoomsHistoryModel {
   constructor() {
     this.userId = null;
     this.roomId = null;
-    this.roomHistory = [];
   }
 }

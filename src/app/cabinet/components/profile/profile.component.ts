@@ -7,8 +7,11 @@ import { UserRoomHistoryService } from '../../../service/http/user-room-history.
 import { OrderService } from '../../../service/http/order.service';
 import { OrderModel } from '../../../models/order.model';
 import { RoomService } from '../../../service/http/room.service';
-import {RoomModel} from '../../../models/room.model';
-import {RoomHistoryModel} from '../../../models/room-history.model';
+import { RoomModel } from '../../../models/room.model';
+import { GalleryModel } from '../../../models/profile/gallery.model';
+import { GalleryService } from '../../../service/profile/gallery.service';
+import { ReviewModel } from '../../../models/review.model';
+import { ReviewService } from '../../../service/http/review.service';
 
 
 @Component({
@@ -21,16 +24,19 @@ export class ProfileComponent {
   private user$: Observable<firebase.User>;
   // private userRoomHistory: UserRoomsHistoryModel[] = [];
   private user: any;
+  userRoomHistory: any[] = [];
   userOrderInfo: OrderModel[];
   _passedRooms: RoomModel[] = [];
   _rooms: RoomModel[] = [];
-  _userHistories: RoomHistoryModel[] = [];
+  _gallery: GalleryModel[] = [];
+  _reviews: ReviewModel[] = [];
 
   constructor(
     private authService: AuthenticationService,
-    // private userRoomHistoryService: UserRoomHistoryService,
     private orderService: OrderService,
-    public roomService: RoomService
+    private roomService: RoomService,
+    private galleryService: GalleryService,
+    private reviewService: ReviewService
   ) {
     this.rooms();
     this.user$ = authService.currentUser();
@@ -39,9 +45,13 @@ export class ProfileComponent {
       orderService.all().subscribe((orderInfo: OrderModel[]) => {
         this.userOrderInfo = orderService.userOrders(orderInfo, user.uid);
         this._passedRooms = this.passedRooms(this.userOrderInfo);
-        // this._userHistories = [{}];
+        this.gallery(user.uid);
+        this.reviews(user.uid);
+        console.log(this._rooms);
+        console.log(this._passedRooms);
+        console.log(this._reviews);
+        console.log(this._gallery);
       });
-      // this.userRoomHistory = userRoomHistoryService.userRoomHistory(user.uid);
     });
   }
 
@@ -53,6 +63,18 @@ export class ProfileComponent {
       });
     }
     return rooms;
+  }
+
+  gallery(userId: string) {
+    this.galleryService.userGallery(userId).subscribe((gallery: GalleryModel[]) => {
+      this._gallery = gallery;
+    });
+  }
+
+  reviews(userId: string) {
+    this.reviewService.userReviews(userId).subscribe((reviews: ReviewModel[]) => {
+      this._reviews = reviews;
+    });
   }
 
   rooms(): void {

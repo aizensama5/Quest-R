@@ -1,0 +1,81 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  .admin-header {
+    position: relative;
+    max-height: 100px;
+    z-index: 1000;
+    background-color: #F39C12;
+    display: flex;
+    width: 100%;
+    &__logo-wrap {
+      background-color: #e08e0b;
+      color: #fff;
+      width: 230px;
+      padding: 0 15px;
+      display: flex;
+    }
+    &__logo {
+      background-image: url("../../../../assets/images/logo.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+      height: 30px;
+      width: 125px;
+      margin: auto;
+    }
+    &__navbar {
+      flex-grow: 1;
+      &-sidebar-toggle {
+        display: inline-block;
+        float: left;
+        cursor: pointer;
+        height: 100%;
+        & > i {
+          height: 100%;
+          position: relative;
+          font-size: 14px;
+          top: 3px;
+          color: #fff;
+          display: block;
+          padding: 15px;
+          transition: .2s ease-in;
+        }
+        &:hover {
+          background-color: #e08e0b;
+        }
+      }
+      &-wrap {
+        display: inline-block;
+        float: right;
+        @include text-mixin($color-white, 16px, $font-source-sans-pro-regular);
+      }
+      &-custom-menu {
+        display: flex;
+        li {
+          a {
+            line-height: 20px;
+            display: block;
+            padding: 15px;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            transition: .2s ease-in;
+            &:hover {
+              background-color: #e08e0b;
+            }
+          }
+        }
+        .dropdown-menu {
+          a {
+            color: #222D32;
+            padding: 3px 20px;
+            &:hover {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

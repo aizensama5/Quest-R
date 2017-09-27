@@ -1,0 +1,119 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  .admin-login {
+    width: 365px;
+    margin: 7% auto;
+    &__title {
+      @include text-mixin(#444, 35px, $font-source-sans-pro-regular);
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 300;
+    }
+    &__box {
+      background: #fff;
+      padding: 20px;
+      color: #666;
+      &-title {
+        @include text-mixin(#666, 14px, $font-source-sans-pro-regular);
+        text-align: center;
+        padding: 0 20px 20px 20px;
+      }
+    }
+    &__form {
+      &-field {
+        position: relative;
+        margin-bottom: 15px;
+        input {
+          width: 296px;
+          height: 34px;
+          display: block;
+          padding: 0 12px;
+          line-height: 1.42;
+          color: #555;
+          border: 1px solid #ccc;
+          transition: border-color ease-in-out .15s,
+          box-shadow ease-in-out .15s;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
+        &--feedback {
+          width: 34px;
+          height: 34px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          pointer-events: none;
+          z-index: 2;
+          color: #777;
+          &::before {
+            display: block;
+            margin: auto;
+            font-size: 19px;
+            content: "\2709";
+          }
+        }
+        .before-password {
+          &::before {
+            content: "\e033";
+          }
+        }
+      }
+      &-button {
+        cursor: pointer;
+        width: 100%;
+        background: #3c8dbc;
+        border: 1px solid #367fa9;
+        box-shadow: none;
+        color: #fff;
+        padding: 0 12px;
+        text-align: center;
+        height: 34px;
+        font-weight: 400;
+        font-size: 14px;
+        &:hover {
+          border: 1px solid #204d74;
+        }
+      }
+    }
+    &__separate {
+      text-align: center;
+      margin: 14px 0;
+    }
+    &__social {
+      display: flex;
+      background-color: #2d4373;
+      color: #fff;
+      position: relative;
+      margin-bottom: 10px;
+      i {
+        padding: 6px 0;
+        display: block;
+        width: 32px;
+        font-size: 22px;
+        text-align: center;
+        position: relative;
+        &::after {
+          content: '';
+          display: block;
+          width: 1px;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          right: -2px;
+          background-color: #000;
+          opacity: 0.2;
+        }
+      }
+      p {
+        padding: 10px 0 6px 12px;
+        display: block;
+        flex-grow: 1;
+        font-size: 14px;
+      }
+    }
+  }
+}

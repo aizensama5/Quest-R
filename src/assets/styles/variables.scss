@@ -26,6 +26,7 @@ $font-gotham-pro-medium-italic: 'GothamProMediumItalic';
 $font-gotham-pro-light-italic: 'GothamProLightItalic';
 $font-gotham-pro-bold-italic: 'GothamProBoldItalic';
 $font-gotham-pro-black-italic: 'GothamProBlackItalic';
+$font-source-sans-pro-regular: 'SourceSansProRegular';
 $font-awesome: 'FontAwesome';
 $font-roboto-regular: 'RobotoRegular';
 $font-roboto-medium: 'RobotoMedium';
@@ -42,6 +43,12 @@ $mobile: 500px;
   font-family: $font-family;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
+  min-height: 100%;
+  height: auto;
   background-image: linear-gradient(214deg, #000000, #2a2c2e 54%, #131313);
 }
