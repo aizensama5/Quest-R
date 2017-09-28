@@ -1,70 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { GalleryModel } from '../../models/profile/gallery.model';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {GalleryModel} from '../../models/profile/gallery.model';
 
 @Injectable()
 export class GalleryService {
-  private galleryData: GalleryModel[] = [
-    {
-      id: 1,
-      roomName: 'MIDNIGHT KILLER MK II',
-      date: '2017-03-23',
-      photo: [
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        }
-        ]
-    },
-    {
-      id: 2,
-      roomName: 'FANTAZJA',
-      date: '2017-03-23',
-      photo: [
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        },
-        {
-          path: 'http://loremflickr.com/500/500/smile'
-        }
-      ]
-    }
-  ];
 
-  /**
-   * Get all photos for gallery.
-   * @returns <Observable<GalleryModel[]>>
-   */
-  all(): Observable<GalleryModel[]> {
-    return Observable.of(this.galleryData);
+  private static readonly dataBaseName = 'gallery/';
+
+  constructor(private dataBaseService: AngularFireDatabase) {}
+
+  addPhoto(photo: GalleryModel): Promise<void> {
+    return <Promise<void>>this.dataBaseService
+      .object(GalleryService.dataBaseName + photo.userId)
+      .set(photo.toJSON());
   }
 
-  constructor() { }
+  all(): FirebaseListObservable<GalleryModel[]> {
+    return <FirebaseListObservable<GalleryModel[]>>this.dataBaseService
+      .list(GalleryService.dataBaseName);
+  }
+
+  userGallery(userId: string): FirebaseListObservable<GalleryModel[]> {
+    return <FirebaseListObservable<GalleryModel[]>>this.dataBaseService
+      .list(GalleryService.dataBaseName + userId)
+      .map((items) => items.map(GalleryModel.fromJSON));
+  }
+
+  roomGallery(roomId: number, gallery?: GalleryModel[]) {
+    let allPhotos: GalleryModel[] = [];
+    if (gallery.length) {
+      allPhotos = gallery;
+    } else {
+      this.all().subscribe((gal: GalleryModel[]) => {
+        allPhotos = gal;
+      });
+    }
+    return allPhotos.filter((gal: GalleryModel) => gal.roomId === roomId)[0];
+  }
 
 }

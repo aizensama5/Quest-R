@@ -1,0 +1,94 @@
+@import "../../../../assets/styles/variables";
+
+:host /deep/ {
+  display: block;
+  height: auto;
+  min-height: 100%;
+  width: 230px;
+  transition: transform .3s ease-in-out;
+  background-color: #222d32;
+  .aside-menu {
+    min-height: 100%;
+    &__section {
+      padding-bottom: 10px;
+    }
+    &__list {
+      @include text-mixin(#4b646f, 12px, $font-source-sans-pro-regular);
+      font-size: 14px;
+      li {
+        position: relative;
+        &:hover {
+          background: #1e282c;
+          & > a {
+            color: #fff;
+          }
+        }
+      }
+      &-header {
+        line-height: 17px;
+        @include text-mixin(#4b646f, 12px, $font-source-sans-pro-regular);
+        background-color: #1a2226;
+        padding: 10px 25px 10px 15px;
+      }
+      .treeview {
+        border-left: 3px solid transparent;
+        a {
+          line-height: 20px;
+          cursor: pointer;
+          color: #b8c7ce;
+          padding: 12px 5px 12px 15px;
+          display: block;
+          &:after {
+            display: none;
+          }
+        }
+        i {
+          width: 20px;
+        }
+        .pull-right-container {
+          position: absolute;
+          right: 10px;
+          i {
+            padding: 0;
+            width: auto;
+            height: auto;
+            padding: 0;
+            margin-right: 10px;
+            transition: transform .5s ease;
+          }
+        }
+        &-menu {
+          height: 0;
+          float: none;
+          z-index: 100;
+          padding: 0;
+          background: #2c3b41;
+          position: initial;
+          width: 100%;
+          border: none;
+          -webkit-transition: height 3.5s;
+          li {
+            a {
+              line-height: 20px;
+              font-size: 14px;
+              padding: 5px 5px 5px 20px;
+            }
+            &:hover {
+              background: #2c3b41;
+              a {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+      .treeview.show {
+        -webkit-transition: all 1s;
+        .treeview-menu {
+          height: auto;
+          -webkit-transition: height 3.5s;
+        }
+      }
+    }
+  }
+}

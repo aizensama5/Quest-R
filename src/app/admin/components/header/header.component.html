@@ -1,0 +1,41 @@
+<header class="admin-header">
+  <a class="admin-header__logo-wrap" [routerLink]="'/admin/dashboard/'">
+    <div class="admin-header__logo"></div>
+  </a>
+  <nav class="admin-header__navbar">
+    <a class="admin-header__navbar-sidebar-toggle" (click)="toggleSidebarMenu()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <div class="admin-header__navbar-wrap">
+      <ul class="admin-header__navbar-custom-menu">
+        <li class="dropdown">
+          <a> Zalogowany jako: </a>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-globe fa-fw"></i>
+            <span class="hidden-xs"></span>
+            Język:
+            <strong>Polski</strong>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#" title="English">English</a></li>
+            <li><a href="#" title="Poland">Poland</a></li>
+          </ul>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <i class="fa fa-unlock fa-fw"></i>
+            <span>Log out</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="'/'">
+            <i class="fa fa-link fa-fw"></i>
+            <span>Back to website</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

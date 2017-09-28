@@ -62,12 +62,12 @@ import { UserRoomHistoryService } from '../service/http/user-room-history.servic
     UserService,
     HttpClient,
     HistoryService,
-    GalleryService,
     FavoritesService,
     FriendsService,
     ProfileReviewService,
     AuthenticationService,
-    UserRoomHistoryService
+    UserRoomHistoryService,
+    GalleryService
   ]
 })
 export class CabinetModule {

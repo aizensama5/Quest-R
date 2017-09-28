@@ -6,8 +6,8 @@ import {Observable} from 'rxjs/Observable';
 import {UserModel} from '../../models/user.model';
 import {UserService} from './user.service';
 import { UserRoomsHistoryModel } from '../../models/user-room-history.model';
-import {RoomHistoryModel} from '../../models/room-history.model';
-import {User} from 'firebase/app';
+import { User } from 'firebase/app';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,7 +16,8 @@ export class AuthenticationService {
   constructor(
     private af: AngularFireAuth,
     public popupNotificationService: PopupNotificationService,
-    private userService: UserService
+    private userService: UserService,
+    public router: Router
   ) {
     userService.all().subscribe((users: UserModel[]) => {
       this.allUsers = users;
@@ -60,7 +61,18 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.af.auth.signOut();
+    this.af.auth.signOut().then(() => {
+      this.router.navigate(['/']);
+    });
+  }
+
+  adminLogin(email: string, password: string) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((success) => {
+        this.router.navigate(['/admin/dashboard']);
+      }, (error) => {
+        console.log(error);
+    });
   }
 
   addNewUser() {
@@ -76,7 +88,7 @@ export class AuthenticationService {
                 id: user.uid,
                 name: user.displayName,
                 photo: user.photoURL,
-                email: user.email
+                email: user.email,
               };
               this.userService.addUser(newUser).then();
             }

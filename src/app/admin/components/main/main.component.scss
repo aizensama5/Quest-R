@@ -1,0 +1,7 @@
+:host /deep/ {
+  position: relative;
+  min-height: 100%;
+  .admin-main-content {
+    display: flex;
+  }
+}

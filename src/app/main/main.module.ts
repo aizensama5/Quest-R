@@ -97,11 +97,4 @@ import { FilterMarkingComponent } from './components/select-room/filter-rooms/fi
       ContactService
     ]
 })
-export class MainModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: MainModule,
-            providers: []
-        };
-    }
-}
+export class MainModule {}

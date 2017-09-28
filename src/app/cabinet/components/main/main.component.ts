@@ -11,10 +11,7 @@ import * as firebase from 'firebase/app';
 })
 export class CabinetMainComponent {
   private user: Observable<firebase.User>;
-  private userSocialNetwork: any;
   constructor (private authService: AuthenticationService) {
     this.user = authService.currentUser();
-    // this.userSocialNetwork = authService.userSocialNetwork();
-    // console.log(this.userSocialNetwork);
   }
 }

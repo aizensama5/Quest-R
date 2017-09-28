@@ -5,6 +5,7 @@ import { RoomMainComponent } from './components/main/main.component';
 import { RoomInfoComponent } from './components/room/room.component';
 import { RoomRoutingModule } from './room-routing.module';
 import { RouterModule } from '@angular/router';
+import { LayoutModule } from '../layout/layout.module';
 
 
 @NgModule({
@@ -12,8 +13,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+    LayoutModule,
     RoomRoutingModule,
-    MainModule.forRoot()
+    MainModule,
   ],
   exports: [
     RoomMainComponent
