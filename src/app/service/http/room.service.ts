@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {RoomModel} from '../../models/room.model';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import {GenreModel} from '../../models/genre.model';
 import {Observable} from 'rxjs/Observable';
 import { FilterModel } from '../../models/filter.model';
-import {count} from 'rxjs/operator/count';
 import {ComplexityModel} from '../../models/complexity.model';
 import {MarkingModel} from '../../models/marking.model';
 

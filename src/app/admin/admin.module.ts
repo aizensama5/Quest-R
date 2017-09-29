@@ -8,6 +8,10 @@ import { AdminHeaderComponent } from './components/header/header.component';
 import { AdminFooterComponent } from './components/footer/footer.component';
 import { AsideMenuComponent } from './components/aside-menu/aside-menu.component';
 import { HomeComponent } from './components/home/home.component';
+import { CompanyDataComponent } from './components/company-data/company-data.component';
+import { AdminRoomsComponent } from './components/admin-rooms/admin-rooms.component';
+import { CompanyService } from '../service/http/company.service';
+import { CompanySecurityService } from '../service/http/company-security.service';
 
 
 @NgModule({
@@ -17,7 +21,9 @@ import { HomeComponent } from './components/home/home.component';
     AdminHeaderComponent,
     AdminFooterComponent,
     AsideMenuComponent,
-    HomeComponent
+    HomeComponent,
+    CompanyDataComponent,
+    AdminRoomsComponent
   ],
   imports: [
     CommonModule,
@@ -26,5 +32,9 @@ import { HomeComponent } from './components/home/home.component';
   ],
   exports: [
   ],
+  providers: [
+    CompanyService,
+    CompanySecurityService
+  ]
 })
 export class AdminModule {}

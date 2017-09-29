@@ -2,22 +2,25 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { PopupNotificationService } from '../popup.notification.service';
-import {Observable} from 'rxjs/Observable';
-import {UserModel} from '../../models/user.model';
-import {UserService} from './user.service';
-import { UserRoomsHistoryModel } from '../../models/user-room-history.model';
-import { User } from 'firebase/app';
-import {Router} from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { UserModel } from '../../models/user.model';
+import { UserService } from './user.service';
+import { Router } from '@angular/router';
+import { CompanySecurityModel } from '../../models/company-security.model';
+import { CompanySecurityService } from './company-security.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable()
 export class AuthenticationService {
+  private static readonly adminLocalStorageName = 'admin';
   allUsers: UserModel[] = [];
 
   constructor(
     private af: AngularFireAuth,
     public popupNotificationService: PopupNotificationService,
     private userService: UserService,
-    public router: Router
+    public router: Router,
+    private companySecurityService: CompanySecurityService,
   ) {
     userService.all().subscribe((users: UserModel[]) => {
       this.allUsers = users;
@@ -40,7 +43,6 @@ export class AuthenticationService {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
     firebase.auth().signInWithPopup(provider).then((authInfo: any) => {
-      console.log(authInfo);
       window.location.href = '/cabinet/';
     }, (error) => {
 
@@ -67,12 +69,33 @@ export class AuthenticationService {
   }
 
   adminLogin(email: string, password: string) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((success) => {
-        this.router.navigate(['/admin/dashboard']);
-      }, (error) => {
-        console.log(error);
+    let companySecurityData: CompanySecurityModel;
+    this.companySecurityService.all().subscribe((companiesSecData: CompanySecurityModel[]) => {
+      if (companiesSecData.length) {
+        const pass = this.getPassword(email, password);
+        companySecurityData = companiesSecData.filter((companySecData: CompanySecurityModel) => companySecData.login === email && companySecData.password === pass)[0];
+        if (companySecurityData) {
+          localStorage.setItem(AuthenticationService.adminLocalStorageName, JSON.stringify(companySecurityData));
+          this.router.navigate(['/admin/dashboard/']);
+        }
+      } else {
+        console.log('нету зарегистрированых админов :(');
+      }
+    }, (error) => {
+      console.log(error);
     });
+  }
+
+  adminLogout () {
+    localStorage.removeItem(AuthenticationService.adminLocalStorageName);
+    this.router.navigate(['/admin/login/']);
+  }
+
+  getPassword(email: string, password: string): string {
+    return (btoa(email) + btoa(environment.salt) + btoa(password))
+      .split('==')
+      .join('')
+      .replace('=', '');
   }
 
   addNewUser() {

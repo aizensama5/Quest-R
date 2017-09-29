@@ -8,5 +8,6 @@ export const environment = {
     projectId: 'quest-r',
     storageBucket: '',
     messagingSenderId: '359336827851'
-  }
+  },
+  salt: 'quest-r-salt0997'
 };

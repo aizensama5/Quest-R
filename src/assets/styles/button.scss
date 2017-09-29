@@ -18,3 +18,24 @@
     padding: 10px;
   }
 }
+
+.admin-btn-wrap {
+  padding: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top: 1px solid #f4f4f4;
+}
+
+.admin-btn {
+  background-color: #3c8dbc;
+  border-color: #367fa9;
+  @include text-mixin($color-white, 14px, $font-source-sans-pro-regular);
+  font-weight: 400;
+  &:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+  }
+}
