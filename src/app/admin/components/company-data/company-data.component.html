@@ -5,7 +5,11 @@
     <div class="admin-company-data__data">
       <div class="admin-company-data__data-item">
         <p class="admin-company-data__data-item-title">Company name</p>
-        <input class="admin-input" name="company-name" value="{{ companyData.companyName }}"/>
+        <input class="admin-input"
+               name="company-name"
+               value="{{ companyData.companyName }}"
+               [(ngModel)]="companyData.companyName"
+        />
       </div>
       <div class="admin-company-data__data-item">
         <p class="admin-company-data__data-item-title">Logo</p>
@@ -13,7 +17,12 @@
       </div>
       <div class="admin-company-data__data-item">
         <p class="admin-company-data__data-item-title">New logo (for best result use square, min. 290x290px)</p>
-        <input type="file" class="admin-input" name="company-logo" />
+        <input type="file"
+               class="admin-input"
+               name="company-logo"
+               accept=".jpeg,.png,.jpg,.svg"
+               #file
+        />
       </div>
       <div class="admin-company-data__data-item">
         <p class="admin-company-data__data-item-title">Website address</p>
@@ -21,14 +30,21 @@
       </div>
       <div class="admin-company-data__data-item">
         <p class="admin-company-data__data-item-title">Facebook fanpage</p>
-        <input class="admin-input" name="company-facebook-fanpage" value="{{ companyData?.facebookFanpage }}"/>
+        <input class="admin-input"
+               name="company-facebook-fanpage"
+               value="{{ companyData?.facebookFanpage }}"
+               [(ngModel)]="companyData.facebookFanpage"
+        />
       </div>
       <div class="admin-company-data__data-item">
         <div class="admin-company-data__data-item-switch-language"></div>
         <p class="admin-company-data__data-item-title">
           About company - all changes to this field are MODERATED and will be visible on website WITH DELAY</p>
         <textarea class="admin-input admin-company-data__data-item-textarea"
-                  name="company-description">{{ companyData?.aboutCompany }}</textarea>
+                  name="company-description"
+                  [(ngModel)]="companyData.aboutCompany"
+        > {{ companyData?.aboutCompany }}
+        </textarea>
       </div>
       <div class="admin-company-data__data-item">
         <p class="admin-company-data__data-item-title">Language of system e-mails</p>
@@ -40,7 +56,7 @@
       </div>
     </div>
     <div class="admin-btn-wrap">
-      <button class="btn btn-primary admin-btn">Save</button>
+      <button class="btn btn-primary admin-btn" (click)="save(file)">Save</button>
     </div>
   </div>
 </div>

@@ -59,7 +59,9 @@ export class ProfileComponent {
     const rooms: RoomModel[] = [];
     if (this._rooms) {
       userOrderInfo.forEach((info: OrderModel) => {
-        rooms.push(this.roomService.roomById(info.roomId, this._rooms));
+        this.roomService.roomById(info.roomId).subscribe((room: RoomModel[]) => {
+          rooms.push(room[0]);
+        });
       });
     }
     return rooms;

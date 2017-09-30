@@ -21,10 +21,10 @@ export class CompanyService {
       .list(CompanyService.dataBaseName);
   }
 
-  changeCompanyData(companyInfo: CompanyModel): Promise<void> {
+  changeCompanyData(companyData: CompanyModel): Promise<void> {
     return <Promise<void>>this.dataBaseService
-      .object(CompanyService.dataBaseName)
-      .set(companyInfo.toJSON());
+      .object(CompanyService.dataBaseName + companyData.id)
+      .set(companyData);
   }
 
   companyData(companyId: number): FirebaseListObservable<CompanyModel[]> {

@@ -1,0 +1,156 @@
+<div class="admin-rooms-edit">
+  <h1 class="admin-rooms-edit__title">{{ room?.name }} - {{ companyData?.companyName }}</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="admin-rooms-edit__content">
+        <p class="admin-rooms-edit__content-title">General information</p>
+        <div class="admin-rooms-edit__data">
+          <div class="admin-rooms-edit__data-item">
+            <label class="admin-label" for="room-name">
+              Room name - all changes to this field are MODERATED and will be visible on website WITH DELAY
+            </label>
+            <input id="room-name" class="admin-input" [(ngModel)]="room.name">
+          </div>
+          <div class="admin-rooms-edit__data-item">
+            <label class="admin-label" for="room-opening-date">
+              Opening date
+            </label>
+            <input type="date" id="room-opening-date" class="admin-input" [(ngModel)]="room.openingDate">
+          </div>
+          <div class="admin-rooms-edit__data-item">
+            <label class="admin-label" for="room-genre">
+              Genre
+            </label>
+            <select id="room-genre" class="admin-input" [(ngModel)]="room.ganre">
+              <option *ngFor="let genre of genres">{{ genre?.legend }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="admin-rooms-edit__content">
+        <p class="admin-rooms-edit__content-title">Main photo</p>
+        <div class="admin-rooms-edit__data">
+          <div class="admin-rooms-edit__data-item">
+            <p class="admin-rooms-edit__data-item-title">Current</p>
+            <div class="admin-rooms-edit__data-item-logo" [ngStyle]="{'background-image': 'url(' + room?.img  + ')'}"></div>
+          </div>
+          <div class="admin-rooms-edit__data-item">
+            <p class="admin-rooms-edit__data-item-title">New logo (for best result use square, min. 290x290px)</p>
+            <input type="file"
+                   class="admin-input"
+                   name="room-logo"
+                   accept=".jpeg,.png,.jpg,.svg"
+                   #file
+            />
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="admin-rooms-edit__content">
+        <p class="admin-rooms-edit__content-title">Details</p>
+        <div class="admin-rooms-edit__data">
+          <div class="admin-rooms-edit__data-item form-group">
+            <label class="admin-label" for="room-people-min">
+              People min.
+            </label>
+            <input type="number" id="room-people-min" class="form-control admin-input" [(ngModel)]="room.countPlayers.minCountPlayers">
+          </div>
+          <div class="admin-rooms-edit__data-item form-group">
+            <label class="admin-label" for="room-people-max">
+              People max.
+            </label>
+            <input type="number" id="room-people-max" class="form-control admin-input" [(ngModel)]="room.countPlayers.maxCountPlayers">
+          </div>
+          <div class="admin-rooms-edit__data-item form-group">
+            <label class="admin-label" for="room-play-time">
+              Play time in minutes
+            </label>
+            <input type="number" id="room-play-time" class="form-control admin-input">
+          </div>
+          <div class="form-group admin-rooms__data-item">
+            <label for="room-difficulty">Difficulty</label>
+            <select class="form-control select2" id="room-difficulty" [(ngModel)]="room.complexity">
+              <option *ngFor="let complexity of complexities"> {{ complexity.complexity }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="admin-rooms-edit__content">
+        <p class="admin-rooms-edit__content-title">Markings</p>
+        <div class="admin-rooms-edit__data">
+          <div class="form-group admin-rooms-edit__data-item">
+            <p class="admin-rooms-edit__data-item-title">Special markings</p>
+            <div class="admin-rooms-edit__data-item-checkbox" *ngFor="let marking of markings; let i = index;">
+              <input id="marking-{{marking.id}}"
+                     type="checkbox"
+                     value="{{ marking.id }}"
+                     [checked]="marking.checked"
+              >
+              <label for="marking-{{marking.id}}">{{ marking.marking }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="admin-rooms-edit__content">
+        <p class="admin-rooms-edit__content-title">Texts</p>
+        <div class="admin-rooms-edit__data">
+          <div class="admin-rooms-edit__data-item">
+            <label class="admin-label" for="room-description">
+              Room description - all changes to this field are MODERATED and will be visible on website WITH DELAY
+            </label>
+            <textarea id="room-description" class="admin-rooms-edit__data-item-textarea admin-textarea admin-input" [(ngModel)]="room.description">
+              {{ room.description }}
+            </textarea>
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="admin-rooms-edit__content">
+        <p class="admin-rooms-edit__content-title">Room activation</p>
+        <div class="admin-rooms-edit__data">
+          <label class="admin-label">Important</label>
+          <p class="admin-rooms-edit__data-item">
+            Once activated room will be publicly available on Lockme and there will be <span class="bold">no way</span> of hiding it.
+            Disactivating it will only move it to closed rooms. Open/closing dates will be availe upon first activation.
+          </p>
+          <div class="form-group">
+            <div class="checkbox">
+              <label for="room-is-active">Activate room</label>
+              <input id="room-is-active" type="checkbox" [checked]="room.active" />
+            </div>
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

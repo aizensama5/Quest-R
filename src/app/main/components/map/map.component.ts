@@ -57,7 +57,6 @@ export class MapComponent {
         message: message.value
       };
       this.contactService.addQuestion(question).then((success) => {
-        console.log('success', success);
         question = new ContactQuestionModel();
       }, (error) => {
         console.log('error', error);

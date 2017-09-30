@@ -27,6 +27,7 @@ import { AppComponent } from './app/app.component';
 
 import { TimeService } from './service/time.service';
 import { GenreService } from './service/genre.service';
+import { IsActivePipe } from './pipe/is-active.pipe';
 
 
 @NgModule({

@@ -10,13 +10,24 @@ export class ReviewService {
 
   addReview(review: ReviewModel): Promise<void> {
     return <Promise<void>>this.dataBaseService
-      .object(ReviewService.dataBaseName + review.userId + '/' + review.roomId)
+      .object(ReviewService.dataBaseName + review.id)
       .set(review.toJSON());
   }
 
   all(): FirebaseListObservable<ReviewModel[]> {
     return <FirebaseListObservable<ReviewModel[]>>this.dataBaseService
       .list(ReviewService.dataBaseName);
+  }
+
+  lastId(reviews: ReviewModel[]): number {
+    if (reviews.length) {
+      const reviewsIds: number[] = [];
+      reviews.forEach((review: ReviewModel) => {
+        reviewsIds.push(review.id);
+      });
+      return Math.max.apply(null, reviewsIds);
+    }
+    return 0;
   }
 
   userReviews(userId: string): FirebaseListObservable<ReviewModel[]> {

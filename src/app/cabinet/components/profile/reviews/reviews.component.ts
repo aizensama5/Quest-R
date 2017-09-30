@@ -2,6 +2,7 @@ import {Component, OnInit } from '@angular/core';
 import { ProfileReviewModel } from '../../../../models/profile/profileReview.model';
 import { ProfileReviewService } from '../../../../service/profile/profileReview.service';
 import { PagerService } from '../../../../service/pager.service';
+import {ReviewModel} from '../../../../models/review.model';
 
 @Component({
   selector: 'app-cabinet-reviews',
@@ -41,6 +42,10 @@ export class ReviewsComponent implements OnInit {
 
     // get current page of items
     this.profilePagedItems = this.reviewsData.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
+  onNewReviewAdded($event) {
+    this.reviewsData.push($event);
   }
 
 }

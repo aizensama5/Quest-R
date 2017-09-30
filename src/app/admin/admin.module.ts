@@ -12,6 +12,13 @@ import { CompanyDataComponent } from './components/company-data/company-data.com
 import { AdminRoomsComponent } from './components/admin-rooms/admin-rooms.component';
 import { CompanyService } from '../service/http/company.service';
 import { CompanySecurityService } from '../service/http/company-security.service';
+import { FormsModule } from '@angular/forms';
+import { UploadPhotoComponent } from './components/company-data/upload-photo/upload-photo.component';
+import { ImageStorageService } from '../service/http/image-storage.service';
+import { PipeModule } from '../pipe/pipe.module';
+import { AdminRoomsEditComponent } from './components/admin-rooms/admin-rooms-edit/admin-rooms-edit.component';
+import { EditRoomsResolverService } from '../service/edit-rooms-resolver.service';
+import { AdminReviewsComponent } from './components/admin-reviews/admin-reviews.component';
 
 
 @NgModule({
@@ -23,18 +30,25 @@ import { CompanySecurityService } from '../service/http/company-security.service
     AsideMenuComponent,
     HomeComponent,
     CompanyDataComponent,
-    AdminRoomsComponent
+    AdminRoomsComponent,
+    UploadPhotoComponent,
+    AdminRoomsEditComponent,
+    AdminReviewsComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule,
+    PipeModule
   ],
   exports: [
   ],
   providers: [
     CompanyService,
-    CompanySecurityService
+    CompanySecurityService,
+    ImageStorageService,
+    EditRoomsResolverService
   ]
 })
 export class AdminModule {}
