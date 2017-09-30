@@ -16,6 +16,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
 import { AdminModule } from './admin/admin.module';
+import { GuardModule } from './guard/guard.module';
+
 
 // operators
 import './operators';
@@ -47,7 +49,8 @@ import { GenreService } from './service/genre.service';
     StoreModule.provideStore(reducersMain.reducer),
     CabinetModule,
     AdminModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    GuardModule
   ],
   providers: [
     GenreService,

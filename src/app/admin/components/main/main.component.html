@@ -1,6 +1,6 @@
 <app-admin-header (onSideBarToggle)="onSideBarToggle($event)"></app-admin-header>
-<div class="admin-main-content">
+<div class="admin-main-content" id="admin-main-container">
   <app-aside-menu *ngIf="is_displaySideBar"></app-aside-menu>
-  <app-home></app-home>
+  <router-outlet></router-outlet>
 </div>
 <app-admin-footer></app-admin-footer>

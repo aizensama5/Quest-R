@@ -1,4 +1,4 @@
-<header class="admin-header">
+<header class="admin-header" id="header">
   <a class="admin-header__logo-wrap" [routerLink]="'/admin/dashboard/'">
     <div class="admin-header__logo"></div>
   </a>
@@ -9,7 +9,7 @@
     <div class="admin-header__navbar-wrap">
       <ul class="admin-header__navbar-custom-menu">
         <li class="dropdown">
-          <a> Zalogowany jako: </a>
+          <a> Zalogowany jako: {{ companyData.companyName }} </a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

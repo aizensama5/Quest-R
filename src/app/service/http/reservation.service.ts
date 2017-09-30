@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { MainReservationModel } from '../../models/main-reservation.model';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as moment from 'moment';
-import _date = moment.unitOfTime._date;
 import {ReservationModel} from '../../models/reservation.model';
 
 @Injectable()

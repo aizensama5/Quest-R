@@ -4,11 +4,11 @@
   display: block;
   height: auto;
   min-height: 100%;
-  width: 230px;
   transition: transform .3s ease-in-out;
   background-color: #222d32;
   .aside-menu {
     min-height: 100%;
+    width: 230px;
     &__section {
       padding-bottom: 10px;
     }

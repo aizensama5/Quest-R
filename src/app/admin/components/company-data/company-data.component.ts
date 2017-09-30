@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyModel } from '../../../models/company.model';
-import { CompanySecurityModel } from '../../../models/company-security.model';
-import { CompanyService } from '../../../service/http/company.service';
+import {CompanyModel} from '../../../models/company.model';
+import {CompanySecurityModel} from '../../../models/company-security.model';
+import {CompanyService} from '../../../service/http/company.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-company-data',
+  templateUrl: './company-data.component.html',
+  styleUrls: ['./company-data.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class CompanyDataComponent implements OnInit {
   companyData: CompanyModel = new CompanyModel();
   currentCompany: CompanySecurityModel = JSON.parse(localStorage.getItem('admin'));
 
@@ -17,8 +17,5 @@ export class HomeComponent implements OnInit {
       this.companyData = companyData[0];
     });
   }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

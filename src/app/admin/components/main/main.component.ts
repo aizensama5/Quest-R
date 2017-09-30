@@ -8,14 +8,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class AdminMainComponent implements OnInit, OnDestroy {
   is_displaySideBar = true;
 
-  constructor() {
-    console.log(this.is_displaySideBar);
-  }
+  constructor() {}
 
   ngOnInit() {
-    console.log(window.innerHeight);
-    document.body.style.minHeight = window.innerHeight + 'px';
-    document.body.style.backgroundColor = '#d2d6de';
+    document.getElementById('admin-main-container')
+      .setAttribute('style', 'min-height: ' + this.containerHeight() + 'px');
+    document.body.style.backgroundColor = '#ECF0F5';
     document.body.style.backgroundImage = 'none';
   }
 
@@ -26,6 +24,12 @@ export class AdminMainComponent implements OnInit, OnDestroy {
 
   onSideBarToggle (is_display: boolean) {
     this.is_displaySideBar = is_display;
+  }
+
+  containerHeight(): number {
+    const header: HTMLElement = document.getElementById('header');
+    const footer: HTMLElement = document.getElementById('footer');
+    return window.innerHeight - header.offsetHeight - footer.offsetHeight;
   }
 
 }
