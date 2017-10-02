@@ -54,7 +54,9 @@ export class ReservedRoomComponent implements OnInit {
       this.roomId = parseInt(this.route.snapshot.params.id, 10);
       this.isOpenedRoomPage = !!this.roomId;
       if (this.isOpenedRoomPage) {
-        this.onSelectRoom(this.roomService.roomById(this.roomId, this.rooms));
+        this.roomService.roomById(this.roomId).subscribe((room: RoomModel[]) => {
+          this.onSelectRoom(room[0]);
+        });
       }
     }
 

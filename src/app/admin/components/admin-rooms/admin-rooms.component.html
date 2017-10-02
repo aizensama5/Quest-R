@@ -14,23 +14,22 @@
             </tr>
             </thead>
             <tbody class="admin-rooms__data-table-body">
-            <td>
-              <p>1</p>
-            </td>
-            <td>
-              <p>1</p>
-            </td>
-            <td>
-              <a>
-                <i class="fa fa-edit"></i>
-                Edit
-              </a>
-            </td>
+            <tr *ngFor="let room of rooms">
+              <td>
+                <p>{{ room?.name }}</p>
+              </td>
+              <td>
+                <p>{{ room?.active | isActive: room?.active }}</p>
+              </td>
+              <td>
+                <a [routerLink]="'/admin/dashboard/rooms/' + room.id + '/edit'">
+                  <i class="fa fa-edit"></i>
+                  Edit
+                </a>
+              </td>
+            </tr>
             </tbody>
           </table>
-        </div>
-        <div class="admin-btn-wrap">
-          <button class="btn btn-primary admin-btn">Save</button>
         </div>
       </div>
     </div>
@@ -39,10 +38,10 @@
         <p class="admin-rooms__content-title">Add new room</p>
         <div class="admin-rooms__data">
           <label class="admin-label" for="new-room-name">Room name</label>
-          <input id="new-room-name" class="admin-input">
+          <input id="new-room-name" class="admin-input" [(ngModel)]="newRoom.name" #roomName>
         </div>
         <div class="admin-btn-wrap">
-          <button class="btn btn-primary admin-btn">Save</button>
+          <button class="btn btn-primary admin-btn" (click)="addNewRoom(roomName.value)">Save</button>
         </div>
       </div>
     </div>

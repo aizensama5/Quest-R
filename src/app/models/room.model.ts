@@ -5,14 +5,19 @@ import { PlayerModel } from './player.model';
 import { PriceModel } from './price.model';
 import { ComplexityModel } from './complexity.model';
 import { MarkingModel } from './marking.model';
+import * as moment from 'moment';
+import _date = moment.unitOfTime._date;
 
 export class RoomModel {
   id: number;
   description: string;
   name: string;
+  active: boolean;
+  companyId: number;
   img: string;
   duration: string;
   level: string;
+  openingDate: string;
   position: Marker;
   ganre: GenreModel;
   displayOnMain: boolean;
@@ -45,8 +50,11 @@ export class RoomModel {
     this.description = '';
     this.name = '';
     this.img = '';
+    this.active = false;
+    this.companyId = null;
     this.duration = '';
     this.level = '';
+    this.openingDate = '';
     this.position = new Marker();
     this.ganre = new GenreModel();
     this.displayOnMain = false;

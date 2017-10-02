@@ -3,6 +3,7 @@ import { FirebaseUtils } from '../shared/firebase.utils';
 export class MarkingModel {
   id: number;
   marking: string;
+  checked?: boolean;
 
   static fromJSON(values) {
     const complexity = new MarkingModel();

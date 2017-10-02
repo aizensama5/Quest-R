@@ -6,8 +6,10 @@ export class ReviewModel {
   userId: number;
   created: string;
   visited: string;
+  title: string;
   review: string;
   is_displayed: boolean;
+  answer: string;
 
   static fromJSON(values) {
     const room = new ReviewModel();
@@ -34,7 +36,9 @@ export class ReviewModel {
     this.userId = null;
     this.created = '';
     this.visited = '';
+    this.title = '';
     this.review = '';
     this.is_displayed = true;
+    this.answer = '';
   }
 }

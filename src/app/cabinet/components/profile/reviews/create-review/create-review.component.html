@@ -4,12 +4,11 @@
     <div class="create-review__left">
       <div class="create-review__select-room create-review__left-field">
         <label class="label">Название комнаты</label>
-        <select [(ngModel)]="newReview.roomName"
+        <select [(ngModel)]="newReview.roomId"
                 class="create-review__select"
-                #roomName>
-          <option name="review-room-option"
+        ><option name="review-room-option"
               *ngFor="let room of rooms"
-              [value]="room.name">
+              [value]="room.id">
             {{ room.name }}
           </option>
         </select>
@@ -20,20 +19,18 @@
                class="create-review__date"
                name="review-date"
                type="date"
-               #visitDate
         />
       </div>
     </div>
     <div class="create-review__right">
       <label class="label">Ваш отзыв</label>
-      <textarea [(ngModel)]="newReview.description"
+      <textarea [(ngModel)]="newReview.review"
                 name="review-textarea"
                 class="create-review__textarea"
-                #userReview>
-      </textarea>
+      ></textarea>
     </div>
   </div>
   <button class="create-review__submit"
-         (click)="save(roomName, visitDate, userReview)"
+         (click)="save()"
   >Добавить</button>
 </div>

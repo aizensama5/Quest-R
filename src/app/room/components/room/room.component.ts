@@ -23,7 +23,9 @@ export class RoomInfoComponent {
       this.rooms = rooms;
       let roomId = this.route.snapshot.params.id;
       roomId = parseInt(roomId, 10);
-      this.room = this.roomService.roomById(roomId, this.rooms);
+      this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
+        this.room = room[0];
+      });
     });
   }
 }

@@ -20,6 +20,8 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
+        "../node_modules/datatables.net-select-bs/css/select.bootstrap.css",
         "../node_modules/reset-css/reset.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/swiper/dist/css/swiper.min.css",

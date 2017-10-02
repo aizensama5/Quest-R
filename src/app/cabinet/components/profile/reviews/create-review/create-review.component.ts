@@ -1,8 +1,11 @@
-import {Component, EventEmitter, Output, Input} from '@angular/core';
-import {ProfileReviewModel} from '../../../../../models/profile/profileReview.model';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {RoomService} from '../../../../../service/http/room.service';
 import {RoomModel} from '../../../../../models/room.model';
-import {ProfileReviewService} from '../../../../../service/profile/profileReview.service';
+import {Observable} from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+import {AuthenticationService} from '../../../../../service/http/authentication.service';
+import {ReviewService} from '../../../../../service/http/review.service';
+import {ReviewModel} from '../../../../../models/review.model';
 
 @Component({
   selector: 'app-create-review',
@@ -10,27 +13,42 @@ import {ProfileReviewService} from '../../../../../service/profile/profileReview
   styleUrls: ['./create-review.component.scss']
 })
 export class CreateReviewComponent {
-  @Input() newReview: any = {};
+  user$: Observable<firebase.User>;
+  user: any;
+  newReview: ReviewModel = new ReviewModel;
+  allReviews: ReviewModel[] = [];
   rooms: RoomModel[];
-  profileReviewService: ProfileReviewService = new ProfileReviewService();
+  @Output() onNewReviewAdded: EventEmitter<ReviewModel> = new EventEmitter<ReviewModel>();
 
 
-  constructor(roomService: RoomService) {
+  constructor(public roomService: RoomService,
+              private authService: AuthenticationService,
+              public reviewService: ReviewService) {
     roomService.all().subscribe((rooms) => {
       this.rooms = rooms;
     });
+    this.user$ = authService.currentUser();
+    this.user$.subscribe((user: any) => {
+      this.user = user;
+    });
+    reviewService.all().subscribe((reviews: ReviewModel[]) => {
+      this.allReviews = reviews;
+    });
   }
 
-  save (room: HTMLSelectElement, visitDate: HTMLInputElement, review: HTMLTextAreaElement) {
-    this.newReview = {
-      id: 3,
-      user_id: 1,
-      roomName: room.value,
-      created: new Date().toJSON().slice(0, 10).replace(/-/g,'.'),
-      visited: visitDate.value,
-      description: review.value
-    };
-    this.profileReviewService.addReview(this.newReview).subscribe((res) => {});
+  save() {
+    this.newReview.id = this.reviewService.lastId(this.allReviews) + 1;
+    this.newReview.userId = this.user.uid;
+    this.newReview.created = new Date().toString();
+    console.log(this.newReview);
+    this.reviewService.addReview(this.newReview)
+      .then(() => {
+        this.onNewReviewAdded.emit(this.newReview);
+        console.log('review was added');
+        this.newReview = new ReviewModel();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
-
 }

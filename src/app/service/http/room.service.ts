@@ -10,19 +10,49 @@ import {MarkingModel} from '../../models/marking.model';
 export class RoomService {
   private static readonly dataBaseName = 'room/';
 
-  roomById (roomId: number, rooms?: RoomModel[]): RoomModel {
-    return rooms.filter((room: RoomModel) => room.id === roomId)[0] || new RoomModel();
-  }
+  // roomById (roomId: number, rooms: RoomModel[]): RoomModel {
+  //   return rooms.filter((room: RoomModel) => room.id === roomId)[0] || new RoomModel();
+  // }
 
   constructor (private dataBaseService: AngularFireDatabase) {}
 
   addRoom(room: RoomModel): Promise<void> {
-    return <Promise<void>>this.dataBaseService.object(RoomService.dataBaseName + room.id).set(room.toJSON());
+    return <Promise<void>>this.dataBaseService.object(RoomService.dataBaseName + room.id).set(room);
   }
 
   all(): FirebaseListObservable<RoomModel[]> {
     return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
       .list(RoomService.dataBaseName)
+      .map((items) => items.map(RoomModel.fromJSON));
+  }
+
+  roomById(id: number): FirebaseListObservable<RoomModel[]> {
+    return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
+      .list(RoomService.dataBaseName, {
+        query: {
+          orderByChild: 'id',
+          equalTo: id
+        }
+      })
+      .map((items) => items.map(RoomModel.fromJSON));
+  }
+
+  lastId(rooms: RoomModel[]): number {
+    const roomsIds: number[] = [];
+    rooms.forEach((room: RoomModel) => {
+      roomsIds.push(room.id);
+    });
+    return Math.max.apply(null, roomsIds);
+  }
+
+  roomsByCompanyId(companyId: number): FirebaseListObservable<RoomModel[]> {
+    return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
+      .list(RoomService.dataBaseName, {
+        query: {
+          orderByChild: 'companyId',
+          equalTo: companyId
+        }
+      })
       .map((items) => items.map(RoomModel.fromJSON));
   }
 
@@ -169,7 +199,9 @@ export class RoomService {
     const filteredRooms: RoomModel[] = [];
     for (let i = 0; i < sortedRoomsIds.length; i++) {
       if (sortedRoomsIds.length > (i + countFilters - 1) && sortedRoomsIds[i + countFilters - 1] === sortedRoomsIds[i]) {
-        filteredRooms.push(this.roomById(sortedRoomsIds[i], rooms));
+        this.roomById(sortedRoomsIds[i]).subscribe((room: RoomModel[]) => {
+          filteredRooms.push(room[0]);
+        });
       }
     }
     return filteredRooms;

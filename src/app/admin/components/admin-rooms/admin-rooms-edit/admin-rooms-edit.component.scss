@@ -1,0 +1,57 @@
+@import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/admin-templates";
+
+:host /deep/ {
+  flex-grow: 1;
+  .admin-rooms-edit {
+    padding: 15px;
+    &__title {
+      line-height: 1.1;
+      font-weight: 400;
+      @include text-mixin(#333, 24px, $font-source-sans-pro-regular);
+    }
+    &__content {
+      margin: 20px 0;
+      border-radius: 3px;
+      background: #fff;
+      border-top: 3px solid #d2d6de;
+      width: 100%;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      @include text-mixin(#333, 14px, $font-source-sans-pro-regular);
+      line-height: 1.42857143;
+      &-title {
+        line-height: 1;
+        font-size: 18px;
+        padding: 10px;
+      }
+    }
+    &__data {
+      padding: 10px;
+      &-item {
+        margin-bottom: 15px;
+        &-title {
+          font-weight: 700;
+          margin-bottom: 5px;
+        }
+        &-logo {
+          background-size: contain;
+          width: 180px;
+          height: 180px;
+          background-repeat: no-repeat;
+          background-position: center center;
+        }
+        &-checkbox {
+          margin-bottom: 5px;
+          font-weight: 700;
+          input {
+            vertical-align: middle;
+          }
+        }
+        &-textarea {
+          min-height: 120px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
