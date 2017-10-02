@@ -20,8 +20,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
-        "../node_modules/datatables.net-select-bs/css/select.bootstrap.css",
+        "../node_modules/datatables.net-dt/css/jquery.dataTables.css",
         "../node_modules/reset-css/reset.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/swiper/dist/css/swiper.min.css",
@@ -31,7 +30,9 @@
       "scripts": [
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/swiper/dist/js/swiper.min.js",
-        "../node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.min.js",
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/datatables.net/js/jquery.dataTables.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

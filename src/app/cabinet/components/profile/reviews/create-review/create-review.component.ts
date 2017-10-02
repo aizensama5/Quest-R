@@ -40,7 +40,6 @@ export class CreateReviewComponent {
     this.newReview.id = this.reviewService.lastId(this.allReviews) + 1;
     this.newReview.userId = this.user.uid;
     this.newReview.created = new Date().toString();
-    console.log(this.newReview);
     this.reviewService.addReview(this.newReview)
       .then(() => {
         this.onNewReviewAdded.emit(this.newReview);

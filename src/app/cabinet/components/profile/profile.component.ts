@@ -47,10 +47,6 @@ export class ProfileComponent {
         this._passedRooms = this.passedRooms(this.userOrderInfo);
         this.gallery(user.uid);
         this.reviews(user.uid);
-        console.log(this._rooms);
-        console.log(this._passedRooms);
-        console.log(this._reviews);
-        console.log(this._gallery);
       });
     });
   }

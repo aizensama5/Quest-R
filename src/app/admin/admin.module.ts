@@ -19,6 +19,12 @@ import { PipeModule } from '../pipe/pipe.module';
 import { AdminRoomsEditComponent } from './components/admin-rooms/admin-rooms-edit/admin-rooms-edit.component';
 import { EditRoomsResolverService } from '../service/edit-rooms-resolver.service';
 import { AdminReviewsComponent } from './components/admin-reviews/admin-reviews.component';
+import { DataTablesModule } from 'angular-datatables';
+import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
+import { PricesAndSettingsComponent } from './components/admin-bookings/prices-and-settings/prices-and-settings.component';
+import { DaysSettingsComponent } from './components/admin-bookings/days-settings/days-settings.component';
+import { CalendarComponent } from './components/admin-bookings/calendar/calendar.component';
+import { SpecialOffersComponent } from './components/admin-bookings/special-offers/special-offers.component';
 
 
 @NgModule({
@@ -33,14 +39,20 @@ import { AdminReviewsComponent } from './components/admin-reviews/admin-reviews.
     AdminRoomsComponent,
     UploadPhotoComponent,
     AdminRoomsEditComponent,
-    AdminReviewsComponent
+    AdminReviewsComponent,
+    AdminBookingsComponent,
+    PricesAndSettingsComponent,
+    DaysSettingsComponent,
+    CalendarComponent,
+    SpecialOffersComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     AdminRoutingModule,
     FormsModule,
-    PipeModule
+    PipeModule,
+    DataTablesModule
   ],
   exports: [
   ],

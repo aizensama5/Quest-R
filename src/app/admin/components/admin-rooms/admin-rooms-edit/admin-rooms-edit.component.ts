@@ -51,7 +51,6 @@ export class AdminRoomsEditComponent implements OnInit {
           }
         });
       });
-      console.log(this.markings);
     });
   }
 
@@ -59,8 +58,13 @@ export class AdminRoomsEditComponent implements OnInit {
     this.activeRoute.data.subscribe((data) => {
       if (data['room']) {
         this.room = data['room'];
-        console.log(this.room);
       }
+    });
+  }
+
+  save() {
+    this.roomService.addRoom(this.room).then(() => {}, (error) => {
+      console.log(error);
     });
   }
 

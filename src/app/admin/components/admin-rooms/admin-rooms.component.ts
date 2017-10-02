@@ -29,7 +29,6 @@ export class AdminRoomsComponent implements OnInit {
     });
     this.roomService.all().subscribe((rooms: RoomModel[]) => {
       this.allRooms = rooms;
-      console.log(this.allRooms);
     });
   }
 

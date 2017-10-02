@@ -5,7 +5,11 @@
       <div class="admin-reviews__content">
         <p class="admin-reviews__content-title">Reviews</p>
           <div class="admin-reviews__top">
-           <table id="review-table" class="table table-striped table-bordered table-hover dataTable no-footer">
+            <table *ngIf="reviews"
+                   datatable
+                   id="review-table"
+                   class="table table-striped table-bordered table-hover dataTable no-footer"
+            >
              <thead>
              <tr>
                <th>ID</th>
@@ -19,27 +23,30 @@
              <tbody>
               <tr role="row" *ngFor="let review of reviews">
                 <td class="text-center sorting_1">
-                  <p>{{ review.id }}</p>
+                  <p>{{ review?.id }}</p>
                 </td>
                 <td class="text-center">
-                  <p>{{ review.roomId }}</p>
+                  <p>{{ review?.roomId }}</p>
                 </td>
                 <td class="text-center">
-                  <p>{{ review.userId }}</p>
+                  <p>{{ review?.userId }}</p>
                 </td>
                 <td class="text-center">
-                  <p>{{ review.title }}</p>
+                  <p>{{ review?.title }}</p>
                 </td>
                 <td class="text-center">
-                  <textarea class="form-control">{{ review.review }}</textarea>
+                  <textarea disabled class="form-control admin-reviews__textarea">{{ review?.review }}</textarea>
                 </td>
                 <td class="text-center">
-                  <textarea class="form-control">{{ review.answer }}</textarea>
+                  <textarea class="form-control admin-reviews__textarea">{{ review?.answer }}</textarea>
                 </td>
               </tr>
              </tbody>
            </table>
           </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn">Save</button>
+        </div>
       </div>
     </div>
   </div>
