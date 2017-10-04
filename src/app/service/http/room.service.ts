@@ -22,7 +22,12 @@ export class RoomService {
 
   all(): FirebaseListObservable<RoomModel[]> {
     return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
-      .list(RoomService.dataBaseName)
+      .list(RoomService.dataBaseName, {
+        query: {
+          orderByChild: 'active',
+          equalTo: 1
+        }
+      })
       .map((items) => items.map(RoomModel.fromJSON));
   }
 

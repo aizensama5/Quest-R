@@ -1,32 +1,32 @@
 <div class="room-info-wrapper">
   <div class="room-info">
-    <div class="room-info__image" [ngStyle]="{'background-image': 'url(' + room.img + ')'}"></div>
+    <div class="room-info__image" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"></div>
     <div class="room-info__info">
-      <h3 class="room-info__info-name">POKÓJ "{{room.name}}"</h3>
+      <h3 class="room-info__info-name">POKÓJ "{{room?.name}}"</h3>
       <p class="room-info__info-description">
-        {{ room.description }}
+        {{ room?.description }}
       </p>
       <div class="room-info__details">
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/clock.svg" alt="img details genre">
-          <span class="room-info__details-text">{{room.duration}}</span>
+          <span class="room-info__details-text">{{room?.duration}}</span>
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/clock.svg" alt="img details clock">
-          <span class="room-info__details-text">{{room.level}}</span>
+          <span class="room-info__details-text">{{room?.level}}</span>
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-          <span class="room-info__details-text">{{room.countPerson}} osób</span>
+          <span class="room-info__details-text">{{room?.countPerson}} osób</span>
         </div>
       </div>
       <div class="room-info__details-item room-info__details-additional">
         <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-        <span class="room-info__details-text">{{room.additionalAbilities}}</span>
+        <span class="room-info__details-text">{{room?.additionalAbilities}}</span>
       </div>
       <div class="room-info__details-item room-info__details-additional">
         <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-        <span class="room-info__details-text">{{room.prevention}}</span>
+        <span class="room-info__details-text">{{room?.prevention}}</span>
       </div>
     </div>
   </div>

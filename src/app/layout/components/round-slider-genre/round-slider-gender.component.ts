@@ -55,7 +55,6 @@ export class RoundSliderGenderComponent implements OnInit {
       const svg = host.append('svg')
         .attr('width', this.width)
         .attr('height', this.height)
-        .attr('class', 'container')
         .append('g')
         .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
 

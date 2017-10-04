@@ -11,7 +11,7 @@
       @include text-mixin(#333, 24px, $font-source-sans-pro-regular);
     }
     &__content {
-      margin: 20px 0;
+      height: 100%;
       border-radius: 3px;
       background: #fff;
       border-top: 3px solid #d2d6de;
@@ -52,6 +52,12 @@
           margin-bottom: 10px;
         }
       }
+    }
+    &__row {
+      margin-top: 20px;
+    }
+    &__btn {
+      padding: 25px 10px 10px;
     }
   }
 }

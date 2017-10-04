@@ -53,6 +53,10 @@
       display: none;
     }
     transition: max-height 0.5s;
+
+    .menu__link {
+      @include text-mixin($color-white, 18px, $font-gotham-pro-medium);
+    }
   }
 
   &__lang-mob {

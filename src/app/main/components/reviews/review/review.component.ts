@@ -8,5 +8,5 @@ import { ReviewModel } from '../../../../models/review.model';
     styleUrls: ['review.component.scss']
 })
 export class ReviewComponent {
-    @Input() review: ReviewModel;
+    @Input() review: any;
 }

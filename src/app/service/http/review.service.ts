@@ -36,7 +36,7 @@ export class ReviewService {
       .map((items) => items.map(ReviewModel.fromJSON));
   }
 
-  roomReviews(roomId: number, reviews?: ReviewModel[]) {
+  roomReviews (roomId: number, reviews?: ReviewModel[]) {
     let allReviews: ReviewModel[] = [];
     if (reviews.length) {
       allReviews = reviews;
