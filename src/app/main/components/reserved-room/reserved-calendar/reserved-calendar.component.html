@@ -13,11 +13,11 @@
             <tr class="reservation-table__items">
               <td *ngFor="let rsrvItem of rsrv[1].time">
                 <div class="reservation-table__item" (click)="onSelectedItem(rsrvItem, rsrv[2])"
-                     [ngStyle]="{'background-color': rsrvItem.background }">
+                     [ngStyle]="{'background-color': rsrvItem?.background }">
                   <div class="reservation-table__item-info"
-                       *ngIf="!rsrvItem.is_booked && !rsrvItem.is_bought && !rsrvItem.is_past">
-                    <p class="reservation-table__item-info--price">{{rsrvItem.price}}</p>
-                    <p class="reservation-table__item-info--currency">{{rsrvItem.currency}}</p>
+                       *ngIf="!rsrvItem?.is_booked && !rsrvItem?.is_bought && !rsrvItem?.is_past">
+                    <p class="reservation-table__item-info--price">{{rsrvItem?.price}}</p>
+                    <p class="reservation-table__item-info--currency">{{rsrvItem?.currency}}</p>
                   </div>
                 </div>
               </td>

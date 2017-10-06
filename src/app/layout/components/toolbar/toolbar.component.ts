@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../../service/http/authentication.serv
 })
 export class ToolbarComponent implements OnInit {
     isShowLoginPopup = false;
-    private user: Observable<firebase.User>;
+    user: Observable<firebase.User>;
 
 
   links: MenuLinkModel[] = [

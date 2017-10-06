@@ -21,7 +21,7 @@ export class ReservedFormComponent implements OnInit {
     @Input() showOrderingTable: boolean;
     orderData: OrderModel = new OrderModel();
 
-    private user$: Observable<firebase.User>;
+    user$: Observable<firebase.User>;
     private user: any;
 
     constructor(

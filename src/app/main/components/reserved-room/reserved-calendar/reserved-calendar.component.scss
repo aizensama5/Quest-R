@@ -5,13 +5,12 @@
   overflow: hidden;
   .swiper {
     position: relative;
-    width: 585px;
-    padding-bottom: 80px;
+    width: 720px;
     padding-left: 65px;
     padding-right: 65px;
     right: 65px;
     .swiper-container-horizontal {
-      padding-bottom: 35px;
+      padding-bottom: 70px;
     }
   }
   .reservation-table {
@@ -20,7 +19,7 @@
     display: flex;
     justify-content: center;
     width: auto;
-    margin: 44px auto 52px;
+    margin: 44px auto 0;
     &__wrap {
       tbody {
         display: block;
@@ -81,6 +80,7 @@
       width: 100% !important;
     }
     &__button {
+      margin-top: 10px;
       top: auto;
       height: auto;
       background-image: none;

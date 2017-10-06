@@ -22,8 +22,8 @@ export class MapComponent {
   marksRoom: Marker[] = [];
   firstMarkRoom: Marker = new Marker();
   companyInfo: CompanyInfoModel[];
-  preparedCompanyInfo: any[] = [];
-  private user: Observable<firebase.User>;
+  preparedCompanyInfo: any;
+  user: Observable<firebase.User>;
 
   constructor(
       private _roomService: RoomService,

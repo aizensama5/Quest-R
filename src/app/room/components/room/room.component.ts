@@ -2,6 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {RoomModel} from '../../../models/room.model';
 import {RoomService} from '../../../service/http/room.service';
 import {ActivatedRoute} from '@angular/router';
+import {MarkingModel} from '../../../models/marking.model';
 
 
 @Component({
@@ -25,6 +26,12 @@ export class RoomInfoComponent {
       roomId = parseInt(roomId, 10);
       this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
         this.room = room[0];
+        console.log(this.room);
+        let markingIndex = 1;
+        this.room.marking.map(() => {
+          this.room.marking[markingIndex - 1] = this.room.marking[markingIndex];
+          markingIndex++;
+        });
       });
     });
   }

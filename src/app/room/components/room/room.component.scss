@@ -2,7 +2,7 @@
 
 .room-info-wrapper {
   max-width: 960px;
-  margin: 0 auto;
+  margin: 40px auto 0;
 }
 .room-info {
   height: auto;
@@ -67,5 +67,8 @@
       top: 2px;
       padding-left: 19px;
     }
+  }
+  &__details-additional:first-child {
+    display: none;
   }
 }

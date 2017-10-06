@@ -1,22 +1,22 @@
-<div class="admin-company-data">
-  <h1 class="admin-company-data__title">Company Data</h1>
-  <div class="admin-company-data__content">
-    <p class="admin-company-data__content-title">Company Data</p>
-    <div class="admin-company-data__data">
-      <div class="admin-company-data__data-item">
-        <p class="admin-company-data__data-item-title">Company name</p>
+<div class="admin">
+  <h1 class="admin__title">Company Data</h1>
+  <div class="admin__content">
+    <p class="admin__content-title">Company Data</p>
+    <div class="admin__data">
+      <div class="admin__data-item">
+        <p class="admin__data-item-title">Company name</p>
         <input class="admin-input"
                name="company-name"
                value="{{ companyData.companyName }}"
                [(ngModel)]="companyData.companyName"
         />
       </div>
-      <div class="admin-company-data__data-item">
-        <p class="admin-company-data__data-item-title">Logo</p>
-        <div class="admin-company-data__data-item-logo" [ngStyle]="{'background-image': 'url(' + companyData?.logo  + ')'}"></div>
+      <div class="admin__data-item">
+        <p class="admin__data-item-title">Logo</p>
+        <div class="admin__data-item-logo" [ngStyle]="{'background-image': 'url(' + companyData?.logo  + ')'}"></div>
       </div>
-      <div class="admin-company-data__data-item">
-        <p class="admin-company-data__data-item-title">New logo (for best result use square, min. 290x290px)</p>
+      <div class="admin__data-item">
+        <p class="admin__data-item-title">New logo (for best result use square, min. 290x290px)</p>
         <input type="file"
                class="admin-input"
                name="company-logo"
@@ -24,31 +24,31 @@
                #file
         />
       </div>
-      <div class="admin-company-data__data-item">
-        <p class="admin-company-data__data-item-title">Website address</p>
+      <div class="admin__data-item">
+        <p class="admin__data-item-title">Website address</p>
         <input class="admin-input" name="company-website-address" value="{{ companyData?.websiteAddress }}"/>
       </div>
-      <div class="admin-company-data__data-item">
-        <p class="admin-company-data__data-item-title">Facebook fanpage</p>
+      <div class="admin__data-item">
+        <p class="admin__data-item-title">Facebook fanpage</p>
         <input class="admin-input"
                name="company-facebook-fanpage"
                value="{{ companyData?.facebookFanpage }}"
                [(ngModel)]="companyData.facebookFanpage"
         />
       </div>
-      <div class="admin-company-data__data-item">
-        <div class="admin-company-data__data-item-switch-language"></div>
-        <p class="admin-company-data__data-item-title">
+      <div class="admin__data-item">
+        <div class="admin__data-item-switch-language"></div>
+        <p class="admin__data-item-title">
           About company - all changes to this field are MODERATED and will be visible on website WITH DELAY</p>
-        <textarea class="admin-input admin-company-data__data-item-textarea"
+        <textarea class="admin-input admin__data-item-textarea"
                   name="company-description"
                   [(ngModel)]="companyData.aboutCompany"
         > {{ companyData?.aboutCompany }}
         </textarea>
       </div>
-      <div class="admin-company-data__data-item">
-        <p class="admin-company-data__data-item-title">Language of system e-mails</p>
-        <select class="admin-input admin-company-data__data-item-select"
+      <div class="admin__data-item">
+        <p class="admin__data-item-title">Language of system e-mails</p>
+        <select class="admin-input admin__data-item-select"
                 name="company-facebook-fanpage">
           <option>Poland</option>
           <option>English</option>

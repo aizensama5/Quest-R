@@ -1,0 +1,62 @@
+<div class="admin">
+  <h1 class="admin__title">Prices and settings</h1>
+  <div class="row">
+    <div class="admin__content">
+      <p class="admin__content-title">Types</p>
+      <div class="admin__data">
+        <table class="admin__data-table">
+          <thead class="admin__data-table-head">
+          <tr>
+            <th>ID</th>
+            <th>Type name</th>
+            <th>Prices</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+          <tbody class="admin__data-table-body">
+          <tr>
+            <td class="text-center admin__data-table-body-new">NEW</td>
+            <td class="text-center admin__data-table-body-new">
+              <input class="admin-input" name="new-type-name" [(ngModel)]="priceType.name"/>
+            </td>
+            <td class="text-center admin__data-table-body-new">
+              <table class="admin__data-table admin__data-table-price">
+                <tr *ngIf="priceType.prices">
+                  <th>Count of players:</th>
+                  <td *ngFor="let i of countItems; let i = index;">
+                    <input type="number"
+                           min="1"
+                           max="{{ maxCountOfPlayers }}"
+                           name="count-of-players"
+                           value="{{ i }}"
+                           disabled
+                    />
+                  </td>
+                </tr>
+                <tr *ngIf="priceType.prices">
+                  <th>Price:</th>
+                  <td *ngFor="let i of countItems; let i = index;">
+                    <input type="number"
+                           min="0"
+                           step="0.01"
+                           id="price-{{ i }}"
+                           name="price-{{ i }}"
+                           [(ngModel)]="priceType.prices[i].price"
+                           required
+                    />
+                    <p>{{i}} - {{ priceType.prices[i].price }}</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="text-center admin__data-table-body-new">XXX</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="admin-btn-wrap">
+        <button class="btn btn-primary admin-btn" (click)="addNewType()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
