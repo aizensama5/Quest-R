@@ -26,7 +26,6 @@ export class RoomInfoComponent {
       roomId = parseInt(roomId, 10);
       this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
         this.room = room[0];
-        console.log(this.room);
         let markingIndex = 1;
         this.room.marking.map(() => {
           this.room.marking[markingIndex - 1] = this.room.marking[markingIndex];

@@ -28,6 +28,8 @@ import { AppComponent } from './app/app.component';
 import { TimeService } from './service/time.service';
 import { GenreService } from './service/genre.service';
 import { IsActivePipe } from './pipe/is-active.pipe';
+import { PricesTypesService } from './service/prices-types.service';
+import { PipeModule } from './pipe/pipe.module';
 
 
 @NgModule({
@@ -51,11 +53,13 @@ import { IsActivePipe } from './pipe/is-active.pipe';
     CabinetModule,
     AdminModule,
     BrowserAnimationsModule,
-    GuardModule
+    GuardModule,
+    PipeModule
   ],
   providers: [
     GenreService,
-    TimeService
+    TimeService,
+    PricesTypesService,
   ],
   bootstrap: [AppComponent]
 })

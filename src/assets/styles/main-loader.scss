@@ -1,0 +1,18 @@
+.main-loader {
+  &:before {
+    content: '';
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999999;
+    background-image: url('/assets/images/loader.gif');
+    background-position: center;
+    background-size: 200px 200px;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+  }
+}

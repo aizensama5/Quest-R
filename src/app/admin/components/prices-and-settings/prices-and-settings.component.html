@@ -1,4 +1,4 @@
-<div class="admin">
+<div class="admin" [class.main-loader]="isShowLoader">
   <h1 class="admin__title">Prices and settings</h1>
   <div class="row">
     <div class="admin__content">
@@ -14,8 +14,8 @@
           </tr>
           </thead>
           <tbody class="admin__data-table-body">
-          <tr>
-            <td class="text-center admin__data-table-body-new">NEW</td>
+          <tr *ngFor="let priceType of pricesTypes">
+            <td class="text-center admin__data-table-body-new">{{ priceType?.id }}</td>
             <td class="text-center admin__data-table-body-new">
               <input class="admin-input" name="new-type-name" [(ngModel)]="priceType.name"/>
             </td>
@@ -23,28 +23,66 @@
               <table class="admin__data-table admin__data-table-price">
                 <tr *ngIf="priceType.prices">
                   <th>Count of players:</th>
-                  <td *ngFor="let i of countItems; let i = index;">
+                  <td *ngFor="let priceCPlayersDep of priceType.prices;">
                     <input type="number"
                            min="1"
                            max="{{ maxCountOfPlayers }}"
                            name="count-of-players"
-                           value="{{ i }}"
+                           value="{{ priceCPlayersDep?.countPlayers }}"
                            disabled
                     />
                   </td>
                 </tr>
                 <tr *ngIf="priceType.prices">
                   <th>Price:</th>
-                  <td *ngFor="let i of countItems; let i = index;">
+                  <td *ngFor="let priceCPlayersDep of priceType.prices; let i = index;">
+                    <input type="number"
+                           min="0"
+                           step="0.01"
+                           name="price-{{ i }}"
+                           value="{{ priceCPlayersDep?.price }}"
+                           disabled
+                    />
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="text-center admin__data-table-body-delete">
+              <i class="fa fa-close"
+                  (click)="deleteType(priceType.id)"
+              ></i></td>
+          </tr>
+
+          <tr>
+            <td class="text-center admin__data-table-body-new">NEW</td>
+            <td class="text-center admin__data-table-body-new">
+              <input class="admin-input" name="new-type-name" [(ngModel)]="newPriceType.name"/>
+            </td>
+            <td class="text-center admin__data-table-body-new">
+              <table class="admin__data-table admin__data-table-price">
+                <tr *ngIf="newPriceType.prices">
+                  <th>Count of players:</th>
+                  <td *ngFor="let i of countItems;">
+                    <input type="number"
+                           min="1"
+                           max="{{ maxCountOfPlayers }}"
+                           name="count-of-players"
+                           value="{{ i + 1 }}"
+                           disabled
+                    />
+                  </td>
+                </tr>
+                <tr *ngIf="newPriceType.prices">
+                  <th>Price:</th>
+                  <td *ngFor="let i of countItems;">
                     <input type="number"
                            min="0"
                            step="0.01"
                            id="price-{{ i }}"
                            name="price-{{ i }}"
-                           [(ngModel)]="priceType.prices[i].price"
+                           [(ngModel)]="newPriceType.prices[i].price"
                            required
                     />
-                    <p>{{i}} - {{ priceType.prices[i].price }}</p>
                   </td>
                 </tr>
               </table>
@@ -56,6 +94,16 @@
       </div>
       <div class="admin-btn-wrap">
         <button class="btn btn-primary admin-btn" (click)="addNewType()">Save</button>
+      </div>
+      <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+        <div class="popup">
+          <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+          <div class="popup-content">
+            <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+            <div class="popup-confirmation" *ngIf="deletedTypeId" (click)="confirmDeleteType(deletedTypeId)">ДА</div>
+          </div>
+          <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
+        </div>
       </div>
     </div>
   </div>

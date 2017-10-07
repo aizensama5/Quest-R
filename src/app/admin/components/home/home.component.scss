@@ -1,8 +1,9 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/admin-templates";
 
 :host /deep/ {
   flex-grow: 1;
-  .admin-home {
+  .admin {
     padding: 15px;
     &__title {
       line-height: 1.1;
