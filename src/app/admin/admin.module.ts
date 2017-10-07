@@ -21,10 +21,13 @@ import { EditRoomsResolverService } from '../service/edit-rooms-resolver.service
 import { AdminReviewsComponent } from './components/admin-reviews/admin-reviews.component';
 import { DataTablesModule } from 'angular-datatables';
 import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
-import { PricesAndSettingsComponent } from './components/admin-bookings/prices-and-settings/prices-and-settings.component';
-import { DaysSettingsComponent } from './components/admin-bookings/days-settings/days-settings.component';
-import { CalendarComponent } from './components/admin-bookings/calendar/calendar.component';
-import { SpecialOffersComponent } from './components/admin-bookings/special-offers/special-offers.component';
+import { PricesAndSettingsComponent } from './components/prices-and-settings/prices-and-settings.component';
+import { DaysSettingsComponent } from './components/days-settings/days-settings.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
+import { PricesTypesModel } from '../models/prices-types.model';
+import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { ConfigService } from '../service/http/config.service';
 
 
 @NgModule({
@@ -44,7 +47,8 @@ import { SpecialOffersComponent } from './components/admin-bookings/special-offe
     PricesAndSettingsComponent,
     DaysSettingsComponent,
     CalendarComponent,
-    SpecialOffersComponent
+    SpecialOffersComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +64,9 @@ import { SpecialOffersComponent } from './components/admin-bookings/special-offe
     CompanyService,
     CompanySecurityService,
     ImageStorageService,
-    EditRoomsResolverService
+    EditRoomsResolverService,
+    PricesTypesModel,
+    ConfigService
   ]
 })
 export class AdminModule {}

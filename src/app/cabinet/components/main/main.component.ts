@@ -10,7 +10,7 @@ import * as firebase from 'firebase/app';
   styleUrls: ['main.component.scss']
 })
 export class CabinetMainComponent {
-  private user: Observable<firebase.User>;
+  user: Observable<firebase.User>;
   constructor (private authService: AuthenticationService) {
     this.user = authService.currentUser();
   }

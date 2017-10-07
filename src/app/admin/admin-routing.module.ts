@@ -9,6 +9,12 @@ import { AdminGuard } from '../guard/admin.guard';
 import { AdminRoomsEditComponent } from './components/admin-rooms/admin-rooms-edit/admin-rooms-edit.component';
 import { EditRoomsResolverService } from '../service/edit-rooms-resolver.service';
 import { AdminReviewsComponent } from './components/admin-reviews/admin-reviews.component';
+import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
+import { DaysSettingsComponent } from './components/days-settings/days-settings.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { PricesAndSettingsComponent } from './components/prices-and-settings/prices-and-settings.component';
+import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
+import { ConfigurationComponent } from './components/configuration/configuration.component';
 
 
 @NgModule({
@@ -25,7 +31,13 @@ import { AdminReviewsComponent } from './components/admin-reviews/admin-reviews.
         { path: 'home', component: HomeComponent },
         { path: 'rooms', component: AdminRoomsComponent },
         { path: 'rooms/:id/edit', component: AdminRoomsEditComponent, resolve: {room: EditRoomsResolverService} },
-        { path: 'reviews', component: AdminReviewsComponent }
+        { path: 'reviews', component: AdminReviewsComponent },
+        { path: 'bookings', component: AdminBookingsComponent },
+        { path: 'days-and-settings', component: DaysSettingsComponent },
+        { path: 'calendar', component: CalendarComponent },
+        { path: 'prices-and-settings', component: PricesAndSettingsComponent },
+        { path: 'special-offers', component: SpecialOffersComponent },
+        { path: 'configuration', component: ConfigurationComponent },
       ]},
     ])
   ],

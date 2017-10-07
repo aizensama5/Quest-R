@@ -67,27 +67,16 @@
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a>
+            <a [routerLink]="'/admin/dashboard/bookings'">
               <i class="fa fa-circle-o"></i>
               Bookings
             </a>
           </li>
-          <li class="treeview dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <li>
+            <a [routerLink]="'/admin/dashboard/prices-and-settings'">
               <i class="fa fa-circle-o"></i>
               <span>Prices and settings</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left"></i>
-              </span>
             </a>
-            <ul class="treeview-menu dropdown-menu">
-              <li>
-                <a>
-                  <i class="fa fa-circle-o"></i>
-                  Quest-R
-                </a>
-              </li>
-            </ul>
           </li>
 
           <li class="treeview dropdown">
@@ -100,19 +89,19 @@
             </a>
             <ul class="treeview-menu dropdown-menu">
               <li>
-                <a>
+                <a [routerLink]="'/admin/dashboard/days-settings'">
                   <i class="fa fa-circle-o"></i>
                   Schron bankowy
                 </a>
               </li>
               <li>
-                <a>
+                <a [routerLink]="'/admin/dashboard/days-settings'">
                   <i class="fa fa-circle-o"></i>
                   Fantazja
                 </a>
               </li>
               <li>
-                <a>
+                <a [routerLink]="'/admin/dashboard/days-settings'">
                   <i class="fa fa-circle-o"></i>
                   Midnight Killer MK II
                 </a>
@@ -130,35 +119,27 @@
             </a>
             <ul class="treeview-menu dropdown-menu">
               <li>
-                <a>
+                <a [routerLink]="'/admin/dashboard/calendar'">
                   <i class="fa fa-circle-o"></i>
                   Schron bankowy
                 </a>
               </li>
               <li>
-                <a>
+                <a [routerLink]="'/admin/dashboard/calendar'">
                   <i class="fa fa-circle-o"></i>
                   Fantazja
                 </a>
               </li>
               <li>
-                <a>
+                <a [routerLink]="'/admin/dashboard/calendar'">
                   <i class="fa fa-circle-o"></i>
                   Midnight Killer MK II
                 </a>
               </li>
             </ul>
           </li>
-
-          <li>
-            <a href>
-              <i class="fa fa-circle-o"></i>
-              Prices and settings
-            </a>
-          </li>
         </ul>
       </li>
-
 
       <li class="treeview dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -170,7 +151,7 @@
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a>
+            <a [routerLink]="'/admin/dashboard/configuration'">
               <i class="fa fa-circle-o"></i>
               Configuration
             </a>

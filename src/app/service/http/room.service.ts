@@ -44,9 +44,13 @@ export class RoomService {
 
   lastId(rooms: RoomModel[]): number {
     const roomsIds: number[] = [];
-    rooms.forEach((room: RoomModel) => {
-      roomsIds.push(room.id);
-    });
+    if (rooms.length) {
+      rooms.forEach((room: RoomModel) => {
+        roomsIds.push(room.id);
+      });
+    } else {
+      roomsIds.push(1);
+    }
     return Math.max.apply(null, roomsIds);
   }
 

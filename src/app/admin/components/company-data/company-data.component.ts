@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {CompanyModel} from '../../../models/company.model';
 import {CompanySecurityModel} from '../../../models/company-security.model';
 import {CompanyService} from '../../../service/http/company.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-company-data',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RoomService } from '../../../../service/http/room.service';
 import { RoomModel } from '../../../../models/room.model';
@@ -31,7 +31,7 @@ export class AdminRoomsEditComponent implements OnInit {
     public companyService: CompanyService,
     public genreService: GenreService,
     public complexityService: ComplexityService,
-    public markingService: MarkingService
+    public markingService: MarkingService,
   ) {
     companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
       this.companyData = companyData[0];
@@ -54,6 +54,7 @@ export class AdminRoomsEditComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
     this.activeRoute.data.subscribe((data) => {
       if (data['room']) {
@@ -63,7 +64,8 @@ export class AdminRoomsEditComponent implements OnInit {
   }
 
   save() {
-    this.roomService.addRoom(this.room).then(() => {}, (error) => {
+    this.roomService.addRoom(this.room).then(() => {
+    }, (error) => {
       console.log(error);
     });
   }

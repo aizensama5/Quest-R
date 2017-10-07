@@ -17,16 +17,12 @@
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-          <span class="room-info__details-text">{{room?.countPerson}} osób</span>
+          <span class="room-info__details-text">{{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} osób</span>
         </div>
       </div>
-      <div class="room-info__details-item room-info__details-additional">
+      <div class="room-info__details-item room-info__details-additional" *ngFor="let mark of room?.marking">
         <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-        <span class="room-info__details-text">{{room?.additionalAbilities}}</span>
-      </div>
-      <div class="room-info__details-item room-info__details-additional">
-        <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-        <span class="room-info__details-text">{{room?.prevention}}</span>
+        <span class="room-info__details-text">{{ mark?.marking }}</span>
       </div>
     </div>
   </div>

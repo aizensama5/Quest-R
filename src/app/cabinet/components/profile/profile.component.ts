@@ -21,10 +21,8 @@ import { ReviewService } from '../../../service/http/review.service';
   styleUrls: ['profile.component.scss']
 })
 export class ProfileComponent {
-  private user$: Observable<firebase.User>;
-  // private userRoomHistory: UserRoomsHistoryModel[] = [];
+  user$: Observable<firebase.User>;
   private user: any;
-  userRoomHistory: any[] = [];
   userOrderInfo: OrderModel[];
   _passedRooms: RoomModel[] = [];
   _rooms: RoomModel[] = [];
