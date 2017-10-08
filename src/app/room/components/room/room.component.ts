@@ -20,7 +20,7 @@ export class RoomInfoComponent {
     private route: ActivatedRoute,
     private roomService: RoomService
   ) {
-    this.roomService.all().subscribe((rooms: RoomModel[]) => {
+    this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this.rooms = rooms;
       let roomId = this.route.snapshot.params.id;
       roomId = parseInt(roomId, 10);

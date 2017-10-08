@@ -28,6 +28,7 @@ import { SpecialOffersComponent } from './components/special-offers/special-offe
 import { PricesTypesModel } from '../models/prices-types.model';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ConfigService } from '../service/http/config.service';
+import {DaysSettingsService} from '../service/days-settings.service';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { ConfigService } from '../service/http/config.service';
     ImageStorageService,
     EditRoomsResolverService,
     PricesTypesModel,
-    ConfigService
+    ConfigService,
+    DaysSettingsService
   ]
 })
 export class AdminModule {}

@@ -1,0 +1,51 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/admin-templates";
+
+:host /deep/ {
+  width: 100%;
+  .available-hours {
+    display: flex;
+    &__item {
+      margin-right: 20px;
+      &--time {
+        border: 1px solid #555;
+        @include text-mixin(#000, 14px, $font-source-sans-pro-regular);
+        height: 26px;
+        line-height: 26px;
+        font-weight: 600;
+      }
+      &--label {
+        margin: 5px 0;
+        line-height: 1;
+        display: block;
+      }
+      &--delete {
+        margin: 10px 0 12px;
+        cursor: pointer;
+        .fa {
+          color: #c21313;
+          padding-right: 3px;
+        }
+      }
+      input[type=radio],
+      input[type=checkbox] {
+        vertical-align: middle;
+      }
+    }
+    &__new {
+      margin-left: 10px;
+      display: flex;
+      justify-content: center;
+      i {
+        display: block;
+        margin: auto;
+        font-size: 40px;
+        cursor: pointer;
+        transition: .3s ease-in;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

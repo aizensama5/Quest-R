@@ -1,5 +1,5 @@
 import { ReservationModel } from './reservation.model';
-import {FirebaseUtils} from '../shared/firebase.utils';
+import { FirebaseUtils } from '../shared/firebase.utils';
 
 export class MainReservationModel {
   roomId: number;

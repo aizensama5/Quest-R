@@ -74,7 +74,7 @@ export class ProfileComponent {
   }
 
   rooms(): void {
-    this.roomService.all().subscribe((rooms: RoomModel[]) => {
+    this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this._rooms = rooms;
     });
   }

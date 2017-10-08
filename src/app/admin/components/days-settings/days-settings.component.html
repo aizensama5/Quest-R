@@ -1,3 +1,79 @@
-<p>
-  days-settings works!
-</p>
+<div class="admin" [class.main-loader]="isShowLoader">
+  <h1 class="admin__title">Days settings - {{ room?.name }}</h1>
+  <div class="admin__content">
+    <p class="admin__content-title">Week days</p>
+    <div class="admin__data">
+      <table class="admin__data-table table-striped">
+        <thead class="admin__data-table-head">
+        <tr>
+          <th>Week day</th>
+          <th>Available hours</th>
+          <th>Options</th>
+        </tr>
+        </thead>
+        <tbody class="admin__data-table-body">
+        <tr *ngFor="let daySet of daysSettings">
+          <td>
+            <p>{{ daySet?.weekDay }}</p>
+          </td>
+          <td class="available-hours">
+            <div class="available-hours__item" *ngFor="let avHour of daySet.availableHours">
+              <label for="available-hour" class="admin-label available-hours__item--label">Hour: </label>
+              <input
+                class="available-hours__item--time"
+                type="time"
+                name="hour"
+                id="available-hour"
+                [(ngModel)]="avHour.hour"/>
+              <p class="available-hours__item--label">Variants</p>
+              <div class="available-hours__item--price-types" *ngFor="let prType of priceTypes">
+                <input
+                  id="price-type-{{ prType.id }}"
+                  type="checkbox"
+                  [(ngModel)]="avHour.priceTypeId"
+                  class="available-hours__item--radio"/>
+                <label class="admin-label">{{ prType?.name }}</label>
+              </div>
+              <div class="available-hours__item--radio available-hours__item--delete"
+                   (click)="deleteHour(daySet.id, avHour.id)">
+                <i class="fa fa-close"></i>
+                Delete
+              </div>
+            </div>
+            <div class="available-hours__new">
+              <i class="fa fa-plus-circle" (click)="addHour(daySet.id)"></i>
+            </div>
+          </td>
+          <td>
+            <select class="form-control select2" (change)="onSelectedOption($event, daySet.id)">
+              <option>-- choose --</option>
+              <option *ngFor="let wDay of weekDays" value="{{ options.o_copy + wDay.id }}">
+                Copy from: {{ wDay?.weekDay }}
+              </option>
+              <option *ngIf="daySet.availableHours" value="{{ options.o_delete + daySet.id }}">
+                Clear {{ daySet?.weekDay }}'s settings
+              </option>
+            </select>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="admin-btn-wrap">
+        <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+      </div>
+    </div>
+    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+      <div class="popup">
+        <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+        <div class="popup-content">
+          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+          <div class="popup-confirmation"
+               *ngIf="dayIdToDelete && hourIdToDelete"
+               (click)="confirmDeleteHour()">
+            ДА</div>
+        </div>
+        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
+      </div>
+    </div>
+  </div>
+</div>

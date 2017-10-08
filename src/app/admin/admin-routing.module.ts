@@ -33,11 +33,11 @@ import { ConfigurationComponent } from './components/configuration/configuration
         { path: 'rooms/:id/edit', component: AdminRoomsEditComponent, resolve: {room: EditRoomsResolverService} },
         { path: 'reviews', component: AdminReviewsComponent },
         { path: 'bookings', component: AdminBookingsComponent },
-        { path: 'days-and-settings', component: DaysSettingsComponent },
         { path: 'calendar', component: CalendarComponent },
         { path: 'prices-and-settings', component: PricesAndSettingsComponent },
         { path: 'special-offers', component: SpecialOffersComponent },
         { path: 'configuration', component: ConfigurationComponent },
+        { path: 'days-settings/:id', component: DaysSettingsComponent, resolve: {room: EditRoomsResolverService}  },
       ]},
     ])
   ],

@@ -22,6 +22,12 @@ export class RoomService {
 
   all(): FirebaseListObservable<RoomModel[]> {
     return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
+      .list(RoomService.dataBaseName)
+      .map((items) => items.map(RoomModel.fromJSON));
+  }
+
+  allActive(): FirebaseListObservable<RoomModel[]> {
+    return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
       .list(RoomService.dataBaseName, {
         query: {
           orderByChild: 'active',
@@ -30,7 +36,6 @@ export class RoomService {
       })
       .map((items) => items.map(RoomModel.fromJSON));
   }
-
   roomById(id: number): FirebaseListObservable<RoomModel[]> {
     return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
       .list(RoomService.dataBaseName, {
