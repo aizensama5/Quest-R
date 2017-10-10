@@ -82,7 +82,7 @@ export class ReservedRoomComponent implements OnInit {
     }
 
     getAllRooms() {
-      this.roomService.all().subscribe((rooms: RoomModel[]) => {
+      this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
         this.rooms = rooms;
       });
     }

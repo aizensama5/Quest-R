@@ -4,6 +4,8 @@ import { CompanySecurityModel } from '../../../models/company-security.model';
 import { CompanyService } from '../../../service/http/company.service';
 import { RoomService } from '../../../service/http/room.service';
 import { RoomModel } from '../../../models/room.model';
+import { DaysSettingsService } from '../../../service/days-settings.service';
+import { DaysModel } from '../../../models/days.model';
 
 @Component({
   selector: 'app-admin-rooms',
@@ -16,10 +18,12 @@ export class AdminRoomsComponent implements OnInit {
   rooms: RoomModel[] = [];
   allRooms: RoomModel[] = [];
   newRoom: RoomModel = new RoomModel();
+  daySettings: DaysModel = new DaysModel();
 
   constructor(
     private companyService: CompanyService,
-    public roomService: RoomService
+    public roomService: RoomService,
+    protected daysSettingsService: DaysSettingsService
   ) {
     companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
       this.companyData = companyData[0];
@@ -35,6 +39,24 @@ export class AdminRoomsComponent implements OnInit {
   ngOnInit() {
   }
 
+  generateDaysSetting() {
+    DaysSettingsService.weekDays.forEach((weekDay: any) => {
+      this.daySettings = {
+        id: weekDay.id,
+        roomId: this.newRoom.id,
+        weekDay: weekDay.weekDay,
+        availableHours: [
+          {
+            id: 1,
+            hour: '',
+            priceTypeId: null
+          }
+        ]
+      };
+      this.daysSettingsService.addDaySetting(this.daySettings).then();
+    });
+  }
+
   addNewRoom(roomName: string) {
     if (roomName.length) {
       this.newRoom.id = this.roomService.lastId(this.allRooms) + 1;
@@ -43,6 +65,7 @@ export class AdminRoomsComponent implements OnInit {
       this.rooms.push(this.newRoom);
       this.roomService.addRoom(this.newRoom)
         .then(() => {
+          this.generateDaysSetting();
           this.newRoom = new RoomModel();
         })
         .catch((error) => { console.log(error); });

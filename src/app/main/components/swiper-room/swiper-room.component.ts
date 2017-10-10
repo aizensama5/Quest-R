@@ -30,7 +30,7 @@ export class SwiperRoomComponent implements OnInit {
   }
 
   roomsCollection(): void {
-    this._roomService.all().subscribe((rooms: RoomModel[]) => {
+    this._roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this.rooms = rooms;
     });
   }

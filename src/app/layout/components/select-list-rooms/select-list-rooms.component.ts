@@ -34,11 +34,11 @@ export class SelectListRoomsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllRooms();
+        this.getAllActiveRooms();
     }
 
-    getAllRooms() {
-      this.roomService.all().subscribe((rooms: RoomModel[]) => {
+    getAllActiveRooms() {
+      this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
         this.rooms = rooms;
       });
     }

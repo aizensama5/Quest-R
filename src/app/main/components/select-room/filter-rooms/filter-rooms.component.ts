@@ -39,7 +39,7 @@ export class FilterRoomsComponent implements OnInit {
     complexityService.all().subscribe((complexity: ComplexityModel[]) => {
       this.complexity = complexity;
     });
-    roomService.all().subscribe((rooms: RoomModel[]) => {
+    roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this.rooms = rooms;
     });
 
