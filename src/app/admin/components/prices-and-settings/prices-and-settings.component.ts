@@ -20,7 +20,6 @@ export class PricesAndSettingsComponent implements OnInit {
   isShowLoader: boolean;
   isShowNotificationPopup = false;
   notificationPopupMessage = '';
-  notificationPopupMessageColor = '';
   areErrors: boolean;
   deletedTypeId: number;
 
@@ -114,7 +113,6 @@ export class PricesAndSettingsComponent implements OnInit {
   closePopup () {
     this.isShowNotificationPopup = false;
     this.notificationPopupMessage = '';
-    this.notificationPopupMessageColor = '';
   }
 
 }

@@ -12,8 +12,7 @@ import { CompanyDataComponent } from './components/company-data/company-data.com
 import { AdminRoomsComponent } from './components/admin-rooms/admin-rooms.component';
 import { CompanyService } from '../service/http/company.service';
 import { CompanySecurityService } from '../service/http/company-security.service';
-import { FormsModule } from '@angular/forms';
-import { UploadPhotoComponent } from './components/company-data/upload-photo/upload-photo.component';
+import { FormsModule, NgControl} from '@angular/forms';
 import { ImageStorageService } from '../service/http/image-storage.service';
 import { PipeModule } from '../pipe/pipe.module';
 import { AdminRoomsEditComponent } from './components/admin-rooms/admin-rooms-edit/admin-rooms-edit.component';
@@ -28,7 +27,11 @@ import { SpecialOffersComponent } from './components/special-offers/special-offe
 import { PricesTypesModel } from '../models/prices-types.model';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ConfigService } from '../service/http/config.service';
-import {DaysSettingsService} from '../service/days-settings.service';
+import { DaysSettingsService } from '../service/days-settings.service';
+import { SharedModule } from '../shared/shared.module';
+import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+import { SwiperModule } from 'angular2-useful-swiper';
+
 
 
 @NgModule({
@@ -41,7 +44,6 @@ import {DaysSettingsService} from '../service/days-settings.service';
     HomeComponent,
     CompanyDataComponent,
     AdminRoomsComponent,
-    UploadPhotoComponent,
     AdminRoomsEditComponent,
     AdminReviewsComponent,
     AdminBookingsComponent,
@@ -57,7 +59,10 @@ import {DaysSettingsService} from '../service/days-settings.service';
     AdminRoutingModule,
     FormsModule,
     PipeModule,
-    DataTablesModule
+    SwiperModule,
+    DataTablesModule,
+    SharedModule,
+    FileUploadModule
   ],
   exports: [
   ],

@@ -1,9 +1,9 @@
 <app-layout-round-slider
   #roundSlider
-  [width]="480"
-  [height]="480"
-  [radius]="205"
-  [thick]="72"
+  [width]="roundCircleParams?.width"
+  [height]="roundCircleParams?.height"
+  [radius]="roundCircleParams?.radius"
+  [thick]="roundCircleParams?.thick"
   [(value)]="value"
   [(valueFixed)]="valueOnFixedPos"
   [min]="minCountPlayers"

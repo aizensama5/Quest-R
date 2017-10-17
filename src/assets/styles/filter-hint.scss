@@ -1,4 +1,5 @@
 @import "variables";
+@import "_mixins";
 
 .filter-hint {
   position: absolute;
@@ -17,5 +18,18 @@
   &__delete {
     position: relative;
     color: #c21313;
+  }
+}
+
+@media #{$tablet-x2} {
+  .filter-hint {
+    display: block;
+    ul {
+      li {
+        line-height: 1.2;
+        padding: 0 0 0 10px;
+        font-size: 14px;
+      }
+    }
   }
 }

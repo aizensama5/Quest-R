@@ -7,6 +7,8 @@ import { ComplexityModel } from './complexity.model';
 import { MarkingModel } from './marking.model';
 import * as moment from 'moment';
 import _date = moment.unitOfTime._date;
+import {GalleryModel} from './profile/gallery.model';
+import {PhotoModel} from './profile/photo.model';
 
 export class RoomModel {
   id: number;
@@ -25,6 +27,7 @@ export class RoomModel {
   price: PriceModel;
   complexity: ComplexityModel[];
   marking: MarkingModel[];
+  gallery: PhotoModel[];
 
   static fromJSON(values) {
     const room = new RoomModel();
@@ -62,5 +65,6 @@ export class RoomModel {
     this.price = new PriceModel();
     this.complexity = [];
     this.marking = [];
+    this.gallery = [];
   }
 }

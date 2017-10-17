@@ -8,6 +8,8 @@ import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input }
 })
 export class FilterPlayersComponent implements OnInit {
 
+  @Input() roundCircleParams: any;
+
   minCountPlayers = 0;
   maxCountPlayers = 8;
 

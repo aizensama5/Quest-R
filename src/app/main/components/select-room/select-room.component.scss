@@ -1,6 +1,10 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/_mixins";
 
 :host /deep/ {
   margin-top: 100px;
   display: block;
+  @media #{$tablet-x2} {
+    margin-top: 30px;
+  }
 }

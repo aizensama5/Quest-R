@@ -1,4 +1,4 @@
-<swiper *ngIf="rooms.length > 0" [config]="config">
+<swiper *ngIf="rooms.length" [config]="config">
     <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let room of rooms">
             <div class="swiper-room__slide" [ngStyle]="{'background-image': 'url(' + room.img + ')'}">
@@ -6,7 +6,7 @@
                 <div class="swiper-room__content">
                   <h3 class="swiper-room__title">
                     POKÓJ <br>
-                    {{ room.name }}
+                    "{{ room.name }}"
                   </h3>
                   <button class="btn swiper-room__btn" [routerLink]="['/room/'+room.id]">
                     Read more

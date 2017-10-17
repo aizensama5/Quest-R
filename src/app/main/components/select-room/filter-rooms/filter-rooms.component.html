@@ -62,12 +62,16 @@
   [value]="filterArray.countPlayers"
   [initValue]="filterArray.countPlayers"
   (onChangeCountPlayers)="onChangeCountPlayers($event)"
+  (window:resize)="onResize($event)"
+  [roundCircleParams]="initialRoundCircleParams"
 ></app-filter-players>
 
 <app-filter-genre
   *ngIf="isDisplayGenreCircle"
   [selectedGenre]="filterArray.genre"
   (onChangeGenre)="onChangeGenre($event)"
+  (window:resize)="onResize($event)"
+  [roundCircleParams]="initialRoundCircleParams"
 ></app-filter-genre>
 
 <app-filter-price
@@ -75,5 +79,7 @@
   [initValue]="filterArray.price"
   [value]="filterArray.price"
   (onChangePrice)="onChangePrice($event)"
+  (window:resize)="onResize($event)"
+  [roundCircleParams]="initialRoundCircleParams"
 ></app-filter-price>
 

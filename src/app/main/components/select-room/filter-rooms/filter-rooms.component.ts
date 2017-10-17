@@ -26,6 +26,25 @@ export class FilterRoomsComponent implements OnInit {
   complexity: ComplexityModel[] = [];
   marking: MarkingModel[] = [];
 
+  windowWidth: number;
+  initialRoundCircleParams = {};
+  desktopRoundCircleParams: any = {
+    width: 480,
+    height: 480,
+    radius: 205,
+    thick: 72
+  };
+  tabletRoundCircleParams: any = {
+    width: 320,
+    height: 320,
+    radius: 132,
+    thick: 55
+  };
+  tabletWidth = {
+    max: 949,
+    min: 529
+  };
+
   @Output() filteredRooms: EventEmitter<RoomModel[]> = new EventEmitter<RoomModel[]>();
 
   constructor(
@@ -114,6 +133,17 @@ export class FilterRoomsComponent implements OnInit {
     this.filterArray.marking.splice(indexToRemove , 1);
   }
 
+  onResize(event: any) {
+    this.windowWidth = event.target.innerWidth;
+    this.checkRoundCircleParams();
+  }
+
+  checkRoundCircleParams() {
+    this.initialRoundCircleParams = this.windowWidth > this.tabletWidth.min && this.windowWidth < this.tabletWidth.max ? this.tabletRoundCircleParams : this.desktopRoundCircleParams;
+  }
+
   ngOnInit() {
+    this.windowWidth = window.innerWidth;
+    this.checkRoundCircleParams();
   }
 }

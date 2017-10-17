@@ -1,4 +1,4 @@
-<div class="admin">
+<div class="admin" [class.main-loader]="isShowLoader">
   <h1 class="admin__title">Company Data</h1>
   <div class="admin__content">
     <p class="admin__content-title">Company Data</p>
@@ -11,18 +11,15 @@
                [(ngModel)]="companyData.companyName"
         />
       </div>
-      <div class="admin__data-item">
+      <div class="admin__data-item admin__data-item-image">
         <p class="admin__data-item-title">Logo</p>
-        <div class="admin__data-item-logo" [ngStyle]="{'background-image': 'url(' + companyData?.logo  + ')'}"></div>
+        <div class="admin__data-item-logo" *ngIf="companyData.logo" [ngStyle]="{'background-image': 'url(' + companyData?.logo  + ')'}">
+          <i class="fa fa-close" (click)="deleteImage()"></i>
+        </div>
       </div>
       <div class="admin__data-item">
         <p class="admin__data-item-title">New logo (for best result use square, min. 290x290px)</p>
-        <input type="file"
-               class="admin-input"
-               name="company-logo"
-               accept=".jpeg,.png,.jpg,.svg"
-               #file
-        />
+        <app-upload-image [companyLogo]="companyData.logo" (onImageUploaded)="onImageUploaded($event)"></app-upload-image>
       </div>
       <div class="admin__data-item">
         <p class="admin__data-item-title">Website address</p>
@@ -56,7 +53,16 @@
       </div>
     </div>
     <div class="admin-btn-wrap">
-      <button class="btn btn-primary admin-btn" (click)="save(file)">Save</button>
+      <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+    </div>
+    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+      <div class="popup">
+        <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+        <div class="popup-content">
+          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+        </div>
+        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
+      </div>
     </div>
   </div>
 </div>

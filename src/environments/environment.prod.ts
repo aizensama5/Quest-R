@@ -6,7 +6,7 @@ export const environment = {
     authDomain: 'quest-r.firebaseapp.com',
     databaseURL: 'https://quest-r.firebaseio.com',
     projectId: 'quest-r',
-    storageBucket: '',
+    storageBucket: 'quest-r.appspot.com',
     messagingSenderId: '359336827851'
   },
   salt: 'quest-r-salt0997'
