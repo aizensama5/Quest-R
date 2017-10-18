@@ -1,6 +1,7 @@
 import {Inject} from '@angular/core';
 import {FirebaseApp} from 'angularfire2';
 import 'firebase/storage';
+import {FileItem} from 'ng2-file-upload';
 
 export class ImageStorageService {
   private storage;

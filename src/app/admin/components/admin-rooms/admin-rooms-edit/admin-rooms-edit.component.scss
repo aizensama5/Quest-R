@@ -39,6 +39,22 @@
           height: 180px;
           background-repeat: no-repeat;
           background-position: center center;
+          position: relative;
+          i {
+            position: absolute;
+            top: 0;
+            right: -18px;
+            color: #c21313;
+            font-size: 18px;
+            cursor: pointer;
+            transition: .3s ease-in;
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+        }
+        &-logo-gallery {
+          margin: auto;
         }
         &-checkbox {
           margin-bottom: 5px;

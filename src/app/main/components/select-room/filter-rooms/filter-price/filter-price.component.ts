@@ -8,6 +8,8 @@ import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input }
 })
 export class FilterPriceComponent implements OnInit {
 
+  @Input() roundCircleParams: any;
+
   @Input() initValue = 0;
 
   stepMarkValue = 10;

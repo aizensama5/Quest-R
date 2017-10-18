@@ -1,4 +1,4 @@
-<div class="admin">
+<div class="admin" [class.main-loader]="isShowLoader">
   <h1 class="admin__title">My Rooms</h1>
   <div class="row">
     <div class="col-md-8">
@@ -44,6 +44,15 @@
           <button class="btn btn-primary admin-btn" (click)="addNewRoom(roomName.value)">Save</button>
         </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+    <div class="popup">
+      <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+      <div class="popup-content">
+        <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+      </div>
+      <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
     </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 <app-layout-round-slider-gender
-  [width]="480"
-  [height]="480"
-  [radius]="205"
-  [thick]="72"
+  [width]="roundCircleParams?.width"
+  [height]="roundCircleParams?.height"
+  [radius]="roundCircleParams?.radius"
+  [thick]="roundCircleParams?.thick"
   (selectedGender)="selectedGenre = $event"
 >
   <div class="filter-circle__small-circle filter-circle__small-circle--genre" *ngIf="!selectedGenre.id">

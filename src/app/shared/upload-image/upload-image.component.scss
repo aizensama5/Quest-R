@@ -1,0 +1,15 @@
+
+:host /deep/ {
+  position: relative;
+  .uploaded-image {
+    position: absolute;
+    z-index: 50;
+    bottom: 55px;
+    background-size: contain;
+    width: 180px;
+    height: 180px;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+

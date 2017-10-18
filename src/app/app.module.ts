@@ -17,6 +17,7 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
 import { AdminModule } from './admin/admin.module';
 import { GuardModule } from './guard/guard.module';
+import { SwiperModule } from 'angular2-useful-swiper';
 
 
 // operators
@@ -27,9 +28,9 @@ import { AppComponent } from './app/app.component';
 
 import { TimeService } from './service/time.service';
 import { GenreService } from './service/genre.service';
-import { IsActivePipe } from './pipe/is-active.pipe';
 import { PricesTypesService } from './service/prices-types.service';
 import { PipeModule } from './pipe/pipe.module';
+import { WebDocumentService } from './service/http/web-document.service';
 
 
 @NgModule({
@@ -54,12 +55,14 @@ import { PipeModule } from './pipe/pipe.module';
     AdminModule,
     BrowserAnimationsModule,
     GuardModule,
-    PipeModule
+    PipeModule,
+    SwiperModule
   ],
   providers: [
     GenreService,
     TimeService,
     PricesTypesService,
+    WebDocumentService
   ],
   bootstrap: [AppComponent]
 })

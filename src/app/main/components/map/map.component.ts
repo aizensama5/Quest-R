@@ -22,7 +22,7 @@ export class MapComponent {
   marksRoom: Marker[] = [];
   firstMarkRoom: Marker = new Marker();
   companyInfo: CompanyInfoModel[];
-  preparedCompanyInfo: any;
+  preparedCompanyInfo: any[] = [];
   user: Observable<firebase.User>;
 
   constructor(

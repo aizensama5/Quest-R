@@ -1,0 +1,22 @@
+<progress
+  *ngIf="fileInfo.progress"
+  max="100"
+  [value]="fileInfo.progress">
+</progress>
+<div
+  class="error"
+  *ngIf="fileInfo.error !== ''">
+  {{fileInfo.error}}
+</div>
+<input *ngIf="!isMultiple"
+       type="file"
+       (change)="onUploadPhoto($event)"
+       placeholder="Upload file"
+       accept=".jpeg,.png,.jpg,.svg,.gif">
+
+<input *ngIf="isMultiple"
+       type="file"
+       multiple
+       (change)="onUploadPhoto($event)"
+       placeholder="Upload file"
+       accept=".jpeg,.png,.jpg">

@@ -1,4 +1,5 @@
 @import "variables";
+@import '_mixins';
 
 :host /deep/ {
   display: block;
@@ -91,4 +92,21 @@
       margin-top: 20px;
     }
   }
+  @media #{$tablet-x2} {
+    .filter-circle {
+      &__small-circle {
+        width: 210px;
+        height: 210px;
+      }
+      &__title {
+        font-size: 18px;
+      }
+      &__input {
+        width: 90px;
+        font-size: 48px;
+        height: 50px;
+      }
+    }
+  }
 }
+

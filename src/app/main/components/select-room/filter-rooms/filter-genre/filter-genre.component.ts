@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Input, HostListener} from '@angular/core';
 import { GenreModel } from '../../../../../models/genre.model';
 
 @Component({
@@ -8,9 +8,9 @@ import { GenreModel } from '../../../../../models/genre.model';
   styleUrls: ['filter-genre.component.scss']
 })
 export class FilterGenreComponent implements OnInit {
-
   private _genre: GenreModel;
   @Output() onChangeGenre: EventEmitter<GenreModel> = new EventEmitter<GenreModel>();
+  @Input() roundCircleParams: any;
 
   set selectedGenre(genre: GenreModel) {
     this._genre = genre;
@@ -24,7 +24,10 @@ export class FilterGenreComponent implements OnInit {
     return this._genre;
   }
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.roundCircleParams);
+  }
 }

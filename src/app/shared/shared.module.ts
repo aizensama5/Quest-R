@@ -6,18 +6,22 @@ import { LoginComponent } from './popup/login-popup/login.component';
 import { NgModule } from '@angular/core';
 import { PopupNotificationService } from '../service/popup.notification.service';
 import { AuthenticationService } from '../service/http/authentication.service';
+import { UploadImageComponent } from './upload-image/upload-image.component';
 
 @NgModule ({
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    UploadImageComponent
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    FormsModule,
+    UploadImageComponent
   ],
   providers: [
     PopupNotificationService,
