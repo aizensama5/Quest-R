@@ -1,23 +1,25 @@
 import {Injectable} from '@angular/core';
 import {RoomModel} from '../../models/room.model';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import {Observable} from 'rxjs/Observable';
-import { FilterModel } from '../../models/filter.model';
+import {FilterModel} from '../../models/filter.model';
 import {ComplexityModel} from '../../models/complexity.model';
 import {MarkingModel} from '../../models/marking.model';
+import {PhotoModel} from "../../models/profile/photo.model";
 
 @Injectable()
 export class RoomService {
   private static readonly dataBaseName = 'room/';
 
-  // roomById (roomId: number, rooms: RoomModel[]): RoomModel {
-  //   return rooms.filter((room: RoomModel) => room.id === roomId)[0] || new RoomModel();
-  // }
-
-  constructor (private dataBaseService: AngularFireDatabase) {}
+  constructor(private dataBaseService: AngularFireDatabase) {
+  }
 
   addRoom(room: RoomModel): Promise<void> {
     return <Promise<void>>this.dataBaseService.object(RoomService.dataBaseName + room.id).set(room);
+  }
+
+  deleteRoom(roomId: number): Promise<void> {
+    return <Promise<void>>this.dataBaseService.object(RoomService.dataBaseName + roomId).remove();
   }
 
   all(): FirebaseListObservable<RoomModel[]> {
@@ -36,6 +38,7 @@ export class RoomService {
       })
       .map((items) => items.map(RoomModel.fromJSON));
   }
+
   roomById(id: number): FirebaseListObservable<RoomModel[]> {
     return <FirebaseListObservable<RoomModel[]>>this.dataBaseService
       .list(RoomService.dataBaseName, {
@@ -68,6 +71,18 @@ export class RoomService {
         }
       })
       .map((items) => items.map(RoomModel.fromJSON));
+  }
+
+  lastPhotoGalleryItemId(room: RoomModel): number {
+    const photosIds: number[] = [];
+    if (room.gallery.length) {
+      room.gallery.forEach((photo: PhotoModel) => {
+        photosIds.push(photo.id);
+      });
+    } else {
+      photosIds.push(1);
+    }
+    return Math.max.apply(null, photosIds) + 1;
   }
 
   lastRooms(count: number): FirebaseListObservable<RoomModel[]> {
@@ -209,7 +224,7 @@ export class RoomService {
     return Observable.of(filteredRoom);
   }
 
-  filterRoomsBySortedRoomIds (rooms: RoomModel[], sortedRoomsIds: number[], countFilters: number) {
+  filterRoomsBySortedRoomIds(rooms: RoomModel[], sortedRoomsIds: number[], countFilters: number) {
     const filteredRooms: RoomModel[] = [];
     for (let i = 0; i < sortedRoomsIds.length; i++) {
       if (sortedRoomsIds.length > (i + countFilters - 1) && sortedRoomsIds[i + countFilters - 1] === sortedRoomsIds[i]) {

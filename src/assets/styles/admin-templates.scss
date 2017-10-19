@@ -1,6 +1,6 @@
 @import "variables";
 
-.admin{
+.admin {
   padding: 15px;
   &__title {
     line-height: 1.1;
@@ -50,7 +50,6 @@
   }
 }
 
-
 .admin-input {
   border-radius: 0;
   box-shadow: none;
@@ -86,6 +85,7 @@ input[type=file] {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
+
 .bold {
   font-weight: bold;
 }
@@ -124,6 +124,7 @@ input[type=file] {
   padding: 17px 10px 10px;
   color: #555;
 }
+
 .dataTables_wrapper .dataTables_paginate {
   padding: 10px;
   a.paginate_button {
@@ -171,5 +172,17 @@ input[type=file] {
   .paginate_button.next {
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
+  }
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: -18px;
+  color: #c21313;
+  cursor: pointer;
+  transition: .3s ease-in;
+  &:hover {
+    transform: scale(1.2);
   }
 }

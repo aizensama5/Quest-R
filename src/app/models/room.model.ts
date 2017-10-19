@@ -5,10 +5,7 @@ import { PlayerModel } from './player.model';
 import { PriceModel } from './price.model';
 import { ComplexityModel } from './complexity.model';
 import { MarkingModel } from './marking.model';
-import * as moment from 'moment';
-import _date = moment.unitOfTime._date;
-import {GalleryModel} from './profile/gallery.model';
-import {PhotoModel} from './profile/photo.model';
+import { PhotoModel } from './profile/photo.model';
 
 export class RoomModel {
   id: number;

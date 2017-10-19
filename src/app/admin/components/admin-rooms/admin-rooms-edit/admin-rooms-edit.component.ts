@@ -1,17 +1,17 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RoomService } from '../../../../service/http/room.service';
-import { RoomModel } from '../../../../models/room.model';
-import { CompanyModel } from '../../../../models/company.model';
-import { CompanySecurityModel } from '../../../../models/company-security.model';
-import { CompanyService } from '../../../../service/http/company.service';
-import { GenreModel } from '../../../../models/genre.model';
-import { GenreService } from '../../../../service/genre.service';
-import { ComplexityModel } from '../../../../models/complexity.model';
-import { ComplexityService } from '../../../../service/complexity.service';
-import { MarkingModel} from '../../../../models/marking.model';
-import { MarkingService } from '../../../../service/marking.service';
-import { ConfigService } from '../../../../service/http/config.service';
+import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RoomService} from '../../../../service/http/room.service';
+import {RoomModel} from '../../../../models/room.model';
+import {CompanyModel} from '../../../../models/company.model';
+import {CompanySecurityModel} from '../../../../models/company-security.model';
+import {CompanyService} from '../../../../service/http/company.service';
+import {GenreModel} from '../../../../models/genre.model';
+import {GenreService} from '../../../../service/genre.service';
+import {ComplexityModel} from '../../../../models/complexity.model';
+import {ComplexityService} from '../../../../service/complexity.service';
+import {MarkingModel} from '../../../../models/marking.model';
+import {MarkingService} from '../../../../service/marking.service';
+import {ConfigService} from '../../../../service/http/config.service';
 
 @Component({
   selector: 'app-admin-rooms-edit',
@@ -33,19 +33,30 @@ export class AdminRoomsEditComponent implements OnInit {
   notificationPopupMessage = '';
   areErrors: boolean;
   initializedItems = 0;
-  sliderConfig: object;
+  isDeletingRoomConfirmed = false;
+  isShowConfirmButton = false;
 
-  @Output() swiper = new EventEmitter<{swClass: any }>();
+  sliderConfig: object = {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    slidesPerView: 1,
+    centeredSlides: true,
+    loop: false,
+    speed: 1000,
+    lazyLoading: true,
+  };
+
+  @Output() swiper = new EventEmitter<{ swClass: any }>();
   @ViewChild('swiperClass') swiperClass: ElementRef;
 
-  constructor (
-    private activeRoute: ActivatedRoute,
-    public roomService: RoomService,
-    public companyService: CompanyService,
-    public genreService: GenreService,
-    public complexityService: ComplexityService,
-    public markingService: MarkingService,
-    private configService: ConfigService
+  constructor(private activeRoute: ActivatedRoute,
+              public roomService: RoomService,
+              public companyService: CompanyService,
+              public genreService: GenreService,
+              public complexityService: ComplexityService,
+              public markingService: MarkingService,
+              private configService: ConfigService,
+              public router: Router
   ) {
     this.isShowLoader = true;
     configService.maxCountOfPlayers().subscribe((count: any[]) => {
@@ -85,22 +96,13 @@ export class AdminRoomsEditComponent implements OnInit {
   isEverythingLoaded() {
     if (this.initializedItems === AdminRoomsEditComponent.countSubscribing) {
       this.isShowLoader = false;
-      this.sliderConfig = {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        slidesPerView: 5,
-        centeredSlides: true,
-        loop: false,
-        speed: 1000,
-        lazyLoading: true,
-      };
+      return true;
+    } else {
+      return false;
     }
   }
 
   onImageUploaded(image: any) {
-    console.log('image');
     if (!image.error && image.src) {
       this.room.img = image.src;
       this.areErrors = false;
@@ -110,11 +112,12 @@ export class AdminRoomsEditComponent implements OnInit {
   }
 
   onImagesUploaded(image: any) {
-    console.log('images');
     if (!image.error && image.src) {
       this.room.gallery.push({
         path: image.src
       });
+      document.getElementById('swiper-wrapper-gallery')
+        .setAttribute('transform', 'translate3d(0,0,0)');
       this.areErrors = false;
     } else {
       this.areErrors = true;
@@ -124,13 +127,43 @@ export class AdminRoomsEditComponent implements OnInit {
   deleteImage(path: string, index: number) {
     this.room.gallery.forEach((image: any) => {
       if (image.path === path) {
-       this.room.gallery.splice(index, 1);
+        this.room.gallery.splice(index, 1);
       }
     });
   }
 
   deleteMainImage() {
     this.room.img = '';
+  }
+
+  deleteRoom() {
+    this.notificationPopupMessage = '';
+    this.isShowConfirmButton = false;
+    this.areErrors = false;
+    this.isShowLoader = true;
+    this.roomService.deleteRoom(this.room.id)
+      .then(() => {
+        this.router.navigate(['/admin/dashboard/rooms/'])
+          .then(() => {
+            this.isShowLoader = false;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Удалено';
+          })
+          .catch(() => {
+            console.log('что-то пошло не так');
+          });
+      })
+      .catch(() => {
+        this.areErrors = true;
+        this.isShowLoader = false;
+        this.notificationPopupMessage = 'Ошибка';
+      });
+  }
+
+  confirmDeleteRoom() {
+    this.isShowConfirmButton = true;
+    this.isShowNotificationPopup = true;
+    this.notificationPopupMessage = 'Действительно удалить ' + this.room.name + '?';
   }
 
   ngOnInit() {
@@ -156,10 +189,12 @@ export class AdminRoomsEditComponent implements OnInit {
         this.areErrors = true;
         this.isShowNotificationPopup = true;
         this.notificationPopupMessage = 'Ошибка';
-    });
+      });
   }
 
-  closePopup () {
+  closePopup() {
+    this.isShowConfirmButton = false;
+    this.areErrors = false;
     this.isShowNotificationPopup = false;
     this.notificationPopupMessage = '';
   }

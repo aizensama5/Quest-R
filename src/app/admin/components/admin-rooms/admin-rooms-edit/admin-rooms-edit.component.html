@@ -1,5 +1,11 @@
 <div class="admin-rooms-edit" [class.main-loader]="isShowLoader">
-  <h1 class="admin-rooms-edit__title">{{ room?.name }} - {{ companyData?.companyName }}</h1>
+  <div class="admin-rooms-edit__top">
+    <h1 class="admin-rooms-edit__title">{{ room?.name }} - {{ companyData?.companyName }}</h1>
+    <div class="admin-rooms-edit__delete" (click)="confirmDeleteRoom()">
+      <i class="fa fa-close delete-icon"></i>
+      Delete room
+    </div>
+  </div>
   <div class="admin-rooms-edit__row row">
     <div class="col-md-6">
       <div class="admin-rooms-edit__content">
@@ -41,7 +47,7 @@
             <p class="admin-rooms-edit__data-item-title">Current</p>
             <div class="admin-rooms-edit__data-item-logo"
                  [ngStyle]="{'background-image': 'url(' + room?.img  + ')'}">
-              <i class="fa fa-close" (click)="deleteMainImage()"></i>
+              <i class="fa fa-close delete-icon" (click)="deleteMainImage()"></i>
             </div>
           </div>
           <app-upload-image [companyLogo]="companyData.logo"
@@ -160,14 +166,15 @@
       <div class="admin-rooms-edit__content">
         <p class="admin-rooms-edit__content-title">Add images</p>
         <div class="admin-rooms-edit__data">
-          <div class="admin-rooms-edit__data-item">
+          <div class="admin-rooms-edit__data-item" *ngIf="room.gallery.length && isEverythingLoaded()">
             <p class="admin-rooms-edit__data-item-title">Photos</p>
-            <swiper *ngIf="room.gallery.length" [config]="sliderConfig" #swiperClass>
-              <div class="swiper-wrapper">
-                <div class="swiper-slide" *ngFor="let gallery of room.gallery; let i = index;">
+            <swiper [config]="sliderConfig" #swiperClass>
+              <div class="swiper-wrapper admin-rooms-edit__swiper-wrapper" id="swiper-wrapper-gallery">
+                <div class="swiper-slide admin-rooms-edit__swiper-slide"
+                     *ngFor="let gallery of room.gallery; let i = index;">
                   <div class="admin-rooms-edit__data-item-logo admin-rooms-edit__data-item-logo-gallery"
                        [ngStyle]="{'background-image': 'url(' + gallery?.path + ')'}">
-                    <i class="fa fa-close" (click)="deleteImage(gallery.path, i)"></i>
+                    <i class="fa fa-close delete-icon" (click)="deleteImage(gallery.path, i)"></i>
                   </div>
                 </div>
               </div>
@@ -188,9 +195,13 @@
   </div>
   <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
     <div class="popup">
-      <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+      <i class="popup-close fa fa-close delete-icon" (click)="closePopup()"></i>
       <div class="popup-content">
         <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+        <div class="popup-confirmation"
+             *ngIf="isShowConfirmButton"
+             (click)="deleteRoom()">YES
+        </div>
       </div>
       <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
     </div>

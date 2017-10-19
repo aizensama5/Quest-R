@@ -16,6 +16,7 @@ export class DaysSettingsComponent implements OnInit {
   static countSubscribing = 2;
   room: RoomModel = new RoomModel();
   daysSettings: DaysModel[] = [];
+  daySettings: DaysModel = new DaysModel();
   priceTypes: PricesTypesModel[] = [];
   weekDays: any[] = [];
   isShowLoader: boolean;
