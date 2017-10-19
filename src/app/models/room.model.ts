@@ -14,7 +14,7 @@ export class RoomModel {
   active: boolean;
   companyId: number;
   img: string;
-  duration: string;
+  duration: number;
   level: string;
   openingDate: string;
   position: Marker;
@@ -52,7 +52,7 @@ export class RoomModel {
     this.img = '';
     this.active = false;
     this.companyId = null;
-    this.duration = '';
+    this.duration = null;
     this.level = '';
     this.openingDate = '';
     this.position = new Marker();

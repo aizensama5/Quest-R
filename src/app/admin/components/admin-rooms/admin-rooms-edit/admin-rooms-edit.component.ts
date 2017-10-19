@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoomService} from '../../../../service/http/room.service';
 import {RoomModel} from '../../../../models/room.model';
@@ -32,9 +32,9 @@ export class AdminRoomsEditComponent implements OnInit {
   isShowNotificationPopup = false;
   notificationPopupMessage = '';
   areErrors: boolean;
-  initializedItems = 0;
-  isDeletingRoomConfirmed = false;
+  initializedItems: number;
   isShowConfirmButton = false;
+  _isEverythingLoaded = false;
 
   sliderConfig: object = {
     nextButton: '.swiper-button-next',
@@ -58,28 +58,39 @@ export class AdminRoomsEditComponent implements OnInit {
               private configService: ConfigService,
               public router: Router
   ) {
+    this.initializedItems = 0;
     this.isShowLoader = true;
-    configService.maxCountOfPlayers().subscribe((count: any[]) => {
+  }
+
+  ngOnInit() {
+    this.activeRoute.data.subscribe((data) => {
+      if (data['room']) {
+        this.room = data['room'];
+      }
+      this.initializedItems++;
+      this.isEverythingLoaded();
+    });
+    this.configService.maxCountOfPlayers().subscribe((count: any[]) => {
       this.maxCountOfPlayers = parseInt(count[0].$value, 10) || AdminRoomsEditComponent.defaultMaxCountOfPlayers;
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
+    this.companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
       this.companyData = companyData[0];
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    genreService.all().subscribe((genres: GenreModel[]) => {
+    this.genreService.all().subscribe((genres: GenreModel[]) => {
       this.genres = genres;
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    complexityService.all().subscribe((complexities: ComplexityModel[]) => {
+    this.complexityService.all().subscribe((complexities: ComplexityModel[]) => {
       this.complexities = complexities;
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    markingService.all().subscribe((markings: MarkingModel[]) => {
+    this.markingService.all().subscribe((markings: MarkingModel[]) => {
       this.markings = markings;
       this.markings.forEach((marking: MarkingModel) => {
         this.room.marking.forEach((mark: MarkingModel) => {
@@ -96,6 +107,7 @@ export class AdminRoomsEditComponent implements OnInit {
   isEverythingLoaded() {
     if (this.initializedItems === AdminRoomsEditComponent.countSubscribing) {
       this.isShowLoader = false;
+      this._isEverythingLoaded = true;
       return true;
     } else {
       return false;
@@ -164,16 +176,6 @@ export class AdminRoomsEditComponent implements OnInit {
     this.isShowConfirmButton = true;
     this.isShowNotificationPopup = true;
     this.notificationPopupMessage = 'Действительно удалить ' + this.room.name + '?';
-  }
-
-  ngOnInit() {
-    this.activeRoute.data.subscribe((data) => {
-      if (data['room']) {
-        this.room = data['room'];
-      }
-      this.initializedItems++;
-      this.isEverythingLoaded();
-    });
   }
 
   save() {

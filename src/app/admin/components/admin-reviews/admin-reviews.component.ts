@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReviewModel } from '../../../models/review.model';
 import { ReviewService } from '../../../service/http/review.service';
+import { UserService } from "../../../service/http/user.service";
+import { UserModel } from "../../../models/user.model";
 
 @Component({
   selector: 'app-admin-reviews',
@@ -9,15 +11,19 @@ import { ReviewService } from '../../../service/http/review.service';
 })
 export class AdminReviewsComponent implements OnInit {
   reviews: ReviewModel[] = [];
+  isShowLoader: boolean;
+  users: UserModel[] = [];
 
-  constructor(
-    public reviewService: ReviewService,
-  ) {
-    reviewService.all().subscribe((reviews: ReviewModel[]) => {
-      this.reviews = reviews;
-    });
+  constructor(public reviewService: ReviewService,
+              public userService: UserService) {
   }
 
-  ngOnInit () {
+  ngOnInit() {
+    this.isShowLoader = true;
+    this.reviewService.all().subscribe((reviews: ReviewModel[]) => {
+      this.reviews = reviews;
+      this.isShowLoader = false;
+      console.log(this.reviews);
+    });
   }
 }

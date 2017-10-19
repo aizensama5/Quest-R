@@ -19,7 +19,9 @@
                 <p>{{ room?.name }}</p>
               </td>
               <td>
-                <p>{{ room?.active | isActive: room?.active }}</p>
+                <p [ngStyle]="{'color': room.active ? '#1AB360' : '#c21313'}">
+                  {{ room?.active | isActive: room?.active }}
+                </p>
               </td>
               <td>
                 <a [routerLink]="'/admin/dashboard/rooms/' + room.id + '/edit'">

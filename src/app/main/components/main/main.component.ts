@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DescriptionService } from '../../../service/description.service';
 
 @Component({
@@ -7,11 +7,16 @@ import { DescriptionService } from '../../../service/description.service';
     templateUrl: 'main.component.html',
     styleUrls: ['main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   description = [];
   constructor(public descService: DescriptionService) {
     descService.getCurrentDescription().subscribe((description: any[]) => {
       this.description = description[0].$value;
     });
+  }
+
+  ngOnInit() {
+    document.body.style.backgroundColor = 'none';
+    document.body.style.backgroundImage = 'linear-gradient(214deg, #000000, #2a2c2e 54%, #131313);';
   }
 }
