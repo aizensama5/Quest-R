@@ -26,10 +26,10 @@
                   <p>{{ review?.id }}</p>
                 </td>
                 <td class="text-center">
-                  <p>{{ review?.roomId }}</p>
+                  <p>{{ review?.roomId | roomName: review?.roomId }}</p>
                 </td>
                 <td class="text-center">
-                  <p>{{ review?.userId }}</p>
+                  <p>{{ review?.userId | userName: review?.userId }}</p>
                 </td>
                 <td class="text-center">
                   <p>{{ review?.title }}</p>
@@ -38,14 +38,27 @@
                   <textarea disabled class="form-control admin-reviews__textarea">{{ review?.review }}</textarea>
                 </td>
                 <td class="text-center">
-                  <textarea class="form-control admin-reviews__textarea">{{ review?.answer }}</textarea>
+                  <textarea class="form-control admin-reviews__textarea"
+                            [(ngModel)]="review.answer"
+                  >
+                    {{ review?.answer }}
+                  </textarea>
                 </td>
               </tr>
              </tbody>
            </table>
           </div>
         <div class="admin-btn-wrap">
-          <button class="btn btn-primary admin-btn">Save</button>
+          <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+        </div>
+        <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+          <div class="popup">
+            <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+            <div class="popup-content">
+              <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+            </div>
+            <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
+          </div>
         </div>
       </div>
     </div>

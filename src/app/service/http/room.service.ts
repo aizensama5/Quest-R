@@ -11,7 +11,10 @@ import {PhotoModel} from "../../models/profile/photo.model";
 export class RoomService {
   private static readonly dataBaseName = 'room/';
 
-  constructor(private dataBaseService: AngularFireDatabase) {
+  constructor(private dataBaseService: AngularFireDatabase) {}
+
+  getRoomById (roomId: number, rooms: RoomModel[]): RoomModel {
+    return rooms.filter((room: RoomModel) => room.id == roomId)[0] || new RoomModel();
   }
 
   addRoom(room: RoomModel): Promise<void> {

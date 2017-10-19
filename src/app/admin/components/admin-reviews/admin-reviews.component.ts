@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewModel } from '../../../models/review.model';
 import { ReviewService } from '../../../service/http/review.service';
-import { UserService } from "../../../service/http/user.service";
 import { UserModel } from "../../../models/user.model";
 
 @Component({
@@ -13,17 +12,40 @@ export class AdminReviewsComponent implements OnInit {
   reviews: ReviewModel[] = [];
   isShowLoader: boolean;
   users: UserModel[] = [];
+  isShowNotificationPopup = false;
+  notificationPopupMessage = '';
+  areErrors: boolean;
 
-  constructor(public reviewService: ReviewService,
-              public userService: UserService) {
-  }
+  constructor(public reviewService: ReviewService) {}
 
   ngOnInit() {
     this.isShowLoader = true;
     this.reviewService.all().subscribe((reviews: ReviewModel[]) => {
       this.reviews = reviews;
       this.isShowLoader = false;
-      console.log(this.reviews);
     });
+  }
+
+  save() {
+    this.isShowLoader = true;
+    this.reviewService.changeReviews(this.reviews)
+      .then(() => {
+        this.isShowLoader = false;
+        this.isShowNotificationPopup = true;
+        this.notificationPopupMessage = 'Saved';
+        this.areErrors = false;
+      })
+      .catch(() => {
+        this.isShowLoader = false;
+        this.isShowNotificationPopup = true;
+        this.notificationPopupMessage = 'Error!';
+        this.areErrors = true;
+      });
+  }
+
+  closePopup() {
+    this.areErrors = false;
+    this.isShowNotificationPopup = false;
+    this.notificationPopupMessage = '';
   }
 }

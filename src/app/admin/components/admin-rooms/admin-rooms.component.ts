@@ -77,6 +77,7 @@ export class AdminRoomsComponent implements OnInit {
   }
 
   closePopup () {
+    this.areErrors = false;
     this.isShowNotificationPopup = false;
     this.notificationPopupMessage = '';
   }
