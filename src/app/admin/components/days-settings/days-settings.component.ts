@@ -100,54 +100,54 @@ export class DaysSettingsComponent implements OnInit {
     });
   }
 
-  // confirmDeleteHour(dayId: number, hourId: number) {
-  //   this.dayIdToDelete = dayId;
-  //   this.hourIdToDelete = hourId;
-  //   console.log(dayId);
-  //   console.log(hourId);
-  //   this.isShowNotificationPopup = true;
-  //   this.notificationPopupMessage = 'Действительно удалить?';
-  // }
-  //
-  // deleteHour(dayIdToDelete, hourIdToDelete) {
-  //   this.isShowLoader = true;
-  //   this.daysSettings = [];
-  //   this.daysSettingsService.removeHourItem(this.room.id, dayIdToDelete, hourIdToDelete)
-  //     .then(() => {
-  //       this.isShowNotificationPopup = true;
-  //       this.notificationPopupMessage = 'Тип успешно удален';
-  //       this.isShowLoader = false;
-  //       console.log(this.daysSettings);
-  //     }, () => {
-  //       this.isShowNotificationPopup = true;
-  //       this.notificationPopupMessage = 'Ошибка при удалении елемента';
-  //       this.isShowLoader = false;
-  //       this.daysSettings = [];
-  //       console.log(this.daysSettings);
-  //     });
-  //   this.hourIdToDelete = null;
-  //   this.dayIdToDelete = null;
-  // }
-
-  clearHour(daySettingId: number, hourId: number) {
-    let i = 0;
-    for (; i < this.daysSettings.length; i++) {
-      let j = 0;
-      if (!this.daysSettings[i]) {
-        continue;
-      }
-      if (this.daysSettings[i].id = daySettingId && this.daysSettings[i].id) {
-        for (; j < this.daysSettings[i].availableHours.length; j++) {
-          if (this.daysSettings[i].availableHours[j].id === hourId && this.daysSettings[i].availableHours[j].id) {
-            if (!this.daysSettings[i].availableHours[j]) {
-              continue;
-            }
-            this.daysSettings[i].availableHours.splice(j, 1);
-          }
-        }
-      }
-    }
+  confirmDeleteHour(dayId: number, hourId: number) {
+    this.dayIdToDelete = dayId;
+    this.hourIdToDelete = hourId;
+    console.log(dayId);
+    console.log(hourId);
+    this.isShowNotificationPopup = true;
+    this.notificationPopupMessage = 'Действительно удалить?';
   }
+
+  deleteHour(dayIdToDelete, hourIdToDelete) {
+    this.isShowLoader = true;
+    this.daysSettings = [];
+    this.daysSettingsService.removeHourItem(this.room.id, dayIdToDelete, hourIdToDelete)
+      .then(() => {
+        this.isShowNotificationPopup = true;
+        this.notificationPopupMessage = 'Тип успешно удален';
+        this.isShowLoader = false;
+        console.log(this.daysSettings);
+      }, () => {
+        this.isShowNotificationPopup = true;
+        this.notificationPopupMessage = 'Ошибка при удалении елемента';
+        this.isShowLoader = false;
+        this.daysSettings = [];
+        console.log(this.daysSettings);
+      });
+    this.hourIdToDelete = null;
+    this.dayIdToDelete = null;
+  }
+
+  // clearHour(daySettingId: number, hourId: number) {
+  //   let i = 0;
+  //   for (; i < this.daysSettings.length; i++) {
+  //     let j = 0;
+  //     if (!this.daysSettings[i]) {
+  //       continue;
+  //     }
+  //     if (this.daysSettings[i].id = daySettingId && this.daysSettings[i].id) {
+  //       for (; j < this.daysSettings[i].availableHours.length; j++) {
+  //         if (this.daysSettings[i].availableHours[j].id === hourId && this.daysSettings[i].availableHours[j].id) {
+  //           if (!this.daysSettings[i].availableHours[j]) {
+  //             continue;
+  //           }
+  //           this.daysSettings[i].availableHours.splice(j, 1);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   isEverythingLoaded() {
     if (this.initializedItems >= DaysSettingsComponent.countSubscribing) {
@@ -175,6 +175,8 @@ export class DaysSettingsComponent implements OnInit {
       case this.options.o_delete:
         optAppointment = this.options.o_delete;
         break;
+      default:
+        this.daysSettings[daySetToId].availableHours = this.weekDaySettings(daySetToId);
     }
   }
 
@@ -192,6 +194,7 @@ export class DaysSettingsComponent implements OnInit {
     let dayIndex = 0;
     this.daysSettings.forEach((wDay: DaysModel) => {
       if (wDay.id === toId) {
+        console.log('lalalal');
         this.daysSettings[dayIndex].availableHours = this.weekDaySettings(fromId);
       }
       dayIndex++;

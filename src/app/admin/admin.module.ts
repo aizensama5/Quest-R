@@ -31,6 +31,7 @@ import { DaysSettingsService } from '../service/days-settings.service';
 import { SharedModule } from '../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 
@@ -51,7 +52,8 @@ import { SwiperModule } from 'angular2-useful-swiper';
     DaysSettingsComponent,
     CalendarComponent,
     SpecialOffersComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

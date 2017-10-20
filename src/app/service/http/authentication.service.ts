@@ -72,7 +72,7 @@ export class AuthenticationService {
     let companySecurityData: CompanySecurityModel;
     this.companySecurityService.all().subscribe((companiesSecData: CompanySecurityModel[]) => {
       if (companiesSecData.length) {
-        const pass = this.getPassword(email, password);
+        const pass = this.setPassword(email, password);
         companySecurityData = companiesSecData.filter((companySecData: CompanySecurityModel) => companySecData.login === email && companySecData.password === pass)[0];
         if (companySecurityData) {
           localStorage.setItem(AuthenticationService.adminLocalStorageName, JSON.stringify(companySecurityData));
@@ -91,11 +91,12 @@ export class AuthenticationService {
     this.router.navigate(['/admin/login/']);
   }
 
-  getPassword(email: string, password: string): string {
-    return (btoa(email) + btoa(environment.salt) + btoa(password))
-      .split('==')
-      .join('')
-      .replace('=', '');
+  setPassword(email: string, password: string): string {
+    return (btoa(email) + btoa(environment.salt) + btoa(password));
+  }
+
+  getPassword(password: string) {
+    return atob(password).split(environment.salt)[1];
   }
 
   addNewUser() {

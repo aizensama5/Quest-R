@@ -36,11 +36,11 @@
                       [checked]="avHour.priceTypeId === prType.id"
                       (change)="onAvHourTypeChange(daySet.id, avHour.id, prType.id)"
                       class="available-hours__item--radio"/>
-                    <label class="admin-label" for="price-type-{{ daySet.id }}-{{ prType.id }}-{{ avHour.id }}">{{
-                      prType?.name }}</label>
+                    <label class="admin-label" for="price-type-{{ daySet.id }}-{{ prType.id }}-{{ avHour.id }}">
+                      {{ prType?.name }}</label>
                   </div>
                   <div class="available-hours__item--radio available-hours__item--delete"
-                       (click)="clearHour(daySet.id, avHour.id)">
+                       (click)="confirmDeleteHour(daySet.id, avHour.id)">
                     <i class="fa fa-close"></i>
                     Delete
                   </div>
@@ -74,6 +74,11 @@
         <i class="popup-close fa fa-close" (click)="closePopup()"></i>
         <div class="popup-content">
           <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+          <div class="popup-confirmation"
+               *ngIf="dayIdToDelete && hourIdToDelete"
+               (click)="deleteHour(dayIdToDelete, hourIdToDelete)">
+            ДА
+          </div>
         </div>
         <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
       </div>
