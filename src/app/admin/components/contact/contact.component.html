@@ -1,0 +1,39 @@
+<div class="admin" [class.main-loader]="isShowLoader">
+  <h1 class="admin__title">Contact</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="admin__content">
+        <p class="admin__content-title">General contact info</p>
+        <div class="admin__data">
+          <div class="admin__data-item contact-item">
+            <label for="current-company-password" class="conf-label admin-label">Email</label>
+            <input class="admin-input"
+                   type="email"
+                   id="current-company-password"
+                   name="company-password"
+                   #currentPassword
+            />
+          </div>
+          <div class="admin__data-item contact-item">
+            <label for="new-company-password" class="conf-label admin-label">Phone</label>
+            <input class="admin-input"
+                   type="tel"
+                   id="new-company-password"
+                   name="new-company-password"
+            />
+          </div>
+          <div class="admin__data-item contact-item">
+            <label for="repeated-new-company-password" class="conf-label admin-label">Address</label>
+            <input class="admin-input"
+                   id="repeated-new-company-password"
+                   name="repeated-new-company-password"
+            />
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

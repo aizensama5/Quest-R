@@ -12,12 +12,11 @@ import { environment } from '../../../environments/environment.prod';
 
 @Injectable()
 export class AuthenticationService {
-  private static readonly adminLocalStorageName = 'admin';
+  public static readonly adminLocalStorageName = 'admin';
   allUsers: UserModel[] = [];
 
   constructor(
     private af: AngularFireAuth,
-    public popupNotificationService: PopupNotificationService,
     private userService: UserService,
     public router: Router,
     private companySecurityService: CompanySecurityService,
@@ -28,7 +27,7 @@ export class AuthenticationService {
   }
 
 
-  googleLogin() {
+  googleLogin(): void {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
@@ -39,7 +38,7 @@ export class AuthenticationService {
     });
   }
 
-  facebookLogin() {
+  facebookLogin(): void {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
     firebase.auth().signInWithPopup(provider).then((authInfo: any) => {
@@ -49,7 +48,7 @@ export class AuthenticationService {
     });
   }
 
-  twitterLogin() {
+  twitterLogin(): void {
     const provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().signInWithPopup(provider).then(() => {
       window.location.href = '/cabinet/';
@@ -62,13 +61,13 @@ export class AuthenticationService {
     return this.af.authState;
   }
 
-  logout() {
+  logout(): void {
     this.af.auth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
 
-  adminLogin(email: string, password: string) {
+  adminLogin(email: string, password: string): void {
     let companySecurityData: CompanySecurityModel;
     this.companySecurityService.all().subscribe((companiesSecData: CompanySecurityModel[]) => {
       if (companiesSecData.length) {
@@ -86,20 +85,20 @@ export class AuthenticationService {
     });
   }
 
-  adminLogout () {
+  adminLogout (): void {
     localStorage.removeItem(AuthenticationService.adminLocalStorageName);
     this.router.navigate(['/admin/login/']);
   }
 
   setPassword(email: string, password: string): string {
-    return (btoa(email) + btoa(environment.salt) + btoa(password));
+    return (btoa(email + environment.salt + password));
   }
 
-  getPassword(password: string) {
-    return atob(password).split(environment.salt)[1];
+  getPassword(password: string): string {
+    return atob(password) ? atob(password).split(environment.salt)[1] : '';
   }
 
-  addNewUser() {
+  addNewUser(): void {
     let existingUser = false;
     let newUser: any;
     this.currentUser().subscribe((user) => {

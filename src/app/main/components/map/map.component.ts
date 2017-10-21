@@ -18,10 +18,9 @@ import {ContactQuestionModel} from '../../../models/contact-question.model';
     styleUrls: ['map.component.scss']
 })
 export class MapComponent {
-
   marksRoom: Marker[] = [];
   firstMarkRoom: Marker = new Marker();
-  companyInfo: CompanyInfoModel[];
+  companyInfo: CompanyInfoModel[] = [];
   preparedCompanyInfo: any[] = [];
   user: Observable<firebase.User>;
 

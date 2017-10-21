@@ -32,6 +32,8 @@ import { SharedModule } from '../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 
 
 
@@ -53,7 +55,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     CalendarComponent,
     SpecialOffersComponent,
     ConfigurationComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ContactComponent,
+    TermsOfServiceComponent
   ],
   imports: [
     CommonModule,

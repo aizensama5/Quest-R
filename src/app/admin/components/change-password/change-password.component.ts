@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../../service/http/user.service";
-import {UserModel} from "../../../models/user.model";
-import {CompanyService} from "../../../service/http/company.service";
 import {CompanySecurityService} from "../../../service/http/company-security.service";
 import {CompanySecurityModel} from "../../../models/company-security.model";
 import {AuthenticationService} from "../../../service/http/authentication.service";
@@ -36,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
 
   validatePassword(currentPassword: string): boolean {
     if (this.authService.getPassword(this.currentCompany.password) === currentPassword) {
-      if (this.newPassword.length < ChangePasswordComponent.MINIMUM_LENGTH_PASSWORD) {
+      if (this.newPassword.length >= ChangePasswordComponent.MINIMUM_LENGTH_PASSWORD) {
         if (this.newPassword === this.confirmedNewPassword) {
           return true;
         } else {
@@ -62,23 +59,26 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  save(currentPassword: string) {
+  save(currentPassword: HTMLInputElement) {
+    this.currentPassword = currentPassword.value;
     this.isShowLoader = true;
     this.areErrors = false;
     if (this.validatePassword(this.currentPassword)) {
-      this.currentCompany.password = this.authService.setPassword(this.currentCompany.login, this.currentCompany.password);
+      this.currentCompany.password = this.authService.setPassword(this.currentCompany.login, this.newPassword);
       this.companySecurityService.changePassword(this.currentCompany)
         .then(() => {
+          localStorage.setItem(AuthenticationService.adminLocalStorageName, JSON.stringify(this.currentCompany));
           this.isShowNotificationPopup = true;
           this.isShowLoader = false;
           this.notificationPopupMessage = 'Saved';
-          return true;
+          currentPassword.value = '';
+          this.newPassword = '';
+          this.confirmedNewPassword = '';
         })
         .catch(() => {
           this.isShowNotificationPopup = true;
           this.isShowLoader = false;
           this.notificationPopupMessage = 'Something was wrong';
-          return false;
         })
     }
   }

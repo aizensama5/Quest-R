@@ -68,17 +68,24 @@ export class ConfigurationComponent implements OnInit {
     this.areErrors = false;
     this.isShowLoader = true;
     this.isShowNotificationPopup = true;
-    console.log(this.receivingMessagesConf['emailAddresses'].split(' '));
-    // if ()
-    this.configService.changeReceivingMessages(this.receivingMessagesConf)
-      .then(() => {
-        this.isShowLoader = false;
-        this.notificationPopupMessage = 'Saved';
-      })
-      .catch(() => {
-        this.isShowLoader = false;
-        this.notificationPopupMessage = 'Saved';
-        this.areErrors = true;
-      });
+    console.log(this.receivingMessagesConf['emailAddresses'].split('\n'));
+    console.log(this.receivingMessagesConf['emailAddresses'].split('@'));
+    console.log(this.receivingMessagesConf['emailAddresses'].indexOf('@'));
+    if (this.receivingMessagesConf['emailAddresses'].split('\n').length === this.receivingMessagesConf['emailAddresses'].split('@').length - 1) {
+      this.configService.changeReceivingMessages(this.receivingMessagesConf)
+        .then(() => {
+          this.isShowLoader = false;
+          this.notificationPopupMessage = 'Saved';
+        })
+        .catch(() => {
+          this.isShowLoader = false;
+          this.notificationPopupMessage = 'Saved';
+          this.areErrors = true;
+        });
+    } else {
+      this.isShowLoader = false;
+      this.notificationPopupMessage = 'Use one per line emails';
+      this.areErrors = true;
+    }
   }
 }
