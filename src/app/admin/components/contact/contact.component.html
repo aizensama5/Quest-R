@@ -6,33 +6,44 @@
         <p class="admin__content-title">General contact info</p>
         <div class="admin__data">
           <div class="admin__data-item contact-item">
-            <label for="current-company-password" class="conf-label admin-label">Email</label>
+            <label for="company-email" class="conf-label admin-label">Email</label>
             <input class="admin-input"
                    type="email"
-                   id="current-company-password"
-                   name="company-password"
-                   #currentPassword
+                   id="company-email"
+                   name="company-email"
+                   [(ngModel)]="contactInfo.email"
             />
           </div>
           <div class="admin__data-item contact-item">
-            <label for="new-company-password" class="conf-label admin-label">Phone</label>
+            <label for="company-phone" class="conf-label admin-label">Phone</label>
             <input class="admin-input"
                    type="tel"
-                   id="new-company-password"
-                   name="new-company-password"
+                   id="company-phone"
+                   name="company-phone"
+                   [(ngModel)]="contactInfo.phone"
             />
           </div>
           <div class="admin__data-item contact-item">
-            <label for="repeated-new-company-password" class="conf-label admin-label">Address</label>
-            <input class="admin-input"
-                   id="repeated-new-company-password"
-                   name="repeated-new-company-password"
-            />
+            <label for="company-address" class="conf-label admin-label">Address</label>
+            <app-tabset id="company-address"
+                        [useTabsetWithInput]="useTabsetWithInput"
+                        (onTabsetChanged)="onTabsetChanged($event)"
+                        [tabsetModel]="contactInfo.address"
+            ></app-tabset>
           </div>
         </div>
         <div class="admin-btn-wrap">
           <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
         </div>
+      </div>
+    </div>
+    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+      <div class="popup">
+        <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+        <div class="popup-content">
+          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+        </div>
+        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
       </div>
     </div>
   </div>

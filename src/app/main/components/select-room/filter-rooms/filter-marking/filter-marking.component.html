@@ -13,7 +13,7 @@
            (change)="updateListOptions($event, item)"
            [checked]="item.checked"
     >
-    <label for="filter-checkbox-{{item.id}}"> {{ item?.marking }} </label>
+    <label for="filter-checkbox-{{item.id}}"> {{ item?.marking.def }} </label>
   </li>
 </ul>
 

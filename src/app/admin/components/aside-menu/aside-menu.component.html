@@ -1,10 +1,11 @@
 <aside class="aside-menu">
   <div class="container"></div>
   <section class="aside-menu__section">
-    <ul class="aside-menu__list">
+    <ul class="aside-menu__list" id="aside-menu">
       <li class="aside-menu__list-header">MENU</li>
       <li class="treeview dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+           (click)="toggleActiveMenuItem(companyData)">
           <i class="fa fa-building-o"></i>
           <span>Company Data</span>
           <span class="pull-right-container">
@@ -13,7 +14,7 @@
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a [routerLink]="'/admin/dashboard/company-data/'">
+            <a class="router-link" #a #companyData [routerLink]="'/admin/dashboard/company-data/'" (click)="fixActiveMenuItem(companyData)">
               <i class="fa fa-circle-o"></i>
               Company Data
             </a>
@@ -22,16 +23,17 @@
       </li>
 
       <li class="treeview dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdown-toggle"
+           (click)="toggleActiveMenuItem(roomElement)">
           <i class="fa fa-home"></i>
           <span>Rooms</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left"></i>
           </span>
         </a>
-        <ul class="treeview-menu dropdown-menu">
+        <ul class="treeview-menu dropdown-menu" id="dropdown-menu">
           <li>
-            <a [routerLink]="'/admin/dashboard/rooms/'">
+            <a class="router-link" #a #roomElement [routerLink]="'/admin/dashboard/rooms/'" (click)="fixActiveMenuItem(roomElement)">
               <i class="fa fa-circle-o"></i>
               My Rooms
             </a>
@@ -40,7 +42,8 @@
       </li>
 
       <li class="treeview dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+           (click)="toggleActiveMenuItem(reviews)">
           <i class="fa fa-edit"></i>
           <span>Reviews</span>
           <span class="pull-right-container">
@@ -49,7 +52,7 @@
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a [routerLink]="'/admin/dashboard/reviews/'">
+            <a class="router-link" #a #reviews [routerLink]="'/admin/dashboard/reviews/'" (click)="fixActiveMenuItem(reviews)">
               <i class="fa fa-circle-o"></i>
               Reviews
             </a>
@@ -58,7 +61,8 @@
       </li>
 
       <li class="treeview dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+           (click)="toggleActiveMenuItem(bookings)">
           <i class="fa fa-book"></i>
           <span>Bookings</span>
           <span class="pull-right-container">
@@ -67,29 +71,31 @@
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a [routerLink]="'/admin/dashboard/bookings'">
+            <a class="router-link" #a #bookings [routerLink]="'/admin/dashboard/bookings'" (click)="fixActiveMenuItem(bookings)">
               <i class="fa fa-circle-o"></i>
               Bookings
             </a>
           </li>
           <li>
-            <a [routerLink]="'/admin/dashboard/prices-and-settings'">
+            <a class="router-link" #a #pricesAndSettings [routerLink]="'/admin/dashboard/prices-and-settings'"
+               (click)="fixActiveMenuItem(pricesAndSettings)">
               <i class="fa fa-circle-o"></i>
               <span>Prices and settings</span>
             </a>
           </li>
 
-          <li class="treeview dropdown-submenu treeview-submenu">
-            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+          <li class="dropdown-submenu treeview-submenu dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" (click)="toggleActiveSubMenuItem()">
               <i class="fa fa-circle-o"></i>
               <span>Days Settings</span>
-              <span class="pull-right-container">
+              <span class="pull-right-container pull-right-submenu-container">
                 <i class="fa fa-angle-left"></i>
               </span>
             </a>
             <ul class="treeview-menu dropdown-menu">
-              <li *ngFor="let room of rooms">
-                <a [routerLink]="'/admin/dashboard/days-settings/' + room.id">
+              <li *ngFor="let room of rooms; let i = index;">
+                <a #roomDaySettingsLink class="router-link" #a [routerLink]="'/admin/dashboard/days-settings/' + room.id"
+                   (click)="fixActiveSubMenuItem()">
                   <i class="fa fa-circle-o"></i>
                   {{ room?.name }}
                 </a>
@@ -100,7 +106,8 @@
       </li>
 
       <li class="treeview dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+           (click)="toggleActiveMenuItem(configuration)">
           <i class="fa fa-cogs"></i>
           <span>Configuration</span>
           <span class="pull-right-container">
@@ -109,13 +116,15 @@
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a [routerLink]="'/admin/dashboard/configuration'">
+            <a class="router-link" #a #configuration [routerLink]="'/admin/dashboard/configuration'"
+               (click)="fixActiveMenuItem(configuration)">
               <i class="fa fa-circle-o"></i>
               Configuration
             </a>
           </li>
           <li>
-            <a [routerLink]="'/admin/dashboard/change-password'">
+            <a class="router-link" #a #changePassword [routerLink]="'/admin/dashboard/change-password'"
+               (click)="fixActiveMenuItem(changePassword)">
               <i class="fa fa-circle-o"></i>
               Change password
             </a>
@@ -124,22 +133,24 @@
       </li>
 
       <li class="treeview dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+           (click)="toggleActiveMenuItem(termsOfService)">
           <i class="fa fa-address-card-o"></i>
-          <span>Terms of service and contact</span>
+          <span>Terms of serv. and contact</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left"></i>
           </span>
         </a>
         <ul class="treeview-menu dropdown-menu">
           <li>
-            <a [routerLink]="'/admin/dashboard/terms-of-service'">
+            <a class="router-link" #a #termsOfService [routerLink]="'/admin/dashboard/terms-of-service'"
+               (click)="fixActiveMenuItem(termsOfService)">
               <i class="fa fa-circle-o"></i>
               Terms of service
             </a>
           </li>
           <li>
-            <a [routerLink]="'/admin/dashboard/contact'">
+            <a class="router-link" #a #contact [routerLink]="'/admin/dashboard/contact'" (click)="fixActiveMenuItem(contact)">
               <i class="fa fa-circle-o"></i>
               Contact
             </a>

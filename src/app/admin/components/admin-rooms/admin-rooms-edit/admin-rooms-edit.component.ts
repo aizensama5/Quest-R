@@ -12,6 +12,7 @@ import {ComplexityService} from '../../../../service/complexity.service';
 import {MarkingModel} from '../../../../models/marking.model';
 import {MarkingService} from '../../../../service/marking.service';
 import {ConfigService} from '../../../../service/http/config.service';
+import {LanguageModel} from "../../../../models/language.model";
 
 @Component({
   selector: 'app-admin-rooms-edit',
@@ -35,6 +36,8 @@ export class AdminRoomsEditComponent implements OnInit {
   initializedItems: number;
   isShowConfirmButton = false;
   _isEverythingLoaded = false;
+  useTabsetWithInput: boolean;
+  useTabsetWithTextarea: boolean;
 
   sliderConfig: object = {
     nextButton: '.swiper-button-next',
@@ -58,6 +61,8 @@ export class AdminRoomsEditComponent implements OnInit {
               private configService: ConfigService,
               public router: Router
   ) {
+    this.useTabsetWithInput = true;
+    this.useTabsetWithTextarea = true;
     this.initializedItems = 0;
     this.isShowLoader = true;
   }
@@ -159,23 +164,25 @@ export class AdminRoomsEditComponent implements OnInit {
           .then(() => {
             this.isShowLoader = false;
             this.isShowNotificationPopup = true;
-            this.notificationPopupMessage = 'Удалено';
+            this.notificationPopupMessage = 'Deleted';
           })
           .catch(() => {
-            console.log('что-то пошло не так');
+            this.isShowLoader = false;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Ooops! Something was wrong';
           });
       })
       .catch(() => {
         this.areErrors = true;
         this.isShowLoader = false;
-        this.notificationPopupMessage = 'Ошибка';
+        this.notificationPopupMessage = 'Error';
       });
   }
 
   confirmDeleteRoom() {
     this.isShowConfirmButton = true;
     this.isShowNotificationPopup = true;
-    this.notificationPopupMessage = 'Действительно удалить ' + this.room.name + '?';
+    this.notificationPopupMessage = 'Delete ' + this.room.name + '?';
   }
 
   save() {
@@ -185,12 +192,12 @@ export class AdminRoomsEditComponent implements OnInit {
       .then(() => {
         this.isShowLoader = false;
         this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Сохранено';
+        this.notificationPopupMessage = 'Saved';
       }, () => {
         this.isShowLoader = false;
         this.areErrors = true;
         this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Ошибка';
+        this.notificationPopupMessage = 'Error';
       });
   }
 
@@ -199,6 +206,14 @@ export class AdminRoomsEditComponent implements OnInit {
     this.areErrors = false;
     this.isShowNotificationPopup = false;
     this.notificationPopupMessage = '';
+  }
+
+  onRoomNameTabsetChanged(tabsetInfo: LanguageModel) {
+    this.room.name = tabsetInfo;
+  }
+
+  onRoomDescriptionTabsetChanged(tabsetInfo: LanguageModel) {
+    this.room.description = tabsetInfo;
   }
 
 }

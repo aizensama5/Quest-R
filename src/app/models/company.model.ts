@@ -1,10 +1,11 @@
 import { FirebaseUtils } from '../shared/firebase.utils';
+import { LanguageModel } from "./language.model";
 
 export class CompanyModel {
   id: number;
   companyName: string;
   logo: string;
-  aboutCompany: string;
+  aboutCompany: LanguageModel;
   facebookFanpage: string;
   languageMails: number;
   websiteAddress: string;
@@ -32,7 +33,7 @@ export class CompanyModel {
     this.id = null;
     this.companyName = '';
     this.logo = '';
-    this.aboutCompany = '';
+    this.aboutCompany = new LanguageModel();
     this.facebookFanpage = '';
     this.languageMails = null;
     this.websiteAddress = '';

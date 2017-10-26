@@ -1,7 +1,7 @@
 <div class="left-column">
-    <span class="left-column__name">POKÓJ "{{ profileReview.roomName }}"</span>
+    <span class="left-column__name">{{ 'ROOM' | translateS | async }} "{{ profileReview.roomName }}"</span>
     <span class="left-column__time">{{ profileReview.created }}</span>
-    <span class="left-column__time">data wizyty: {{ profileReview.visited }}</span>
+    <span class="left-column__time">{{ 'Date of the visit' | translateS | async }}: {{ profileReview.visited }}</span>
 </div>
 <div class="right-column">
     <p class="right-column__description">{{ profileReview.description }}</p>

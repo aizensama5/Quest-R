@@ -34,6 +34,10 @@ import { SwiperModule } from 'angular2-useful-swiper';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
+import { AdminGenresComponent } from './components/admin-genres/admin-genres.component';
+import { AdminMarkingsComponent } from './components/admin-markings/admin-markings.component';
+import { AdminPlayersComponent } from './components/admin-players/admin-players.component';
+import { AdminPriceComponent } from './components/admin-price/admin-price.component';
 
 
 
@@ -57,7 +61,11 @@ import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-
     ConfigurationComponent,
     ChangePasswordComponent,
     ContactComponent,
-    TermsOfServiceComponent
+    TermsOfServiceComponent,
+    AdminGenresComponent,
+    AdminMarkingsComponent,
+    AdminPlayersComponent,
+    AdminPriceComponent
   ],
   imports: [
     CommonModule,

@@ -7,21 +7,31 @@ import { NgModule } from '@angular/core';
 import { PopupNotificationService } from '../service/popup.notification.service';
 import { AuthenticationService } from '../service/http/authentication.service';
 import { UploadImageComponent } from './upload-image/upload-image.component';
+import { TabsModule } from "ngx-tabs";
+import { LanguageTabsetComponent } from "./tabset/tabset.component";
+import { PipeModule } from "../pipe/pipe.module";
+import { TabsetInputComponent } from './tabset-input/tabset-input.component';
+
 
 @NgModule ({
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
+    TabsModule,
+    PipeModule
   ],
   declarations: [
     LoginComponent,
-    UploadImageComponent
+    UploadImageComponent,
+    LanguageTabsetComponent,
+    TabsetInputComponent
   ],
   exports: [
     LoginComponent,
     FormsModule,
-    UploadImageComponent
+    UploadImageComponent,
+    LanguageTabsetComponent
   ],
   providers: [
     PopupNotificationService,

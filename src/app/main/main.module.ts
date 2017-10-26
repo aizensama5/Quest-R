@@ -11,7 +11,6 @@ import { SelectModule } from 'angular2-select';
 // services
 import { ReservationService } from '../service/http/reservation.service';
 import { OrderService } from '../service/http/order.service';
-import { DescriptionService } from '../service/description.service';
 import { MarkingService } from '../service/marking.service';
 import { ComplexityService } from '../service/complexity.service';
 import { OrgRuleService } from '../service/org-rule.service';
@@ -38,6 +37,7 @@ import { FilterPriceComponent } from './components/select-room/filter-rooms/filt
 import { FilterPlayersComponent } from './components/select-room/filter-rooms/filter-players/filter-players.component';
 import { FilterComplexityComponent } from './components/select-room/filter-rooms/filter-complexity/filter-complexity.component';
 import { FilterMarkingComponent } from './components/select-room/filter-rooms/filter-marking/filter-marking.component';
+import {PipeModule} from "../pipe/pipe.module";
 
 @NgModule({
     imports: [
@@ -51,6 +51,7 @@ import { FilterMarkingComponent } from './components/select-room/filter-rooms/fi
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBviSA3Z0xaZegK_tWyxwPMdc15lVVwWFk'
         }),
+        PipeModule
     ],
     declarations: [
         MainComponent,
@@ -92,7 +93,6 @@ import { FilterMarkingComponent } from './components/select-room/filter-rooms/fi
       MarkingService,
       ComplexityService,
       OrderService,
-      DescriptionService,
       OrgRuleService,
       ContactService
     ]

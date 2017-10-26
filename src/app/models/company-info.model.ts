@@ -1,9 +1,10 @@
 import { FirebaseUtils } from '../shared/firebase.utils';
+import {LanguageModel} from "./language.model";
 
 export class CompanyInfoModel {
   email: string;
   phone: string;
-  address: string;
+  address: LanguageModel;
 
   static fromJSON(values) {
     const companyInfo = new CompanyInfoModel();
@@ -27,6 +28,6 @@ export class CompanyInfoModel {
   constructor() {
     this.email = '';
     this.phone = '';
-    this.address = '';
+    this.address = new LanguageModel();
   }
 }

@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/admin-templates";
+
+:host /deep/ {
+  .admin-terms-of-service__data {
+    p {
+      @include text-mixin(#000, 14px, $font-source-sans-pro-regular);
+      line-height: 1.42;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+  }
+}

@@ -20,8 +20,7 @@ import {ContactQuestionModel} from '../../../models/contact-question.model';
 export class MapComponent {
   marksRoom: Marker[] = [];
   firstMarkRoom: Marker = new Marker();
-  companyInfo: CompanyInfoModel[] = [];
-  preparedCompanyInfo: any[] = [];
+  companyInfo: CompanyInfoModel = new CompanyInfoModel();
   user: Observable<firebase.User>;
 
   constructor(
@@ -32,10 +31,7 @@ export class MapComponent {
       this.getMarksRooms();
       this.user = authService.currentUser();
       contactService.companyInfo().subscribe((companyInfo: CompanyInfoModel[]) => {
-        this.companyInfo = companyInfo;
-        this.companyInfo.forEach((compInfo: any) => {
-          this.preparedCompanyInfo[compInfo.$key] = compInfo.$value;
-        });
+        this.companyInfo = companyInfo[0];
       });
     }
 

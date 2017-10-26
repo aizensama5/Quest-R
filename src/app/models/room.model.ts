@@ -6,11 +6,12 @@ import { PriceModel } from './price.model';
 import { ComplexityModel } from './complexity.model';
 import { MarkingModel } from './marking.model';
 import { PhotoModel } from './profile/photo.model';
+import { LanguageModel } from "./language.model";
 
 export class RoomModel {
   id: number;
-  description: string;
-  name: string;
+  description: LanguageModel;
+  name: LanguageModel;
   active: boolean;
   companyId: number;
   img: string;
@@ -47,8 +48,8 @@ export class RoomModel {
 
   constructor() {
     this.id = null;
-    this.description = '';
-    this.name = '';
+    this.description = new LanguageModel();
+    this.name = new LanguageModel();
     this.img = '';
     this.active = false;
     this.companyId = null;

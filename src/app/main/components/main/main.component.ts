@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DescriptionService } from '../../../service/description.service';
+import { LanguageModel } from "../../../models/language.model";
 
 @Component({
     moduleId: module.id,
@@ -8,10 +9,10 @@ import { DescriptionService } from '../../../service/description.service';
     styleUrls: ['main.component.scss']
 })
 export class MainComponent implements OnInit {
-  description = [];
+  description: LanguageModel = new LanguageModel();
   constructor(public descService: DescriptionService) {
-    descService.getCurrentDescription().subscribe((description: any[]) => {
-      this.description = description[0].$value;
+    descService.getCurrentDescription().subscribe((description: LanguageModel[]) => {
+      this.description = description[0];
     });
   }
 

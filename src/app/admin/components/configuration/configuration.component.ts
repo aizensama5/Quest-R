@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../../service/http/config.service';
-import { ReceivingMessagesModel } from "../../../models/receiving-messages.model";
+import { DescriptionService } from "../../../service/description.service";
+import {LanguageModel} from "../../../models/language.model";
 
 @Component({
   selector: 'app-configuration',
@@ -8,7 +9,8 @@ import { ReceivingMessagesModel } from "../../../models/receiving-messages.model
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
-  static readonly COUNT_SUBSCRIBING = 2;
+  static readonly COUNT_SUBSCRIBING = 3;
+  description: LanguageModel = new LanguageModel();
   maxCountOfPlayers: number;
   receivingMessagesConf: any[] = [];
   isShowLoader: boolean;
@@ -16,8 +18,13 @@ export class ConfigurationComponent implements OnInit {
   isShowNotificationPopup = false;
   notificationPopupMessage = '';
   areErrors: boolean;
+  useTabsetWithTextarea: boolean;
 
-  constructor(private configService: ConfigService) {
+  constructor(
+    private configService: ConfigService,
+    public descService: DescriptionService
+  ) {
+    this.useTabsetWithTextarea = true;
     this.isShowLoader = true;
     configService.maxCountOfPlayers().subscribe((count: any[]) => {
       this.maxCountOfPlayers = count[0].$value || 0;
@@ -28,6 +35,11 @@ export class ConfigurationComponent implements OnInit {
       receivingMessagesConf.forEach((recMesConf: any) => {
         this.receivingMessagesConf[recMesConf.$key] = recMesConf.$value;
       });
+      this.initializedItems++;
+      this.isItemsInitialized();
+    });
+    descService.getCurrentDescription().subscribe((description: LanguageModel[]) => {
+      this.description = description[0];
       this.initializedItems++;
       this.isItemsInitialized();
     });
@@ -48,8 +60,16 @@ export class ConfigurationComponent implements OnInit {
     this.isShowNotificationPopup = true;
     this.configService.changeMaxCountOfPlayers(this.maxCountOfPlayers)
       .then(() => {
-        this.isShowLoader = false;
-        this.notificationPopupMessage = 'Saved';
+        this.descService.changeDescription(this.description)
+          .then(() => {
+            this.isShowLoader = false;
+            this.notificationPopupMessage = 'Saved';
+          })
+          .catch(() => {
+            this.isShowLoader = false;
+            this.notificationPopupMessage = 'Saved';
+            this.areErrors = true;
+          });
       })
       .catch(() => {
         this.isShowLoader = false;
@@ -68,9 +88,6 @@ export class ConfigurationComponent implements OnInit {
     this.areErrors = false;
     this.isShowLoader = true;
     this.isShowNotificationPopup = true;
-    console.log(this.receivingMessagesConf['emailAddresses'].split('\n'));
-    console.log(this.receivingMessagesConf['emailAddresses'].split('@'));
-    console.log(this.receivingMessagesConf['emailAddresses'].indexOf('@'));
     if (this.receivingMessagesConf['emailAddresses'].split('\n').length === this.receivingMessagesConf['emailAddresses'].split('@').length - 1) {
       this.configService.changeReceivingMessages(this.receivingMessagesConf)
         .then(() => {
@@ -87,5 +104,9 @@ export class ConfigurationComponent implements OnInit {
       this.notificationPopupMessage = 'Use one per line emails';
       this.areErrors = true;
     }
+  }
+
+  onTabsetChanged(tabsetInfo: LanguageModel) {
+    this.description = tabsetInfo;
   }
 }

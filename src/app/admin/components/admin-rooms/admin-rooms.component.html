@@ -16,7 +16,7 @@
             <tbody class="admin__data-table-body">
             <tr *ngFor="let room of rooms">
               <td>
-                <p>{{ room?.name }}</p>
+                <p>{{ room?.name?.def }}</p>
               </td>
               <td>
                 <p [ngStyle]="{'color': room.active ? '#1AB360' : '#c21313'}">
@@ -40,7 +40,7 @@
         <p class="admin__content-title">Add new room</p>
         <div class="admin__data">
           <label class="admin-label" for="new-room-name">Room name</label>
-          <input id="new-room-name" class="admin-input" [(ngModel)]="newRoom.name" #roomName>
+          <input id="new-room-name" class="admin-input" [(ngModel)]="newRoom.name.def" #roomName>
         </div>
         <div class="admin-btn-wrap">
           <button class="btn btn-primary admin-btn" (click)="addNewRoom(roomName.value)">Save</button>

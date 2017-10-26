@@ -1,21 +1,18 @@
 <div *ngIf="showOrderingTable">
-  <h3 class="title reserved-form__title">ОФОРМИТЕ ЗАКАЗ</h3>
+  <h3 class="title reserved-form__title">{{ 'ORDER' | translateS | async }}</h3>
   <div class="reserved-form__wrapper">
-    <!--<div class="spinner-preload swiper-lazy-preloader spinner-preload-reserved-form">-->
-      <!--<span class="spinner-preload__inner"></span>-->
-    <!--</div>-->
       <div class="reserved-form__room" [ngStyle]="{'background-image': 'url(' + room.img + ')'}">
         <div class="reserved-form__room-darkened">
           <ul class="reserved-form__list" *ngIf="room && reserveData">
-              <li class="reserved-form__list-item">Комната: {{room?.name || ''}}</li>
-              <li class="reserved-form__list-item">Начало игры: {{convert(reserveData?.day)}} {{reserveData?.time?.time}}</li>
-              <li class="reserved-form__list-item">Стоимость: {{reserveData?.time?.price + ' ' + reserveData?.time?.currency}}</li>
+              <li class="reserved-form__list-item">{{ 'ROOM' | translateS | async }}: {{room?.name.def || ''}}</li>
+              <li class="reserved-form__list-item">{{ 'Beginning of the game' | translateS | async }}: {{convert(reserveData?.day)}} {{reserveData?.time?.time}}</li>
+              <li class="reserved-form__list-item">{{ 'Cost' | translateS | async }}: {{reserveData?.time?.price + ' ' + reserveData?.time?.currency}}</li>
               <li class="reserved-form__list-item">{{room?.position?.latitude + ' ' +room?.position?.longitude}}</li>
           </ul>
         </div>
       </div>
       <form class="reserved-form__form">
-          <label for="reserved-form__form-name" class="reserved-form__label">Имя</label>
+          <label for="reserved-form__form-name" class="reserved-form__label">{{ 'Name Surname' | translateS | async }}</label>
           <input class="reserved-form__input"
                  value="{{(user$ | async)?.displayName}}"
                  id="reserved-form__form-name"
@@ -25,7 +22,7 @@
                  #name
           >
 
-          <label for="reserved-form__form-tel" class="reserved-form__label">Телефон</label>
+          <label for="reserved-form__form-tel" class="reserved-form__label">{{ 'Phone' | translateS | async }}</label>
           <input class="reserved-form__input"
                  value="{{(user$ | async)?.phoneNumber}}"
                  id="reserved-form__form-tel"
@@ -35,7 +32,7 @@
                  #phone
           >
 
-          <label for="reserved-form__form-email" class="reserved-form__label">Email</label>
+          <label for="reserved-form__form-email" class="reserved-form__label">{{ 'E-Mail' | translateS | async }}</label>
           <input
             type="email"
             class="reserved-form__input"
@@ -47,7 +44,7 @@
             #email
           >
 
-          <input type="submit" class="btn reserved-form__btn" value="Rezervuj" (click)="order(name, phone, email)">
+          <input type="submit" class="btn reserved-form__btn" value="Book" (click)="order(name, phone, email)">
       </form>
   </div>
 </div>

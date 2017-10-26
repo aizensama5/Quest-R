@@ -186,3 +186,59 @@ input[type=file] {
     transform: scale(1.2);
   }
 }
+
+.tabset-wrap {
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  .nav-tabs {
+    margin: 0;
+    border-bottom-color: #f4f4f4;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    li {
+      border-top: 3px solid transparent;
+      margin-right: 5px;
+      &:first-of-type {
+        margin-left: 0;
+      }
+      a {
+        background: #fff;
+        @include text-mixin(#444, 14px, $font-source-sans-pro-regular);
+        cursor: pointer;
+        border-radius: 0;
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        &:hover {
+          background: transparent;
+          margin: 0;
+        }
+      }
+    }
+    li.active {
+      position: relative;
+      top: 1px;
+      border-top-color: #3c8dbc;
+      a {
+        border-left: 1px solid #f4f4f4;
+        border-right: 1px solid #f4f4f4;
+        border-bottom: none;
+        cursor: initial;
+        border-top-color: transparent;
+      }
+      &:first-of-type {
+        a {
+          border-left: none;
+        }
+      }
+    }
+  }
+  .tabset-content {
+    background: #fff;
+    padding: 10px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+}

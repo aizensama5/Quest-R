@@ -87,7 +87,11 @@ export class AdminRoomsComponent implements OnInit {
     this.areErrors = false;
     if (roomName.length) {
       this.newRoom.id = this.roomService.lastId(this.allRooms) + 1;
-      this.newRoom.name = roomName;
+      this.newRoom.name = {
+        def: roomName,
+        en: '',
+        pl: ''
+      };
       this.newRoom.companyId = this.currentCompany.id;
       this.rooms.push(this.newRoom);
       this.roomService.addRoom(this.newRoom)
@@ -95,21 +99,21 @@ export class AdminRoomsComponent implements OnInit {
           this.generateDaysSetting();
           this.isShowLoader = false;
           this.isShowNotificationPopup = true;
-          this.notificationPopupMessage = 'Сохранено';
+          this.notificationPopupMessage = 'Saved';
           this.newRoom = new RoomModel();
         })
         .catch(() => {
           this.areErrors = true;
           this.isShowLoader = false;
           this.isShowNotificationPopup = true;
-          this.notificationPopupMessage = 'Ошибка при сохранении';
+          this.notificationPopupMessage = 'Error';
 
         });
     } else {
       this.areErrors = true;
       this.isShowLoader = false;
       this.isShowNotificationPopup = true;
-      this.notificationPopupMessage = 'Минимальная длина названия: 1 символ';
+      this.notificationPopupMessage = 'Minimum name length: 1 character';
     }
   }
 }

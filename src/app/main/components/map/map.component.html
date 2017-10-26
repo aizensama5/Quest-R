@@ -1,46 +1,52 @@
 <agm-map [latitude]="firstMarkRoom.latitude" [longitude]="firstMarkRoom.longitude">
-    <agm-marker *ngFor="let mark of marksRoom" [latitude]="mark.latitude" [longitude]="mark.longitude"></agm-marker>
+  <agm-marker *ngFor="let mark of marksRoom" [latitude]="mark.latitude" [longitude]="mark.longitude"></agm-marker>
 </agm-map>
 <div class="map__bg">
-    <div class="map__wrapper">
-        <div class="map__contact">
-            <h3 class="title map__title">SKONTAKTUJ SIĘ Z NAMI:</h3>
-            <form class="map__form">
-                <label class="label" for="email-contact-1">Email</label>
-                <input class="input"
-                       type="email"
-                       id="email-contact-1"
-                       value="{{(user | async)?.email }}"
-                       #email
-                >
-                <label class="label map__label" for="message-contact-2">Ваше сообщение</label>
-                <textarea
-                  class="input input--textarea"
-                  id="message-contact-2"
-                  #message
-                ></textarea>
-                <input class="btn btn--full-width map__btn" type="submit" (click)="send(email, message)">
-            </form>
-            <h4 class="title">MAIL:</h4>
-            <a href="mailto:{{ preparedCompanyInfo?.email }}" class="map__text">{{ preparedCompanyInfo?.email }}</a>
-            <h4 class="title">TELEFON:</h4>
-            <a href="tel:{{ preparedCompanyInfo?.phone }}"  class="map__text">{{ preparedCompanyInfo?.phone }}</a>
-            <h4 class="title">ADRES:</h4>
-            <p class="map__text">
-              {{ preparedCompanyInfo?.address }}
-            </p>
-            <ul class="map__list-icon">
-                <li class="map__list-icon-item">
-                    <a href="https://www.facebook.com" target="_blank">
-                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li class="map__list-icon-item">
-                    <a href="https://ru.foursquare.com/" target="_blank">
-                        <i class="fa fa-foursquare" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+  <div class="map__wrapper">
+    <div class="map__contact">
+      <h3 class="title map__title">{{ 'CONTACT US' | translateS | async }}:</h3>
+      <form class="map__form">
+        <label class="label" for="email-contact-1">{{ 'E-Mail' | translateS | async }}</label>
+        <input class="input"
+               type="email"
+               id="email-contact-1"
+               value="{{(user | async)?.email }}"
+               #email
+        >
+        <label class="label map__label" for="message-contact-2">{{ 'Your message' | translateS | async }}</label>
+        <textarea
+          class="input input--textarea"
+          id="message-contact-2"
+          #message
+        ></textarea>
+        <input class="btn btn--full-width map__btn" type="submit" (click)="send(email, message)" value="{{ 'Send' | translateS | async }}">
+      </form>
+      <div>
+        <h4 class="title">{{ 'E-MAIL' | translateS | async }}:</h4>
+        <a href="mailto:{{ companyInfo.email }}" class="map__text">{{ companyInfo?.email }}</a>
+      </div>
+      <div>
+        <h4 class="title">{{ 'PHONE' | translateS | async }}:</h4>
+        <a href="tel:{{ companyInfo.phone }}" class="map__text">{{ companyInfo?.phone }}</a>
+      </div>
+      <div>
+        <h4 class="title">{{ 'ADDRESS' | translateS | async }}:</h4>
+        <p class="map__text">
+          {{ companyInfo?.address.def }}
+        </p>
+      </div>
+      <ul class="map__list-icon">
+        <li class="map__list-icon-item">
+          <a href="https://www.facebook.com" target="_blank">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="map__list-icon-item">
+          <a href="https://ru.foursquare.com/" target="_blank">
+            <i class="fa fa-foursquare" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>

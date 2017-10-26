@@ -1,11 +1,11 @@
 <div class="history-wrapper wrap">
   <table class="history-table">
     <tr class="history-table__header-wrapper">
-      <th class="history-table__header">Название комнаты</th>
-      <th class="history-table__header">Дата</th>
-      <th class="history-table__header">Время прохождения</th>
-      <th class="history-table__header">Отзыв</th>
-      <th class="history-table__header">Фото</th>
+      <th class="history-table__header">{{ 'Name of room' | translateS | async }}</th>
+      <th class="history-table__header">{{ 'Date' | translateS | async }}</th>
+      <th class="history-table__header">{{ 'Time of passage' | translateS | async }}</th>
+      <th class="history-table__header">{{ 'Review' | translateS | async }}</th>
+      <th class="history-table__header">{{ 'Photo' | translateS | async }}</th>
     </tr>
     <tr *ngFor="let history of historyData" class="history-table__content-wrapper">
       <td class="history-table__content" align="left">{{ history.roomName }}</td>

@@ -5,11 +5,11 @@
               <div class="swiper-room__darkened">
                 <div class="swiper-room__content">
                   <h3 class="swiper-room__title">
-                    POKÓJ <br>
-                    "{{ room.name }}"
+                    {{ 'ROOM' | translateS | async }}<br>
+                    "{{ room.name.def }}"
                   </h3>
                   <button class="btn swiper-room__btn" [routerLink]="['/room/'+room.id]">
-                    Read more
+                    {{ 'Read more' | translateS | async }}
                   </button>
                 </div>
               </div>

@@ -3,7 +3,7 @@
     <div class="gallery__top">
       <p class="gallery__room-name">{{ gallery.roomName }}</p>
       <p class="gallery__date">{{ gallery.date }}</p>
-      <button class="gallery__add-photo">Добавить фото</button>
+      <button class="gallery__add-photo">{{ 'Add photo' | translateS | async }}</button>
     </div>
     <div class="gallery__bottom">
       <swiper [config]="sliderConfig" class="gallery-swiper" #swiperClass>

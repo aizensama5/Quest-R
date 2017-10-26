@@ -1,7 +1,7 @@
 <div class="admin-rooms-edit" [class.main-loader]="isShowLoader">
   <div *ngIf="_isEverythingLoaded">
     <div class="admin-rooms-edit__top">
-      <h1 class="admin-rooms-edit__title">{{ room?.name }} - {{ companyData?.companyName }}</h1>
+      <h1 class="admin-rooms-edit__title">{{ room?.name.def }} - {{ companyData?.companyName }}</h1>
       <div class="admin-rooms-edit__delete" (click)="confirmDeleteRoom()">
         <i class="fa fa-close delete-icon"></i>
         Delete room
@@ -16,7 +16,11 @@
               <label class="admin-label" for="room-name">
                 Room name - all changes to this field are MODERATED and will be visible on website WITH DELAY
               </label>
-              <input id="room-name" class="admin-input" [(ngModel)]="room.name">
+              <app-tabset [useTabsetWithInput]="useTabsetWithInput"
+                          id="room-name"
+                          [tabsetModel]="room.name"
+                          (onTabsetChanged)="onRoomNameTabsetChanged($event)"
+              ></app-tabset>
             </div>
             <div class="admin-rooms-edit__data-item">
               <label class="admin-label" for="room-opening-date">
@@ -138,10 +142,11 @@
               <label class="admin-label" for="room-description">
                 Room description - all changes to this field are MODERATED and will be visible on website WITH DELAY
               </label>
-              <textarea id="room-description" class="admin-rooms-edit__data-item-textarea admin-textarea admin-input"
-                        [(ngModel)]="room.description">
-              {{ room.description }}
-            </textarea>
+              <app-tabset [useTabsetWithTextarea]="useTabsetWithTextarea"
+                          id="room-description"
+                          [tabsetModel]="room.description"
+                          (onTabsetChanged)="onRoomDescriptionTabsetChanged($event)"
+              ></app-tabset>
             </div>
           </div>
         </div>

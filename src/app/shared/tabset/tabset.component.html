@@ -1,0 +1,19 @@
+<div class="tabset-wrap">
+  <tabset *ngIf="tabsetModel">
+    <tab class="tabset-tab" *ngFor="let lang of languageService.langsObj;" title="{{lang.langKey | language}}">
+    <textarea *ngIf="useTabsetWithTextarea"
+              class="admin-input admin__data-item-textarea admin-textarea"
+              name="tabset-textarea"
+              [(ngModel)]="tabsetModel[lang.langKey]"
+              (ngModelChange)="onTabsetModelChange($event, lang.langKey)"
+    >
+    </textarea>
+      <input *ngIf="useTabsetWithInput"
+             class="admin-input"
+             name="tabset-input"
+             [(ngModel)]="tabsetModel[lang.langKey]"
+             (ngModelChange)="onTabsetModelChange($event, lang.langKey)"
+      />
+    </tab>
+  </tabset>
+</div>

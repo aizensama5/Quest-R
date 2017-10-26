@@ -9,8 +9,9 @@ export class RoomNamePipe implements PipeTransform {
 
   constructor(public roomService: RoomService) {}
 
-  transform(roomId: number): string {
-    return this.getRoomNameByRoomId(roomId).name;
+  transform(roomId: number, language: string): string {
+    console.log(this.getRoomNameByRoomId(roomId));
+    return this.getRoomNameByRoomId(roomId).name[language];
   }
 
   getRoomNameByRoomId(roomId: number): RoomModel {

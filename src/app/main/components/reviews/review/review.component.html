@@ -2,7 +2,7 @@
     <img class="left-column__img" alt="logo-user" [src]="review?.userPhoto">
     <span class="left-column__name">{{ review?.userName }}</span>
     <span class="left-column__time">{{ review?.created | date: "dd.MM.yyyy" }}</span>
-    <span class="left-column__time">data wizyty: {{ review?.visited }}</span>
+    <span class="left-column__time">{{ 'Date of the visit' | translateS | async }}: {{ review?.visited }}</span>
 </div>
 <div class="right-column">
     <h4 class="right-column__title">{{ review?.title }}</h4>

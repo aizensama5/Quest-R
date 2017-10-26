@@ -17,23 +17,23 @@ export class ToolbarComponent implements OnInit {
 
   links: MenuLinkModel[] = [
       {
-        name: 'Квесты',
+        name: 'Quests',
         target: 'quests'
       },
       {
-        name: 'Как играть',
+        name: 'How to play',
         target: 'org-rule'
       },
       {
-        name: 'Акции',
+        name: 'Promotions',
         target: 'shares',
       },
       {
-        name: 'Отзывы',
+        name: 'Reviews',
         target: 'reviews',
       },
       {
-        name: 'Контакты',
+        name: 'Contacts',
         target: 'contacts'
       }
     ];

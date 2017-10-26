@@ -1,9 +1,10 @@
 import {FirebaseUtils} from '../shared/firebase.utils';
+import {LanguageModel} from "./language.model";
 
 export class SharesModel {
   id: number;
   img: string;
-  descriptions: string;
+  descriptions: LanguageModel;
 
   static fromJSON(values) {
     const user = new SharesModel();
@@ -27,6 +28,6 @@ export class SharesModel {
   constructor() {
     this.id = null;
     this.img = '';
-    this.descriptions = '';
+    this.descriptions = new LanguageModel();
   }
 }

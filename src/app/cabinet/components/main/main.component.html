@@ -1,6 +1,6 @@
 <app-layout-toolbar></app-layout-toolbar>
   <div *ngIf="(user | async)">
-    <h2 class="cabinet__title">Личный кабинет</h2>
+    <h2 class="cabinet__title">{{ 'Personal profile' | translateS | async }}</h2>
     <app-cabinet-profile></app-cabinet-profile>
     <app-cabinet-profile-menu></app-cabinet-profile-menu>
     <router-outlet></router-outlet>

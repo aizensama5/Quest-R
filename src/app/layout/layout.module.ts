@@ -10,11 +10,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SelectListRoomsComponent } from './components/select-list-rooms/select-list-rooms.component';
 import { RoundSliderComponent } from './components/round-slider/round-slider.component';
 import { RoundSliderGenderComponent } from './components/round-slider-genre/round-slider-gender.component';
+import { PipeModule } from "../pipe/pipe.module";
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
+        PipeModule,
         FormsModule,
         SharedModule
     ],

@@ -6,6 +6,13 @@
         <p class="admin__content-title">General</p>
         <div class="admin__data admin-conf__content-data">
           <div class="admin__data-item admin-conf__content-data-item">
+            <label for="main-description" class="conf-label admin-label">Main description</label>
+            <app-tabset id="main-description" [useTabsetWithTextarea]="useTabsetWithTextarea"
+                        (onTabsetChanged)="onTabsetChanged($event)"
+                        [tabsetModel]="description"
+            ></app-tabset>
+          </div>
+          <div class="admin__data-item admin-conf__content-data-item">
             <label for="configuration-max-players" class="conf-label admin-label">Maximum count of players</label>
             <input class="admin-input"
                    id="configuration-max-players"

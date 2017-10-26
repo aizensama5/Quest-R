@@ -47,6 +47,7 @@
           width: 20px;
         }
         .pull-right-container {
+          transition: .3s ease-in;
           position: absolute;
           right: 10px;
           i {
@@ -59,7 +60,8 @@
           }
         }
         &-menu {
-          height: 0;
+          display: none !important;
+          height: 0 !important;
           float: none;
           z-index: 100;
           padding: 0;
@@ -74,11 +76,11 @@
               font-size: 14px;
               padding: 5px 5px 5px 20px;
             }
-            &:hover {
-              background: #2c3b41;
-              a {
-                color: #fff;
-              }
+          }
+          li:hover {
+            background: #2c3b41;
+            & > a {
+              color: #fff;
             }
           }
         }
@@ -86,17 +88,110 @@
       .treeview.show {
         -webkit-transition: all 1s;
         .treeview-menu {
+          display: none;
           height: auto;
           -webkit-transition: height 3.5s;
         }
       }
-      .treeview-submenu {
-        position: relative;
-        right: 3px;
-        ul {
-          position: absolute;
-          left: 4px;
+      .treeview.show-dropdown {
+        -webkit-transition: all 1s !important;
+        .treeview-menu {
+          height: auto !important;
+          -webkit-transition: height 3.5s !important;
         }
+      }
+      .treeview-active {
+        .treeview-submenu {
+          .treeview-menu {
+            display: none !important;
+          }
+        }
+      }
+      .treeview-submenu {
+        .treeview-menu {
+          display: none !important;
+          padding: 0 0 0 13px;
+          position: initial;
+          margin: 0 !important;
+          li {
+            a {
+              &:hover {
+                color: #fff;
+              }
+            }
+          }
+        }
+        .pull-right-submenu-container {
+          transform: rotate(0deg);
+          i {
+            left: 0;
+            bottom: 0;
+          }
+        }
+      }
+      .treeview-submenu-show.treeview-submenu.dropdown {
+        .treeview-menu {
+          display: block !important;
+        }
+        .pull-right-submenu-container {
+          transform: rotate(-90deg) !important;
+          i {
+            position: relative;
+            left: 4px;
+            bottom: 6px;
+          }
+        }
+      }
+      .treeview-submenu.show {
+        .treeview-menu {
+          display: none !important;
+        }
+      }
+    }
+  }
+  #active-menu-item {
+    color: #fff !important;
+  }
+  #active-submenu-item {
+    & > a {
+      color: #fff !important;
+    }
+  }
+  .treeview-active {
+    background: #1e282c !important;
+    & > .dropdown-toggle {
+      border-left: 4px solid #f88e00;
+      color: #fff;
+    }
+    .treeview-menu {
+      display: block !important;
+      height: auto !important;
+    }
+    .treeview-submenu {
+      .treeview-menu {
+        display: block !important;
+      }
+    }
+  }
+  .treeview-show {
+    & > .dropdown-toggle {
+      color: #fff !important;
+    }
+    .treeview-menu {
+      display: block !important;
+      height: auto !important;
+    }
+    .pull-right-container {
+      transform: rotate(-90deg);
+      i {
+        position: relative;
+        left: 4px;
+        bottom: 6px;
+      }
+    }
+    .treeview-submenu-show {
+      .treeview-menu {
+        display: block !important;
       }
     }
   }

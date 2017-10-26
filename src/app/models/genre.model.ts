@@ -1,8 +1,9 @@
 import {FirebaseUtils} from '../shared/firebase.utils';
+import {LanguageModel} from "./language.model";
 
 export class GenreModel {
   id: number;
-  legend: string;
+  legend: LanguageModel;
   color: string;
 
   static fromJSON(values) {
@@ -26,7 +27,7 @@ export class GenreModel {
 
   constructor () {
     this.id = null;
-    this.legend = '';
+    this.legend = new LanguageModel();
     this.color = '';
   }
 }

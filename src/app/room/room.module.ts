@@ -6,6 +6,7 @@ import { RoomInfoComponent } from './components/room/room.component';
 import { RoomRoutingModule } from './room-routing.module';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '../layout/layout.module';
+import { PipeModule } from "../pipe/pipe.module";
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { LayoutModule } from '../layout/layout.module';
     LayoutModule,
     RoomRoutingModule,
     MainModule,
+    PipeModule
   ],
   exports: [
     RoomMainComponent
