@@ -2,9 +2,9 @@
   <div class="room-info">
     <div class="room-info__image" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"></div>
     <div class="room-info__info">
-      <h3 class="room-info__info-name">POKÓJ "{{room?.name}}"</h3>
+      <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{room?.name.def}}"</h3>
       <p class="room-info__info-description">
-        {{ room?.description }}
+        {{ room?.description.def }}
       </p>
       <div class="room-info__details">
         <div class="room-info__details-item">
@@ -17,7 +17,7 @@
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-          <span class="room-info__details-text">{{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} osób</span>
+          <span class="room-info__details-text">{{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} people</span>
         </div>
       </div>
       <div class="room-info__details-item room-info__details-additional" *ngFor="let mark of room?.marking">

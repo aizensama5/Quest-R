@@ -1,14 +1,16 @@
-import {Component, OnInit } from '@angular/core';
-import {CompanyModel} from '../../../models/company.model';
-import {CompanySecurityModel} from '../../../models/company-security.model';
-import {CompanyService} from '../../../service/http/company.service';
+import { Component } from '@angular/core';
+import { CompanyModel } from '../../../models/company.model';
+import { CompanySecurityModel } from '../../../models/company-security.model';
+import { CompanyService } from '../../../service/http/company.service';
+import { LanguageService } from "../../../service/language.service";
+import { LanguageModel } from "../../../models/language.model";
 
 @Component({
   selector: 'app-company-data',
   templateUrl: './company-data.component.html',
-  styleUrls: ['./company-data.component.scss']
+  styleUrls: ['./company-data.component.scss'],
 })
-export class CompanyDataComponent implements OnInit {
+export class CompanyDataComponent {
   companyData: CompanyModel = new CompanyModel();
   initialCompanyData: CompanyModel = new CompanyModel();
   currentCompany: CompanySecurityModel = JSON.parse(localStorage.getItem('admin'));
@@ -16,34 +18,19 @@ export class CompanyDataComponent implements OnInit {
   isShowNotificationPopup = false;
   notificationPopupMessage = '';
   areErrors: boolean;
+  useTabsetWithTextarea: boolean;
 
   constructor(
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    public languageService: LanguageService
   ) {
+    this.useTabsetWithTextarea = true;
     this.isShowLoader = true;
     companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
       this.initialCompanyData = companyData[0];
       this.companyData = companyData[0];
       this.isShowLoader = false;
     });
-  }
-
-  isFormChanges(): boolean {
-    let isChanges = false;
-    let inCDataCounter = 0;
-    let cDataCounter = 0;
-    console.log(this.initialCompanyData);
-    console.log(this.companyData);
-    Object.keys(this.initialCompanyData).map((inCData: any) => {
-      Object.keys(this.companyData).map((cData: any) => {
-        if (cDataCounter === inCDataCounter && inCData !== cData) {
-          isChanges = true;
-        }
-        cDataCounter++;
-      });
-      inCDataCounter++;
-    });
-    return isChanges;
   }
 
   save() {
@@ -53,17 +40,17 @@ export class CompanyDataComponent implements OnInit {
         .then(() => {
           this.isShowLoader = false;
           this.isShowNotificationPopup = true;
-          this.notificationPopupMessage = 'Успешно сохранено';
+          this.notificationPopupMessage = 'Saved';
         })
         .catch(() => {
           this.isShowLoader = false;
           this.isShowNotificationPopup = true;
-          this.notificationPopupMessage = 'Ошибка при сохранении';
+          this.notificationPopupMessage = 'Error';
         });
     } else {
       this.isShowLoader = false;
       this.isShowNotificationPopup = true;
-      this.notificationPopupMessage = 'Ошибка при загрузке файла';
+      this.notificationPopupMessage = 'Error';
     }
   }
 
@@ -80,11 +67,12 @@ export class CompanyDataComponent implements OnInit {
     this.companyData.logo = '';
   }
 
-  ngOnInit() {
-  }
-
   closePopup () {
     this.isShowNotificationPopup = false;
     this.notificationPopupMessage = '';
+  }
+
+  onTabsetChanged(tabsetInfo: LanguageModel) {
+    this.companyData.aboutCompany = tabsetInfo;
   }
 }

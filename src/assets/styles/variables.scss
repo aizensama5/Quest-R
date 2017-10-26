@@ -49,6 +49,7 @@ a {
 }
 
 body {
+  overflow-x: hidden;
   min-height: 100%;
   height: auto;
   background-image: linear-gradient(214deg, #000000, #2a2c2e 54%, #131313);

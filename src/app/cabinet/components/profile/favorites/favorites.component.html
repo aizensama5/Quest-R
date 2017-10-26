@@ -3,7 +3,7 @@
     <div class="room__bg-darkened"></div>
     <div class="room__wrapper">
       <h3 class="room__title">
-        POKÓJ <br>
+        {{ 'ROOM' | translateS | async }} <br>
         "{{ favoriteRoom.name }}"
       </h3>
       <div class="room__details">
@@ -13,7 +13,7 @@
         </div>
         <div class="room__details-item">
           <img class="room__details-icon person" src="../../../../../../assets/images/person.svg" alt="img details person">
-          <span class="room__details-text">{{ favoriteRoom.countPerson }} osob</span>
+          <span class="room__details-text">{{ favoriteRoom.countPerson }} {{ 'people' | translateS | async }}</span>
         </div>
         <div class="room__details-item">
           <img class="room__details-icon genre" src="../../../../../../assets/images/clock.svg" alt="img details genre">
@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <button class="btn room__btn">Rezervuj</button>
+      <button class="btn room__btn">{{ 'Book' | translateS | async }}</button>
     </div>
   </div>
 </ng-container>

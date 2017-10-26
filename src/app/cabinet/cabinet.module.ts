@@ -33,6 +33,7 @@ import { ProfileReviewService } from '../service/profile/profileReview.service';
 import { CreateReviewComponent } from './components/profile/reviews/create-review/create-review.component';
 import { AuthenticationService } from '../service/http/authentication.service';
 import { UserRoomHistoryService } from '../service/http/user-room-history.service';
+import {PipeModule} from "../pipe/pipe.module";
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { UserRoomHistoryService } from '../service/http/user-room-history.servic
     SharedModule,
 
     CabinetRoutingModule,
-    SwiperModule
+    SwiperModule,
+    PipeModule
   ],
   declarations: [
     CabinetMainComponent,

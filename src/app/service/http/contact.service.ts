@@ -28,8 +28,8 @@ export class ContactService {
 
   changeCompanyInfo(companyInfo: CompanyInfoModel): Promise<void> {
     return <Promise<void>>this.dataBaseService
-      .object(ContactService.dataBaseName + ContactService.companyInfoObjName)
-      .set(companyInfo.toJSON());
+      .object(ContactService.dataBaseName + ContactService.companyInfoObjName + '0/')
+      .set(companyInfo);
   }
 
   companyInfo(): FirebaseListObservable<CompanyInfoModel[]> {

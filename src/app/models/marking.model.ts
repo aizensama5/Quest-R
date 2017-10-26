@@ -1,8 +1,9 @@
 import { FirebaseUtils } from '../shared/firebase.utils';
+import { LanguageModel } from "./language.model";
 
 export class MarkingModel {
   id: number;
-  marking: string;
+  marking: LanguageModel;
   checked?: boolean;
 
   static fromJSON(values) {
@@ -26,6 +27,6 @@ export class MarkingModel {
 
   constructor() {
     this.id = null;
-    this.marking = '';
+    this.marking = new LanguageModel();
   }
 }

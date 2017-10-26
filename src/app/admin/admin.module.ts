@@ -31,6 +31,13 @@ import { DaysSettingsService } from '../service/days-settings.service';
 import { SharedModule } from '../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
+import { AdminGenresComponent } from './components/admin-genres/admin-genres.component';
+import { AdminMarkingsComponent } from './components/admin-markings/admin-markings.component';
+import { AdminPlayersComponent } from './components/admin-players/admin-players.component';
+import { AdminPriceComponent } from './components/admin-price/admin-price.component';
 
 
 
@@ -51,7 +58,14 @@ import { SwiperModule } from 'angular2-useful-swiper';
     DaysSettingsComponent,
     CalendarComponent,
     SpecialOffersComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    ChangePasswordComponent,
+    ContactComponent,
+    TermsOfServiceComponent,
+    AdminGenresComponent,
+    AdminMarkingsComponent,
+    AdminPlayersComponent,
+    AdminPriceComponent
   ],
   imports: [
     CommonModule,

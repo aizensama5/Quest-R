@@ -14,6 +14,12 @@ export class ReviewService {
       .set(review.toJSON());
   }
 
+  changeReviews(reviews: ReviewModel[]): Promise<void> {
+    return <Promise<void>>this.dataBaseService
+      .object(ReviewService.dataBaseName)
+      .set(reviews);
+  }
+
   all(): FirebaseListObservable<ReviewModel[]> {
     return <FirebaseListObservable<ReviewModel[]>>this.dataBaseService
       .list(ReviewService.dataBaseName);

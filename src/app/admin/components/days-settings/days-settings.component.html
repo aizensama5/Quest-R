@@ -11,33 +11,40 @@
           <th>Options</th>
         </tr>
         </thead>
-        <tbody class="admin__data-table-body">
+        <tbody class="admin__data-table-body" *ngIf="daysSettings.length">
         <tr *ngFor="let daySet of daysSettings">
           <td>
             <p>{{ daySet?.weekDay }}</p>
           </td>
           <td class="available-hours">
-            <div class="available-hours__item" *ngFor="let avHour of daySet.availableHours">
-              <label for="available-hour" class="admin-label available-hours__item--label">Hour: </label>
-              <input
-                class="available-hours__item--time"
-                type="time"
-                name="hour"
-                id="available-hour"
-                [(ngModel)]="avHour.hour"/>
-              <p class="available-hours__item--label">Variants</p>
-              <div class="available-hours__item--price-types" *ngFor="let prType of priceTypes">
-                <input
-                  id="price-type-{{ prType.id }}"
-                  type="checkbox"
-                  [(ngModel)]="avHour.priceTypeId"
-                  class="available-hours__item--radio"/>
-                <label class="admin-label">{{ prType?.name }}</label>
-              </div>
-              <div class="available-hours__item--radio available-hours__item--delete"
-                   (click)="deleteHour(daySet.id, avHour.id)">
-                <i class="fa fa-close"></i>
-                Delete
+            <div class="available-hours__items">
+              <div class="available-hours__item-wrap" *ngFor="let avHour of daySet.availableHours">
+                <div class="available-hours__item" *ngIf="avHour?.hour != undefined">
+                  <label for="available-hour" class="admin-label available-hours__item--label">Hour: </label>
+                  <input
+                    class="available-hours__item--time"
+                    type="time"
+                    name="hour"
+                    id="available-hour"
+                    [(ngModel)]="avHour.hour"/>
+                  <p class="available-hours__item--label">Variants</p>
+                  <div class="available-hours__item--price-types" *ngFor="let prType of priceTypes">
+                    <input
+                      id="price-type-{{ daySet.id }}-{{ prType.id }}-{{ avHour.id }}"
+                      type="radio"
+                      name="type-{{ daySet.id }}{{ avHour.id }}"
+                      [checked]="avHour.priceTypeId === prType.id"
+                      (change)="onAvHourTypeChange(daySet.id, avHour.id, prType.id)"
+                      class="available-hours__item--radio"/>
+                    <label class="admin-label" for="price-type-{{ daySet.id }}-{{ prType.id }}-{{ avHour.id }}">
+                      {{ prType?.name }}</label>
+                  </div>
+                  <div class="available-hours__item--radio available-hours__item--delete"
+                       (click)="confirmDeleteHour(daySet.id, avHour.id)">
+                    <i class="fa fa-close"></i>
+                    Delete
+                  </div>
+                </div>
               </div>
             </div>
             <div class="available-hours__new">
@@ -69,8 +76,9 @@
           <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
           <div class="popup-confirmation"
                *ngIf="dayIdToDelete && hourIdToDelete"
-               (click)="confirmDeleteHour()">
-            ДА</div>
+               (click)="deleteHour(dayIdToDelete, hourIdToDelete)">
+            ДА
+          </div>
         </div>
         <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
       </div>

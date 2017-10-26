@@ -3,5 +3,8 @@
   min-height: 100%;
   .admin-main-content {
     display: flex;
+    .admin-right-content {
+      width: 100%;
+    }
   }
 }

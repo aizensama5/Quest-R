@@ -41,11 +41,7 @@ export class DaysSettingsComponent implements OnInit {
     this.activateRoute.data.subscribe((data) => {
       if (data['room']) {
         this.room = data['room'];
-        this.daysSettingsService.roomDaysSettings(this.room.id).subscribe((daysSetting: DaysModel[]) => {
-          this.daysSettings = daysSetting;
-          this.initializedItems++;
-          this.isEverythingLoaded();
-        });
+        this.getDaysSettings();
       }
     });
     this.priceTypeService.all().subscribe((priceTypes: PricesTypesModel[]) => {
@@ -53,6 +49,34 @@ export class DaysSettingsComponent implements OnInit {
       this.initializedItems++;
       this.isEverythingLoaded();
     });
+  }
+
+  getDaysSettings() {
+    this.daysSettingsService.roomDaysSettings(this.room.id).subscribe((daysSetting: DaysModel[]) => {
+      this.daysSettings = daysSetting;
+      this.initializedItems++;
+      this.isEverythingLoaded();
+    });
+  }
+
+  onAvHourTypeChange(daySettingId: number, availableHourId: number, priceTypeId: number) {
+    let i = 0;
+    for (; i < this.daysSettings.length; i++) {
+      let j = 0;
+      if (!this.daysSettings[i]) {
+        continue;
+      }
+      if (this.daysSettings[i].id = daySettingId && this.daysSettings[i].id) {
+        for (; j < this.daysSettings[i].availableHours.length; j++) {
+          if (this.daysSettings[i].availableHours[j].id === availableHourId && this.daysSettings[i].availableHours[j].id) {
+            if (!this.daysSettings[i].availableHours[j]) {
+              continue;
+            }
+            this.daysSettings[i].availableHours[j].priceTypeId = priceTypeId;
+          }
+        }
+      }
+    }
   }
 
   initializate() {
@@ -76,7 +100,7 @@ export class DaysSettingsComponent implements OnInit {
     });
   }
 
-  deleteHour(dayId: number, hourId: number) {
+  confirmDeleteHour(dayId: number, hourId: number) {
     this.dayIdToDelete = dayId;
     this.hourIdToDelete = hourId;
     console.log(dayId);
@@ -85,24 +109,48 @@ export class DaysSettingsComponent implements OnInit {
     this.notificationPopupMessage = 'Действительно удалить?';
   }
 
-  confirmDeleteHour() {
+  deleteHour(dayIdToDelete, hourIdToDelete) {
     this.isShowLoader = true;
-    this.daysSettingsService.removeHourItem(this.room.id, this.dayIdToDelete, this.hourIdToDelete)
+    this.daysSettings = [];
+    this.daysSettingsService.removeHourItem(this.room.id, dayIdToDelete, hourIdToDelete)
       .then(() => {
         this.isShowNotificationPopup = true;
         this.notificationPopupMessage = 'Тип успешно удален';
         this.isShowLoader = false;
+        console.log(this.daysSettings);
       }, () => {
         this.isShowNotificationPopup = true;
         this.notificationPopupMessage = 'Ошибка при удалении елемента';
         this.isShowLoader = false;
+        this.daysSettings = [];
+        console.log(this.daysSettings);
       });
     this.hourIdToDelete = null;
     this.dayIdToDelete = null;
   }
 
+  // clearHour(daySettingId: number, hourId: number) {
+  //   let i = 0;
+  //   for (; i < this.daysSettings.length; i++) {
+  //     let j = 0;
+  //     if (!this.daysSettings[i]) {
+  //       continue;
+  //     }
+  //     if (this.daysSettings[i].id = daySettingId && this.daysSettings[i].id) {
+  //       for (; j < this.daysSettings[i].availableHours.length; j++) {
+  //         if (this.daysSettings[i].availableHours[j].id === hourId && this.daysSettings[i].availableHours[j].id) {
+  //           if (!this.daysSettings[i].availableHours[j]) {
+  //             continue;
+  //           }
+  //           this.daysSettings[i].availableHours.splice(j, 1);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
   isEverythingLoaded() {
-    if (this.initializedItems === DaysSettingsComponent.countSubscribing) {
+    if (this.initializedItems >= DaysSettingsComponent.countSubscribing) {
       this.isShowLoader = false;
     }
   }
@@ -114,17 +162,21 @@ export class DaysSettingsComponent implements OnInit {
 
   onSelectedOption(option: any, daySetToId: number) {
     const opt: any = option.target.value;
+    console.log(opt);
     const separator = '_';
     let optAppointment: any;
     const optAppoint: string = opt.split(separator).shift() + separator;
-    const daySetFromId: number = parseInt(opt.split(separator).pop(), 10);
+    const daySetFromId: number = +opt.split(separator).pop();
     switch (optAppoint) {
       case this.options.o_copy:
         this.copyDaySettings(daySetFromId, daySetToId);
+        console.log('i am here');
         break;
       case this.options.o_delete:
         optAppointment = this.options.o_delete;
         break;
+      default:
+        this.daysSettings[daySetToId].availableHours = this.weekDaySettings(daySetToId);
     }
   }
 
@@ -142,6 +194,7 @@ export class DaysSettingsComponent implements OnInit {
     let dayIndex = 0;
     this.daysSettings.forEach((wDay: DaysModel) => {
       if (wDay.id === toId) {
+        console.log('lalalal');
         this.daysSettings[dayIndex].availableHours = this.weekDaySettings(fromId);
       }
       dayIndex++;
@@ -149,6 +202,7 @@ export class DaysSettingsComponent implements OnInit {
   }
 
   save() {
+    console.log(this.daysSettings);
     let subscrCount = 0;
     this.areErrors = false;
     this.isShowLoader = true;

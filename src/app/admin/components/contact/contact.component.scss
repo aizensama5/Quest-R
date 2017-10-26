@@ -1,0 +1,8 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/admin-templates";
+
+:host /deep/ {
+  .contact-item {
+    padding-bottom: 10px;
+  }
+}

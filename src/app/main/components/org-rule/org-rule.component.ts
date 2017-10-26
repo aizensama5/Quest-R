@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OrgRuleService } from '../../../service/org-rule.service';
+import { LanguageModel } from "../../../models/language.model";
 
 @Component({
     moduleId: module.id,
@@ -8,13 +9,10 @@ import { OrgRuleService } from '../../../service/org-rule.service';
     styleUrls: ['org-rule.component.scss']
 })
 export class OrgRuleComponent {
-    orgRules: string[] = [];
+    orgRules: LanguageModel[] = [];
     constructor(orgRuleService: OrgRuleService) {
-      orgRuleService.getOrgRules().subscribe((orgRules: string[]) => {
+      orgRuleService.getOrgRules().subscribe((orgRules: LanguageModel[]) => {
         this.orgRules = orgRules;
-        this.orgRules = this.orgRules.map((rule: any) => {
-          return rule.$value;
-        });
       });
     }
 

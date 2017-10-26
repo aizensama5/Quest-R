@@ -7,8 +7,8 @@
       </header>
       <div class="room__wrapper">
           <h3 class="room__title">
-              POKÓJ <br>
-              "{{ room.name }}"
+              {{ 'ROOM' | translateS | async }} <br>
+              "{{ room.name.def }}"
           </h3>
           <div class="room__details">
               <div class="room__details-item">
@@ -17,7 +17,8 @@
               </div>
               <div class="room__details-item">
                   <img class="room__details-icon" src="../../../../../../assets/images/person.svg" alt="img details person">
-                  <span class="room__details-text">{{ room.countPlayers.minCountPlayers }}-{{ room.countPlayers.maxCountPlayers }} osob</span>
+                  <span class="room__details-text">{{ room.countPlayers.minCountPlayers }}-{{ room.countPlayers.maxCountPlayers }}
+                    {{ 'people' | translateS | async }}</span>
               </div>
               <div class="room__details-item">
                   <img class="room__details-icon" src="../../../../../../assets/images/clock.svg" alt="img details genre">
@@ -25,7 +26,7 @@
               </div>
           </div>
 
-          <button class="btn room__btn" (click)="reserve()">Rezervuj</button>
+          <button class="btn room__btn" (click)="reserve()"></button>
       </div>
     </div>
 </div>

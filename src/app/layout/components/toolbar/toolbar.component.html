@@ -15,7 +15,10 @@
 
     <div class="toolbar__menu">
         <div class="menu" [routerLink]="'/'">
-            <a class="menu__link" *ngFor="let link of links" (click)="scrollTo(link.target)">{{ link.name }}</a>
+            <a class="menu__link"
+               *ngFor="let link of links"
+               (click)="scrollTo(link.target)"
+            >{{ link.name | translateS | async }}</a>
         </div>
         <div class="toolbar__lang-mob">
             <span class="active">PL</span>
@@ -24,10 +27,19 @@
     </div>
 
     <div class="toolbar__lang">
-        <span class="toolbar__lang-text" *ngIf="!(user | async)" (click)="showLoginPopup()">Вход и регистрация</span>
+        <span class="toolbar__lang-text" *ngIf="!(user | async)"
+              (click)="showLoginPopup()">
+          {{ 'Login and Registration' | translateS | async }}</span>
         <div class="toolbar__user-exist" *ngIf="(user | async)">
-          <span class="toolbar__lang-text toolbar__cabinet" routerLink="/cabinet/">Личный кабинет</span>
-          <span class="toolbar__lang-text toolbar__logout" (click)="logout()" routerLink="/">Выйти</span>
+          <span class="toolbar__lang-text toolbar__cabinet"
+                routerLink="/cabinet/"
+          >{{ 'Personal profile' | translateS | async }}
+          </span>
+          <span class="toolbar__lang-text toolbar__logout"
+                (click)="logout()"
+                routerLink="/"
+          >{{ 'Sign out' | translateS | async }}
+          </span>
         </div>
         <app-layout-select-language></app-layout-select-language>
     </div>

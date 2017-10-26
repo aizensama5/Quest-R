@@ -1,12 +1,19 @@
-<div class="admin">
+<div class="admin" [class.main-loader]="isShowLoader">
   <h1 class="admin__title">Configuration</h1>
   <div class="row">
-    <div class="col-md-4">
-      <div class="admin__content">
+    <div class="col-md-6">
+      <div class="admin__content admin-conf__content">
         <p class="admin__content-title">General</p>
-        <div class="admin__data">
-          <div class="admin__data-item">
-            <label for="configuration-max-players" class="admin-label">Maximum count of players</label>
+        <div class="admin__data admin-conf__content-data">
+          <div class="admin__data-item admin-conf__content-data-item">
+            <label for="main-description" class="conf-label admin-label">Main description</label>
+            <app-tabset id="main-description" [useTabsetWithTextarea]="useTabsetWithTextarea"
+                        (onTabsetChanged)="onTabsetChanged($event)"
+                        [tabsetModel]="description"
+            ></app-tabset>
+          </div>
+          <div class="admin__data-item admin-conf__content-data-item">
+            <label for="configuration-max-players" class="conf-label admin-label">Maximum count of players</label>
             <input class="admin-input"
                    id="configuration-max-players"
                    name="company-name"
@@ -16,8 +23,41 @@
           </div>
         </div>
         <div class="admin-btn-wrap">
-          <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+          <button class="btn btn-primary admin-btn" (click)="saveGeneral()">Save</button>
         </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="admin__content admin-conf__content">
+        <p class="admin__content-title">Receiving messages</p>
+        <div class="admin__data admin-conf__content-data">
+          <div class="admin__data-item admin-conf__content-data-item">
+            <input type="checkbox"
+                   [(ngModel)]="receivingMessagesConf.infoAboutNewReviews"
+                   name="checkbox-reviews-conf">
+            <label for="configuration-max-players" class="admin-label">Information about new reviews</label>
+          </div>
+          <div class="admin__data-item admin-conf__content-data-item">
+            <label for="configuration-max-players" class="admin-label">E-mail addresses (one per line)</label>
+            <textarea class="admin-textarea"
+                      [(ngModel)]="receivingMessagesConf.emailAddresses"
+                      id="email-conf"
+                   name="company-name"
+            ></textarea>
+          </div>
+        </div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn" (click)="saveReceivingMessages()">Save</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+      <div class="popup">
+        <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+        <div class="popup-content">
+          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+        </div>
+        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
       </div>
     </div>
   </div>

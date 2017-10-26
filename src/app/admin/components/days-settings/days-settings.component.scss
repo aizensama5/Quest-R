@@ -5,6 +5,11 @@
   width: 100%;
   .available-hours {
     display: flex;
+    &__items {
+      display: flex;
+    }
+    &__item-wrap {
+    }
     &__item {
       margin-right: 20px;
       &--time {

@@ -1,12 +1,16 @@
 <select *ngIf="!isOpenedRoomPage"
-        placeholder="Выберите комнату"
         (change)="onSelectedRoom()"
         class="reserved-select"
         [(ngModel)]="sRoom">
+          <option [disabled]="true"
+                  selected="true"
+          >
+            {{ 'Select a room' | translateS | async }}
+          </option>
           <option
             *ngFor="let room of rooms"
             [ngValue]="room"
             [selected]="preSelectedRoom?.id === room?.id">
-              {{ room.name }}
+              {{ room?.name.def }}
           </option>
 </select>

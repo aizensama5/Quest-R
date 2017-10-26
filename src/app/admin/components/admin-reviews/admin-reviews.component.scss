@@ -29,13 +29,15 @@
         border: none;
       }
     }
-    &__textarea {
+    .admin-reviews__textarea {
+      padding: 4px;
       min-height: 100px;
-      width: 85%;
+      position: relative;
+      right: 5px;
       margin: 0 auto;
       border-radius: 0;
-      font-size: 12px;
-      color: #555;
+      @include text-mixin($color-black, 12px, $font-source-sans-pro-regular);
+      line-height: 1.1;
       box-shadow: none;
       border: 1px solid #d2d6de;
     }

@@ -1,198 +1,223 @@
 <div class="admin-rooms-edit" [class.main-loader]="isShowLoader">
-  <h1 class="admin-rooms-edit__title">{{ room?.name }} - {{ companyData?.companyName }}</h1>
-  <div class="admin-rooms-edit__row row">
-    <div class="col-md-6">
-      <div class="admin-rooms-edit__content">
-        <p class="admin-rooms-edit__content-title">General information</p>
-        <div class="admin-rooms-edit__data">
-          <div class="admin-rooms-edit__data-item">
-            <label class="admin-label" for="room-name">
-              Room name - all changes to this field are MODERATED and will be visible on website WITH DELAY
-            </label>
-            <input id="room-name" class="admin-input" [(ngModel)]="room.name">
+  <div *ngIf="_isEverythingLoaded">
+    <div class="admin-rooms-edit__top">
+      <h1 class="admin-rooms-edit__title">{{ room?.name.def }} - {{ companyData?.companyName }}</h1>
+      <div class="admin-rooms-edit__delete" (click)="confirmDeleteRoom()">
+        <i class="fa fa-close delete-icon"></i>
+        Delete room
+      </div>
+    </div>
+    <div class="admin-rooms-edit__row row">
+      <div class="col-md-6">
+        <div class="admin-rooms-edit__content">
+          <p class="admin-rooms-edit__content-title">General information</p>
+          <div class="admin-rooms-edit__data">
+            <div class="admin-rooms-edit__data-item">
+              <label class="admin-label" for="room-name">
+                Room name - all changes to this field are MODERATED and will be visible on website WITH DELAY
+              </label>
+              <app-tabset [useTabsetWithInput]="useTabsetWithInput"
+                          id="room-name"
+                          [tabsetModel]="room.name"
+                          (onTabsetChanged)="onRoomNameTabsetChanged($event)"
+              ></app-tabset>
+            </div>
+            <div class="admin-rooms-edit__data-item">
+              <label class="admin-label" for="room-opening-date">
+                Opening date
+              </label>
+              <input type="date" id="room-opening-date" class="admin-input" [(ngModel)]="room.openingDate">
+            </div>
+            <div class="admin-rooms-edit__data-item">
+              <label class="admin-label" for="room-genre">
+                Genre
+              </label>
+              <select *ngIf="genres" id="room-genre" class="admin-input" [(ngModel)]="room.ganre">
+                <option
+                  *ngFor="let genre of genres"
+                  [selected]="room.ganre.id === genre.id"
+                >
+                  {{ genre?.legend }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="admin-rooms-edit__data-item">
-            <label class="admin-label" for="room-opening-date">
-              Opening date
-            </label>
-            <input type="date" id="room-opening-date" class="admin-input" [(ngModel)]="room.openingDate">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="admin-rooms-edit__content">
+          <p class="admin-rooms-edit__content-title">Main photo</p>
+          <div class="admin-rooms-edit__data">
+            <div class="admin-rooms-edit__data-item" *ngIf="room.img">
+              <p class="admin-rooms-edit__data-item-title">Current</p>
+              <div class="admin-rooms-edit__data-item-logo"
+                   [ngStyle]="{'background-image': 'url(' + room?.img  + ')'}">
+                <i class="fa fa-close delete-icon" (click)="deleteMainImage()"></i>
+              </div>
+            </div>
+            <app-upload-image [companyLogo]="companyData.logo"
+                              (onImageUploaded)="onImageUploaded($event)">
+            </app-upload-image>
           </div>
-          <div class="admin-rooms-edit__data-item">
-            <label class="admin-label" for="room-genre">
-              Genre
-            </label>
-            <select *ngIf="genres" id="room-genre" class="admin-input" [(ngModel)]="room.ganre">
-              <option
-                *ngFor="let genre of genres"
-                [selected]="room.ganre.id === genre.id"
+        </div>
+      </div>
+    </div>
+    <div class="admin-rooms-edit__row row">
+      <div class="col-md-6">
+        <div class="admin-rooms-edit__content">
+          <p class="admin-rooms-edit__content-title">Details</p>
+          <div class="admin-rooms-edit__data">
+            <div class="admin-rooms-edit__data-item form-group">
+              <label class="admin-label" for="room-people-min">
+                People min.
+              </label>
+              <input type="number"
+                     id="room-people-min"
+                     class="form-control admin-input"
+                     min="{{ 1 }}"
+                     max="{{ room.countPlayers.maxCountPlayers }}"
+                     [(ngModel)]="room.countPlayers.minCountPlayers"
               >
-                {{ genre?.legend }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="admin-rooms-edit__content">
-        <p class="admin-rooms-edit__content-title">Main photo</p>
-        <div class="admin-rooms-edit__data">
-          <div class="admin-rooms-edit__data-item" *ngIf="room.img">
-            <p class="admin-rooms-edit__data-item-title">Current</p>
-            <div class="admin-rooms-edit__data-item-logo"
-                 [ngStyle]="{'background-image': 'url(' + room?.img  + ')'}">
-              <i class="fa fa-close" (click)="deleteMainImage()"></i>
             </div>
-          </div>
-          <app-upload-image [companyLogo]="companyData.logo"
-                            (onImageUploaded)="onImageUploaded($event)">
-          </app-upload-image>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="admin-rooms-edit__row row">
-    <div class="col-md-6">
-      <div class="admin-rooms-edit__content">
-        <p class="admin-rooms-edit__content-title">Details</p>
-        <div class="admin-rooms-edit__data">
-          <div class="admin-rooms-edit__data-item form-group">
-            <label class="admin-label" for="room-people-min">
-              People min.
-            </label>
-            <input type="number"
-                   id="room-people-min"
-                   class="form-control admin-input"
-                   min="{{ 1 }}"
-                   max="{{ room.countPlayers.maxCountPlayers }}"
-                   [(ngModel)]="room.countPlayers.minCountPlayers"
-            >
-          </div>
-          <div class="admin-rooms-edit__data-item form-group">
-            <label class="admin-label" for="room-people-max">
-              People max.
-            </label>
-            <input type="number"
-                   id="room-people-max"
-                   class="form-control admin-input"
-                   min="{{ room.countPlayers.minCountPlayers }}"
-                   max="{{ maxCountOfPlayers }}"
-                   [(ngModel)]="room.countPlayers.maxCountPlayers"
-            >
-          </div>
-          <div class="admin-rooms-edit__data-item form-group">
-            <label class="admin-label" for="room-play-time">
-              Play time in minutes
-            </label>
-            <input type="number" id="room-play-time" class="form-control admin-input">
-          </div>
-          <div class="form-group admin-rooms__data-item">
-            <label for="room-difficulty" class="admin-label">Difficulty</label>
-            <select class="admin-input" id="room-difficulty" *ngIf="room.complexity" [(ngModel)]="room.complexity">
-              <option
-                *ngFor="let complexity of complexities"
-                [selected]="complexity.id === room.complexity?.id">
-                {{ complexity.complexity }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="admin-rooms-edit__content" *ngIf="markings">
-        <p class="admin-rooms-edit__content-title">Markings</p>
-        <div class="admin-rooms-edit__data">
-          <div class="form-group admin-rooms-edit__data-item">
-            <p class="admin-rooms-edit__data-item-title">Special markings</p>
-            <div class="admin-rooms-edit__data-item-checkbox" *ngFor="let marking of markings; let i = index;">
-              <input id="marking-{{marking.id}}"
-                     type="checkbox"
-                     value="{{ marking.id }}"
-                     [checked]="marking.checked"
+            <div class="admin-rooms-edit__data-item form-group">
+              <label class="admin-label" for="room-people-max">
+                People max.
+              </label>
+              <input type="number"
+                     id="room-people-max"
+                     class="form-control admin-input"
+                     min="{{ room.countPlayers.minCountPlayers }}"
+                     max="{{ maxCountOfPlayers }}"
+                     [(ngModel)]="room.countPlayers.maxCountPlayers"
               >
-              <label for="marking-{{marking.id}}">{{ marking.marking }}</label>
+            </div>
+            <div class="admin-rooms-edit__data-item form-group">
+              <label class="admin-label" for="room-play-time">
+                Play time in minutes
+              </label>
+              <input type="number"
+                     id="room-play-time"
+                     class="form-control admin-input"
+                     [(ngModel)]="room.duration"
+              >
+            </div>
+            <div class="form-group admin-rooms__data-item">
+              <label for="room-difficulty" class="admin-label">Difficulty</label>
+              <select class="admin-input" id="room-difficulty" *ngIf="room.complexity" [(ngModel)]="room.complexity">
+                <option
+                  *ngFor="let complexity of complexities"
+                  [selected]="complexity.id === room.complexity?.id">
+                  {{ complexity.complexity }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="admin-rooms-edit__content" *ngIf="markings">
+          <p class="admin-rooms-edit__content-title">Markings</p>
+          <div class="admin-rooms-edit__data">
+            <div class="form-group admin-rooms-edit__data-item">
+              <p class="admin-rooms-edit__data-item-title">Special markings</p>
+              <div class="admin-rooms-edit__data-item-checkbox" *ngFor="let marking of markings; let i = index;">
+                <input id="marking-{{marking.id}}"
+                       type="checkbox"
+                       value="{{ marking.id }}"
+                       [checked]="marking.checked"
+                >
+                <label for="marking-{{marking.id}}">{{ marking.marking }}</label>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="admin-rooms-edit__row row">
-    <div class="col-md-6">
-      <div class="admin-rooms-edit__content">
-        <p class="admin-rooms-edit__content-title">Texts</p>
-        <div class="admin-rooms-edit__data">
-          <div class="admin-rooms-edit__data-item">
-            <label class="admin-label" for="room-description">
-              Room description - all changes to this field are MODERATED and will be visible on website WITH DELAY
-            </label>
-            <textarea id="room-description" class="admin-rooms-edit__data-item-textarea admin-textarea admin-input"
-                      [(ngModel)]="room.description">
-              {{ room.description }}
-            </textarea>
+    <div class="admin-rooms-edit__row row">
+      <div class="col-md-6">
+        <div class="admin-rooms-edit__content">
+          <p class="admin-rooms-edit__content-title">Texts</p>
+          <div class="admin-rooms-edit__data">
+            <div class="admin-rooms-edit__data-item">
+              <label class="admin-label" for="room-description">
+                Room description - all changes to this field are MODERATED and will be visible on website WITH DELAY
+              </label>
+              <app-tabset [useTabsetWithTextarea]="useTabsetWithTextarea"
+                          id="room-description"
+                          [tabsetModel]="room.description"
+                          (onTabsetChanged)="onRoomDescriptionTabsetChanged($event)"
+              ></app-tabset>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="admin-rooms-edit__content">
-        <p class="admin-rooms-edit__content-title">Room activation</p>
-        <div class="admin-rooms-edit__data">
-          <label class="admin-label">Important</label>
-          <p class="admin-rooms-edit__data-item">
-            Once activated room will be publicly available on Lockme and there will be <span class="bold">no way</span>
-            of hiding it.
-            Disactivating it will only move it to closed rooms. Open/closing dates will be availe upon first activation.
-          </p>
-          <div class="form-group">
-            <div class="checkbox">
-              <label for="room-is-active">Activate room</label>
-              <input id="room-is-active" type="checkbox" [checked]="room.active"/>
+      <div class="col-md-6">
+        <div class="admin-rooms-edit__content">
+          <p class="admin-rooms-edit__content-title">Room activation</p>
+          <div class="admin-rooms-edit__data">
+            <label class="admin-label">Important</label>
+            <p class="admin-rooms-edit__data-item">
+              Once activated room will be publicly available on Lockme and there will be <span
+              class="bold">no way</span>
+              of hiding it.
+              Disactivating it will only move it to closed rooms. Open/closing dates will be availe upon first
+              activation.
+            </p>
+            <div class="form-group">
+              <div class="checkbox">
+                <label for="room-is-active">Activate room</label>
+                <input id="room-is-active" type="checkbox" [checked]="room.active"/>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="admin-rooms-edit__row row">
-    <div class="col-md-12">
-      <div class="admin-rooms-edit__content">
-        <p class="admin-rooms-edit__content-title">Add images</p>
-        <div class="admin-rooms-edit__data">
-          <div class="admin-rooms-edit__data-item">
-            <p class="admin-rooms-edit__data-item-title">Photos</p>
-            <swiper *ngIf="room.gallery.length" [config]="sliderConfig" #swiperClass>
-              <div class="swiper-wrapper">
-                <div class="swiper-slide" *ngFor="let gallery of room.gallery; let i = index;">
-                  <div class="admin-rooms-edit__data-item-logo admin-rooms-edit__data-item-logo-gallery"
-                       [ngStyle]="{'background-image': 'url(' + gallery?.path + ')'}">
-                    <i class="fa fa-close" (click)="deleteImage(gallery.path, i)"></i>
+    <div class="admin-rooms-edit__row row">
+      <div class="col-md-12">
+        <div class="admin-rooms-edit__content">
+          <p class="admin-rooms-edit__content-title">Add images to room gallery</p>
+          <div class="admin-rooms-edit__data">
+            <div class="admin-rooms-edit__data-item" *ngIf="room.gallery.length">
+              <p class="admin-rooms-edit__data-item-title">Images</p>
+              <swiper [config]="sliderConfig" #swiperClass>
+                <div class="swiper-wrapper admin-rooms-edit__swiper-wrapper" id="swiper-wrapper-gallery">
+                  <div class="swiper-slide admin-rooms-edit__swiper-slide"
+                       id="swiper-slide-gallery"
+                       *ngFor="let gallery of room.gallery; let i = index;">
+                    <div class="admin-rooms-edit__data-item-logo admin-rooms-edit__data-item-logo-gallery"
+                         [ngStyle]="{'background-image': 'url(' + gallery?.path + ')'}">
+                      <i class="fa fa-close delete-icon" (click)="deleteImage(gallery.path, i)"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="swiper-button-prev gallery-swiper-button-prev"></div>
-              <div class="swiper-button-next gallery-swiper-button-next"></div>
-            </swiper>
+                <div class="swiper-button-prev gallery-swiper-button-prev"></div>
+                <div class="swiper-button-next gallery-swiper-button-next"></div>
+              </swiper>
+            </div>
+            <app-upload-image [companyLogo]="companyData.logo"
+                              (onImagesUploaded)="onImagesUploaded($event)"
+                              [isMultiple]="true">
+            </app-upload-image>
           </div>
-          <app-upload-image [companyLogo]="companyData.logo"
-                            (onImagesUploaded)="onImagesUploaded($event)"
-                            [isMultiple]="true">
-          </app-upload-image>
         </div>
       </div>
     </div>
-  </div>
-  <div class="admin-btn-wrap admin-rooms-edit__btn">
-    <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
-  </div>
-  <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
-    <div class="popup">
-      <i class="popup-close fa fa-close" (click)="closePopup()"></i>
-      <div class="popup-content">
-        <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+    <div class="admin-btn-wrap admin-rooms-edit__btn">
+      <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+    </div>
+    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+      <div class="popup">
+        <i class="popup-close fa fa-close delete-icon" (click)="closePopup()"></i>
+        <div class="popup-content">
+          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+          <div class="popup-confirmation"
+               *ngIf="isShowConfirmButton"
+               (click)="deleteRoom()">YES
+          </div>
+        </div>
+        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
       </div>
-      <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
     </div>
   </div>
 </div>

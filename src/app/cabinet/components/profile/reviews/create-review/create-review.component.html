@@ -1,9 +1,9 @@
 <div class="create-review-wrapper">
-  <h1 class="create-review-wrapper__title">ДОБАВИТЬ ОТЗЫВ</h1>
+  <h1 class="create-review-wrapper__title">{{ 'ADD A REVIEW' | translateS | async }}</h1>
   <div class="create-review">
     <div class="create-review__left">
       <div class="create-review__select-room create-review__left-field">
-        <label class="label">Название комнаты</label>
+        <label class="label">{{ 'Name of room' | translateS | async }}</label>
         <select [(ngModel)]="newReview.roomId"
                 class="create-review__select"
         ><option name="review-room-option"
@@ -14,7 +14,7 @@
         </select>
       </div>
       <div class="create-review__select-date create-review__left-field">
-        <label class="label">Дата прохождения</label>
+        <label class="label">{{ 'Date of passage' | translateS | async }}</label>
         <input [(ngModel)]="newReview.visited"
                class="create-review__date"
                name="review-date"
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="create-review__right">
-      <label class="label">Ваш отзыв</label>
+      <label class="label">{{ 'Your review' | translateS | async }}</label>
       <textarea [(ngModel)]="newReview.review"
                 name="review-textarea"
                 class="create-review__textarea"
@@ -32,5 +32,5 @@
   </div>
   <button class="create-review__submit"
          (click)="save()"
-  >Добавить</button>
+  >{{ 'Add' | translateS | async }}</button>
 </div>

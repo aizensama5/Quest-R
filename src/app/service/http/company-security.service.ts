@@ -13,10 +13,10 @@ export class CompanySecurityService {
       .list(CompanySecurityService.dataBaseName);
   }
 
-  changePassword(companyData: CompanySecurityModel, password: string): Promise<void> {
+  changePassword(companyData: CompanySecurityModel, password?: string): Promise<void> {
     return <Promise<void>>this.dataBaseService
-      .object(CompanySecurityService.dataBaseName + companyData.id + companyData.password)
-      .set(companyData.password);
+      .object(CompanySecurityService.dataBaseName + companyData.id)
+      .set(companyData);
   }
 
 }

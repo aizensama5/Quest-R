@@ -15,6 +15,9 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { PricesAndSettingsComponent } from './components/prices-and-settings/prices-and-settings.component';
 import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { ChangePasswordComponent } from "./components/change-password/change-password.component";
+import { ContactComponent } from "./components/contact/contact.component";
+import { TermsOfServiceComponent } from "./components/terms-of-service/terms-of-service.component";
 
 
 @NgModule({
@@ -37,6 +40,9 @@ import { ConfigurationComponent } from './components/configuration/configuration
         { path: 'prices-and-settings', component: PricesAndSettingsComponent },
         { path: 'special-offers', component: SpecialOffersComponent },
         { path: 'configuration', component: ConfigurationComponent },
+        { path: 'change-password', component: ChangePasswordComponent },
+        { path: 'contact', component: ContactComponent },
+        { path: 'terms-of-service', component: TermsOfServiceComponent },
         { path: 'days-settings/:id', component: DaysSettingsComponent, resolve: {room: EditRoomsResolverService}  },
       ]},
     ])

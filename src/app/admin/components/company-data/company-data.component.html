@@ -13,13 +13,15 @@
       </div>
       <div class="admin__data-item admin__data-item-image">
         <p class="admin__data-item-title">Logo</p>
-        <div class="admin__data-item-logo" *ngIf="companyData.logo" [ngStyle]="{'background-image': 'url(' + companyData?.logo  + ')'}">
+        <div class="admin__data-item-logo" *ngIf="companyData.logo"
+             [ngStyle]="{'background-image': 'url(' + companyData?.logo  + ')'}">
           <i class="fa fa-close" (click)="deleteImage()"></i>
         </div>
       </div>
       <div class="admin__data-item">
         <p class="admin__data-item-title">New logo (for best result use square, min. 290x290px)</p>
-        <app-upload-image [companyLogo]="companyData.logo" (onImageUploaded)="onImageUploaded($event)"></app-upload-image>
+        <app-upload-image [companyLogo]="companyData.logo"
+                          (onImageUploaded)="onImageUploaded($event)"></app-upload-image>
       </div>
       <div class="admin__data-item">
         <p class="admin__data-item-title">Website address</p>
@@ -36,18 +38,18 @@
       <div class="admin__data-item">
         <div class="admin__data-item-switch-language"></div>
         <p class="admin__data-item-title">
-          About company - all changes to this field are MODERATED and will be visible on website WITH DELAY</p>
-        <textarea class="admin-input admin__data-item-textarea"
-                  name="company-description"
-                  [(ngModel)]="companyData.aboutCompany"
-        > {{ companyData?.aboutCompany }}
-        </textarea>
+          About company - all changes to this field are MODERATED and will be visible on website WITH DELAY
+        </p>
+        <app-tabset [useTabsetWithTextarea]="useTabsetWithTextarea"
+                    (onTabsetChanged)="onTabsetChanged($event)"
+                    [tabsetModel]="companyData.aboutCompany"
+        ></app-tabset>
       </div>
       <div class="admin__data-item">
         <p class="admin__data-item-title">Language of system e-mails</p>
         <select class="admin-input admin__data-item-select"
                 name="company-facebook-fanpage">
-          <option>Poland</option>
+          <option>Polski</option>
           <option>English</option>
         </select>
       </div>

@@ -1,17 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RoomService } from '../../../../service/http/room.service';
-import { RoomModel } from '../../../../models/room.model';
-import { CompanyModel } from '../../../../models/company.model';
-import { CompanySecurityModel } from '../../../../models/company-security.model';
-import { CompanyService } from '../../../../service/http/company.service';
-import { GenreModel } from '../../../../models/genre.model';
-import { GenreService } from '../../../../service/genre.service';
-import { ComplexityModel } from '../../../../models/complexity.model';
-import { ComplexityService } from '../../../../service/complexity.service';
-import { MarkingModel} from '../../../../models/marking.model';
-import { MarkingService } from '../../../../service/marking.service';
-import { ConfigService } from '../../../../service/http/config.service';
+import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RoomService} from '../../../../service/http/room.service';
+import {RoomModel} from '../../../../models/room.model';
+import {CompanyModel} from '../../../../models/company.model';
+import {CompanySecurityModel} from '../../../../models/company-security.model';
+import {CompanyService} from '../../../../service/http/company.service';
+import {GenreModel} from '../../../../models/genre.model';
+import {GenreService} from '../../../../service/genre.service';
+import {ComplexityModel} from '../../../../models/complexity.model';
+import {ComplexityService} from '../../../../service/complexity.service';
+import {MarkingModel} from '../../../../models/marking.model';
+import {MarkingService} from '../../../../service/marking.service';
+import {ConfigService} from '../../../../service/http/config.service';
+import {LanguageModel} from "../../../../models/language.model";
 
 @Component({
   selector: 'app-admin-rooms-edit',
@@ -32,43 +33,69 @@ export class AdminRoomsEditComponent implements OnInit {
   isShowNotificationPopup = false;
   notificationPopupMessage = '';
   areErrors: boolean;
-  initializedItems = 0;
-  sliderConfig: object;
+  initializedItems: number;
+  isShowConfirmButton = false;
+  _isEverythingLoaded = false;
+  useTabsetWithInput: boolean;
+  useTabsetWithTextarea: boolean;
 
-  @Output() swiper = new EventEmitter<{swClass: any }>();
+  sliderConfig: object = {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    slidesPerView: 1,
+    centeredSlides: true,
+    loop: false,
+    speed: 1000,
+    lazyLoading: true,
+  };
+
+  @Output() swiper = new EventEmitter<{ swClass: any }>();
   @ViewChild('swiperClass') swiperClass: ElementRef;
 
-  constructor (
-    private activeRoute: ActivatedRoute,
-    public roomService: RoomService,
-    public companyService: CompanyService,
-    public genreService: GenreService,
-    public complexityService: ComplexityService,
-    public markingService: MarkingService,
-    private configService: ConfigService
+  constructor(private activeRoute: ActivatedRoute,
+              public roomService: RoomService,
+              public companyService: CompanyService,
+              public genreService: GenreService,
+              public complexityService: ComplexityService,
+              public markingService: MarkingService,
+              private configService: ConfigService,
+              public router: Router
   ) {
+    this.useTabsetWithInput = true;
+    this.useTabsetWithTextarea = true;
+    this.initializedItems = 0;
     this.isShowLoader = true;
-    configService.maxCountOfPlayers().subscribe((count: any[]) => {
+  }
+
+  ngOnInit() {
+    this.activeRoute.data.subscribe((data) => {
+      if (data['room']) {
+        this.room = data['room'];
+      }
+      this.initializedItems++;
+      this.isEverythingLoaded();
+    });
+    this.configService.maxCountOfPlayers().subscribe((count: any[]) => {
       this.maxCountOfPlayers = parseInt(count[0].$value, 10) || AdminRoomsEditComponent.defaultMaxCountOfPlayers;
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
+    this.companyService.companyData(this.currentCompany.id).subscribe((companyData: CompanyModel[]) => {
       this.companyData = companyData[0];
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    genreService.all().subscribe((genres: GenreModel[]) => {
+    this.genreService.all().subscribe((genres: GenreModel[]) => {
       this.genres = genres;
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    complexityService.all().subscribe((complexities: ComplexityModel[]) => {
+    this.complexityService.all().subscribe((complexities: ComplexityModel[]) => {
       this.complexities = complexities;
       this.initializedItems++;
       this.isEverythingLoaded();
     });
-    markingService.all().subscribe((markings: MarkingModel[]) => {
+    this.markingService.all().subscribe((markings: MarkingModel[]) => {
       this.markings = markings;
       this.markings.forEach((marking: MarkingModel) => {
         this.room.marking.forEach((mark: MarkingModel) => {
@@ -85,22 +112,14 @@ export class AdminRoomsEditComponent implements OnInit {
   isEverythingLoaded() {
     if (this.initializedItems === AdminRoomsEditComponent.countSubscribing) {
       this.isShowLoader = false;
-      this.sliderConfig = {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        slidesPerView: 5,
-        centeredSlides: true,
-        loop: false,
-        speed: 1000,
-        lazyLoading: true,
-      };
+      this._isEverythingLoaded = true;
+      return true;
+    } else {
+      return false;
     }
   }
 
   onImageUploaded(image: any) {
-    console.log('image');
     if (!image.error && image.src) {
       this.room.img = image.src;
       this.areErrors = false;
@@ -110,11 +129,12 @@ export class AdminRoomsEditComponent implements OnInit {
   }
 
   onImagesUploaded(image: any) {
-    console.log('images');
     if (!image.error && image.src) {
       this.room.gallery.push({
         path: image.src
       });
+      document.getElementById('swiper-wrapper-gallery')
+        .setAttribute('transform', 'translate3d(0,0,0)');
       this.areErrors = false;
     } else {
       this.areErrors = true;
@@ -124,7 +144,7 @@ export class AdminRoomsEditComponent implements OnInit {
   deleteImage(path: string, index: number) {
     this.room.gallery.forEach((image: any) => {
       if (image.path === path) {
-       this.room.gallery.splice(index, 1);
+        this.room.gallery.splice(index, 1);
       }
     });
   }
@@ -133,14 +153,36 @@ export class AdminRoomsEditComponent implements OnInit {
     this.room.img = '';
   }
 
-  ngOnInit() {
-    this.activeRoute.data.subscribe((data) => {
-      if (data['room']) {
-        this.room = data['room'];
-      }
-      this.initializedItems++;
-      this.isEverythingLoaded();
-    });
+  deleteRoom() {
+    this.notificationPopupMessage = '';
+    this.isShowConfirmButton = false;
+    this.areErrors = false;
+    this.isShowLoader = true;
+    this.roomService.deleteRoom(this.room.id)
+      .then(() => {
+        this.router.navigate(['/admin/dashboard/rooms/'])
+          .then(() => {
+            this.isShowLoader = false;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Deleted';
+          })
+          .catch(() => {
+            this.isShowLoader = false;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Ooops! Something was wrong';
+          });
+      })
+      .catch(() => {
+        this.areErrors = true;
+        this.isShowLoader = false;
+        this.notificationPopupMessage = 'Error';
+      });
+  }
+
+  confirmDeleteRoom() {
+    this.isShowConfirmButton = true;
+    this.isShowNotificationPopup = true;
+    this.notificationPopupMessage = 'Delete ' + this.room.name + '?';
   }
 
   save() {
@@ -150,18 +192,28 @@ export class AdminRoomsEditComponent implements OnInit {
       .then(() => {
         this.isShowLoader = false;
         this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Сохранено';
+        this.notificationPopupMessage = 'Saved';
       }, () => {
         this.isShowLoader = false;
         this.areErrors = true;
         this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Ошибка';
-    });
+        this.notificationPopupMessage = 'Error';
+      });
   }
 
-  closePopup () {
+  closePopup() {
+    this.isShowConfirmButton = false;
+    this.areErrors = false;
     this.isShowNotificationPopup = false;
     this.notificationPopupMessage = '';
+  }
+
+  onRoomNameTabsetChanged(tabsetInfo: LanguageModel) {
+    this.room.name = tabsetInfo;
+  }
+
+  onRoomDescriptionTabsetChanged(tabsetInfo: LanguageModel) {
+    this.room.description = tabsetInfo;
   }
 
 }

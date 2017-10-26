@@ -1,8 +1,9 @@
 import { FirebaseUtils } from '../shared/firebase.utils';
+import { LanguageModel } from "./language.model";
 
 export class ComplexityModel {
   id: number;
-  complexity: string;
+  complexity: LanguageModel;
   checked?: boolean;
 
   static fromJSON(values) {
@@ -26,6 +27,6 @@ export class ComplexityModel {
 
   constructor() {
     this.id = null;
-    this.complexity = '';
+    this.complexity = new LanguageModel();
   }
 }

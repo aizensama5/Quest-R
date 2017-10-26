@@ -1,7 +1,7 @@
 @import "variables";
 
-.admin{
-  padding: 15px;
+.admin {
+  padding: 15px 15px 66px;
   &__title {
     line-height: 1.1;
     font-weight: 400;
@@ -50,7 +50,6 @@
   }
 }
 
-
 .admin-input {
   border-radius: 0;
   box-shadow: none;
@@ -86,6 +85,7 @@ input[type=file] {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
+
 .bold {
   font-weight: bold;
 }
@@ -124,6 +124,7 @@ input[type=file] {
   padding: 17px 10px 10px;
   color: #555;
 }
+
 .dataTables_wrapper .dataTables_paginate {
   padding: 10px;
   a.paginate_button {
@@ -171,5 +172,73 @@ input[type=file] {
   .paginate_button.next {
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
+  }
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: -18px;
+  color: #c21313;
+  cursor: pointer;
+  transition: .3s ease-in;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.tabset-wrap {
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  .nav-tabs {
+    margin: 0;
+    border-bottom-color: #f4f4f4;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    li {
+      border-top: 3px solid transparent;
+      margin-right: 5px;
+      &:first-of-type {
+        margin-left: 0;
+      }
+      a {
+        background: #fff;
+        @include text-mixin(#444, 14px, $font-source-sans-pro-regular);
+        cursor: pointer;
+        border-radius: 0;
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        &:hover {
+          background: transparent;
+          margin: 0;
+        }
+      }
+    }
+    li.active {
+      position: relative;
+      top: 1px;
+      border-top-color: #3c8dbc;
+      a {
+        border-left: 1px solid #f4f4f4;
+        border-right: 1px solid #f4f4f4;
+        border-bottom: none;
+        cursor: initial;
+        border-top-color: transparent;
+      }
+      &:first-of-type {
+        a {
+          border-left: none;
+        }
+      }
+    }
+  }
+  .tabset-content {
+    background: #fff;
+    padding: 10px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
   }
 }

@@ -7,16 +7,8 @@ import {Observable} from 'rxjs/Observable';
 export class UserService {
   private static readonly dataBaseName = 'user/';
 
-  static getUserById (users: UserModel[], userId: string) {
-    for (let i = 0; i < users.length; i++) {
-      const user = users[i];
-      for (const key in user) {
-        if (user.id === userId) {
-          return user;
-        }
-      }
-    }
-    return;
+  userById (userId: string, users: UserModel[]): UserModel {
+    return users.filter((user: UserModel) => user.id === userId)[0] || new UserModel();
   }
 
   getCoincidenceId (users: UserModel[], id: string) {

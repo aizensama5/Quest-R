@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { LanguageModel } from "../models/language.model";
 
 @Injectable()
 export class OrgRuleService {
@@ -7,12 +8,12 @@ export class OrgRuleService {
 
   constructor(private databaseService: AngularFireDatabase) {}
 
-  changeOrgRule(orgRule: string): Promise<void> {
+  changeOrgRule(orgRule: LanguageModel): Promise<void> {
     return <Promise<void>>this.databaseService.object(OrgRuleService.dataBaseName).set(orgRule);
   }
 
-  getOrgRules(): FirebaseListObservable<string[]> {
-    return <FirebaseListObservable<string[]>>this.databaseService
+  getOrgRules(): FirebaseListObservable<LanguageModel[]> {
+    return <FirebaseListObservable<LanguageModel[]>>this.databaseService
       .list(OrgRuleService.dataBaseName);
   }
 }

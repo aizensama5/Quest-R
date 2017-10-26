@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceModule } from './service/service.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +18,7 @@ import { environment } from '../environments/environment.prod';
 import { AdminModule } from './admin/admin.module';
 import { GuardModule } from './guard/guard.module';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
 
 
 // operators
@@ -26,11 +27,16 @@ import './operators';
 // components
 import { AppComponent } from './app/app.component';
 
-import { TimeService } from './service/time.service';
-import { GenreService } from './service/genre.service';
-import { PricesTypesService } from './service/prices-types.service';
 import { PipeModule } from './pipe/pipe.module';
+
+// services
+import { TimeService } from './service/time.service';
+import { PricesTypesService } from './service/prices-types.service';
+import { GenreService } from './service/genre.service';
 import { WebDocumentService } from './service/http/web-document.service';
+import { LanguageService } from "./service/language.service";
+import { DescriptionService } from "./service/description.service";
+import { HttpService } from "./service/http/http.service";
 
 
 @NgModule({
@@ -62,7 +68,10 @@ import { WebDocumentService } from './service/http/web-document.service';
     GenreService,
     TimeService,
     PricesTypesService,
-    WebDocumentService
+    WebDocumentService,
+    LanguageService,
+    DescriptionService,
+    HttpService
   ],
   bootstrap: [AppComponent]
 })

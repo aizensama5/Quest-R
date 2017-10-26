@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="reviews__pagination">
-  Zobacz więcej opinii:
+  {{ 'See more reviews' | translateS | async }}:
   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
     <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
       <a (click)="setPage(page)">{{page}}</a>

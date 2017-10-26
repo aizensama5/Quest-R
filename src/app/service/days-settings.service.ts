@@ -61,8 +61,9 @@ export class DaysSettingsService {
   }
 
   removeHourItem(roomId, dayId, hourId): Promise<void> {
+    console.log(roomId, dayId, hourId);
     return <Promise<void>>this.databaseService
-      .object(DaysSettingsService.dataBaseName + roomId + '_' + dayId + '/' + 'availableHours/' + (hourId - 1))
+      .object(DaysSettingsService.dataBaseName + roomId + '_' + dayId + '/availableHours/' + (hourId - 1))
       .remove();
   }
 }

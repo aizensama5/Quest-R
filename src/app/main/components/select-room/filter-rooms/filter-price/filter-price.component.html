@@ -14,7 +14,7 @@
 >
   <div class="filter-circle__small-circle">
     <div class="filter-circle__count-players">
-      <h2 class="filter-circle__title">CENA</h2>
+      <h2 class="filter-circle__title">{{ 'PRICE' | translateS | async }}</h2>
       <input
         (input)="value = $event.target.value;
           valueOnFixedPos = $event.target.value"
@@ -22,7 +22,7 @@
         class="filter-circle__input filter-circle__input-price"
         #inputPrice
       >
-      <span class="filter-circle__description">złoty</span>
+      <span class="filter-circle__description">{{ 'zloty' | translateS | async }}</span>
     </div>
   </div>
 </app-layout-round-slider>

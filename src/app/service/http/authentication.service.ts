@@ -12,12 +12,11 @@ import { environment } from '../../../environments/environment.prod';
 
 @Injectable()
 export class AuthenticationService {
-  private static readonly adminLocalStorageName = 'admin';
+  public static readonly adminLocalStorageName = 'admin';
   allUsers: UserModel[] = [];
 
   constructor(
     private af: AngularFireAuth,
-    public popupNotificationService: PopupNotificationService,
     private userService: UserService,
     public router: Router,
     private companySecurityService: CompanySecurityService,
@@ -28,7 +27,7 @@ export class AuthenticationService {
   }
 
 
-  googleLogin() {
+  googleLogin(): void {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
@@ -39,7 +38,7 @@ export class AuthenticationService {
     });
   }
 
-  facebookLogin() {
+  facebookLogin(): void {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
     firebase.auth().signInWithPopup(provider).then((authInfo: any) => {
@@ -49,7 +48,7 @@ export class AuthenticationService {
     });
   }
 
-  twitterLogin() {
+  twitterLogin(): void {
     const provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().signInWithPopup(provider).then(() => {
       window.location.href = '/cabinet/';
@@ -62,17 +61,17 @@ export class AuthenticationService {
     return this.af.authState;
   }
 
-  logout() {
+  logout(): void {
     this.af.auth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
 
-  adminLogin(email: string, password: string) {
+  adminLogin(email: string, password: string): void {
     let companySecurityData: CompanySecurityModel;
     this.companySecurityService.all().subscribe((companiesSecData: CompanySecurityModel[]) => {
       if (companiesSecData.length) {
-        const pass = this.getPassword(email, password);
+        const pass = this.setPassword(email, password);
         companySecurityData = companiesSecData.filter((companySecData: CompanySecurityModel) => companySecData.login === email && companySecData.password === pass)[0];
         if (companySecurityData) {
           localStorage.setItem(AuthenticationService.adminLocalStorageName, JSON.stringify(companySecurityData));
@@ -86,19 +85,20 @@ export class AuthenticationService {
     });
   }
 
-  adminLogout () {
+  adminLogout (): void {
     localStorage.removeItem(AuthenticationService.adminLocalStorageName);
     this.router.navigate(['/admin/login/']);
   }
 
-  getPassword(email: string, password: string): string {
-    return (btoa(email) + btoa(environment.salt) + btoa(password))
-      .split('==')
-      .join('')
-      .replace('=', '');
+  setPassword(email: string, password: string): string {
+    return (btoa(email + environment.salt + password));
   }
 
-  addNewUser() {
+  getPassword(password: string): string {
+    return atob(password) ? atob(password).split(environment.salt)[1] : '';
+  }
+
+  addNewUser(): void {
     let existingUser = false;
     let newUser: any;
     this.currentUser().subscribe((user) => {

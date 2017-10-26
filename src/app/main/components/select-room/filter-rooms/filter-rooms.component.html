@@ -1,7 +1,7 @@
 <ul class="filter-rooms__list">
   <li class="filter-rooms__item">
     <app-filter-complexity
-      placeholder="ZŁOŻONOŚĆ"
+      placeholder="{{ 'COMPLEXITY' | translateS | async }}"
       [listOptions]="complexity"
       (onChangeComplexity)="onChangeComplexity($event)"
     ></app-filter-complexity>
@@ -15,7 +15,7 @@
   </li>
 
   <li class="filter-rooms__item">
-    <span (click)="displayPlayersCircle()">GRACZE</span>
+    <span (click)="displayPlayersCircle()">{{ 'PLAYERS' | translateS | async }}</span>
     <div class="filter-hint filter-hint-players" *ngIf="filterArray?.countPlayers > 0">
       <ul>
         <li>({{ filterArray?.countPlayers }})</li>
@@ -25,14 +25,14 @@
   </li>
 
   <li class="filter-rooms__item">
-    <span (click)="displayGenreCircle()">GANRE</span>
+    <span (click)="displayGenreCircle()">{{ 'GENRE' | translateS | async }}</span>
     <div class="filter-hint filter-hint-genre" *ngIf="filterArray?.genre.id">
       <i class="fa fa-close filter-hint__delete" (click)="deleteFilterGenre()"></i>
     </div>
   </li>
 
   <li class="filter-rooms__item">
-    <span (click)="displayPriceCircle()">CENA</span>
+    <span (click)="displayPriceCircle()">{{ 'PRICE' | translateS | async }}</span>
     <div class="filter-hint filter-hint-price" *ngIf="filterArray?.price > 0">
       <ul>
         <li>({{ filterArray?.price }})</li>
@@ -43,7 +43,7 @@
 
   <li class="filter-rooms__item">
     <app-filter-marking
-      placeholder="OZNACZENIA"
+      placeholder="{{ 'MARKINGS' | translateS | async }}"
       [listOptions]="marking"
       (onChangeMarking)="onChangeMarking($event)"
     ></app-filter-marking>

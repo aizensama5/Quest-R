@@ -1,11 +1,11 @@
-<h3 class="reviews__title title">ОТЗЫВЫ</h3>
+<h3 class="reviews__title title">{{ 'REVIEWS' | translateS | async }}</h3>
 <div class="reviews__list">
     <div class="reviews__list-item" *ngFor="let review of pagedItems">
         <app-main-review [review]="review"></app-main-review>
     </div>
 </div>
 <div class="reviews__pagination">
-    Zobacz więcej opinii:
+  {{ 'See more reviews' | translateS | async }}:
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
             <a (click)="setPage(page)">{{page}}</a>
@@ -13,6 +13,6 @@
     </ul>
 </div>
 <h4 class="reviews__auth">
-    Musisz się zalogować, aby oznaczyć pokój
+  {{ 'You must log in to mark the room' | translateS | async }}
 </h4>
-<a href="facebook.com" class="share-button">Zaloguj się za pomocą Facebook</a>
+<a href="facebook.com" class="share-button">{{ 'Sign in with Facebook' | translateS | async }}</a>
