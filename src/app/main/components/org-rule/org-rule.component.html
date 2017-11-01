@@ -1,23 +1,23 @@
 <h3 class="title org-rule__title">{{ 'ORGANIZATIONAL RULES OF THE GAME IN THE QUESTS' | translateS | async }}</h3>
 <div class="org-rule__wrapper">
     <div class="org-rule__item org-rule__item--key" *ngIf="orgRules[0]">
-      {{ orgRules[0]?.def }}
+      {{ orgRules[0] | translateD }}
     </div>
     <div class="org-rule__arrow org-rule__arrow-first"></div>
     <div class="org-rule__item org-rule__item--lock" *ngIf="orgRules[1]">
       <p>
-        {{ orgRules[1]?.def }}
+        {{ orgRules[1] | translateD }}
       </p>
     </div>
     <div class="org-rule__item org-rule__item--bag" *ngIf="orgRules[2]">
         <p>
-          {{ orgRules[2]?.def }}
+          {{ orgRules[2] | translateD }}
         </p>
     </div>
     <div class="org-rule__item org-rule__item--key-2" *ngIf="orgRules[3]">
-      {{ orgRules[3]?.def }}
+      {{ orgRules[3] | translateD }}
     </div>
     <div class="org-rule__item org-rule__item--binoculars" *ngIf="orgRules[4]">
-      {{ orgRules[4]?.def }}
+      {{ orgRules[4] | translateD }}
     </div>
 </div>

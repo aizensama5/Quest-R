@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../../service/http/config.service';
 import { DescriptionService } from "../../../service/description.service";
 import {LanguageModel} from "../../../models/language.model";
+import {LanguageService} from "../../../service/language.service";
 
 @Component({
   selector: 'app-configuration',
@@ -9,7 +10,7 @@ import {LanguageModel} from "../../../models/language.model";
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
-  static readonly COUNT_SUBSCRIBING = 3;
+  static readonly COUNT_SUBSCRIBING = 4;
   description: LanguageModel = new LanguageModel();
   maxCountOfPlayers: number;
   receivingMessagesConf: any[] = [];
@@ -19,15 +20,22 @@ export class ConfigurationComponent implements OnInit {
   notificationPopupMessage = '';
   areErrors: boolean;
   useTabsetWithTextarea: boolean;
+  currentLocale: string;
 
   constructor(
     private configService: ConfigService,
-    public descService: DescriptionService
+    public descService: DescriptionService,
+    public langService: LanguageService
   ) {
     this.useTabsetWithTextarea = true;
     this.isShowLoader = true;
     configService.maxCountOfPlayers().subscribe((count: any[]) => {
       this.maxCountOfPlayers = count[0].$value || 0;
+      this.initializedItems++;
+      this.isItemsInitialized();
+    });
+    langService.getCurrentLocale().subscribe((response: any[]) => {
+      this.currentLocale = response[0].$value || 'en';
       this.initializedItems++;
       this.isItemsInitialized();
     });
@@ -96,7 +104,7 @@ export class ConfigurationComponent implements OnInit {
         })
         .catch(() => {
           this.isShowLoader = false;
-          this.notificationPopupMessage = 'Saved';
+          this.notificationPopupMessage = 'Error';
           this.areErrors = true;
         });
     } else {
@@ -104,6 +112,21 @@ export class ConfigurationComponent implements OnInit {
       this.notificationPopupMessage = 'Use one per line emails';
       this.areErrors = true;
     }
+  }
+  saveLocale() {
+    this.areErrors = false;
+    this.isShowLoader = true;
+    this.isShowNotificationPopup = true;
+    this.langService.changeCurrentLocale(this.currentLocale)
+      .then(() => {
+        this.isShowLoader = false;
+        this.notificationPopupMessage = 'Saved';
+      })
+      .catch(() => {
+        this.isShowLoader = false;
+        this.notificationPopupMessage = 'Error';
+        this.areErrors = true;
+      })
   }
 
   onTabsetChanged(tabsetInfo: LanguageModel) {

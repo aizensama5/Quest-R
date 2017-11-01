@@ -20,6 +20,7 @@ export class FilterRoomsComponent implements OnInit {
   isDisplayPriceCircle = false;
   isDisplayGenreCircle = true;
   rooms: RoomModel[] = [];
+  displayedInitiallyRooms: RoomModel[] = [];
 
   filterArray: FilterModel = new FilterModel();
 
@@ -58,13 +59,20 @@ export class FilterRoomsComponent implements OnInit {
     complexityService.all().subscribe((complexity: ComplexityModel[]) => {
       this.complexity = complexity;
     });
-    roomService.allActive().subscribe((rooms: RoomModel[]) => {
+    this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this.rooms = rooms;
+    });
+    this.roomService.displayedOnMainPage().subscribe((rooms: RoomModel[]) => {
+      this.displayedInitiallyRooms = rooms;
     });
 
     this.filterArray.filterChange.subscribe((filter: FilterModel) => {
       this.filterArray = filter;
-      this.filterRooms();
+      if (!this.filterArray.marking.length && !this.filterArray.complexity.length && !this.filterArray.genre.id && !this.filterArray.price && !this.filterArray.countPlayers) {
+        this.filteredRooms.emit(this.displayedInitiallyRooms);
+      } else {
+        this.filterRooms();
+      }
     });
   }
 

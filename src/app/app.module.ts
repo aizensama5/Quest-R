@@ -37,6 +37,7 @@ import { WebDocumentService } from './service/http/web-document.service';
 import { LanguageService } from "./service/language.service";
 import { DescriptionService } from "./service/description.service";
 import { HttpService } from "./service/http/http.service";
+import {LocaleResolverService} from "./service/locale-resolver.service";
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { HttpService } from "./service/http/http.service";
     WebDocumentService,
     LanguageService,
     DescriptionService,
-    HttpService
+    HttpService,
+    LocaleResolverService
   ],
   bootstrap: [AppComponent]
 })

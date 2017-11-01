@@ -40,12 +40,14 @@ export class ProfileComponent {
     this.user$ = authService.currentUser();
     this.user$.subscribe((user: any) => {
       this.user = user;
-      orderService.all().subscribe((orderInfo: OrderModel[]) => {
-        this.userOrderInfo = orderService.userOrders(orderInfo, user.uid);
-        this._passedRooms = this.passedRooms(this.userOrderInfo);
-        this.gallery(user.uid);
-        this.reviews(user.uid);
-      });
+      if (user) {
+        orderService.all().subscribe((orderInfo: OrderModel[]) => {
+          this.userOrderInfo = orderService.userOrders(orderInfo, user.uid);
+          this._passedRooms = this.passedRooms(this.userOrderInfo);
+          this.gallery(user.uid);
+          this.reviews(user.uid);
+        });
+      }
     });
   }
 

@@ -2,17 +2,24 @@
 @import "_mixins";
 
 .filter-hint {
-  position: absolute;
   display: flex;
   z-index: 100;
+  position: relative;
+  left: 6px;
   ul {
+    position: relative;
+    bottom: 12px;
     li {
       border-radius: 5px;
       text-align: center;
       @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
       line-height: 2.2;
       padding: 0 10px;
+      display: none;
       margin: 5px 0;
+      &:last-child {
+        display: block;
+      }
     }
   }
   &__delete {

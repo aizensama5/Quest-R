@@ -1,10 +1,12 @@
 <ul class="filter-rooms__list">
   <li class="filter-rooms__item">
-    <app-filter-complexity
-      placeholder="{{ 'COMPLEXITY' | translateS | async }}"
-      [listOptions]="complexity"
-      (onChangeComplexity)="onChangeComplexity($event)"
-    ></app-filter-complexity>
+    <div>
+      <app-filter-complexity
+        placeholder="{{ 'COMPLEXITY' | translateS | async }}"
+        [listOptions]="complexity"
+        (onChangeComplexity)="onChangeComplexity($event)"
+      ></app-filter-complexity>
+    </div>
     <div class="filter-hint filter-hint-complexity" *ngIf="filterArray?.complexity">
       <ul>
         <li *ngFor="let comp of filterArray?.complexity; let i = index;">
@@ -42,11 +44,13 @@
   </li>
 
   <li class="filter-rooms__item">
-    <app-filter-marking
-      placeholder="{{ 'MARKINGS' | translateS | async }}"
-      [listOptions]="marking"
-      (onChangeMarking)="onChangeMarking($event)"
-    ></app-filter-marking>
+    <div>
+      <app-filter-marking
+        placeholder="{{ 'MARKINGS' | translateS | async }}"
+        [listOptions]="marking"
+        (onChangeMarking)="onChangeMarking($event)"
+      ></app-filter-marking>
+    </div>
     <div class="filter-hint filter-hint-marking" *ngIf="filterArray?.marking">
       <ul>
         <li *ngFor="let mark of filterArray?.marking; let i = index;">

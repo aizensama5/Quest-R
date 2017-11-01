@@ -2,6 +2,9 @@
 @import "../../../../assets/styles/_mixins";
 
 :host /deep/ {
+  padding-top: 70px;
+  display: block;
+  position: relative;
   .swiper-container { padding-bottom: 60px; }
   .swiper-pagination {
     .swiper-pagination-bullet {
@@ -12,6 +15,19 @@
         background-color: $color-yellow;
         box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.5);
       }
+    }
+  }
+  .swiper-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 84px;
+    &-pagination {
+      width: 25%;
+      height: 370px;
+      z-index: 100;
+      background: transparent;
     }
   }
   .swiper-wrapper .swiper-slide {

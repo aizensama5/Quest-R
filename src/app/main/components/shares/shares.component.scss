@@ -7,8 +7,8 @@
   margin: 0 auto;
   .shares {
     &__title {
-      margin-bottom: 35px;
-      margin-top: 55px;
+      padding-bottom: 35px;
+      padding-top: 55px;
     }
 
     &__img {
@@ -51,7 +51,7 @@
   }
   .swiper-button-next,
   .swiper-button-prev {
-    margin-top: -80px;
+    margin-top: -60px;
     height: 60px;
     width: 48px;
     background-size: contain;

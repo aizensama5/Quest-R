@@ -1,6 +1,6 @@
 <div class="admin" [class.main-loader]="isShowLoader">
   <h1 class="admin__title">Configuration</h1>
-  <div class="row">
+  <div class="row conf-row">
     <div class="col-md-6">
       <div class="admin__content admin-conf__content">
         <p class="admin__content-title">General</p>
@@ -32,17 +32,11 @@
         <p class="admin__content-title">Receiving messages</p>
         <div class="admin__data admin-conf__content-data">
           <div class="admin__data-item admin-conf__content-data-item">
-            <input type="checkbox"
-                   [(ngModel)]="receivingMessagesConf.infoAboutNewReviews"
-                   name="checkbox-reviews-conf">
-            <label for="configuration-max-players" class="admin-label">Information about new reviews</label>
-          </div>
-          <div class="admin__data-item admin-conf__content-data-item">
             <label for="configuration-max-players" class="admin-label">E-mail addresses (one per line)</label>
-            <textarea class="admin-textarea"
+            <textarea class="admin-textarea admin-conf__content-data-item-textarea"
                       [(ngModel)]="receivingMessagesConf.emailAddresses"
                       id="email-conf"
-                   name="company-name"
+                      name="company-name"
             ></textarea>
           </div>
         </div>
@@ -51,14 +45,34 @@
         </div>
       </div>
     </div>
-    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
-      <div class="popup">
-        <i class="popup-close fa fa-close" (click)="closePopup()"></i>
-        <div class="popup-content">
-          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+  </div>
+  <div class="row conf-row">
+    <div class="col-md-6">
+      <div class="admin__content admin-conf__content">
+        <p class="admin__content-title">Current Locale</p>
+        <div class="admin__data admin-conf__content-data">
+          <div class="admin__data-item admin-conf__content-data-item">
+            <label for="current-locale" class="conf-label admin-label">Locale</label>
+            <select [(ngModel)]="currentLocale" class="admin__data-item-select admin-input " id="current-locale">
+              <option value="en" [selected]="this.value === currentLocale">English</option>
+              <option value="pl" [selected]="this.value === currentLocale">Polski</option>
+            </select>
+          </div>
         </div>
-        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
+        <div class="admin-btn-wrap">
+          <button class="btn btn-primary admin-btn" (click)="saveLocale()">Save</button>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+    <div class="popup">
+      <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+      <div class="popup-content">
+        <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+      </div>
+      <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
     </div>
   </div>
 </div>

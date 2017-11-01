@@ -1,10 +1,10 @@
-<div class="room-info-wrapper">
+<div class="room-info-wrapper" *ngIf="room">
   <div class="room-info">
     <div class="room-info__image" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"></div>
     <div class="room-info__info">
-      <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{room?.name.def}}"</h3>
+      <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{ room?.name | translateD }}"</h3>
       <p class="room-info__info-description">
-        {{ room?.description.def }}
+        {{ room?.description | translateD }}
       </p>
       <div class="room-info__details">
         <div class="room-info__details-item">

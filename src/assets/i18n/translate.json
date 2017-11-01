@@ -20,6 +20,7 @@
     "room": "room",
     "Room": "Room",
     "Book": "Book",
+    "BOOK": "BOOK",
     "Book it": "Book it",
     "Read more": "Read more",
     "Personal profile": "Personal profile",
@@ -64,7 +65,12 @@
     "Favorites": "Favorites",
     "My friends": "My friends",
     "Private Office": "Private Office",
-    "Implementation": "Implementation"
+    "Implementation": "Implementation",
+    "Company panel": "Company panel",
+    "Log in to the company panel": "Log in to the company panel",
+    "Sign in": "Sign in",
+    "Password": "Password",
+    "Language": "Language"
   },
   "pl": {
     "Quests": "Zadania",
@@ -87,6 +93,7 @@
     "room": "pokój",
     "Room": "Pokój",
     "Book": "Rezerwuj",
+    "BOOK": "REZERWUJ",
     "Book it": "Rezerwuj",
     "Read more": "Czytaj więcej",
     "Personal profile": "Profil osobisty",
@@ -131,6 +138,11 @@
     "Favorites": "Ulubione",
     "My friends": "Moi przyjaciele",
     "Private Office": "Pulpit Nawigacyjny",
-    "Implementation": "Realizacja"
+    "Implementation": "Realizacja",
+    "Company panel": "Panel firmowy",
+    "Log in to the company panel": "Zaloguj się do panelu firmowego",
+    "Sign in": "Zaloguj się",
+    "Password": "Hasło",
+    "Language": "Język"
   }
 }

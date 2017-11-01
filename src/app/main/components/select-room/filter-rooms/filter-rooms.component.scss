@@ -19,41 +19,6 @@
       position: relative;
     }
   }
-  .filter-hint.filter-hint-players {
-    left: 87px;
-    bottom: -12px;
-    i {
-      top: 12px;
-    }
-  }
-  .filter-hint.filter-hint-genre {
-    left: 84px;
-  }
-  .filter-hint.filter-hint-price {
-    left: 57px;
-    bottom: -12px;
-    i {
-      top: 12px;
-    }
-  }
-  .filter-hint.filter-hint-marking {
-    left: 170px;
-    bottom: -12px;
-    li {
-      &:not(:last-child) {
-        display: none;
-      }
-    }
-  }
-  .filter-hint.filter-hint-complexity {
-    left: 160px;
-    bottom: -12px;
-    li {
-      &:not(:last-child) {
-        display: none;
-      }
-    }
-  }
   @media #{$tablet-x2} {
     .filter-rooms {
       &__list {
@@ -66,16 +31,5 @@
         }
       }
     }
-  }
-  .filter-hint.filter-hint-genre {
-    left: 60px;
-    bottom: 0;
-  }
-  .filter-hint.filter-hint-genre,
-  .filter-hint.filter-hint-complexity,
-  .filter-hint.filter-hint-genre
-  {
-    left: 0;
-    bottom: auto;
   }
 }

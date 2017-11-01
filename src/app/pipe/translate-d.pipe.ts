@@ -1,23 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { LanguageService } from "../service/language.service";
-import {HttpService} from "../service/http/http.service";
+import { ActivatedRoute } from "@angular/router";
+import {LanguageModel} from "../models/language.model";
 
 @Pipe({
   name: 'translateD'
 })
 export class TranslateDPipe implements PipeTransform {
-  currentLang: string;
+  currentLanguage: string;
 
   constructor(
-    public languageService: LanguageService,
-    ) {
-    this.currentLang = languageService.currentLang;
-    console.log(this.currentLang);
+    public activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.data.subscribe((data) => {
+      this.currentLanguage = data['locale'];
+    });
   }
 
-  transform(value: string): string {
-    return '';
-    // return this.languageService.getTranslated(value, this.currentLang)[0];
+  transform(value: LanguageModel): string {
+    return value[this.currentLanguage] ? value[this.currentLanguage] : value.def;
   }
 
 }

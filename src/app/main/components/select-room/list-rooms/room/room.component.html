@@ -8,7 +8,7 @@
       <div class="room__wrapper">
           <h3 class="room__title">
               {{ 'ROOM' | translateS | async }} <br>
-              "{{ room.name.def }}"
+              "{{ room.name | translateD }}"
           </h3>
           <div class="room__details">
               <div class="room__details-item">
@@ -26,7 +26,7 @@
               </div>
           </div>
 
-          <button class="btn room__btn" (click)="reserve()"></button>
+          <button class="btn room__btn" (click)="reserve()">{{ 'Book' | translateS | async }}</button>
       </div>
     </div>
 </div>

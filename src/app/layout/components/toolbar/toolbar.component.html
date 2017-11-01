@@ -8,13 +8,13 @@
     </label>
 
     <div class="toolbar__logo">
-        <a class="logo" [routerLink]="'/'">
+        <a class="logo" [routerLink]="['/' + locale]">
             <img class="logo__img" src="./assets/images/logo.svg" alt="logo">
         </a>
     </div>
 
     <div class="toolbar__menu">
-        <div class="menu" [routerLink]="'/'">
+        <div class="menu" [routerLink]="['/' + locale]">
             <a class="menu__link"
                *ngFor="let link of links"
                (click)="scrollTo(link.target)"
@@ -32,12 +32,12 @@
           {{ 'Login and Registration' | translateS | async }}</span>
         <div class="toolbar__user-exist" *ngIf="(user | async)">
           <span class="toolbar__lang-text toolbar__cabinet"
-                routerLink="/cabinet/"
+                [routerLink]="['/' + locale + '/cabinet/']"
           >{{ 'Personal profile' | translateS | async }}
           </span>
           <span class="toolbar__lang-text toolbar__logout"
                 (click)="logout()"
-                routerLink="/"
+                [routerLink]="['/' + locale]"
           >{{ 'Sign out' | translateS | async }}
           </span>
         </div>

@@ -19,9 +19,11 @@ export class ContactComponent implements OnInit {
   constructor(
     private contactService: ContactService
   ) {
+    this.isShowLoader = true;
     this.useTabsetWithInput = true;
     contactService.companyInfo().subscribe((contactInfo: CompanyInfoModel[]) => {
       this.contactInfo = contactInfo[0];
+      this.isShowLoader = false;
     });
   }
 

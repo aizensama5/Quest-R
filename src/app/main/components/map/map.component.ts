@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { CompanyInfoModel } from '../../../models/company-info.model';
 import { ContactService } from '../../../service/http/contact.service';
-import {ContactQuestionModel} from '../../../models/contact-question.model';
+import { ContactQuestionModel } from '../../../models/contact-question.model';
 
 
 @Component({
