@@ -23,7 +23,7 @@ export class RoomModel {
   displayOnMain: boolean;
   countPlayers: PlayerModel;
   price: PriceModel;
-  complexity: ComplexityModel[];
+  complexity: ComplexityModel;
   marking: MarkingModel[];
   gallery: PhotoModel[];
 
@@ -61,7 +61,7 @@ export class RoomModel {
     this.displayOnMain = false;
     this.countPlayers = new PlayerModel();
     this.price = new PriceModel();
-    this.complexity = [];
+    this.complexity = new ComplexityModel();
     this.marking = [];
     this.gallery = [];
   }

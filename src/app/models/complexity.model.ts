@@ -4,7 +4,6 @@ import { LanguageModel } from "./language.model";
 export class ComplexityModel {
   id: number;
   complexity: LanguageModel;
-  checked?: boolean;
 
   static fromJSON(values) {
     const complexity = new ComplexityModel();

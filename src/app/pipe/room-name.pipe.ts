@@ -1,16 +1,26 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { RoomService } from "../service/http/room.service";
 import { RoomModel } from "../models/room.model";
+import { ActivatedRoute } from "@angular/router";
+
 
 @Pipe({
   name: 'roomName'
 })
 export class RoomNamePipe implements PipeTransform {
+  currentLanguage: string;
 
-  constructor(public roomService: RoomService) {}
+  constructor(
+    public activatedRoute: ActivatedRoute,
+    public roomService: RoomService
+  ) {
+    this.activatedRoute.data.subscribe((data) => {
+      this.currentLanguage = data['locale'];
+    })
+  }
 
-  transform(roomId: number, language: string): string {
-    return this.getRoomNameByRoomId(roomId).name[language];
+  transform(roomId: number): string {
+    return this.getRoomNameByRoomId(roomId).name.def;
   }
 
   getRoomNameByRoomId(roomId: number): RoomModel {

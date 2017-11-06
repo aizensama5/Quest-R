@@ -30,7 +30,7 @@ export class ReviewsComponent implements OnInit {
 
   getAllReviews() {
     this._reviewService.all().subscribe((reviews: any[]) => {
-      this.reviews = reviews;
+      this.reviews = this._reviewService.orderByIdDESC(reviews);
       this._userService.all().subscribe((users: UserModel[]) => {
         this.users = users;
         this.reviews.forEach((review: any) => {
@@ -47,6 +47,7 @@ export class ReviewsComponent implements OnInit {
       this.setPage(1);
     });
   }
+
 
   setPage(page: number) {
     if (page < 1 || page > this.pager.totalPages) {

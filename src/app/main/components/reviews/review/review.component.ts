@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ReviewModel } from '../../../../models/review.model';
 
 @Component({
     moduleId: module.id,

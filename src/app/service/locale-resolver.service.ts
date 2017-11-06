@@ -26,6 +26,7 @@ export class LocaleResolverService {
         return new Promise((resolve) => {
           this.languageService.getCurrentLocale().subscribe((response: any) => {
             resolve(response[0].$value);
+            console.log(response[0].$value);
           });
         });
     }

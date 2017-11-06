@@ -7,13 +7,6 @@
         (onChangeComplexity)="onChangeComplexity($event)"
       ></app-filter-complexity>
     </div>
-    <div class="filter-hint filter-hint-complexity" *ngIf="filterArray?.complexity">
-      <ul>
-        <li *ngFor="let comp of filterArray?.complexity; let i = index;">
-          ({{ i + 1 }})
-        </li>
-      </ul>
-    </div>
   </li>
 
   <li class="filter-rooms__item">

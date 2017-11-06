@@ -72,11 +72,11 @@ import { AdminPriceComponent } from './components/admin-price/admin-price.compon
     RouterModule,
     AdminRoutingModule,
     FormsModule,
-    PipeModule,
     SwiperModule,
     DataTablesModule,
     SharedModule,
-    FileUploadModule
+    FileUploadModule,
+    PipeModule
   ],
   exports: [
   ],

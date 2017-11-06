@@ -34,11 +34,15 @@
         @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
       }
     }
+    &__item-wrap {
+      width: 64px;
+      height: 61px;
+      margin: 0 19px 11px 0;
+    }
     &__item {
       width: 64px;
       height: 61px;
       border-radius: 2px;
-      margin: 0 19px 11px 0;
       transition: .3s ease-in;
       cursor: pointer;
       &-info {
@@ -55,6 +59,14 @@
           color: #fff;
         }
       }
+    }
+    &__non-active {
+      background-color: #303336;
+      width: 64px;
+      height: 61px;
+      border-radius: 2px;
+      transition: .3s ease-in;
+      cursor: not-allowed;
     }
     td {
       vertical-align: -webkit-baseline-middle;

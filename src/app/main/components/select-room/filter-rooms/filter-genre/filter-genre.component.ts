@@ -28,6 +28,5 @@ export class FilterGenreComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.roundCircleParams);
   }
 }

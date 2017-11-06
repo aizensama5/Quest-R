@@ -44,7 +44,29 @@
             #email
           >
 
-          <input type="submit" class="btn reserved-form__btn" value="Book" (click)="order(name, phone, email)">
+          <label for="reserved-form__form-count-of-players" class="reserved-form__label">{{ 'Count of players' | translateS | async }}</label>
+          <input
+            type="number"
+            class="reserved-form__input"
+            id="reserved-form__form-count-of-players"
+            (change)="checkCountOfPlayersPriceDep(countOfPlayers)"
+            name="number"
+            min="1"
+            max="{{maxCountOfPlayers}}"
+            required
+            ngModel
+            #countOfPlayers
+          >
+        <input type="submit" class="btn reserved-form__btn" value="Book" (click)="order(name, phone, email, countOfPlayers)">
       </form>
+  </div>
+  <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
+    <div class="popup">
+      <i class="popup-close fa fa-close" (click)="closePopup()"></i>
+      <div class="popup-content">
+        <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
+      </div>
+      <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
+    </div>
   </div>
 </div>

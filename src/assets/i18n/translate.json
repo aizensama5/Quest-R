@@ -70,7 +70,8 @@
     "Log in to the company panel": "Log in to the company panel",
     "Sign in": "Sign in",
     "Password": "Password",
-    "Language": "Language"
+    "Language": "Language",
+    "Count of players": "Count of players"
   },
   "pl": {
     "Quests": "Zadania",
@@ -143,6 +144,7 @@
     "Log in to the company panel": "Zaloguj się do panelu firmowego",
     "Sign in": "Zaloguj się",
     "Password": "Hasło",
-    "Language": "Język"
+    "Language": "Język",
+    "Count of players": "Liczba graczy"
   }
 }

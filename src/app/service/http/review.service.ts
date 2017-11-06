@@ -20,6 +20,12 @@ export class ReviewService {
       .set(reviews);
   }
 
+  orderByIdDESC(reviews: ReviewModel[]): ReviewModel[] {
+    return reviews.sort(function(a, b) {
+      return b.id - a.id;
+    });
+  }
+
   all(): FirebaseListObservable<ReviewModel[]> {
     return <FirebaseListObservable<ReviewModel[]>>this.dataBaseService
       .list(ReviewService.dataBaseName);

@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LanguageService } from "../service/language.service";
 import { ActivatedRoute } from "@angular/router";
-import {LanguageModel} from "../models/language.model";
+import { LanguageModel } from "../models/language.model";
 
 @Pipe({
   name: 'translateD'

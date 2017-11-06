@@ -10,8 +10,14 @@ export class OrderService {
 
   addOrder(order: OrderModel): Promise<void> {
     return <Promise<void>>this.dataBaseService
-      .object(OrderService.dataBaseName + order.roomId + '_' + order.id)
+      .object(OrderService.dataBaseName + order.roomId + '/' + order.id)
       .set(order);
+  }
+
+  roomOrders(roomId: number): FirebaseListObservable<OrderModel[]> {
+    return <FirebaseListObservable<OrderModel[]>>this.dataBaseService
+      .list(OrderService.dataBaseName + roomId)
+      .map((items) => items.map(OrderModel.fromJSON));
   }
 
   userOrders(orderList: OrderModel[], userId: string): OrderModel[] {

@@ -68,7 +68,7 @@ export class FilterRoomsComponent implements OnInit {
 
     this.filterArray.filterChange.subscribe((filter: FilterModel) => {
       this.filterArray = filter;
-      if (!this.filterArray.marking.length && !this.filterArray.complexity.length && !this.filterArray.genre.id && !this.filterArray.price && !this.filterArray.countPlayers) {
+      if (!this.filterArray.marking.length && !this.filterArray.complexity.id && !this.filterArray.genre.id && !this.filterArray.price && !this.filterArray.countPlayers) {
         this.filteredRooms.emit(this.displayedInitiallyRooms);
       } else {
         this.filterRooms();
@@ -77,9 +77,11 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   filterRooms(): void {
-    this.roomService.filterRooms(this.rooms, this.filterArray).subscribe((filteredRooms: RoomModel[]) => {
-      this.filteredRooms.emit(filteredRooms);
-    });
+    console.log(this.filterArray);
+    this.roomService.filterRooms(this.rooms, this.filterArray)
+      .then((filteredRooms: RoomModel[]) => {
+        this.filteredRooms.emit(filteredRooms);
+      })
   }
 
   displayPlayersCircle() {
@@ -112,7 +114,7 @@ export class FilterRoomsComponent implements OnInit {
     this.filterArray.countPlayers = countPlayers;
   }
 
-  onChangeComplexity(complexity: ComplexityModel[]) {
+  onChangeComplexity(complexity: ComplexityModel) {
     this.filterArray.complexity = complexity;
   }
 
@@ -133,7 +135,7 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   deleteFilterComplexity() {
-    this.filterArray.complexity = [];
+    this.filterArray.complexity = new ComplexityModel();
   }
 
   deleteFilterMarkingItem(markingId: number) {

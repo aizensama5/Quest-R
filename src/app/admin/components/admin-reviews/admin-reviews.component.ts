@@ -16,7 +16,9 @@ export class AdminReviewsComponent implements OnInit {
   notificationPopupMessage = '';
   areErrors: boolean;
 
-  constructor(public reviewService: ReviewService) {}
+  constructor(
+    public reviewService: ReviewService
+  ) {}
 
   ngOnInit() {
     this.isShowLoader = true;

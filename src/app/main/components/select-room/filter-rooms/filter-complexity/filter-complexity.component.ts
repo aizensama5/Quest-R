@@ -39,6 +39,7 @@ export class FilterComplexityComponent {
   updateListOptions(res: any, item: ComplexityModel) {
     let indexForDeleting = 0;
     const complexity: ComplexityModel[] = [];
+    this._listChecked = [];
 
     if (res.target.checked) {
       this._listChecked.push(item);

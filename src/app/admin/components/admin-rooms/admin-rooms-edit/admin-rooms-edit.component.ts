@@ -13,6 +13,9 @@ import {MarkingModel} from '../../../../models/marking.model';
 import {MarkingService} from '../../../../service/marking.service';
 import {ConfigService} from '../../../../service/http/config.service';
 import {LanguageModel} from "../../../../models/language.model";
+import {DaysSettingsService} from "../../../../service/days-settings.service";
+import {DaysModel} from "../../../../models/days.model";
+import {AvailableHoursModel} from "../../../../models/available-hours.model";
 
 @Component({
   selector: 'app-admin-rooms-edit',
@@ -20,13 +23,15 @@ import {LanguageModel} from "../../../../models/language.model";
   styleUrls: ['./admin-rooms-edit.component.scss']
 })
 export class AdminRoomsEditComponent implements OnInit {
-  static countSubscribing = 6;
+  static countSubscribing = 7;
   static defaultMaxCountOfPlayers = 8;
   maxCountOfPlayers: number;
   companyData: CompanyModel = new CompanyModel();
   currentCompany: CompanySecurityModel = JSON.parse(localStorage.getItem('admin'));
   room: RoomModel = new RoomModel();
   genres: GenreModel[] = [];
+  sGenre: GenreModel;
+  sComplexity: ComplexityModel;
   complexities: ComplexityModel[] = [];
   markings: MarkingModel[] = [];
   isShowLoader: boolean;
@@ -38,6 +43,9 @@ export class AdminRoomsEditComponent implements OnInit {
   _isEverythingLoaded = false;
   useTabsetWithInput: boolean;
   useTabsetWithTextarea: boolean;
+  daysSettings: DaysModel[] = [];
+  _isDaySettingPacked: boolean;
+  _isRoomActive: boolean;
 
   sliderConfig: object = {
     nextButton: '.swiper-button-next',
@@ -59,7 +67,8 @@ export class AdminRoomsEditComponent implements OnInit {
               public complexityService: ComplexityService,
               public markingService: MarkingService,
               private configService: ConfigService,
-              public router: Router
+              public router: Router,
+              public daysSettingsService: DaysSettingsService
   ) {
     this.useTabsetWithInput = true;
     this.useTabsetWithTextarea = true;
@@ -71,6 +80,8 @@ export class AdminRoomsEditComponent implements OnInit {
     this.activeRoute.data.subscribe((data) => {
       if (data['room']) {
         this.room = data['room'];
+        this.sGenre = this.room.ganre;
+        this.sComplexity = this.room.complexity;
       }
       this.initializedItems++;
       this.isEverythingLoaded();
@@ -87,6 +98,9 @@ export class AdminRoomsEditComponent implements OnInit {
     });
     this.genreService.all().subscribe((genres: GenreModel[]) => {
       this.genres = genres;
+      this.genres.forEach((genre: GenreModel) => {
+        genre.selected = genre.id === this.sGenre.id;
+      });
       this.initializedItems++;
       this.isEverythingLoaded();
     });
@@ -107,6 +121,24 @@ export class AdminRoomsEditComponent implements OnInit {
       this.initializedItems++;
       this.isEverythingLoaded();
     });
+    this.daysSettingsService.roomDaysSettings(this.room.id).subscribe((daysSetting: DaysModel[]) => {
+      this.daysSettings = daysSetting;
+      this.isDaySettingsPacked();
+      this.initializedItems++;
+      this.isEverythingLoaded();
+    });
+  }
+
+  selectedGenreById(item1: GenreModel, item2: GenreModel) {
+    if (item1 && item2) {
+      return item1.id === item2.id;
+    }
+  }
+
+  selectedComplexityById(item1: ComplexityModel, item2: ComplexityModel) {
+    if (item1 && item2) {
+      return item1.id === item2.id;
+    }
   }
 
   isEverythingLoaded() {
@@ -128,6 +160,14 @@ export class AdminRoomsEditComponent implements OnInit {
     }
   }
 
+  onGenreSelect() {
+    this.room.ganre = this.sGenre;
+  }
+
+  onComplexitySelect() {
+    this.room.complexity = this.sComplexity;
+  }
+
   onImagesUploaded(image: any) {
     if (!image.error && image.src) {
       this.room.gallery.push({
@@ -146,6 +186,17 @@ export class AdminRoomsEditComponent implements OnInit {
       if (image.path === path) {
         this.room.gallery.splice(index, 1);
       }
+    });
+  }
+
+  isDaySettingsPacked() {
+    this._isDaySettingPacked = true;
+    this.daysSettings.forEach((daySetting: DaysModel) => {
+      daySetting.availableHours.forEach((avHour: AvailableHoursModel) => {
+        if (!avHour.hour || !avHour.priceTypeId) {
+          this._isDaySettingPacked = false;
+        }
+      });
     });
   }
 
@@ -188,20 +239,28 @@ export class AdminRoomsEditComponent implements OnInit {
   save() {
     this.isShowLoader = true;
     this.areErrors = false;
-    this.roomService.addRoom(this.room)
-      .then(() => {
-        this.isShowLoader = false;
-        this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Saved';
-      }, () => {
-        this.isShowLoader = false;
-        this.areErrors = true;
-        this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Error';
+    this.isRoomActivate()
+      .then((isRoomActive) => {
+        this.room.active = isRoomActive;
+        this.roomService.addRoom(this.room)
+          .then(() => {
+            this.isShowLoader = false;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Saved';
+          }, () => {
+            this.isShowLoader = false;
+            this.areErrors = true;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Error';
+          });
       });
   }
 
   closePopup() {
+    this.isRoomActivate()
+      .then((resolve) => {
+        this.room.active = resolve;
+      });
     this.isShowConfirmButton = false;
     this.areErrors = false;
     this.isShowNotificationPopup = false;
@@ -214,6 +273,39 @@ export class AdminRoomsEditComponent implements OnInit {
 
   onRoomDescriptionTabsetChanged(tabsetInfo: LanguageModel) {
     this.room.description = tabsetInfo;
+  }
+
+  isRoomActivate(): Promise<boolean> {
+    return new Promise((resolve) => {
+      if (
+        this._isDaySettingPacked && this.room.complexity && this.room.countPlayers.minCountPlayers
+        && this.room.countPlayers.maxCountPlayers && this.room.name.en && this.room.name.pl
+        && this.room.description.en && this.room.description.pl
+        && this.room.duration && this.room.img && this.room.ganre.id && this.room.level
+      ) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  }
+
+  activateRoom() {
+    if (!this.room.active) {
+      this.areErrors = false;
+      this.isShowLoader = true;
+      this.isRoomActivate()
+        .then((isRoomActivate) => {
+          if (isRoomActivate) {
+            this.isShowLoader = false;
+          } else {
+            this.areErrors = true;
+            this.isShowLoader = false;
+            this.isShowNotificationPopup = true;
+            this.notificationPopupMessage = 'Fill all data for room before activate it!';
+          }
+        });
+    }
   }
 
 }

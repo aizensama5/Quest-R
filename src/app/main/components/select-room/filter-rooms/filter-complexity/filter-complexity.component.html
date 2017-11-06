@@ -8,7 +8,7 @@
     <input id="filter-checkbox-{{item.id}}"
            type="checkbox"
            name="complexity{{item.id}}"
-           value="{{item}}"
+           [value]="item"
            (change)="updateListOptions($event, item)"
            [checked]="item.checked"
     >

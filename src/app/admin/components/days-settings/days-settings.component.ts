@@ -62,16 +62,16 @@ export class DaysSettingsComponent implements OnInit {
   onAvHourTypeChange(daySettingId: number, availableHourId: number, priceTypeId: number) {
     let i = 0;
     for (; i < this.daysSettings.length; i++) {
-      let j = 0;
-      if (!this.daysSettings[i]) {
+      if (!this.daysSettings[i] || this.daysSettings[i].id !== daySettingId) {
         continue;
       }
       if (this.daysSettings[i].id = daySettingId && this.daysSettings[i].id) {
+        let j = 0;
         for (; j < this.daysSettings[i].availableHours.length; j++) {
+          if (!this.daysSettings[i].availableHours[j]) {
+            continue;
+          }
           if (this.daysSettings[i].availableHours[j].id === availableHourId && this.daysSettings[i].availableHours[j].id) {
-            if (!this.daysSettings[i].availableHours[j]) {
-              continue;
-            }
             this.daysSettings[i].availableHours[j].priceTypeId = priceTypeId;
           }
         }
@@ -100,13 +100,19 @@ export class DaysSettingsComponent implements OnInit {
     });
   }
 
-  confirmDeleteHour(dayId: number, hourId: number) {
-    this.dayIdToDelete = dayId;
-    this.hourIdToDelete = hourId;
-    console.log(dayId);
-    console.log(hourId);
-    this.isShowNotificationPopup = true;
-    this.notificationPopupMessage = 'Действительно удалить?';
+  confirmDeleteHour(dayId: number, hourId: number, dayIndex?: number, hourIndex?: number) {
+    if (!dayId || !hourId) {
+      this.daysSettings.forEach((daySetting: DaysModel) => {
+        if (daySetting.id === dayIndex+1) {
+          daySetting.availableHours.splice(hourIndex, 1);
+        }
+      });
+    } else {
+      this.dayIdToDelete = dayId;
+      this.hourIdToDelete = hourId;
+      this.isShowNotificationPopup = true;
+      this.notificationPopupMessage = 'Are you sure?';
+    }
   }
 
   deleteHour(dayIdToDelete, hourIdToDelete) {
@@ -115,39 +121,17 @@ export class DaysSettingsComponent implements OnInit {
     this.daysSettingsService.removeHourItem(this.room.id, dayIdToDelete, hourIdToDelete)
       .then(() => {
         this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Тип успешно удален';
+        this.notificationPopupMessage = 'Deleted successfully!';
         this.isShowLoader = false;
-        console.log(this.daysSettings);
       }, () => {
         this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Ошибка при удалении елемента';
+        this.notificationPopupMessage = 'Error';
         this.isShowLoader = false;
         this.daysSettings = [];
-        console.log(this.daysSettings);
       });
     this.hourIdToDelete = null;
     this.dayIdToDelete = null;
   }
-
-  // clearHour(daySettingId: number, hourId: number) {
-  //   let i = 0;
-  //   for (; i < this.daysSettings.length; i++) {
-  //     let j = 0;
-  //     if (!this.daysSettings[i]) {
-  //       continue;
-  //     }
-  //     if (this.daysSettings[i].id = daySettingId && this.daysSettings[i].id) {
-  //       for (; j < this.daysSettings[i].availableHours.length; j++) {
-  //         if (this.daysSettings[i].availableHours[j].id === hourId && this.daysSettings[i].availableHours[j].id) {
-  //           if (!this.daysSettings[i].availableHours[j]) {
-  //             continue;
-  //           }
-  //           this.daysSettings[i].availableHours.splice(j, 1);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   isEverythingLoaded() {
     if (this.initializedItems >= DaysSettingsComponent.countSubscribing) {
@@ -162,21 +146,18 @@ export class DaysSettingsComponent implements OnInit {
 
   onSelectedOption(option: any, daySetToId: number) {
     const opt: any = option.target.value;
-    console.log(opt);
     const separator = '_';
-    let optAppointment: any;
-    const optAppoint: string = opt.split(separator).shift() + separator;
+    const optAppointment: string = opt.split(separator).shift() + separator;
     const daySetFromId: number = +opt.split(separator).pop();
-    switch (optAppoint) {
+    switch (optAppointment) {
       case this.options.o_copy:
         this.copyDaySettings(daySetFromId, daySetToId);
-        console.log('i am here');
         break;
       case this.options.o_delete:
-        optAppointment = this.options.o_delete;
+        this.deleteDaySettings(daySetToId);
         break;
       default:
-        this.daysSettings[daySetToId].availableHours = this.weekDaySettings(daySetToId);
+        this.getDaysSettings();
     }
   }
 
@@ -190,19 +171,37 @@ export class DaysSettingsComponent implements OnInit {
     return avHours;
   }
 
+  deleteDaySettings(dayId: number) {
+    let dayIndex = 0;
+    this.daysSettings.forEach((wDay: DaysModel) => {
+      if (wDay.id === dayId) {
+        this.daysSettings[dayIndex].availableHours = [];
+      }
+      dayIndex++;
+    });
+  }
+
   copyDaySettings(fromId: number, toId: number) {
     let dayIndex = 0;
     this.daysSettings.forEach((wDay: DaysModel) => {
       if (wDay.id === toId) {
-        console.log('lalalal');
         this.daysSettings[dayIndex].availableHours = this.weekDaySettings(fromId);
       }
       dayIndex++;
     });
   }
 
+  resetDaySettings(dayId: number) {
+    let dayIndex = 0;
+    this.daysSettings.forEach((wDay: DaysModel) => {
+      if (wDay.id === dayId) {
+        this.daysSettings[dayIndex].availableHours = this.weekDaySettings(dayId);
+      }
+      dayIndex++;
+    });
+  }
+
   save() {
-    console.log(this.daysSettings);
     let subscrCount = 0;
     this.areErrors = false;
     this.isShowLoader = true;
@@ -222,12 +221,12 @@ export class DaysSettingsComponent implements OnInit {
     if (!this.areErrors) {
       this.isShowLoader = false;
       this.isShowNotificationPopup = true;
-      this.notificationPopupMessage = 'Успешно сохранено';
+      this.notificationPopupMessage = 'Saved successfully!';
     } else {
       this.areErrors = true;
       this.isShowNotificationPopup = true;
       this.isShowLoader = false;
-      this.notificationPopupMessage = 'Ошибка!';
+      this.notificationPopupMessage = 'Error!';
     }
   }
 }
