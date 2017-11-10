@@ -242,3 +242,33 @@ input[type=file] {
     border-bottom-left-radius: 3px;
   }
 }
+
+.swiper {
+  width: 80%;
+  max-width: 600px;
+  min-width: 480px;
+  margin: auto;
+  &__data-item-logo {
+    background-size: contain;
+    width: 180px;
+    height: 180px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    i {
+      top: 0;
+      right: -18px;
+      font-size: 18px;
+    }
+  }
+  &__data-item-logo-gallery {
+    margin: auto;
+    width: 400px;
+  }
+  &__wrapper {
+    transform: translate3d(0,0,0);
+  }
+  &__slide {
+    width: 100% !important;
+  }
+}

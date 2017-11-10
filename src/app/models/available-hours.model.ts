@@ -4,7 +4,7 @@ export class AvailableHoursModel {
   priceTypeId: number;
 
   constructor() {
-    this.id = null;
+    this.id = 1;
     this.hour = '';
     this.priceTypeId = null;
   }

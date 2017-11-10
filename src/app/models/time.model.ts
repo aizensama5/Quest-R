@@ -1,5 +1,5 @@
 export class TimeModel {
-  timeSlotId: number;
+  timeSlotId: string;
   time: string;
   price: number;
   currency?: string;
@@ -7,7 +7,7 @@ export class TimeModel {
   isActive: boolean;
 
   constructor () {
-    this.timeSlotId = null;
+    this.timeSlotId = '';
     this.time = '';
     this.price = null;
     this.currency = 'złoty';

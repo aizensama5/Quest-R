@@ -3,6 +3,7 @@ import { ReservationService } from '../../../../service/http/reservation.service
 import { ReservationModel } from '../../../../models/reservation.model';
 import { TimeModel } from '../../../../models/time.model';
 import { RoomModel } from '../../../../models/room.model';
+import { TimeService } from "../../../../service/time.service";
 
 @Component({
     moduleId: module.id,
@@ -31,7 +32,7 @@ export class ReservedCalendarComponent {
     lazyLoading: true,
   };
 
-  constructor(private reservationService: ReservationService) {}
+  constructor(public reservationService: ReservationService, public timeService: TimeService) {}
 
   convert (day: string) {
     return this.reservationService.convertDateSeparatedBySlash(day);

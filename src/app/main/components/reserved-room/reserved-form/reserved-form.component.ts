@@ -9,7 +9,6 @@ import {OrderService} from '../../../../service/http/order.service';
 import {TimeService} from '../../../../service/time.service';
 import {ConfigService} from "../../../../service/http/config.service";
 import {PricesTypesService} from "../../../../service/prices-types.service";
-import {PriceCountPlayersDependenceModel} from "../../../../models/price-countPlayers-dependence.model";
 import {PricesTypesModel} from "../../../../models/prices-types.model";
 import {DaysSettingsService} from "../../../../service/days-settings.service";
 import {DaysModel} from "../../../../models/days.model";
@@ -85,14 +84,17 @@ export class ReservedFormComponent implements OnInit {
       userId: ''
     };
     this.orderData.roomId = this.room.id;
-    this.orderData.id = this.timeService
+    this.orderData.id = this.room.id.toString() + '_' + this.timeService
       .uniqueIdByTimestamp(new Date(this.reserveData.day + ' ' + this.reserveData.time.time).toString());
+    this.orderData.creationDate = Date.now().toString();
+    this.orderData.price = this.reserveData.time.price;
     this.orderData.bookerData.userId = this.user ? this.user.uid : '';
     this.isShowNotificationPopup = true;
     if (this.orderData.bookerData.name && this.orderData.bookerData.phone && this.orderData.bookerData.email && this.orderData.bookerData.countOfPlayers) {
       if (this.orderData.bookerData.countOfPlayers <= this.maxCountOfPlayers) {
         this.orderService.addOrder(this.orderData)
           .then(() => {
+            this.reserveData.time.isActive = false;
             this.notificationPopupMessage = 'Order was adding! Our manager contact You as soon as possible! Thank you!';
           }, () => {
             this.areErrors = true;

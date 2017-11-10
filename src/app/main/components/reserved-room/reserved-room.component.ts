@@ -3,10 +3,8 @@ import {RoomModel} from '../../../models/room.model';
 import {RoomService} from '../../../service/http/room.service';
 import {ReservationModel} from '../../../models/reservation.model';
 import {ReservationService} from '../../../service/http/reservation.service';
-import {MainReservationModel} from '../../../models/main-reservation.model';
 import * as mainReducer from '../../../reducers';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
 import {DaysSettingsService} from "../../../service/days-settings.service";
 import {PricesTypesService} from "../../../service/prices-types.service";
@@ -17,6 +15,7 @@ import {TimeModel} from "../../../models/time.model";
 import {TimeService} from "../../../service/time.service";
 import {OrderService} from "../../../service/http/order.service";
 import {OrderModel} from "../../../models/order.model";
+import {Time} from "ngx-bootstrap/timepicker/timepicker.models";
 
 @Component({
   moduleId: module.id,
@@ -25,10 +24,8 @@ import {OrderModel} from "../../../models/order.model";
   styleUrls: ['reserved-room.component.scss']
 })
 export class ReservedRoomComponent implements OnInit {
-
   @Input() title: string;
   selectedRoom: RoomModel = new RoomModel();
-  allReservationData: MainReservationModel[];
   roomReservationData: ReservationModel[] = [];
   reservationData: ReservationModel[] = [];
   rooms: RoomModel[] = [];
@@ -37,7 +34,6 @@ export class ReservedRoomComponent implements OnInit {
   reserveData: ReservationModel = new ReservationModel();
   showReservationTable = false;
   showOrderingTable = false;
-  selectedRoom$: Observable<RoomModel>;
   roomId: number;
   isOpenedRoomPage: boolean;
   reservationDays: any[];
@@ -51,17 +47,17 @@ export class ReservedRoomComponent implements OnInit {
               public daysSettingsService: DaysSettingsService,
               public pricesTypesService: PricesTypesService,
               public timeService: TimeService,
-              public orderService: OrderService
-  ) {
+              public orderService: OrderService) {
     this.getAllRooms();
     this.store.select(mainReducer.getRoom).subscribe((room: RoomModel) => {
       if (room) {
         this.room = room;
+        this.orderService.roomOrders(this.room.id).subscribe((roomOrders: OrderModel[]) => {
+          this.roomOrders = roomOrders;
+        });
         this.generateReservationTable()
           .then((reservationData: ReservationModel[]) => {
-            this.orderService.roomOrders(this.room.id).subscribe((roomOrders: OrderModel[]) => {
-              this.roomOrders = roomOrders;
-            });
+            this.reservationData = reservationData;
             this.reservationDays = reservationService.days();
             this.currentDayOfWeek = reservationService.getCurrentDayOfWeek(this.reservationDays[0].day);
             this.roomReservationData = reservationService.prepareReservationData(reservationData, this.currentDayOfWeek);
@@ -80,50 +76,49 @@ export class ReservedRoomComponent implements OnInit {
     }
   }
 
-  isReservationSlotActive(timeSlotId: number): boolean {
+  isReservationSlotActive(timeSlotId: string): boolean {
     let isActive: boolean = true;
-    if (this.timeService.uniqueIdByTimestamp() > timeSlotId) {
+    const timeSlotTimestamp = timeSlotId ? timeSlotId.split('_')[1] : this.timeService.uniqueIdByTimestamp() + 1;
+    if (this.timeService.uniqueIdByTimestamp() > +timeSlotTimestamp) {
       isActive = false;
     } else {
       this.roomOrders.forEach((roomOrder: OrderModel) => {
-        console.log(roomOrder.id + '+' + this.room.id + timeSlotId);
-        if (roomOrder.id === timeSlotId) {
-          console.log('here');
+        if (roomOrder.id === timeSlotId.toString() && roomOrder.confirmed) {
           isActive = false;
         }
       });
     }
-    console.log(isActive);
     return isActive;
   }
 
-  generateReservationTable(): Promise<ReservationModel[]> {
+  generateReservationTable(): Promise<any[]> {
     return new Promise((resolve) => {
+      let reservationData: any[] = [];
       this.daysSettingsService.roomDaysSettings(this.room.id).subscribe((daysSettings: DaysModel[]) => {
         this.pricesTypesService.all().subscribe((priceType: PricesTypesModel[]) => {
           let reservationIndex = 0;
           daysSettings.forEach((daySetting: DaysModel) => {
-            this.reservationData[reservationIndex] = new ReservationModel();
-            this.reservationData[reservationIndex].dayId = daySetting.id;
-            this.reservationData[reservationIndex].day = daySetting.weekDay;
+            reservationData[reservationIndex] = new ReservationModel();
+            reservationData[reservationIndex].dayId = daySetting.id;
+            reservationData[reservationIndex].day = daySetting.weekDay;
             let avHourIndex = 0;
             daySetting.availableHours.forEach((avHour: AvailableHoursModel) => {
-              this.reservationData[reservationIndex].time[avHourIndex] = new TimeModel();
               const priceList = this.pricesTypesService.getPriceTypeByPriceTypeId(priceType, avHour.priceTypeId);
-              this.reservationData[reservationIndex].time[avHourIndex].time = avHour.hour;
-              this.reservationData[reservationIndex].time[avHourIndex].price = this.pricesTypesService.getMinPriceFromPriceList(priceList.prices);
+              reservationData[reservationIndex].time[avHourIndex] = new TimeModel();
+              reservationData[reservationIndex].time[avHourIndex].time = avHour.hour;
+              reservationData[reservationIndex].time[avHourIndex].price = this.pricesTypesService.getMinPriceFromPriceList(priceList.prices);
               avHourIndex++;
             });
             reservationIndex++;
           });
-          resolve(this.reservationData);
+          resolve(reservationData);
         });
       });
     });
   }
 
   getTimeSlotId(date: string, time: string): any {
-    return this.room.id + this.timeService
+    return this.room.id.toString() + '_' + this.timeService
       .uniqueIdByTimestamp(new Date(date + ' ' + time).toString());
   }
 
@@ -168,35 +163,38 @@ export class ReservedRoomComponent implements OnInit {
 
   roomReservation(id: number) {
     const resData = [];
+    let tmData: any[] = [];
     let dayIndex = 0;
-    let timeIndex = 0;
-    this.reservationData = this.duplicate(4, this.reservationData);
+    this.roomReservationData = this.duplicate(4, this.roomReservationData);
     for (let i = 0; i < ReservationService.RESERVATION_WEEKS_COUNT; i++) {
       resData[i] = [];
       for (let j = 0; j < ReservationService.RESERVATION_DAYS_IN_WEEKS_COUNT; j++) {
         resData[i][j] = [[]];
-        this.reservationData[dayIndex].time.forEach((tm: TimeModel) => {
-          tm.timeSlotId = this.getTimeSlotId(this.reservationDays[dayIndex].day, tm.time);
-          tm.isActive = this.isReservationSlotActive(tm.timeSlotId);
-          timeIndex++;
-        });
-        resData[i][j] = resData[i][j].concat(this.reservationData[dayIndex], this.reservationDays[dayIndex].day);
+        tmData = [];
+        tmData.push(this.setTimeSlotId(this.reservationDays[dayIndex].day, this.roomReservationData[dayIndex].time));
+        resData[i][j] = resData[i][j].concat(this.roomReservationData[dayIndex], this.reservationDays[dayIndex].day, tmData);
         dayIndex++;
       }
     }
+    console.log(resData);
     return resData;
   }
 
-  setTimeSlotId(dayIndex: number, day: string, time: TimeModel[]): Promise<ReservationModel> {
-    return new Promise((resolve) => {
-      const timeList = this.getTime(this.getTimeList());
-      let timeIndex = 0;
-      time.forEach((tm: TimeModel) => {
-        this.reservationData[dayIndex].time[timeIndex].timeSlotId = this.getTimeSlotId(day, tm.time);
-        timeIndex++;
+  setTimeSlotId(day: string, time: TimeModel[]): any[] {
+    let timeIndex = 0;
+    let reservationData: any[] = [];
+    time.forEach((tm: TimeModel) => {
+      reservationData.push({
+        currency: 'złoty',
+        background: '#ff9200',
+        time: tm.time,
+        price: tm.price,
+        timeSlotId: this.getTimeSlotId(day, tm.time),
+        isActive: this.isReservationSlotActive(this.getTimeSlotId(day, tm.time))
       });
-      resolve(this.reservationData[dayIndex]);
+      timeIndex++;
     });
+    return reservationData;
   }
 
   duplicate(count: number, data: any[]): any[] {

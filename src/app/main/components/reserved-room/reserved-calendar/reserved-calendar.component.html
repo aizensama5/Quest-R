@@ -3,7 +3,7 @@
     <div class="reservation-table__time-wrap">
       <p class="reservation-table__time" *ngFor="let tm of timeList">{{ tm }}</p>
     </div>
-    <swiper [config]="sliderConfig" class="swiper">
+    <swiper [config]="sliderConfig" class="swiper-calendar">
       <div class="swiper-wrapper">
         <div class="swiper-slide reservation-table__slide" *ngFor="let res of roomReservationData; let i = index;">
           <div class="reservation-table__wrap" *ngFor="let rsrv of res">
@@ -12,8 +12,8 @@
             </tr>
             <tr class="reservation-table__items">
               <td *ngFor="let tm of timeList;">
-                <div class="reservation-table__item-wrap">
-                <div *ngFor="let rsrvItem of rsrv[1].time;">
+                <div class="reservation-table__item-wrap" *ngIf="rsrv[3]">
+                <div *ngFor="let rsrvItem of rsrv[3];">
                     <div *ngIf="rsrvItem.time && tm == rsrvItem.time">
                       <div class="reservation-table__item"
                            *ngIf="rsrvItem.isActive"
@@ -24,9 +24,7 @@
                           <p class="reservation-table__item-info--currency">{{rsrvItem?.currency}}</p>
                         </div>
                       </div>
-                      <div *ngIf="!rsrvItem.isActive" class="reservation-table__item-non-active">
-
-                      </div>
+                      <div *ngIf="!rsrvItem.isActive" class="reservation-table__item-non-active"></div>
                     </div>
                   </div>
                 </div>

@@ -14,10 +14,19 @@ export class OrderService {
       .set(order);
   }
 
+  orderById(roomId: number, orderId: string): FirebaseListObservable<OrderModel[]> {
+    return <FirebaseListObservable<OrderModel[]>>this.dataBaseService
+      .list(OrderService.dataBaseName + roomId, {
+        query: {
+          orderByChild: 'id',
+          equalTo: orderId
+        }
+      });
+  }
+
   roomOrders(roomId: number): FirebaseListObservable<OrderModel[]> {
     return <FirebaseListObservable<OrderModel[]>>this.dataBaseService
-      .list(OrderService.dataBaseName + roomId)
-      .map((items) => items.map(OrderModel.fromJSON));
+      .list(OrderService.dataBaseName + roomId);
   }
 
   userOrders(orderList: OrderModel[], userId: string): OrderModel[] {
@@ -30,9 +39,8 @@ export class OrderService {
     return userOrdersInfo;
   }
 
-  all(): FirebaseListObservable<OrderModel[]> {
-    return <FirebaseListObservable<OrderModel[]>>this.dataBaseService
+  all(): FirebaseListObservable<any[]> {
+    return <FirebaseListObservable<any[]>>this.dataBaseService
       .list(OrderService.dataBaseName)
-      .map((items) => items.map(OrderModel.fromJSON));
   }
 }

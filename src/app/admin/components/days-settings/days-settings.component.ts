@@ -54,6 +54,17 @@ export class DaysSettingsComponent implements OnInit {
   getDaysSettings() {
     this.daysSettingsService.roomDaysSettings(this.room.id).subscribe((daysSetting: DaysModel[]) => {
       this.daysSettings = daysSetting;
+      this.daysSettings.forEach((daySet: DaysModel) => {
+        if (!daySet.availableHours || !daySet.availableHours.length) {
+          daySet.availableHours = [
+            {
+              id: 1,
+              hour: '',
+              priceTypeId: null
+            }
+          ];
+        }
+      });
       this.initializedItems++;
       this.isEverythingLoaded();
     });
@@ -83,7 +94,7 @@ export class DaysSettingsComponent implements OnInit {
     this.daysSettings.forEach((daySet: DaysModel) => {
       daySet.availableHours = [
         {
-          id: null,
+          id: 1,
           hour: '',
           priceTypeId: null
         }
@@ -92,12 +103,29 @@ export class DaysSettingsComponent implements OnInit {
   }
 
   addHour(dayId: number) {
+    const lastId = this.getLastDaysSettingsId();
     this.daysSettings.forEach((daySetting: DaysModel) => {
       if (daySetting.id === dayId) {
-        daySetting.availableHours.push(new AvailableHoursModel());
+        const newAvHour: AvailableHoursModel = {
+          id: lastId,
+          hour: '',
+          priceTypeId: null
+        };
+        daySetting.availableHours.push(newAvHour);
+        console.log(this.daysSettings);
         return;
       }
     });
+  }
+
+  getLastDaysSettingsId(): number {
+    let ids: number[] = [];
+    this.daysSettings.forEach((daySetting: DaysModel) => {
+      daySetting.availableHours.forEach((avHour: AvailableHoursModel) => {
+        ids.push(avHour.id);
+      });
+    });
+    return Math.max.apply(null, ids) + 1;
   }
 
   confirmDeleteHour(dayId: number, hourId: number, dayIndex?: number, hourIndex?: number) {
@@ -205,6 +233,7 @@ export class DaysSettingsComponent implements OnInit {
     let subscrCount = 0;
     this.areErrors = false;
     this.isShowLoader = true;
+    console.log(this.daysSettings);
     this.daysSettings.forEach((daySetting: DaysModel) => {
       this.daysSettingsService.addDaySetting(daySetting).then(() => {
       }, () => {

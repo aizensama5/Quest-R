@@ -18,7 +18,8 @@ import { ConfigurationComponent } from './components/configuration/configuration
 import { ChangePasswordComponent } from "./components/change-password/change-password.component";
 import { ContactComponent } from "./components/contact/contact.component";
 import { TermsOfServiceComponent } from "./components/terms-of-service/terms-of-service.component";
-
+import { AdminBookingsEditComponent } from "./components/admin-bookings/admin-bookings-edit/admin-bookings-edit.component";
+import { EditBookingResolverService } from "../service/edit-booking-resolver.service";
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { TermsOfServiceComponent } from "./components/terms-of-service/terms-of-
         { path: 'rooms/:id/edit', component: AdminRoomsEditComponent, resolve: {room: EditRoomsResolverService} },
         { path: 'reviews', component: AdminReviewsComponent },
         { path: 'bookings', component: AdminBookingsComponent },
+        { path: 'bookings/:id/edit', component: AdminBookingsEditComponent, resolve: {order: EditBookingResolverService} },
         { path: 'calendar', component: CalendarComponent },
         { path: 'prices-and-settings', component: PricesAndSettingsComponent },
         { path: 'special-offers', component: SpecialOffersComponent },

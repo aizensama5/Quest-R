@@ -38,6 +38,7 @@ import { LanguageService } from "./service/language.service";
 import { DescriptionService } from "./service/description.service";
 import { HttpService } from "./service/http/http.service";
 import {LocaleResolverService} from "./service/locale-resolver.service";
+import {UserHistoryService} from "./service/user-history.service";
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import {LocaleResolverService} from "./service/locale-resolver.service";
     LanguageService,
     DescriptionService,
     HttpService,
-    LocaleResolverService
+    LocaleResolverService,
+    UserHistoryService
   ],
   bootstrap: [AppComponent]
 })

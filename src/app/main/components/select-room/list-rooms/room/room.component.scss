@@ -47,9 +47,11 @@
       &-item {
       }
       &-icon {
-
+        height: 30px;
       }
       &-text {
+        position: relative;
+        bottom: 7px;
         @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
       }
     }

@@ -38,7 +38,8 @@ import { AdminGenresComponent } from './components/admin-genres/admin-genres.com
 import { AdminMarkingsComponent } from './components/admin-markings/admin-markings.component';
 import { AdminPlayersComponent } from './components/admin-players/admin-players.component';
 import { AdminPriceComponent } from './components/admin-price/admin-price.component';
-
+import { AdminBookingsEditComponent } from './components/admin-bookings/admin-bookings-edit/admin-bookings-edit.component';
+import { EditBookingResolverService } from "../service/edit-booking-resolver.service";
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { AdminPriceComponent } from './components/admin-price/admin-price.compon
     AdminGenresComponent,
     AdminMarkingsComponent,
     AdminPlayersComponent,
-    AdminPriceComponent
+    AdminPriceComponent,
+    AdminBookingsEditComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +89,8 @@ import { AdminPriceComponent } from './components/admin-price/admin-price.compon
     EditRoomsResolverService,
     PricesTypesModel,
     ConfigService,
-    DaysSettingsService
+    DaysSettingsService,
+    EditBookingResolverService
   ]
 })
 export class AdminModule {}

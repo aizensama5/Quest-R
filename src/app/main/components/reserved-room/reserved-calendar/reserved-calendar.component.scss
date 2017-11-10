@@ -3,7 +3,7 @@
 :host /deep/ {
   width: 100%;
   overflow: hidden;
-  .swiper {
+  .swiper-calendar {
     position: relative;
     width: 720px;
     padding-left: 65px;
@@ -60,7 +60,7 @@
         }
       }
     }
-    &__non-active {
+    &__item-non-active {
       background-color: #303336;
       width: 64px;
       height: 61px;

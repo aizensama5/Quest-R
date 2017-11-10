@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {RoomModel} from '../../models/room.model';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
-import {Observable} from 'rxjs/Observable';
 import {FilterModel} from '../../models/filter.model';
-import {ComplexityModel} from '../../models/complexity.model';
 import {MarkingModel} from '../../models/marking.model';
 import {PhotoModel} from "../../models/profile/photo.model";
 
@@ -181,7 +179,7 @@ export class RoomService {
   }
 
   filterRooms(rooms: RoomModel[], filterArray: FilterModel): Promise<RoomModel[]> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const all: number[] = [];
       let filteredRoom: RoomModel[] = [];
       let sortedAll: number[] = [];
@@ -223,18 +221,24 @@ export class RoomService {
           console.log(rooms);
           resolve(rooms);
         })
+        .catch((rejectRooms) => {
+          console.log('here');
+          console.log(rejectRooms);
+        })
     });
   }
 
   filterRoomsBySortedRoomIds(rooms: RoomModel[], sortedRoomsIds: number[], countFilters: number): Promise<RoomModel[]> {
     const filteredRooms: RoomModel[] = [];
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       for (let i = 0; i < sortedRoomsIds.length; i++) {
         if (sortedRoomsIds.length > (i + countFilters - 1) && sortedRoomsIds[i + countFilters - 1] === sortedRoomsIds[i]) {
           this.roomById(sortedRoomsIds[i]).subscribe((room: RoomModel[]) => {
             filteredRooms.push(room[0]);
             resolve(filteredRooms);
           });
+        } else if (!filteredRooms.length && sortedRoomsIds.length === i - 1) {
+          reject(filteredRooms);
         }
       }
     });

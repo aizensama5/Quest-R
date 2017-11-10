@@ -189,12 +189,12 @@
           <div class="admin-rooms-edit__data">
             <div class="admin-rooms-edit__data-item" *ngIf="room.gallery.length">
               <p class="admin-rooms-edit__data-item-title">Images</p>
-              <swiper [config]="sliderConfig" #swiperClass>
-                <div class="swiper-wrapper admin-rooms-edit__swiper-wrapper" id="swiper-wrapper-gallery">
-                  <div class="swiper-slide admin-rooms-edit__swiper-slide"
+              <swiper [config]="sliderConfig" #swiperClass class="swiper">
+                <div class="swiper-wrapper swiper__wrapper" id="swiper-wrapper-gallery">
+                  <div class="swiper-slide swiper__slide"
                        id="swiper-slide-gallery"
                        *ngFor="let gallery of room.gallery; let i = index;">
-                    <div class="admin-rooms-edit__data-item-logo admin-rooms-edit__data-item-logo-gallery"
+                    <div class="swiper__data-item-logo swiper__data-item-logo-gallery"
                          [ngStyle]="{'background-image': 'url(' + gallery?.path + ')'}">
                       <i class="fa fa-close delete-icon" (click)="deleteImage(gallery.path, i)"></i>
                     </div>
