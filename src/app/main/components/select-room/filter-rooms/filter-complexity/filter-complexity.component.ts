@@ -12,7 +12,7 @@ export class FilterComplexityComponent {
   @Input() placeholder: string;
   @Input() listOptions: any[];
 
-  @Output() onChangeComplexity: EventEmitter<ComplexityModel[]> = new EventEmitter<ComplexityModel[]>();
+  @Output() onChangeComplexity: EventEmitter<ComplexityModel> = new EventEmitter<ComplexityModel>();
 
   private _isShowListOptions = false;
   private _listChecked: ComplexityModel[] = [];
@@ -37,28 +37,9 @@ export class FilterComplexityComponent {
   }
 
   updateListOptions(res: any, item: ComplexityModel) {
-    let indexForDeleting = 0;
-    const complexity: ComplexityModel[] = [];
-    this._listChecked = [];
-
-    if (res.target.checked) {
-      this._listChecked.push(item);
-      this._listChecked.forEach((comp: ComplexityModel) => {
-        if (comp.id === item.id) {
-          complexity.push(item);
-        }
-      });
-    } else {
-      indexForDeleting = this.findIndexForDeleting(item.id);
-      this.deleteRepetativeValues(indexForDeleting);
-    }
-
-    if (complexity.length > 1) {
-      this.deleteRepetativeValues(this._listChecked.length - 1);
-    }
-
+    this._listChecked.push(item);
     this.findCheckedValues();
-    this.onChangeComplexity.emit(this._listChecked);
+    this.onChangeComplexity.emit(item);
   }
 
   findCheckedValues(): void {

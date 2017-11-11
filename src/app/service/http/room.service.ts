@@ -52,6 +52,10 @@ export class RoomService {
       .map((items) => items.map(RoomModel.fromJSON));
   }
 
+  byId(rooms: RoomModel[], id: number): RoomModel {
+    return rooms.filter((room: RoomModel) => room.id === id)[0];
+  }
+
   lastId(rooms: RoomModel[]): number {
     const roomsIds: number[] = [];
     if (rooms.length) {
@@ -141,31 +145,28 @@ export class RoomService {
   }
 
   filterByMarking(rooms: RoomModel[], marking: MarkingModel[]) {
-    const all: number[] = [];
-    const countFilters = marking.length;
-    let sortedAll: number[] = [];
-    let filteredRooms: RoomModel[] = [];
+    return new Promise((resolve) => {
+      const all: number[] = [];
+      const countFilters = marking.length;
+      let sortedAll: number[] = [];
+      let filteredRooms: RoomModel[] = [];
 
-    rooms.filter((room: RoomModel) => {
-      marking.forEach((mark) => {
-        room.marking.filter((roomMarking: MarkingModel) => {
-          if (roomMarking.id === mark.id) {
-            all.push(room.id);
-          }
+      rooms.forEach((room: RoomModel) => {
+        marking.forEach((mark) => {
+          room.marking.forEach((roomMarking: MarkingModel) => {
+            if (roomMarking.id === mark.id) {
+              all.push(room.id);
+            }
+          });
         });
       });
+
+      sortedAll = all.slice().sort();
+      this.filterRoomsBySortedRoomIds(rooms, sortedAll, countFilters)
+        .then((filteredRooms: RoomModel[]) => {
+          resolve(filteredRooms);
+        })
     });
-
-    sortedAll = all.slice().sort();
-    this.filterRoomsBySortedRoomIds(rooms, sortedAll, countFilters)
-      .then((rooms: RoomModel[]) => {
-        filteredRooms = rooms;
-        return filteredRooms;
-      })
-      .catch(() => {
-        return filteredRooms;
-      });
-
   }
 
   filterByComplexity(rooms: RoomModel[], complexityId: number): RoomModel[] {
@@ -193,53 +194,50 @@ export class RoomService {
         markingLength: filterArray.marking.length
       };
 
+      this.filterByMarking(rooms, filterArray.marking)
+        .then((filteredByMarkingRooms: RoomModel[]) => {
+          const allFilteredRooms = {
+            roomsByPrice: filterElement.price ? this.filterByPrice(rooms, filterElement.price) : [],
+            roomsByGenre: filterElement.genreId ? this.filterByGenre(rooms, filterElement.genreId) : [],
+            roomsByCountPlayers: filterElement.countPlayers ? this.filterByCountOfPlayers(rooms, filterElement.countPlayers) : [],
+            roomsByComplexity: filterElement.complexity ? this.filterByComplexity(rooms, filterElement.complexity) : [],
+            roomsByMarking: filterElement.markingLength ? filteredByMarkingRooms : []
+          };
 
-      const allFilteredRooms = {
-        roomsByPrice: filterElement.price ? this.filterByPrice(rooms, filterElement.price) : [],
-        roomsByGenre: filterElement.genreId ? this.filterByGenre(rooms, filterElement.genreId) : [],
-        roomsByCountPlayers: filterElement.countPlayers ? this.filterByCountOfPlayers(rooms, filterElement.countPlayers) : [],
-        roomsByComplexity: filterElement.complexity ? this.filterByComplexity(rooms, filterElement.complexity) : [],
-        roomsByMarking: filterElement.markingLength ? this.filterByMarking(rooms, filterArray.marking) : []
-      };
+          for (const el in filterElement) {
+            if (filterElement[el]) {
+              countFilters++;
+            }
+          }
 
-      for (const el in filterElement) {
-        if (filterElement[el]) {
-          countFilters++;
-        }
-      }
-
-      for (const filteredRooms in allFilteredRooms) {
-        if (allFilteredRooms[filteredRooms] && allFilteredRooms[filteredRooms].length) {
-          allFilteredRooms[filteredRooms].forEach((room: RoomModel) => {
-            all.push(room.id);
-          });
-        }
-      }
-      sortedAll = all.slice().sort();
-      this.filterRoomsBySortedRoomIds(rooms, sortedAll, countFilters)
-        .then((rooms) => {
-          console.log(rooms);
-          resolve(rooms);
-        })
-        .catch((rejectRooms) => {
-          console.log('here');
-          console.log(rejectRooms);
-        })
+          for (const filteredRooms in allFilteredRooms) {
+            if (allFilteredRooms[filteredRooms] && allFilteredRooms[filteredRooms].length) {
+              allFilteredRooms[filteredRooms].forEach((room: RoomModel) => {
+                all.push(room.id);
+              });
+            }
+          }
+          sortedAll = all.slice().sort();
+          this.filterRoomsBySortedRoomIds(rooms, sortedAll, countFilters, 100)
+            .then((filteredRooms) => {
+              resolve(filteredRooms);
+            })
+        });
     });
   }
 
-  filterRoomsBySortedRoomIds(rooms: RoomModel[], sortedRoomsIds: number[], countFilters: number): Promise<RoomModel[]> {
+  filterRoomsBySortedRoomIds(rooms: RoomModel[], sortedRoomsIds: number[], countFilters: number, opt?: number): Promise<RoomModel[]> {
     const filteredRooms: RoomModel[] = [];
-    return new Promise((resolve, reject) => {
+    let index = 0;
+    return new Promise((resolve) => {
       for (let i = 0; i < sortedRoomsIds.length; i++) {
         if (sortedRoomsIds.length > (i + countFilters - 1) && sortedRoomsIds[i + countFilters - 1] === sortedRoomsIds[i]) {
-          this.roomById(sortedRoomsIds[i]).subscribe((room: RoomModel[]) => {
-            filteredRooms.push(room[0]);
-            resolve(filteredRooms);
-          });
-        } else if (!filteredRooms.length && sortedRoomsIds.length === i - 1) {
-          reject(filteredRooms);
+          filteredRooms.push(this.byId(rooms, sortedRoomsIds[i]));
         }
+        index++;
+      }
+      if (index === sortedRoomsIds.length) {
+        resolve(filteredRooms);
       }
     });
   }

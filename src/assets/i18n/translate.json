@@ -71,7 +71,8 @@
     "Sign in": "Sign in",
     "Password": "Password",
     "Language": "Language",
-    "Count of players": "Count of players"
+    "Count of players": "Count of players",
+    "minutes": "minutes"
   },
   "pl": {
     "Quests": "Zadania",
@@ -145,6 +146,7 @@
     "Sign in": "Zaloguj się",
     "Password": "Hasło",
     "Language": "Język",
-    "Count of players": "Liczba graczy"
+    "Count of players": "Liczba graczy",
+    "minutes": "minuty"
   }
 }

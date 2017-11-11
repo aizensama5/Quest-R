@@ -6,8 +6,8 @@
 <ul *ngIf="isShowListOptions" class="complexity">
   <li *ngFor="let item of listOptions" class="complexity__item checkbox-item">
     <input id="filter-checkbox-{{item.id}}"
-           type="checkbox"
-           name="complexity{{item.id}}"
+           type="radio"
+           name="complexity"
            [value]="item"
            (change)="updateListOptions($event, item)"
            [checked]="item.checked"

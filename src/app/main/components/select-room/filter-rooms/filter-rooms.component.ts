@@ -1,12 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ComplexityModel } from '../../../../models/complexity.model';
-import { MarkingModel } from '../../../../models/marking.model';
-import { MarkingService } from '../../../../service/marking.service';
-import { ComplexityService } from '../../../../service/complexity.service';
-import { GenreModel } from '../../../../models/genre.model';
-import { FilterModel } from '../../../../models/filter.model';
-import { RoomModel } from '../../../../models/room.model';
-import { RoomService } from '../../../../service/http/room.service';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {ComplexityModel} from '../../../../models/complexity.model';
+import {MarkingModel} from '../../../../models/marking.model';
+import {MarkingService} from '../../../../service/marking.service';
+import {ComplexityService} from '../../../../service/complexity.service';
+import {GenreModel} from '../../../../models/genre.model';
+import {FilterModel} from '../../../../models/filter.model';
+import {RoomModel} from '../../../../models/room.model';
+import {RoomService} from '../../../../service/http/room.service';
 
 @Component({
   moduleId: module.id,
@@ -48,11 +48,9 @@ export class FilterRoomsComponent implements OnInit {
 
   @Output() filteredRooms: EventEmitter<RoomModel[]> = new EventEmitter<RoomModel[]>();
 
-  constructor(
-    private markingService: MarkingService,
-    private complexityService: ComplexityService,
-    private roomService: RoomService
-  ) {
+  constructor(private markingService: MarkingService,
+              private complexityService: ComplexityService,
+              private roomService: RoomService) {
     markingService.all().subscribe((marking: MarkingModel[]) => {
       this.marking = marking;
     });
@@ -77,7 +75,6 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   filterRooms(): void {
-    console.log(this.filterArray);
     this.roomService.filterRooms(this.rooms, this.filterArray)
       .then((filteredRooms: RoomModel[]) => {
         this.filteredRooms.emit(filteredRooms);
@@ -115,6 +112,7 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   onChangeComplexity(complexity: ComplexityModel) {
+    console.log(complexity);
     this.filterArray.complexity = complexity;
   }
 
@@ -140,7 +138,7 @@ export class FilterRoomsComponent implements OnInit {
 
   deleteFilterMarkingItem(markingId: number) {
     const indexToRemove = this.filterArray.marking.findIndex(obj => obj.id === markingId);
-    this.filterArray.marking.splice(indexToRemove , 1);
+    this.filterArray.marking.splice(indexToRemove, 1);
   }
 
   onResize(event: any) {
