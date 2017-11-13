@@ -25,6 +25,17 @@
   &__delete {
     position: relative;
     color: #c21313;
+    font-size: 20px;
+  }
+}
+.filter-hint-marking {
+  ul {
+    li {
+      display: none;
+      &:last-child {
+        display: block;
+      }
+    }
   }
 }
 

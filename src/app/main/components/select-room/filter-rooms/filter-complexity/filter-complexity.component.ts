@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { ComplexityModel } from '../../../../../models/complexity.model';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {ComplexityModel} from '../../../../../models/complexity.model';
 
 @Component({
   moduleId: module.id,
@@ -11,15 +11,15 @@ export class FilterComplexityComponent {
 
   @Input() placeholder: string;
   @Input() listOptions: any[];
+  @Input() filterComplexity: ComplexityModel;
 
   @Output() onChangeComplexity: EventEmitter<ComplexityModel> = new EventEmitter<ComplexityModel>();
 
   private _isShowListOptions = false;
   private _listChecked: ComplexityModel[] = [];
 
-  constructor(
-    private eRef: ElementRef,
-  ) {}
+  constructor(private eRef: ElementRef,) {
+  }
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
@@ -32,7 +32,11 @@ export class FilterComplexityComponent {
     this.listOptions.forEach((list) => {
       list.checked = false;
     });
-    this.findCheckedValues();
+    if (!this.filterComplexity.id) {
+      this._listChecked = [];
+    } else {
+      this.findCheckedValues();
+    }
     this.isShowListOptions = !this.isShowListOptions;
   }
 
@@ -44,11 +48,9 @@ export class FilterComplexityComponent {
 
   findCheckedValues(): void {
     this.listOptions.forEach((opt: any) => {
-      this._listChecked.forEach((list: ComplexityModel) => {
-        if (opt.id === list.id) {
-          opt.checked = true;
-        }
-      });
+      if (opt.id === this._listChecked[this._listChecked.length - 1].id) {
+        opt.checked = true;
+      }
     });
   }
 

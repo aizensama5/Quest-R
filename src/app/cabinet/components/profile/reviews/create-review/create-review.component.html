@@ -1,4 +1,4 @@
-<div class="create-review-wrapper">
+<div class="create-review-wrapper" [class.main-loader]="isShowLoader">
   <h1 class="create-review-wrapper__title">{{ 'ADD A REVIEW' | translateS | async }}</h1>
   <div class="create-review">
     <div class="create-review__left">
@@ -44,3 +44,8 @@
   >{{ 'Add' | translateS | async }}
   </button>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

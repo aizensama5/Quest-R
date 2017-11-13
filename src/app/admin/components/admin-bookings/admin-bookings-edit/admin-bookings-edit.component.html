@@ -1,7 +1,7 @@
 <div class="admin" [class.main-loader]="isShowLoader">
   <h1 class="admin__title">
       <span><a [routerLink]="'/admin/dashboard/bookings'">Bookings</a>
-      </span> / User ({{ order.bookerData?.name }}) history for room ( {{ order.roomId | roomName }} )
+      </span> / User ({{ order.bookerData?.name }}) history for room ( {{ order.roomId | roomName | async }} )
   </h1>
   <div *ngIf="order.bookerData.userId">
     <div class="admin__row row">

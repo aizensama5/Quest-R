@@ -8,7 +8,7 @@
       <th class="history-table__header">{{ 'Photo' | translateS | async }}</th>
     </tr>
     <tr *ngFor="let history of historyData" class="history-table__content-wrapper">
-      <td class="history-table__content" align="center">{{ history?.roomId | roomName }}</td>
+      <td class="history-table__content" align="center">{{ history?.roomId | roomName | async }}</td>
       <td class="history-table__content" align="center">{{ history.bookingDate | date:'dd-MM-yyyy' }}</td>
       <td class="history-table__content" align="center">{{ history?.duration }}</td>
       <!--<td class="history-table__content" align="center">{{ history.review }}</td>-->

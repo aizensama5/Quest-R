@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService} from "../../../service/http/order.service";
 import { OrderModel} from "../../../models/order.model";
-import { DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-admin-bookings',

@@ -4,8 +4,16 @@
       <app-filter-complexity
         placeholder="{{ 'COMPLEXITY' | translateS | async }}"
         [listOptions]="complexity"
+        [filterComplexity]="filterArray.complexity"
         (onChangeComplexity)="onChangeComplexity($event)"
       ></app-filter-complexity>
+    </div>
+    <div class="filter-hint filter-hint-complexity" *ngIf="filterArray?.complexity.id">
+      <ul>
+        <li>
+          <i class="fa fa-close filter-hint__delete" (click)="deleteFilterComplexity()"></i>
+        </li>
+      </ul>
     </div>
   </li>
 
@@ -41,15 +49,17 @@
       <app-filter-marking
         placeholder="{{ 'MARKINGS' | translateS | async }}"
         [listOptions]="marking"
+        [filterMarking]="filterArray.marking"
         (onChangeMarking)="onChangeMarking($event)"
       ></app-filter-marking>
     </div>
-    <div class="filter-hint filter-hint-marking" *ngIf="filterArray?.marking">
+    <div class="filter-hint filter-hint-marking" *ngIf="filterArray?.marking && filterArray?.marking.length">
       <ul>
         <li *ngFor="let mark of filterArray?.marking; let i = index;">
           ({{ i + 1 }})
         </li>
       </ul>
+      <i class="fa fa-close filter-hint__delete" (click)="deleteFilterMarking()"></i>
     </div>
   </li>
 </ul>

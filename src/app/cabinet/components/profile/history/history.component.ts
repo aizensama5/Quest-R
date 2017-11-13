@@ -1,11 +1,8 @@
-import {Component} from '@angular/core';
-import {HistoryModel} from '../../../../models/profile/history.model';
-import {HistoryService} from '../../../../service/profile/history.service';
-import {ActivatedRoute} from "@angular/router";
-import {UserHistoryModel} from "../../../../models/user-history.model";
-import {DatePipe} from "@angular/common";
-import {ReviewModel} from "../../../../models/review.model";
-import {ReviewService} from "../../../../service/http/review.service";
+import { Component } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { UserHistoryModel } from "../../../../models/user-history.model";
+import { ReviewModel } from "../../../../models/review.model";
+import { ReviewService } from "../../../../service/http/review.service";
 
 @Component({
   selector: 'app-history',
@@ -16,9 +13,10 @@ export class HistoryComponent {
   historyData: UserHistoryModel[];
   reviews: ReviewModel[] = [];
 
-  constructor(private historyService: HistoryService,
-              private activatedRoute: ActivatedRoute,
-              private reviewService: ReviewService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private reviewService: ReviewService
+  ) {
     this.activatedRoute.data.subscribe((data) => {
       if (data['userHistory']) {
         this.historyData = data['userHistory'];

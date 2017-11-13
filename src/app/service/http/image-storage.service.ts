@@ -26,8 +26,8 @@ export class ImageStorageService {
     return deleteRef.delete();
   }
 
-  uploadFile(file: File, onSuccess?, onError?, onStateChange?) {
-    const imageRef = this.imagesRef.child(file.name + '_' + (+Date.now()));
+  uploadFile(fileName: string, file: File, onSuccess?, onError?, onStateChange?) {
+    const imageRef = this.imagesRef.child(fileName + '_' + (+Date.now()));
     const uploadTask = imageRef.put(file);
 
     uploadTask.on('state_changed', function (snapshot) {

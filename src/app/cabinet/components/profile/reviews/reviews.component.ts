@@ -1,16 +1,14 @@
-import {Component, OnInit } from '@angular/core';
-import { ProfileReviewModel } from '../../../../models/profile/profileReview.model';
-import { ProfileReviewService } from '../../../../service/profile/profileReview.service';
+import { Component, OnInit } from '@angular/core';
 import { PagerService } from '../../../../service/pager.service';
-import {ReviewModel} from '../../../../models/review.model';
-import {ActivatedRoute} from "@angular/router";
-import {UserHistoryModel} from "../../../../models/user-history.model";
-import {ReviewService} from "../../../../service/http/review.service";
-import {Observable} from "rxjs/Observable";
+import { ReviewModel } from '../../../../models/review.model';
+import { ActivatedRoute } from "@angular/router";
+import { UserHistoryModel } from "../../../../models/user-history.model";
+import { ReviewService } from "../../../../service/http/review.service";
+import { Observable } from "rxjs/Observable";
 import * as firebase from "firebase/app";
-import {AuthenticationService} from "../../../../service/http/authentication.service";
-import {RoomModel} from "../../../../models/room.model";
-import {RoomService} from "../../../../service/http/room.service";
+import { AuthenticationService } from "../../../../service/http/authentication.service";
+import { RoomModel } from "../../../../models/room.model";
+import { RoomService } from "../../../../service/http/room.service";
 
 @Component({
   selector: 'app-cabinet-reviews',
@@ -48,7 +46,7 @@ export class ReviewsComponent implements OnInit {
         }
       });
       this.reviewService.all().subscribe((reviews: ReviewModel[]) => {
-        this.reviewService.userReviews(reviews, this.user.uid)
+        this.reviewService.userReviews(this.reviewService.orderByIdDESC(reviews), this.user.uid)
           .then((userReviews: ReviewModel[]) => {
             this.reviews = userReviews;
             this.setPage(1);
@@ -92,7 +90,6 @@ export class ReviewsComponent implements OnInit {
   }
 
   onNewReviewAdded(review: ReviewModel) {
-    this.reviews.push(review);
     this.setPage(1);
   }
 

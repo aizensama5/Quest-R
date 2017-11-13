@@ -13,6 +13,7 @@ import { PipeModule } from "../pipe/pipe.module";
 import { TabsetInputComponent } from './tabset-input/tabset-input.component';
 import { GallerySliderComponent } from './gallery-slider/gallery-slider.component';
 import { SwiperModule } from "angular2-useful-swiper";
+import { NotificationPopupComponent } from './notification-popup/notification-popup.component';
 
 
 @NgModule ({
@@ -29,14 +30,16 @@ import { SwiperModule } from "angular2-useful-swiper";
     UploadImageComponent,
     LanguageTabsetComponent,
     TabsetInputComponent,
-    GallerySliderComponent
+    GallerySliderComponent,
+    NotificationPopupComponent
   ],
   exports: [
     LoginComponent,
     FormsModule,
     UploadImageComponent,
     LanguageTabsetComponent,
-    GallerySliderComponent
+    GallerySliderComponent,
+    NotificationPopupComponent
   ],
   providers: [
     PopupNotificationService,

@@ -11,6 +11,7 @@ export class FilterMarkingComponent {
 
   @Input() placeholder: string;
   @Input() listOptions: any[];
+  @Input() filterMarking: MarkingModel[] = [];
 
   @Output() onChangeMarking: EventEmitter<MarkingModel[]> = new EventEmitter<MarkingModel[]>();
 
@@ -33,7 +34,11 @@ export class FilterMarkingComponent {
     this.listOptions.forEach((list) => {
       list.checked = false;
     });
-    this.findCheckedValues();
+    if (!this.filterMarking.length) {
+      this._listChecked = [];
+    } else {
+      this.findCheckedValues();
+    }
     this.isShowListOptions = !this.isShowListOptions;
   }
 

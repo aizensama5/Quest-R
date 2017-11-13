@@ -1,5 +1,5 @@
 <div class="left-column">
-    <span class="left-column__name">{{ 'ROOM' | translateS | async }} "{{ profileReview.roomId | roomName }}"</span>
+    <span class="left-column__name">{{ 'ROOM' | translateS | async }} "{{ profileReview.roomId | roomName | async }}"</span>
     <span class="left-column__time">{{ profileReview.created | date: "dd.MM.yyyy" }}</span>
     <span class="left-column__time">{{ 'Date of the visit' | translateS | async }}: {{ profileReview.visited | date: "dd.MM.yyyy" }}</span>
 </div>

@@ -20,16 +20,15 @@ export class RoomNamePipe implements PipeTransform {
     })
   }
 
-  transform(roomId: number): string {
-    return this.getRoomNameByRoomId(roomId).name.def;
+  transform(roomId: number): Promise<string> {
+    return this.getRoomNameByRoomId(roomId);
   }
 
-  getRoomNameByRoomId(roomId: number): RoomModel {
-    let room: RoomModel = new RoomModel();
-    this.roomService.all().subscribe((rooms: RoomModel[]) => {
-      room = this.roomService.getRoomById(roomId, rooms);
+  getRoomNameByRoomId(roomId: number): Promise<string> {
+    return new Promise((resolve) => {
+      this.roomService.all().subscribe((rooms: RoomModel[]) => {
+        resolve(this.roomService.getRoomById(roomId, rooms).name.def);
+      });
     });
-    return room;
   }
-
 }

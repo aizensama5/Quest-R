@@ -9,12 +9,14 @@
   {{fileInfo.error}}
 </div>
 <input *ngIf="!isMultiple"
+       [class.download-button]="withStyling"
        type="file"
        (change)="onUploadPhoto($event)"
        placeholder="Upload file"
        accept=".jpeg,.png,.jpg,.svg,.gif">
 
 <input *ngIf="isMultiple"
+       [class.download-button]="withStyling"
        type="file"
        multiple
        (change)="onUploadPhoto($event)"

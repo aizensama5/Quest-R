@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
-import {UserHistoryModel} from "../models/user-history.model";
-import {OrderModel} from "../models/order.model";
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { UserHistoryModel } from "../models/user-history.model";
 
 @Injectable()
 export class UserHistoryService {
@@ -25,6 +24,12 @@ export class UserHistoryService {
       });
   }
 
+  sortByExitstingPhotos(userHistories: UserHistoryModel[]): UserHistoryModel[] {
+    return userHistories.sort(function(a, b) {
+      return a.photos && a.photos.length && b.photos && b.photos.length ? +a.id - +b.id : +a.id - +b.id;
+    });
+  }
+
   getUserHistoriesById(userId: string): FirebaseListObservable<UserHistoryModel[]> {
     return <FirebaseListObservable<UserHistoryModel[]>>this.databaseService
       .list(UserHistoryService.dataBaseName + userId)
@@ -33,7 +38,6 @@ export class UserHistoryService {
   getAvailableUserHistoryByRoomId(userHistories: UserHistoryModel[], roomId: number): Promise<UserHistoryModel[]> {
     return new Promise((resolve) => {
       let userHistoriesByRoomId: UserHistoryModel[] = [];
-      console.log(userHistories);
       userHistories.forEach((userHistory: UserHistoryModel) => {
         if (userHistory.roomId === +roomId) {
           userHistoriesByRoomId.push(userHistory);

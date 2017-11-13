@@ -29,14 +29,14 @@
               <tbody>
                 <tr *ngFor="let order of orders">
                   <td class="text-center sorting_1"><p>{{ order?.id }}</p></td>
-                  <td class="text-center"><p>{{ order.roomId | roomName }}</p></td>
+                  <td class="text-center"><p>{{ order.roomId | roomName | async }}</p></td>
                   <td class="text-center"><p>{{ order.bookerData.userId | userName }}</p></td>
                   <td class="text-center"><p>{{ order.bookerData.email }}</p></td>
                   <td class="text-center"><p>{{ order.bookerData.phone }}</p></td>
-                  <td class="text-center"><p>{{ order?.bookingDate | date:'yyyy-mm-dd HH:mm' }}</p></td>
+                  <td class="text-center"><p>{{ order?.bookingDate | date: "dd.MM.yyyy HH:mm" }}</p></td>
                   <td class="text-center"><p>{{ order.bookerData.countOfPlayers }}</p></td>
                   <td class="text-center"><p>{{ order.price }}</p></td>
-                  <td class="text-center"><p>{{ order?.creationDate | date:'yyyy-mm-dd HH:mm' }}</p></td>
+                  <td class="text-center"><p>{{ order?.creationDate | date: "dd.MM.yyyy HH:mm" }}</p></td>
                   <td class="text-center">
                     <input [(ngModel)]="order.confirmed" type="checkbox" [checked]="order.confirmed">
                   </td>
