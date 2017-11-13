@@ -17,7 +17,7 @@
                     <div *ngIf="rsrvItem.time && tm == rsrvItem.time">
                       <div class="reservation-table__item"
                            *ngIf="rsrvItem.isActive"
-                           (click)="onSelectedItem(rsrvItem, rsrv[2])"
+                           (click)="onSelectedItem(rsrvItem, rsrv[2], rsrv[1].dayId)"
                            [ngStyle]="{'background-color': rsrvItem?.background }">
                         <div class="reservation-table__item-info">
                           <p class="reservation-table__item-info--price">{{rsrvItem?.price}}</p>

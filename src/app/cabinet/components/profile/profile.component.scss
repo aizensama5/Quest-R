@@ -12,12 +12,13 @@
       display: flex;
       justify-content: space-between;
     }
-    .profile-block {
+    .profile-block.profile-block--small {
+      width: 25%;
       margin: 0 20px;
-      &__small {
-        width: 25%;
-      }
-
+    }
+    .profile-block {
+      margin: 0 50px;
+      width: 30%;
       &__image {
         margin: auto;
         background-size: cover;

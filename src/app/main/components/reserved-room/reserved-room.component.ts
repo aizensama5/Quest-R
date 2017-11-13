@@ -49,31 +49,37 @@ export class ReservedRoomComponent implements OnInit {
               public timeService: TimeService,
               public orderService: OrderService) {
     this.getAllRooms();
-    this.store.select(mainReducer.getRoom).subscribe((room: RoomModel) => {
-      if (room) {
-        this.room = room;
-        this.orderService.roomOrders(this.room.id).subscribe((roomOrders: OrderModel[]) => {
-          this.roomOrders = roomOrders;
-        });
-        this.generateReservationTable()
-          .then((reservationData: ReservationModel[]) => {
-            this.reservationData = reservationData;
-            this.reservationDays = reservationService.days();
-            this.currentDayOfWeek = reservationService.getCurrentDayOfWeek(this.reservationDays[0].day);
-            this.roomReservationData = reservationService.prepareReservationData(reservationData, this.currentDayOfWeek);
-            this.timeList = this.getTime(this.getTimeList());
-            this.onSelectRoom(room);
-          });
-
-      }
-    });
-    this.roomId = parseInt(this.route.snapshot.params.id, 10);
-    this.isOpenedRoomPage = !!this.roomId;
-    if (this.isOpenedRoomPage) {
-      this.roomService.roomById(this.roomId).subscribe((room: RoomModel[]) => {
-        this.onSelectRoom(room[0]);
+    if (+this.route.snapshot.params.id) {
+      this.isOpenedRoomPage = true;
+      this.roomService.roomById(+this.route.snapshot.params.id).subscribe((room: RoomModel[]) => {
+        this.room = room[0];
+        this.selectedRoom = room[0];
+        this.initializeReserveCalendar();
+      });
+    } else {
+      this.store.select(mainReducer.getRoom).subscribe((room: RoomModel) => {
+        if (room) {
+          this.selectedRoom = room;
+          this.room = room;
+          this.initializeReserveCalendar();
+        }
       });
     }
+  }
+
+  initializeReserveCalendar(): void {
+    this.orderService.roomOrders(this.room.id).subscribe((roomOrders: OrderModel[]) => {
+      this.roomOrders = roomOrders;
+    });
+    this.generateReservationTable()
+      .then((reservationData: ReservationModel[]) => {
+        this.reservationData = reservationData;
+        this.reservationDays = this.reservationService.days();
+        this.currentDayOfWeek = this.reservationService.getCurrentDayOfWeek(this.reservationDays[0].day);
+        this.roomReservationData = this.reservationService.prepareReservationData(reservationData, this.currentDayOfWeek);
+        this.timeList = this.getTime(this.getTimeList());
+        this.onSelectRoom(this.room);
+      });
   }
 
   isReservationSlotActive(timeSlotId: string): boolean {
@@ -176,7 +182,6 @@ export class ReservedRoomComponent implements OnInit {
         dayIndex++;
       }
     }
-    console.log(resData);
     return resData;
   }
 

@@ -12,6 +12,9 @@ import { GalleryModel } from '../../../models/profile/gallery.model';
 import { GalleryService } from '../../../service/profile/gallery.service';
 import { ReviewModel } from '../../../models/review.model';
 import { ReviewService } from '../../../service/http/review.service';
+import {UserHistoryService} from "../../../service/user-history.service";
+import {UserHistoryModel} from "../../../models/user-history.model";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -23,30 +26,27 @@ import { ReviewService } from '../../../service/http/review.service';
 export class ProfileComponent {
   user$: Observable<firebase.User>;
   private user: any;
-  userOrderInfo: OrderModel[];
-  _passedRooms: RoomModel[] = [];
+  userHistories: UserHistoryModel[];
   _rooms: RoomModel[] = [];
   _gallery: GalleryModel[] = [];
-  _reviews: ReviewModel[] = [];
+  reviews: ReviewModel[] = [];
 
   constructor(
     private authService: AuthenticationService,
-    private orderService: OrderService,
     private roomService: RoomService,
     private galleryService: GalleryService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private userHistoryService: UserHistoryService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.rooms();
     this.user$ = authService.currentUser();
     this.user$.subscribe((user: any) => {
       this.user = user;
-      if (user) {
-        orderService.all().subscribe((orderInfo: OrderModel[]) => {
-          this.userOrderInfo = orderService.userOrders(orderInfo, user.uid);
-          this._passedRooms = this.passedRooms(this.userOrderInfo);
-          this.gallery(user.uid);
-          this.reviews(user.uid);
-        });
+    });
+    this.activatedRoute.data.subscribe((data) => {
+      if (data['userHistory']) {
+        this.userHistories = data['userHistory'];
       }
     });
   }
@@ -66,12 +66,6 @@ export class ProfileComponent {
   gallery(userId: string) {
     this.galleryService.userGallery(userId).subscribe((gallery: GalleryModel[]) => {
       this._gallery = gallery;
-    });
-  }
-
-  reviews(userId: string) {
-    this.reviewService.userReviews(userId).subscribe((reviews: ReviewModel[]) => {
-      this._reviews = reviews;
     });
   }
 

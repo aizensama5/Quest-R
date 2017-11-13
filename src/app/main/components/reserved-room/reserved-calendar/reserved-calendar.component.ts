@@ -33,16 +33,16 @@ export class ReservedCalendarComponent {
     lazyLoading: true,
   };
 
-  constructor(public reservationService: ReservationService, public timeService: TimeService) {
-  }
+  constructor(public reservationService: ReservationService, public timeService: TimeService) {}
 
   convert(day: string) {
     return this.reservationService.convertDateSeparatedBySlash(day);
   }
 
-  onSelectedItem(item: TimeModel[], day: string) {
+  onSelectedItem(item: TimeModel[], day: string, dayId: number) {
     this.timeTableItem.time = item;
     this.timeTableItem.day = day;
+    this.timeTableItem.dayId = dayId;
     this.selectedItem.emit(this.timeTableItem);
     this.scrollToReserveForm();
   }

@@ -3,8 +3,8 @@ import { FirebaseUtils } from '../shared/firebase.utils';
 export class ReviewModel {
   id: number;
   roomId: number;
-  userId: number;
-  created: string;
+  userId: string;
+  created: number;
   visited: string;
   title: string;
   review: string;
@@ -33,8 +33,8 @@ export class ReviewModel {
   constructor () {
     this.id = null;
     this.roomId = null;
-    this.userId = null;
-    this.created = '';
+    this.userId = '';
+    this.created = null;
     this.visited = '';
     this.title = '';
     this.review = '';

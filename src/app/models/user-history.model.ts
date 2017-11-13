@@ -1,4 +1,5 @@
 import {PhotoModel} from "./profile/photo.model";
+import {ReviewModel} from "./review.model";
 
 export class UserHistoryModel {
   id: string;
@@ -6,6 +7,8 @@ export class UserHistoryModel {
   roomId: number;
   duration: string;
   photos: PhotoModel[];
+  bookingDate?: any;
+  review?: ReviewModel;
 
   constructor() {
     this.id = '';

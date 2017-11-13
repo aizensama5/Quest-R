@@ -11,6 +11,8 @@ import { TabsModule } from "ngx-tabs";
 import { LanguageTabsetComponent } from "./tabset/tabset.component";
 import { PipeModule } from "../pipe/pipe.module";
 import { TabsetInputComponent } from './tabset-input/tabset-input.component';
+import { GallerySliderComponent } from './gallery-slider/gallery-slider.component';
+import { SwiperModule } from "angular2-useful-swiper";
 
 
 @NgModule ({
@@ -18,6 +20,7 @@ import { TabsetInputComponent } from './tabset-input/tabset-input.component';
     CommonModule,
     RouterModule,
     FormsModule,
+    SwiperModule,
     TabsModule,
     PipeModule
   ],
@@ -25,13 +28,15 @@ import { TabsetInputComponent } from './tabset-input/tabset-input.component';
     LoginComponent,
     UploadImageComponent,
     LanguageTabsetComponent,
-    TabsetInputComponent
+    TabsetInputComponent,
+    GallerySliderComponent
   ],
   exports: [
     LoginComponent,
     FormsModule,
     UploadImageComponent,
-    LanguageTabsetComponent
+    LanguageTabsetComponent,
+    GallerySliderComponent
   ],
   providers: [
     PopupNotificationService,

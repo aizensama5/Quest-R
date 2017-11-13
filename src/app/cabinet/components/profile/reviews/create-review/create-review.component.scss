@@ -3,6 +3,7 @@
 :host /deep/ {
   width: 100%;
   height: auto;
+  margin-bottom: 40px;
   .create-review-wrapper {
   margin: 57px auto 14px;
   max-width: 960px;
@@ -47,7 +48,7 @@
     }
     &__textarea {
       width: 563px;
-      height: 105px;
+      height: 125px;
       @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
       resize: none;
       padding: 10px;

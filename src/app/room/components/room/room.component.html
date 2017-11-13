@@ -1,6 +1,13 @@
 <div class="room-info-wrapper" *ngIf="room">
   <div class="room-info">
-    <div class="room-info__image" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"></div>
+    <div class="room-info__image"
+         (click)="onGalleryOpen()"
+         [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"
+    ></div>
+    <app-gallery-slider *ngIf="isShowRoomGallery"
+                        [galleryData]="room.gallery"
+                        (onGalleryClose)="onGalleryClose($event)"
+    ></app-gallery-slider>
     <div class="room-info__info">
       <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{ room?.name | translateD }}"</h3>
       <p class="room-info__info-description">
@@ -9,7 +16,7 @@
       <div class="room-info__details">
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/clock.svg" alt="img details genre">
-          <span class="room-info__details-text">{{room?.duration}}</span>
+          <span class="room-info__details-text">{{room?.duration}} {{ 'minutes' | translateS | async }}</span>
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/clock.svg" alt="img details clock">
@@ -17,7 +24,9 @@
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-          <span class="room-info__details-text">{{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} people</span>
+          <span class="room-info__details-text">
+            {{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} {{ 'people' | translateS | async }}
+          </span>
         </div>
       </div>
       <div class="room-info__details-item room-info__details-additional" *ngFor="let mark of room?.marking">

@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { RoomService } from "../service/http/room.service";
 import { RoomModel } from "../models/room.model";
 import { ActivatedRoute } from "@angular/router";
+import {Observable} from "rxjs/Observable";
 
 
 @Pipe({

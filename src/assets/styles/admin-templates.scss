@@ -175,18 +175,6 @@ input[type=file] {
   }
 }
 
-.delete-icon {
-  position: absolute;
-  top: 0;
-  right: -18px;
-  color: #c21313;
-  cursor: pointer;
-  transition: .3s ease-in;
-  &:hover {
-    transform: scale(1.2);
-  }
-}
-
 .tabset-wrap {
   margin-bottom: 20px;
   background: #fff;

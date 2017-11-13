@@ -36,11 +36,12 @@ export class AdminBookingsEditComponent implements OnInit {
               private userHistoryService: UserHistoryService) {
     this.isShowLoader = true;
     this.activateRoute.data.subscribe((data) => {
+      console.log(data['order']);
       if (data['order']) {
         this.order = data['order'];
-        this.userHistoryService.getUserHistoryById(this.order.bookerData.userId, this.order.id)
+        this.userHistoryService.getRoomHistoryById(this.order.roomId, this.order.id)
           .subscribe((userHistory: UserHistoryModel[]) => {
-            this.userHistory = userHistory[0];
+            this.userHistory = userHistory.length ? userHistory[0] : this.userHistory;
             this.isShowLoader = false;
           })
       }

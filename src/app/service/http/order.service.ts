@@ -29,14 +29,19 @@ export class OrderService {
       .list(OrderService.dataBaseName + roomId);
   }
 
-  userOrders(orderList: OrderModel[], userId: string): OrderModel[] {
-    const userOrdersInfo: OrderModel[] = [];
-    orderList.forEach((order: OrderModel) => {
-      if (order.bookerData.userId === userId && order.is_passed) {
-        userOrdersInfo.push(order);
-      }
+  userOrders(orderList: OrderModel[], userId: string): Promise<OrderModel[]> {
+    return new Promise((resolve) => {
+      const userOrdersInfo: OrderModel[] = [];
+      console.log(orderList);
+      orderList.forEach((order: any) => {
+        for (let o in order) {
+          if (order[o].bookerData.userId === userId) {
+            userOrdersInfo.push(order[o]);
+          }
+        }
+        resolve(userOrdersInfo);
+      });
     });
-    return userOrdersInfo;
   }
 
   all(): FirebaseListObservable<any[]> {

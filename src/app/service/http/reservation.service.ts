@@ -51,6 +51,7 @@ export class ReservationService {
   }
 
   prepareReservationData(reservationData: ReservationModel[], dayStart: number): ReservationModel[] {
+    dayStart = dayStart === 0 ? 7 : dayStart;
     reservationData.forEach((resDataReserv: ReservationModel) => {
       if (resDataReserv.dayId === dayStart) {
         reservationData = reservationData

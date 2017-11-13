@@ -34,6 +34,8 @@ import { CreateReviewComponent } from './components/profile/reviews/create-revie
 import { AuthenticationService } from '../service/http/authentication.service';
 import { UserRoomHistoryService } from '../service/http/user-room-history.service';
 import {PipeModule} from "../pipe/pipe.module";
+import {UserHistoryResolverService} from "../service/user-history-resolver.service";
+import {UserHistoryService} from "../service/user-history.service";
 
 @NgModule({
   imports: [
@@ -69,7 +71,9 @@ import {PipeModule} from "../pipe/pipe.module";
     ProfileReviewService,
     AuthenticationService,
     UserRoomHistoryService,
-    GalleryService
+    GalleryService,
+    UserHistoryResolverService,
+    UserHistoryService
   ]
 })
 export class CabinetModule {

@@ -4,12 +4,15 @@
   </div>
 </div>
 <div class="reviews__pagination">
-  {{ 'See more reviews' | translateS | async }}:
+  <p *ngIf="reviews && reviews.length">{{ 'See more reviews' | translateS | async }}:</p>
   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
     <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
       <a (click)="setPage(page)">{{page}}</a>
     </li>
   </ul>
 </div>
-<app-create-review (onNewReviewAdded)="onNewReviewAdded($event)"></app-create-review>
+<app-create-review (onNewReviewAdded)="onNewReviewAdded($event)"
+                   [rooms]="passedRooms"
+                   [userHistories]="userHistories"
+></app-create-review>
 

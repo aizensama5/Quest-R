@@ -48,6 +48,18 @@ a {
   text-decoration: none;
 }
 
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: -18px;
+  color: #c21313;
+  cursor: pointer;
+  transition: .3s ease-in;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
 body {
   min-height: 100%;
   height: auto;
@@ -56,4 +68,10 @@ body {
 
 .non-visible {
   visibility: hidden;
+}
+
+.active-profile-menu-item {
+  color: #000 !important;
+  transition: .2s ease-in;
+  opacity: 1 !important;
 }

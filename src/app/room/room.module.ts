@@ -7,6 +7,8 @@ import { RoomRoutingModule } from './room-routing.module';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '../layout/layout.module';
 import { PipeModule } from "../pipe/pipe.module";
+import { SharedModule } from "../shared/shared.module";
+import { SwiperModule } from "angular2-useful-swiper";
 
 
 @NgModule({
@@ -15,9 +17,11 @@ import { PipeModule } from "../pipe/pipe.module";
     CommonModule,
     RouterModule,
     LayoutModule,
+    SwiperModule,
     RoomRoutingModule,
     MainModule,
-    PipeModule
+    PipeModule,
+    SharedModule
   ],
   exports: [
     RoomMainComponent

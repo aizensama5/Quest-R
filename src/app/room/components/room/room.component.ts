@@ -15,6 +15,7 @@ import {MarkingModel} from '../../../models/marking.model';
 export class RoomInfoComponent {
   room: RoomModel;
   rooms: RoomModel[] = [];
+  isShowRoomGallery = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,5 +34,13 @@ export class RoomInfoComponent {
         });
       });
     });
+  }
+
+  onGalleryOpen() {
+    this.isShowRoomGallery = true;
+  }
+
+  onGalleryClose(isDisplay: boolean) {
+    this.isShowRoomGallery = isDisplay;
   }
 }

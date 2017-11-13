@@ -42,6 +42,12 @@
       &:last-child { margin-top: auto; }
     }
 
+    &__list-item-price {
+      display: inline-block;
+      padding-left: 2px;
+      transition: .2s ease-in;
+    }
+
     &__form {
       display: flex;
       width: 250px;

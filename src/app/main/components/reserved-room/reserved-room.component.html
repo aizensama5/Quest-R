@@ -3,7 +3,8 @@
                               (selectedRoom)="onSelectRoom($event)"
                               [isOpenedRoomPage]="isOpenedRoomPage"
 ></app-layout-select-list-rooms>
-<app-main-reserved-calendar (selectedItem)="onSelectItem($event)"
+<app-main-reserved-calendar  id="reserve-calendar"
+                            (selectedItem)="onSelectItem($event)"
                             [showReservationTable]="showReservationTable"
                             [room]="selectedRoom"
                             [roomReservationData]="roomReservationData"

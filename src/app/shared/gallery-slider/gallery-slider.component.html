@@ -1,0 +1,16 @@
+<div class="gallery-slider" *ngIf="galleryData && galleryData.length && sliderConfig">
+  <swiper [config]="sliderConfig" class="gallery-slider__swiper">
+    <div class="swiper-wrapper swiper__wrapper" id="swiper-wrapper-gallery">
+      <div class="swiper-slide swiper__slide"
+           id="swiper-slide-gallery"
+           *ngFor="let gallery of galleryData; let i = index;">
+        <div class="swiper__data-item-logo swiper__data-item-logo-gallery"
+             [ngStyle]="{'background-image': 'url(' + gallery?.path + ')'}">
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev gallery-swiper-button-prev"></div>
+    <div class="swiper-button-next gallery-swiper-button-next"></div>
+  </swiper>
+  <i class="fa fa-close delete-icon gallery-close" (click)="closeGallerySlider()"></i>
+</div>
