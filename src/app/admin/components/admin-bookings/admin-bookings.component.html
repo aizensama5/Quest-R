@@ -6,7 +6,7 @@
         <p class="admin__content-title">User's bookings</p>
         <div class="admin__data">
           <div class="admin__top">
-            <table *ngIf="orders"
+            <table *ngIf="orders && orders.length"
                    datatable
                    id="review-table"
                    class="table table-striped table-bordered table-hover dataTable no-footer"
@@ -27,43 +27,39 @@
               </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let order of orders">
-                  <td class="text-center sorting_1"><p>{{ order?.id }}</p></td>
-                  <td class="text-center"><p>{{ order.roomId | roomName | async }}</p></td>
-                  <td class="text-center"><p>{{ order.bookerData.userId | userName }}</p></td>
-                  <td class="text-center"><p>{{ order.bookerData.email }}</p></td>
-                  <td class="text-center"><p>{{ order.bookerData.phone }}</p></td>
-                  <td class="text-center"><p>{{ order?.bookingDate | date: "dd.MM.yyyy HH:mm" }}</p></td>
-                  <td class="text-center"><p>{{ order.bookerData.countOfPlayers }}</p></td>
-                  <td class="text-center"><p>{{ order.price }}</p></td>
-                  <td class="text-center"><p>{{ order?.creationDate | date: "dd.MM.yyyy HH:mm" }}</p></td>
-                  <td class="text-center">
-                    <input [(ngModel)]="order.confirmed" type="checkbox" [checked]="order.confirmed">
-                  </td>
-                  <td class="text-center">
-                    <a [routerLink]="'/admin/dashboard/bookings/' + order.id + '/edit'">
-                      <i class="fa fa-edit"></i>
-                      Edit
-                    </a>
-                  </td>
-                </tr>
+              <tr *ngFor="let order of orders">
+                <td class="text-center sorting_1"><p>{{ order?.id }}</p></td>
+                <td class="text-center"><p>{{ order.roomId | roomName | async }}</p></td>
+                <td class="text-center"><p>{{ order.bookerData.userId | userName }}</p></td>
+                <td class="text-center"><p>{{ order.bookerData.email }}</p></td>
+                <td class="text-center"><p>{{ order.bookerData.phone }}</p></td>
+                <td class="text-center"><p>{{ order?.bookingDate | date: "dd.MM.yyyy HH:mm" }}</p></td>
+                <td class="text-center"><p>{{ order.bookerData.countOfPlayers }}</p></td>
+                <td class="text-center"><p>{{ order.price }}</p></td>
+                <td class="text-center"><p>{{ order?.creationDate | date: "dd.MM.yyyy HH:mm" }}</p></td>
+                <td class="text-center">
+                  <input [(ngModel)]="order.confirmed" type="checkbox" [checked]="order.confirmed">
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="'/admin/dashboard/bookings/' + order.id + '/edit'">
+                    <i class="fa fa-edit"></i>
+                    Edit
+                  </a>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>
           <div class="admin-btn-wrap">
             <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
           </div>
-          <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
-            <div class="popup">
-              <i class="popup-close fa fa-close" (click)="closePopup()"></i>
-              <div class="popup-content">
-                <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
-              </div>
-              <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

@@ -1,18 +1,20 @@
-<h3 class="reviews__title title">{{ 'REVIEWS' | translateS | async }}</h3>
-<div class="reviews__list">
+<div *ngIf="reviews && reviews.length">
+  <h3 class="reviews__title title">{{ 'REVIEWS' | translateS | async }}</h3>
+  <div class="reviews__list">
     <div class="reviews__list-item" *ngFor="let review of pagedItems">
-        <app-main-review [review]="review"></app-main-review>
+      <app-main-review [review]="review"></app-main-review>
     </div>
-</div>
-<div class="reviews__pagination">
-  {{ 'See more reviews' | translateS | async }}:
+  </div>
+  <div class="reviews__pagination">
+    {{ 'See more reviews' | translateS | async }}:
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-        </li>
+      <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
     </ul>
+  </div>
 </div>
 <h4 class="reviews__auth">
   {{ 'You must log in to mark the room' | translateS | async }}
 </h4>
-<a href="facebook.com" class="share-button">{{ 'Sign in with Facebook' | translateS | async }}</a>
+<a class="share-button" (click)="facebookLogin()">{{ 'Sign in with Facebook' | translateS | async }}</a>

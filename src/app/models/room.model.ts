@@ -19,6 +19,7 @@ export class RoomModel {
   level: string;
   openingDate: string;
   position: Marker;
+  address: LanguageModel;
   ganre: GenreModel;
   displayOnMain: boolean;
   countPlayers: PlayerModel;
@@ -57,6 +58,7 @@ export class RoomModel {
     this.level = '';
     this.openingDate = '';
     this.position = new Marker();
+    this.address = new LanguageModel();
     this.ganre = new GenreModel();
     this.displayOnMain = false;
     this.countPlayers = new PlayerModel();

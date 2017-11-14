@@ -17,7 +17,6 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.body.style.backgroundColor = 'none';
-    document.body.style.backgroundImage = 'linear-gradient(214deg, #000000, #2a2c2e 54%, #131313);';
+
   }
 }

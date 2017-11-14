@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['main.component.scss']
 })
 
-export class RoomMainComponent {}
+export class RoomMainComponent implements OnInit {
+  target = 'toolbar';
+  ngOnInit() {
+    if (document.getElementById(this.target)) {
+      document.getElementById(this.target).scrollIntoView({
+        block: 'start'
+      });
+    }
+  }
+}

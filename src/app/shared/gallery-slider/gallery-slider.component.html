@@ -6,11 +6,11 @@
            *ngFor="let gallery of galleryData; let i = index;">
         <div class="swiper__data-item-logo swiper__data-item-logo-gallery"
              [ngStyle]="{'background-image': 'url(' + gallery?.path + ')'}">
+          <i class="fa fa-close delete-icon gallery-close" (click)="closeGallerySlider()"></i>
         </div>
       </div>
     </div>
     <div class="swiper-button-prev gallery-swiper-button-prev"></div>
     <div class="swiper-button-next gallery-swiper-button-next"></div>
   </swiper>
-  <i class="fa fa-close delete-icon gallery-close" (click)="closeGallerySlider()"></i>
 </div>

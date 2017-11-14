@@ -40,6 +40,34 @@
                 </option>
               </select>
             </div>
+            <div class="admin-rooms-edit__data-item admin-rooms-edit__data-item-position form-group">
+              <div class="admin-rooms-edit__data-item-position-x">
+                <label class="admin-label" for="room-position-x">
+                  Coordinate latitude
+                </label>
+                <input type="number"
+                       id="room-position-x"
+                       class="form-control admin-input"
+                       step="0.0000001"
+                       min="-90"
+                       max="90"
+                       [(ngModel)]="room.position.latitude"
+                >
+              </div>
+              <div class="admin-rooms-edit__data-item-position-x">
+                <label class="admin-label" for="room-position-y">
+                  Coordinate longitude
+                </label>
+                <input type="number"
+                       id="room-position-y"
+                       class="form-control admin-input"
+                       step="0.0000001"
+                       min="-180"
+                       max="180"
+                       [(ngModel)]="room.position.longitude"
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -126,6 +154,7 @@
               <p class="admin-rooms-edit__data-item-title">Special markings</p>
               <div class="admin-rooms-edit__data-item-checkbox" *ngFor="let marking of markings; let i = index;">
                 <input id="marking-{{marking.id}}"
+                       (change)="onRoomMarkingChange($event, marking)"
                        type="checkbox"
                        value="{{ marking.id }}"
                        [checked]="marking.checked"
@@ -143,13 +172,23 @@
           <p class="admin-rooms-edit__content-title">Texts</p>
           <div class="admin-rooms-edit__data">
             <div class="admin-rooms-edit__data-item">
-              <label class="admin-label" for="room-description">
+              <label class="admin-label">
                 Room description - all changes to this field are MODERATED and will be visible on website WITH DELAY
               </label>
               <app-tabset [useTabsetWithTextarea]="useTabsetWithTextarea"
                           id="room-description"
                           [tabsetModel]="room.description"
                           (onTabsetChanged)="onRoomDescriptionTabsetChanged($event)"
+              ></app-tabset>
+            </div>
+            <div class="admin-rooms-edit__data-item">
+              <label class="admin-label">
+                Room address
+              </label>
+              <app-tabset [useTabsetWithTextarea]="useTabsetWithTextarea"
+                          id="room-address"
+                          [tabsetModel]="room.address"
+                          (onTabsetChanged)="onRoomAddressTabsetChanged($event)"
               ></app-tabset>
             </div>
           </div>
@@ -175,6 +214,16 @@
                        (click)="activateRoom()"
                        type="checkbox"
                        [checked]="room.active"
+                />
+              </div>
+            </div>
+            <div class="form-group" *ngIf="room.active">
+              <div class="checkbox">
+                <label for="room-is-initially-displayed">Initially display on main room?</label>
+                <input [(ngModel)]="room.displayOnMain"
+                       id="room-is-initially-displayed"
+                       type="checkbox"
+                       [checked]="room.displayOnMain"
                 />
               </div>
             </div>
@@ -215,18 +264,12 @@
     <div class="admin-btn-wrap admin-rooms-edit__btn">
       <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
     </div>
-    <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
-      <div class="popup">
-        <i class="popup-close fa fa-close delete-icon" (click)="closePopup()"></i>
-        <div class="popup-content">
-          <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
-          <div class="popup-confirmation"
-               *ngIf="isShowConfirmButton"
-               (click)="deleteRoom()">YES
-          </div>
-        </div>
-        <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
-      </div>
-    </div>
   </div>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        [isShowConfirmButton]="isShowConfirmButton"
+                        (onConfirmEvent)="deleteRoom()"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

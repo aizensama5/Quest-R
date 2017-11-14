@@ -17,6 +17,7 @@ import {DaysSettingsService} from "../../../../service/days-settings.service";
 import {DaysModel} from "../../../../models/days.model";
 import {AvailableHoursModel} from "../../../../models/available-hours.model";
 
+
 @Component({
   selector: 'app-admin-rooms-edit',
   templateUrl: './admin-rooms-edit.component.html',
@@ -233,7 +234,7 @@ export class AdminRoomsEditComponent implements OnInit {
   confirmDeleteRoom() {
     this.isShowConfirmButton = true;
     this.isShowNotificationPopup = true;
-    this.notificationPopupMessage = 'Delete ' + this.room.name + '?';
+    this.notificationPopupMessage = 'Delete ' + this.room.name.def + '?';
   }
 
   save() {
@@ -242,6 +243,7 @@ export class AdminRoomsEditComponent implements OnInit {
     this.isRoomActivate()
       .then((isRoomActive) => {
         this.room.active = isRoomActive;
+        this.room.displayOnMain = !this.room.active && this.room.displayOnMain ? this.room.active : this.room.displayOnMain;
         this.roomService.addRoom(this.room)
           .then(() => {
             this.isShowLoader = false;
@@ -254,6 +256,37 @@ export class AdminRoomsEditComponent implements OnInit {
             this.notificationPopupMessage = 'Error';
           });
       });
+  }
+
+  onRoomMarkingChange(event: any, marking: MarkingModel) {
+    let index = 0;
+    this.room.marking = this.orderByIdASC(this.room.marking);
+    if (event.target.checked) {
+      this.room.marking.push(marking);
+      this.sortMarkings();
+    } else {
+      this.room.marking.forEach((mark: MarkingModel) => {
+        if (mark.id === marking.id) {
+          this.sortMarkings();
+          this.room.marking.splice(index, 1);
+        }
+        index++;
+      });
+    }
+  }
+
+  sortMarkings() {
+    let i = 0;
+    this.room.marking.forEach((mark: MarkingModel) => {
+      this.room.marking[i] = mark;
+      i++;
+    });
+  }
+
+  orderByIdASC(roomsMarkings: MarkingModel[]): MarkingModel[] {
+    return roomsMarkings.sort(function(a, b) {
+      return a.id - b.id;
+    });
   }
 
   closePopup() {
@@ -275,6 +308,10 @@ export class AdminRoomsEditComponent implements OnInit {
     this.room.description = tabsetInfo;
   }
 
+  onRoomAddressTabsetChanged(tabsetInfo: LanguageModel) {
+    this.room.address = tabsetInfo;
+  }
+
   isRoomActivate(): Promise<boolean> {
     return new Promise((resolve) => {
       if (
@@ -282,6 +319,7 @@ export class AdminRoomsEditComponent implements OnInit {
         && this.room.countPlayers.maxCountPlayers && this.room.name.en && this.room.name.pl
         && this.room.description.en && this.room.description.pl
         && this.room.duration && this.room.img && this.room.ganre.id && this.room.level
+        && this.room.address.en && this.room.address.pl && this.room.position.longitude && this.room.position.latitude
       ) {
         resolve(true);
       } else {

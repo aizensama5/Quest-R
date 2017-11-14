@@ -4,6 +4,7 @@ import {RoomModel} from '../../../models/room.model';
 import {Store} from '@ngrx/store';
 import * as mainReducer from '../../../reducers';
 import {Observable} from 'rxjs/Observable';
+import * as roomAction from '../../../action/room.action';
 
 @Component({
   moduleId: module.id,
@@ -41,6 +42,6 @@ export class SelectListRoomsComponent implements OnInit {
   }
 
   onSelectedRoom() {
-    this.selectedRoom.emit(this.sRoom);
+    this.store.dispatch(new roomAction.Select(this.sRoom));
   }
 }

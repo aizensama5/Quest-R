@@ -58,15 +58,15 @@ export class ReviewService {
     return reviews.filter((review: ReviewModel) => review.userId === userId && review.visited === orderId)[0];
   }
 
-  roomReviews (roomId: number, reviews?: ReviewModel[]) {
-    let allReviews: ReviewModel[] = [];
-    if (reviews.length) {
-      allReviews = reviews;
-    } else {
-      this.all().subscribe((rev: ReviewModel[]) => {
-        allReviews = rev;
+  roomReviews (roomId: number, reviews?: ReviewModel[]): Promise<ReviewModel[]> {
+    return new Promise((resolve) => {
+      let roomReviews: ReviewModel[] = [];
+      reviews.forEach((review: ReviewModel) => {
+        if (+review.roomId === roomId) {
+          roomReviews.push(review);
+        }
       });
-    }
-    return allReviews.filter((rev: ReviewModel) => rev.roomId === roomId)[0];
+      resolve(roomReviews);
+    });
   }
 }

@@ -112,7 +112,6 @@ export class DaysSettingsComponent implements OnInit {
           priceTypeId: null
         };
         daySetting.availableHours.push(newAvHour);
-        console.log(this.daysSettings);
         return;
       }
     });
@@ -128,37 +127,18 @@ export class DaysSettingsComponent implements OnInit {
     return Math.max.apply(null, ids) + 1;
   }
 
-  confirmDeleteHour(dayId: number, hourId: number, dayIndex?: number, hourIndex?: number) {
-    if (!dayId || !hourId) {
-      this.daysSettings.forEach((daySetting: DaysModel) => {
-        if (daySetting.id === dayIndex+1) {
-          daySetting.availableHours.splice(hourIndex, 1);
-        }
-      });
-    } else {
-      this.dayIdToDelete = dayId;
-      this.hourIdToDelete = hourId;
-      this.isShowNotificationPopup = true;
-      this.notificationPopupMessage = 'Are you sure?';
-    }
-  }
-
-  deleteHour(dayIdToDelete, hourIdToDelete) {
-    this.isShowLoader = true;
-    this.daysSettings = [];
-    this.daysSettingsService.removeHourItem(this.room.id, dayIdToDelete, hourIdToDelete)
-      .then(() => {
-        this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Deleted successfully!';
-        this.isShowLoader = false;
-      }, () => {
-        this.isShowNotificationPopup = true;
-        this.notificationPopupMessage = 'Error';
-        this.isShowLoader = false;
-        this.daysSettings = [];
-      });
-    this.hourIdToDelete = null;
-    this.dayIdToDelete = null;
+  deleteHour(dayIdToDelete: number, hourIdToDelete: number) {
+    this.daysSettings.forEach((daySetting: DaysModel) => {
+      if (daySetting.id === dayIdToDelete) {
+        let avHourIndex = 0;
+        daySetting.availableHours.forEach((avHour: AvailableHoursModel) => {
+          if (avHour.id === hourIdToDelete) {
+            daySetting.availableHours.splice(avHourIndex, 1);
+          }
+          avHourIndex++;
+        });
+      }
+    });
   }
 
   isEverythingLoaded() {
@@ -233,7 +213,6 @@ export class DaysSettingsComponent implements OnInit {
     let subscrCount = 0;
     this.areErrors = false;
     this.isShowLoader = true;
-    console.log(this.daysSettings);
     this.daysSettings.forEach((daySetting: DaysModel) => {
       this.daysSettingsService.addDaySetting(daySetting).then(() => {
       }, () => {

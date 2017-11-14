@@ -7,6 +7,8 @@ import { MainRoutingModule } from './main-routing.module';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { AgmCoreModule } from '@agm/core';
 import { SelectModule } from 'angular2-select';
+import { PipeModule } from "../pipe/pipe.module";
+import { SharedModule } from "../shared/shared.module";
 
 // services
 import { ReservationService } from '../service/http/reservation.service';
@@ -37,7 +39,6 @@ import { FilterPriceComponent } from './components/select-room/filter-rooms/filt
 import { FilterPlayersComponent } from './components/select-room/filter-rooms/filter-players/filter-players.component';
 import { FilterComplexityComponent } from './components/select-room/filter-rooms/filter-complexity/filter-complexity.component';
 import { FilterMarkingComponent } from './components/select-room/filter-rooms/filter-marking/filter-marking.component';
-import {PipeModule} from "../pipe/pipe.module";
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import {PipeModule} from "../pipe/pipe.module";
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBviSA3Z0xaZegK_tWyxwPMdc15lVVwWFk'
         }),
-        PipeModule
+        PipeModule,
+        SharedModule
     ],
     declarations: [
         MainComponent,

@@ -12,7 +12,6 @@ import {PricesTypesService} from "../../../../service/prices-types.service";
 import {PricesTypesModel} from "../../../../models/prices-types.model";
 import {DaysSettingsService} from "../../../../service/days-settings.service";
 import {DaysModel} from "../../../../models/days.model";
-import {ReservationModel} from "../../../../models/reservation.model";
 import {ActivatedRoute} from "@angular/router";
 import {RoomService} from "../../../../service/http/room.service";
 import {AvailableHoursModel} from "../../../../models/available-hours.model";

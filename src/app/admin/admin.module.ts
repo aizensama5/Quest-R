@@ -12,7 +12,7 @@ import { CompanyDataComponent } from './components/company-data/company-data.com
 import { AdminRoomsComponent } from './components/admin-rooms/admin-rooms.component';
 import { CompanyService } from '../service/http/company.service';
 import { CompanySecurityService } from '../service/http/company-security.service';
-import { FormsModule, NgControl} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ImageStorageService } from '../service/http/image-storage.service';
 import { PipeModule } from '../pipe/pipe.module';
 import { AdminRoomsEditComponent } from './components/admin-rooms/admin-rooms-edit/admin-rooms-edit.component';
@@ -23,7 +23,6 @@ import { AdminBookingsComponent } from './components/admin-bookings/admin-bookin
 import { PricesAndSettingsComponent } from './components/prices-and-settings/prices-and-settings.component';
 import { DaysSettingsComponent } from './components/days-settings/days-settings.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
 import { PricesTypesModel } from '../models/prices-types.model';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ConfigService } from '../service/http/config.service';
@@ -35,9 +34,6 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { ContactComponent } from './components/contact/contact.component';
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 import { AdminGenresComponent } from './components/admin-genres/admin-genres.component';
-import { AdminMarkingsComponent } from './components/admin-markings/admin-markings.component';
-import { AdminPlayersComponent } from './components/admin-players/admin-players.component';
-import { AdminPriceComponent } from './components/admin-price/admin-price.component';
 import { AdminBookingsEditComponent } from './components/admin-bookings/admin-bookings-edit/admin-bookings-edit.component';
 import { EditBookingResolverService } from "../service/edit-booking-resolver.service";
 
@@ -58,15 +54,11 @@ import { EditBookingResolverService } from "../service/edit-booking-resolver.ser
     PricesAndSettingsComponent,
     DaysSettingsComponent,
     CalendarComponent,
-    SpecialOffersComponent,
     ConfigurationComponent,
     ChangePasswordComponent,
     ContactComponent,
     TermsOfServiceComponent,
     AdminGenresComponent,
-    AdminMarkingsComponent,
-    AdminPlayersComponent,
-    AdminPriceComponent,
     AdminBookingsEditComponent
   ],
   imports: [

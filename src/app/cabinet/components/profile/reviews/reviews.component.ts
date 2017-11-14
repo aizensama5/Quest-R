@@ -68,7 +68,11 @@ export class ReviewsComponent implements OnInit {
     allRoomIds.slice().sort();
     for (let i = 0; i < allRoomIds.length; i++) {
       if (i === 0 || allRoomIds[i+1] && allRoomIds[i+1] > allRoomIds[i]) {
-        passedRooms.push(allRoomIds[i+1]);
+        if (i === 0) {
+          passedRooms.push(allRoomIds[i])
+        } else {
+          passedRooms.push(allRoomIds[i+1]);
+        }
       }
     }
     return passedRooms;

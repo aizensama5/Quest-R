@@ -40,13 +40,17 @@ export class AuthenticationService {
     });
   }
 
-  facebookLogin(): void {
+  facebookLogin(redirectUrl?: string): void {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
     firebase.auth().signInWithPopup(provider).then((authInfo: any) => {
-      window.location.href = this.locale + '/cabinet/';
+      if (!redirectUrl) {
+        window.location.href = this.locale + '/cabinet/';
+      } else {
+        window.location.href = this.locale + redirectUrl;
+      }
     }, (error) => {
-
+      console.log(error);
     });
   }
 

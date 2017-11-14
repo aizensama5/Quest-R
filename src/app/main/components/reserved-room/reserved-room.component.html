@@ -1,6 +1,5 @@
 <h3 class="reserved-room__title title">{{ 'BOOK' | translateS | async }}</h3>
 <app-layout-select-list-rooms [preSelectedRoom$]="selectedRoom$"
-                              (selectedRoom)="onSelectRoom($event)"
                               [isOpenedRoomPage]="isOpenedRoomPage"
 ></app-layout-select-list-rooms>
 <app-main-reserved-calendar  id="reserve-calendar"
