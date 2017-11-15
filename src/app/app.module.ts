@@ -39,6 +39,7 @@ import { DescriptionService } from "./service/description.service";
 import { HttpService } from "./service/http/http.service";
 import {LocaleResolverService} from "./service/locale-resolver.service";
 import {UserHistoryService} from "./service/user-history.service";
+import {UserFavoritesService} from "./service/user-favorites.service";
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {UserHistoryService} from "./service/user-history.service";
     DescriptionService,
     HttpService,
     LocaleResolverService,
-    UserHistoryService
+    UserHistoryService,
+    UserFavoritesService
   ],
   bootstrap: [AppComponent]
 })

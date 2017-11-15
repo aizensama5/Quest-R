@@ -1,19 +1,22 @@
-<div class="reviews__list">
-  <div class="reviews__list-item" *ngFor="let profileReview of profilePagedItems">
-    <app-cabinet-review [profileReview]="profileReview"></app-cabinet-review>
+<div *ngIf="userHistories && userHistories.length">
+  <div class="reviews__list">
+    <div class="reviews__list-item" *ngFor="let profileReview of profilePagedItems">
+      <app-cabinet-review [profileReview]="profileReview"></app-cabinet-review>
+    </div>
   </div>
+  <div class="reviews__pagination">
+    <p *ngIf="reviews && reviews.length">{{ 'See more reviews' | translateS | async }}:</p>
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+    </ul>
+  </div>
+  <app-create-review (onNewReviewAdded)="onNewReviewAdded($event)"
+                     [rooms]="passedRooms"
+                     [userHistories]="userHistories"
+                     [reviews]="reviews"
+  ></app-create-review>
 </div>
-<div class="reviews__pagination">
-  <p *ngIf="reviews && reviews.length">{{ 'See more reviews' | translateS | async }}:</p>
-  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-    <li class="pagination__item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-      <a (click)="setPage(page)">{{page}}</a>
-    </li>
-  </ul>
-</div>
-<app-create-review (onNewReviewAdded)="onNewReviewAdded($event)"
-                   [rooms]="passedRooms"
-                   [userHistories]="userHistories"
-                   [reviews]="reviews"
-></app-create-review>
+<p *ngIf="!userHistories.length" class="no-history no-history-with-padding">{{ 'You have not been to any room yet' | translateS | async }}</p>
 

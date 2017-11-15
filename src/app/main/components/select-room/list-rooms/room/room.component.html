@@ -3,7 +3,8 @@
       <header class="room__header">
           <i class="fa fa-share-alt" aria-hidden="true"></i>
           <i class="fa fa-facebook" aria-hidden="true"></i>
-          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <i *ngIf="!room.isFavorite" data-title="{{ 'You must authorize before adding to your favorites' | translateS | async }}" class="fa fa-heart-o" aria-hidden="true" (click)="addToFavorites(room.id)"></i>
+          <i *ngIf="room.isFavorite" class="fa fa-heart favorite-room" aria-hidden="true" (click)="removeFromFavorites(room.id)"></i>
       </header>
       <div class="room__wrapper">
           <h3 class="room__title">

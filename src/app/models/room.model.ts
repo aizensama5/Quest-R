@@ -27,6 +27,7 @@ export class RoomModel {
   complexity: ComplexityModel;
   marking: MarkingModel[];
   gallery: PhotoModel[];
+  isFavorite?: boolean;
 
   static fromJSON(values) {
     const room = new RoomModel();

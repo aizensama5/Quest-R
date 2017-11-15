@@ -1,4 +1,4 @@
-<div class="history-wrapper wrap">
+<div class="history-wrapper wrap" *ngIf="historyData && historyData.length">
   <table class="history-table">
     <tr class="history-table__header-wrapper">
       <th class="history-table__header">{{ 'Name of room' | translateS | async }}</th>
@@ -27,3 +27,5 @@
     </tr>
   </table>
 </div>
+<p *ngIf="!historyData.length" class="no-history no-history-with-padding">{{ 'You have not been to any room yet' | translateS | async }}</p>
+

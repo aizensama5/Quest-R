@@ -93,6 +93,11 @@
           background-size: contain;
         }
       }
+      .rooms-passed.no-passed {
+        p {
+          @include text-mixin($color-white, 16px, $font-gotham-pro-light);
+        }
+      }
     }
   }
 }

@@ -20,9 +20,11 @@ export class UserHistoryResolverService {
     return new Promise((resolve, reject) => {
       this.user$ = this.authService.currentUser();
       this.user$.subscribe((user: any) => {
-        this.userHistoryService.getUserHistoriesById(user.uid).subscribe((userHistories: UserHistoryModel[]) => {
-          resolve(userHistories);
-        });
+        if (user) {
+          this.userHistoryService.getUserHistoriesById(user.uid).subscribe((userHistories: UserHistoryModel[]) => {
+            resolve(userHistories);
+          });
+        }
       });
     });
   }

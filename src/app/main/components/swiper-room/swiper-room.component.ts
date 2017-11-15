@@ -1,7 +1,9 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { RoomModel } from '../../../models/room.model';
 import { RoomService } from '../../../service/http/room.service';
 import {LanguageService} from "../../../service/language.service";
+import {SwiperComponent} from "angular2-useful-swiper";
+import {event} from "d3-selection";
 
 @Component({
   moduleId: module.id,
@@ -20,6 +22,10 @@ export class SwiperRoomComponent implements OnInit, AfterViewInit {
   langObj: any;
   config: Object;
 
+  @Output() swiper = new EventEmitter<{ swClass: any }>();
+  @ViewChild('swiperRooms') swiperRooms: SwiperComponent;
+
+
   constructor(
     private _roomService: RoomService,
     private languageService: LanguageService
@@ -36,7 +42,6 @@ export class SwiperRoomComponent implements OnInit, AfterViewInit {
         readMore: 'Czytaj więcej'
       }
     };
-    this.roomsCollection();
     this.languageService.getCurrentLocale().subscribe((locale: any[]) => {
       this.pathname = window.location.pathname;
       this.locale = this.pathname.split('/')[1] ? this.pathname.split('/')[1] : locale[0].$value;
@@ -44,22 +49,31 @@ export class SwiperRoomComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.config = {
-      pagination: '.swiper-pagination',
-      paginationClickable: true,
-      loop: true,
-      loopedSlides: 3,
-      slidesPerView: 3,
-      centeredSlides: true,
-      speed: 1000,
-      nextButton: '.swiper-area .swiper-area-next',
-      prevButton: '.swiper-area .swiper-area-prev'
-    };
+    this.roomsCollection().then((rooms: RoomModel[]) => {
+      this.rooms = rooms;
+      this.config = {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        loopedSlides: this.rooms.length,
+        slidesPerView: 3,
+        centeredSlides: true,
+        speed: 1000,
+        nextButton: '.swiper-area .swiper-area-next',
+        prevButton: '.swiper-area .swiper-area-prev',
+        loop: true,
+      };
+
+      setTimeout(() => {
+        this.swiperRooms.config.effect = 'coverflow';
+      });
+    });
   }
 
-  roomsCollection(): void {
-    this._roomService.allActive().subscribe((rooms: RoomModel[]) => {
-      this.rooms = rooms;
+  roomsCollection(): Promise<RoomModel[]> {
+    return new Promise((resolve) => {
+      this._roomService.allActive().subscribe((rooms: RoomModel[]) => {
+        resolve(rooms);
+      });
     });
   }
 }

@@ -1,5 +1,5 @@
-<div class="gallery-wrapper">
-  <div class="gallery" *ngFor="let gallery of historyData">
+<div class="gallery-wrapper" *ngIf="historyData && historyData.length" [class.main-loader]="isShowLoader">
+  <div class="gallery" *ngFor="let gallery of historyData; let j = index">
     <div class="gallery__top">
       <p class="gallery__room-name">{{ gallery.roomId | roomName | async }}</p>
       <p class="gallery__date">{{ gallery.bookingDate | date: "dd.MM.yyyy" }}</p>
@@ -12,12 +12,15 @@
       </label>
     </div>
     <div class="gallery__bottom">
-      <div *ngIf="gallery.photos">
+      <div *ngIf="gallery.photos && gallery.photos.length">
         <swiper [config]="sliderConfig" class="gallery-swiper" #swiperClass>
             <div class="swiper-wrapper gallery__bottom-swiper">
               <div class="swiper-slide gallery__bottom-swiper--slide" *ngFor="let photo of gallery.photos; let i = index;">
                 <div class="gallery__image" *ngIf="photo.path" id="slide-{{i}}"
-                     [ngStyle]="{'background-image': 'url(' + photo?.path + ')'}"></div>
+                     [ngStyle]="{'background-image': 'url(' + photo?.path + ')'}"
+                     (click)="onGalleryOpen(i, gallery.photos)"
+                ></div>
+                <i class="fa fa-close delete-icon gallery__bottom-swiper--slide-delete-icon" (click)="deleteImage(photo.path, i)"></i>
               </div>
             </div>
           <div class="swiper-button-prev gallery-swiper-button-prev" (click)="checkLastSlide(false)"></div>
@@ -37,10 +40,20 @@
     </div>
   </div>
 </div>
+
+<app-gallery-slider *ngIf="isShowRoomGallery"
+                    [galleryData]="galleryPhotos"
+                    [startSlide]="startSlide"
+                    (onGalleryClose)="onGalleryClose($event)"
+></app-gallery-slider>
+
+<p *ngIf="!historyData.length" class="no-history no-history-with-padding">{{ 'You have not been to any room yet' | translateS | async }}</p>
+
 <app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
                         [notificationPopupMessage]="notificationPopupMessage"
                         [areErrors]="areErrors"
                         (onClosePopup)="closePopup()">
 </app-notification-popup>
+
 
 

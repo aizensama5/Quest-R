@@ -41,7 +41,6 @@ export class UploadImageComponent implements OnInit {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     for (let i = 0; i < fileList.length; i++) {
       this.fileInfo.filename = window.btoa((<File>fileList[i]).name).split('=')[0];
-      console.log(this.fileInfo.filename);
       this.imageService.uploadFile(this.fileInfo.filename, fileList[i], (downloadURL) => {
         this.fileInfo.src = downloadURL;
         this.fileInfo.progress = 0;

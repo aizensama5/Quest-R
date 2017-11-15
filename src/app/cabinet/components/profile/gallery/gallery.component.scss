@@ -55,6 +55,9 @@
         width: 860px;
         &--slide {
           width: 175px !important;
+          &-delete-icon {
+            right: 15px;
+          }
         }
 
       }
@@ -80,6 +83,7 @@
       }
     }
     &__image {
+      cursor: pointer;
       display: inline-block;
       height: 160px;
       width: 160px;
