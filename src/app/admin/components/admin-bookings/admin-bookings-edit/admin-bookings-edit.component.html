@@ -56,7 +56,7 @@
     </div>
   </div>
   <div *ngIf="!order.bookerData.userId">
-    <p class="non-auth-user">User "order.bookerData.name" is not registered</p>
+    <p class="non-auth-user">User "{{order.bookerData.name}}" is not registered</p>
   </div>
 </div>
 <app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"

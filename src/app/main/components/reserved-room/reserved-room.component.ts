@@ -5,7 +5,7 @@ import {ReservationModel} from '../../../models/reservation.model';
 import {ReservationService} from '../../../service/http/reservation.service';
 import * as mainReducer from '../../../reducers';
 import {Store} from '@ngrx/store';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DaysSettingsService} from "../../../service/days-settings.service";
 import {PricesTypesService} from "../../../service/prices-types.service";
 import {DaysModel} from "../../../models/days.model";
@@ -37,6 +37,7 @@ export class ReservedRoomComponent implements OnInit {
   roomId: number;
   isOpenedRoomPage: boolean;
   reservationDays: any[];
+  isRoomExist = false;
   currentDayOfWeek: number;
   roomOrders: OrderModel[] = [];
 
@@ -44,27 +45,42 @@ export class ReservedRoomComponent implements OnInit {
               private reservationService: ReservationService,
               private store: Store<mainReducer.State>,
               private route: ActivatedRoute,
+              private router: Router,
               public daysSettingsService: DaysSettingsService,
               public pricesTypesService: PricesTypesService,
               public timeService: TimeService,
               public orderService: OrderService) {
-    this.getAllRooms();
-    if (+this.route.snapshot.params.id) {
-      this.isOpenedRoomPage = true;
-      this.roomService.roomById(+this.route.snapshot.params.id).subscribe((room: RoomModel[]) => {
-        this.room = room[0];
-        this.selectedRoom = room[0];
-        this.initializeReserveCalendar();
-      });
-    } else {
-      this.store.select(mainReducer.getRoom).subscribe((room: RoomModel) => {
-        if (room) {
-          this.selectedRoom = room;
-          this.room = room;
-          this.initializeReserveCalendar();
+    const roomId = +this.route.snapshot.params.id;
+    this.getAllRooms().then((rooms: RoomModel[]) => {
+      this.rooms = rooms;
+
+      this.rooms.forEach((room: RoomModel) => {
+        if (roomId === +room.id) {
+          this.isRoomExist = true;
         }
       });
-    }
+
+      if (roomId) {
+        if (this.isRoomExist) {
+          this.isOpenedRoomPage = true;
+          this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
+            this.room = room[0];
+            this.selectedRoom = room[0];
+            this.initializeReserveCalendar();
+          });
+        } else {
+          this.router.navigate(['**']);
+        }
+      } else {
+        this.store.select(mainReducer.getRoom).subscribe((room: RoomModel) => {
+          if (room) {
+            this.selectedRoom = room;
+            this.room = room;
+            this.initializeReserveCalendar();
+          }
+        });
+      }
+    });
   }
 
   initializeReserveCalendar(): void {
@@ -154,9 +170,11 @@ export class ReservedRoomComponent implements OnInit {
   ngOnInit() {
   }
 
-  getAllRooms() {
-    this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
-      this.rooms = rooms;
+  getAllRooms(): Promise<RoomModel[]> {
+    return new Promise((resolve) => {
+      this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
+        resolve(rooms);
+      });
     });
   }
 

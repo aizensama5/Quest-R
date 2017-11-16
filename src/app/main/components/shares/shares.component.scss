@@ -1,4 +1,5 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/_mixins";
 
 :host /deep/ {
   position: relative;
@@ -68,6 +69,31 @@
     background-position: center;
     background-repeat: no-repeat;
     right: 0;
+  }
+}
+@media #{$tablet-x2} {
+  :host /deep/ {
+    padding-top: 85px;
+    .shares-swiper {
+      width: 640px;
+      .swiper-slide {
+        width: 310px !important;
+      }
+    }
+    .shares-swiper-button-prev,
+    .shares-swiper-button-next {
+      margin-top: 0;
+    }
+    .shares {
+      &__description {
+        line-height: 1.25;
+        margin-top: 18px;
+        font-size: 15px;
+      }
+      &__img {
+        height: 240px;
+      }
+    }
   }
 }
 @keyframes cssload-loader {

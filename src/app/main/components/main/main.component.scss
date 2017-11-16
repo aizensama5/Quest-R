@@ -15,7 +15,16 @@
   @media #{$tablet-x2} {
     .main {
       &__description {
-        padding-top: 40px;
+        padding-top: 10px;
+      }
+    }
+  }
+  @media #{$tablet-x1} {
+    .main {
+      &__description {
+        font-size: 15px;
+        line-height: 24px;
+        padding-top: 10px;
       }
     }
   }

@@ -3,7 +3,8 @@
 
 :host /deep/ {
   .non-auth-user {
-    @include text-mixin($color-black, 22px, $font-source-sans-pro-regular);
+    @include text-mixin(#000, 24px, $font-source-sans-pro-regular);
+    text-align: center;
     line-height: 50vh;
   }
   .admin {

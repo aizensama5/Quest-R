@@ -1,0 +1,22 @@
+@import "../../assets/styles/variables";
+
+:host /deep/ {
+  .e404 {
+    min-height: calc(100vh - 138px - 80.52px);
+    display: flex;
+    justify-content: center;
+    &__content {
+      margin: auto;
+      text-align: center;
+      p {
+        @include text-mixin($color-white, 56px, $font-gotham-pro-light);
+        padding-bottom: 40px;
+        margin-top: -60px;
+      }
+      a {
+        @include text-mixin($color-white, 32px, $font-gotham-pro-light);
+        text-decoration: underline;
+      }
+    }
+  }
+}

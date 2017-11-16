@@ -1,4 +1,6 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/_mixins";
+
 
 :host /deep/ {
   height: 800px;
@@ -81,3 +83,17 @@
     }
   }
 }
+
+@media #{$tablet-x2} {
+  :host /deep/ {
+    .map__wrapper {
+      .title {
+        font-size: 18px;
+      }
+      .map__text {
+        font-size: 16px;
+      }
+    }
+  }
+}
+

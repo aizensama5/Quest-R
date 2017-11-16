@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {PopupNotificationService} from '../popup.notification.service';
 import {Observable} from 'rxjs/Observable';
 import {UserModel} from '../../models/user.model';
 import {UserService} from './user.service';
@@ -10,6 +9,7 @@ import {CompanySecurityModel} from '../../models/company-security.model';
 import {CompanySecurityService} from './company-security.service';
 import {environment} from '../../../environments/environment.prod';
 import {LoginModel} from "../../admin/components/login/login.model";
+import {FacebookService, InitParams} from "ngx-facebook";
 
 @Injectable()
 export class AuthenticationService {
@@ -21,7 +21,16 @@ export class AuthenticationService {
   constructor(private af: AngularFireAuth,
               private userService: UserService,
               public router: Router,
-              private companySecurityService: CompanySecurityService,) {
+              private companySecurityService: CompanySecurityService,
+              private fb: FacebookService) {
+    const facebookInitParams: InitParams = {
+      appId: '1418986268208478',
+      xfbml: true,
+      version: 'v2.10'
+    };
+    console.log(this.fb);
+    this.fb.init(facebookInitParams);
+
     userService.all().subscribe((users: UserModel[]) => {
       this.allUsers = users;
     });
@@ -43,7 +52,10 @@ export class AuthenticationService {
   facebookLogin(redirectUrl?: string): void {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
-    firebase.auth().signInWithPopup(provider).then((authInfo: any) => {
+    provider.addScope('user_friends');
+    firebase.auth().signInWithPopup(provider).then((authInfo) => {
+      console.log(authInfo.credential);
+      console.log(authInfo.user);
       if (!redirectUrl) {
         window.location.href = this.locale + '/cabinet/';
       } else {
@@ -65,6 +77,51 @@ export class AuthenticationService {
 
   currentUser(): Observable<firebase.User> {
     return this.af.authState;
+  }
+
+  fbLoginWithOptions() {
+    const loginOptions: any = {
+      enable_profile_selector: true,
+      return_scopes: true,
+      scope: 'public_profile,user_friends,email,pages_show_list'
+    };
+
+    this.fb.login(loginOptions)
+      .then((res: any) => {
+        // localStorage.setItem('userFriends', JSON.stringify(this.fbGetFriends()));
+        console.log(this.fbGetFriends());
+        this.fbGetFriends()
+          .then((res) => {
+            console.log(res);
+            this.facebookLogin();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  fbGetFriends(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.fb.api('/me/friends')
+        .then((res: any) => {
+          resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  getFacebookFriends() {
+    console.log(this.fb);
+    this.fb.api('/me', "get").then((response: any) => {
+      console.log(response);
+    });
+
   }
 
   logout(): void {

@@ -49,9 +49,9 @@
 
     &__answer {
       width: 90%;
-      margin: 20px 0 20px 20px;
+      margin: 20px 0 0 20px;
       border-top: 1px solid #555;
-      padding: 20px 0 20px 20px;
+      padding: 20px 0 0 20px;
       &-companyName {
         @include text-mixin($color-white, 18px, $font-gotham-pro-regular);
       }
@@ -64,7 +64,7 @@
   .line {
     background-color: $color-white;
     height: 1px;
-    margin: 35px auto 0;
+    margin: 40px auto 0;
     width: 90%;
   }
 }

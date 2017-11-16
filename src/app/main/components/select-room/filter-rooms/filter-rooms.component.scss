@@ -33,3 +33,23 @@
     }
   }
 }
+
+@media #{$tablet-x1} {
+  :host /deep/ {
+    .filter-rooms {
+      &__list {
+        max-width: 529px;
+      }
+      &__item {
+        span {
+          font-size: 15px;
+        }
+      }
+      &__item-complexity,
+      &__item-marking {
+        position: relative;
+        top: 4px;
+      }
+    }
+  }
+}

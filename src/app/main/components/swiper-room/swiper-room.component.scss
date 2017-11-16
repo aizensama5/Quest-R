@@ -125,3 +125,29 @@
     }
   }
 }
+@media #{$tablet-x1} {
+  :host /deep/ {
+    .swiper-wrapper {
+      .swiper-slide {
+        height: 270px !important;
+        .swiper-room__title {
+          font-size: 18px;
+        }
+      }
+      .swiper-slide-active {
+        height: 320px !important;
+        .swiper-room__title {
+          font-size: 26px;
+        }
+        .swiper-room__btn {
+          width: 150px;
+          font-size: 12px;
+          padding: 8.5px 0;
+        }
+      }
+    }
+    .swiper-pagination {
+      bottom: 0;
+    }
+  }
+}

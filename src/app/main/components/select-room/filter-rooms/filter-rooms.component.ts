@@ -41,8 +41,18 @@ export class FilterRoomsComponent implements OnInit {
     radius: 132,
     thick: 55
   };
+  miniTabletCircleParams: any = {
+    width: 220,
+    height: 220,
+    radius: 93,
+    thick: 32
+  };
   tabletWidth = {
     max: 949,
+    min: 757
+  };
+  miniTabletWidth = {
+    max: 756,
     min: 529
   };
 
@@ -150,7 +160,13 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   checkRoundCircleParams() {
-    this.initialRoundCircleParams = this.windowWidth > this.tabletWidth.min && this.windowWidth < this.tabletWidth.max ? this.tabletRoundCircleParams : this.desktopRoundCircleParams;
+    if (this.windowWidth >= this.tabletWidth.min && this.windowWidth <= this.tabletWidth.max) {
+      this.initialRoundCircleParams = this.tabletRoundCircleParams;
+    } else if (this.windowWidth >= this.miniTabletWidth.min && this.windowWidth <= this.miniTabletWidth.max) {
+      this.initialRoundCircleParams = this.miniTabletCircleParams;
+    } else {
+      this.initialRoundCircleParams = this.desktopRoundCircleParams;
+    }
   }
 
   ngOnInit() {

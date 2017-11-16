@@ -21,6 +21,7 @@ export class RoomInfoComponent implements OnInit {
   room: RoomModel;
   rooms: RoomModel[] = [];
   isShowRoomGallery = false;
+  isExistRoom = false;
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
@@ -29,27 +30,34 @@ export class RoomInfoComponent implements OnInit {
     this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this.rooms = rooms;
       let roomId = +this.route.snapshot.params.id;
-      this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
-        this.room = room[0];
-        this.userService.all().subscribe((users: UserModel[]) => {
-          if (users) {
-            users.forEach((user: UserModel) => {
-              this.getUserHistories(user.id)
-                .then((userHistories) => {
-                  if (userHistories && userHistories[0]) {
-                    userHistories.forEach((usersHistory) => {
-                      this.room.gallery = this.room.gallery.concat(usersHistory.photos);
-                    });
-                    if (!this.room.gallery[this.room.gallery.length - 1]) {
-                      this.room.gallery.pop();
-                    }
-                  }
-                });
-            });
-          }
-        });
-        let markingIndex = 1;
+      rooms.forEach((room: RoomModel) => {
+        if (room.id === roomId) {
+          this.isExistRoom = true;
+        }
       });
+      if (this.isExistRoom) {
+        this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
+          this.room = room[0];
+          this.userService.all().subscribe((users: UserModel[]) => {
+            if (users) {
+              users.forEach((user: UserModel) => {
+                this.getUserHistories(user.id)
+                  .then((userHistories) => {
+                    if (userHistories && userHistories[0]) {
+                      userHistories.forEach((usersHistory) => {
+                        this.room.gallery = this.room.gallery.concat(usersHistory.photos);
+                      });
+                      if (!this.room.gallery[this.room.gallery.length - 1]) {
+                        this.room.gallery.pop();
+                      }
+                    }
+                  });
+              });
+            }
+          });
+          let markingIndex = 1;
+        });
+      }
     });
   }
 

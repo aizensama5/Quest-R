@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {FriendModel} from '../../../../models/profile/friend.model';
-import {FriendsService} from '../../../../service/profile/friends.service';
+import {Observable} from "rxjs/Observable";
+import * as firebase from "firebase/app";
+import {AuthenticationService} from "../../../../service/http/authentication.service";
 
 @Component({
   selector: 'app-friends',
@@ -8,12 +9,16 @@ import {FriendsService} from '../../../../service/profile/friends.service';
   styleUrls: ['./friends.component.scss']
 })
 export class FriendsComponent {
-  friendsData: FriendModel[];
+  user$: Observable<firebase.User>;
+  user: any;
 
-  constructor( friendsService: FriendsService ) {
-    friendsService.all().subscribe((frndsData) => {
-      this.friendsData = frndsData;
+  constructor(authService: AuthenticationService) {
+    this.user$ = authService.currentUser();
+    this.user$.subscribe((user: firebase.User) => {
+      this.user = user;
+      console.log(this.user);
     });
+
   }
 
 }

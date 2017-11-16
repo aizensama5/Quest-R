@@ -1,4 +1,6 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/_mixins";
+
 
 :host /deep/ {
   display: flex;
@@ -20,17 +22,17 @@
 
     &__pagination {
       @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
-      margin-top: 30px;
       display: flex;
-      width: 100%;
+      width: 90%;
+      margin: 45px auto 0;
       justify-content: flex-end;
     }
 
     &__auth {
       @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
       text-align: center;
-      margin-top: 30px;
-      margin-bottom: 14px;
+      margin-top: 50px;
+      margin-bottom: 18px;
       width: 100%;
     }
   }
@@ -46,14 +48,19 @@
     text-decoration: none;
     background-color: #3f5b9a;
     color: #fff !important;
-    //&::before {
-    //  content: '&f09a';
-    //  font-size: 20px;
-    //  background-color: #fff;
-    //  background-repeat: no-repeat;
-    //  background-size: 20px 20px;
-    //  width: 20px;
-    //  height: 20px;
-    //}
+    &-icon {
+      color: #fff;
+      font-size: 16px;
+      position: relative;
+      right: 5px;
+    }
   }
 }
+
+@media #{$tablet-x2} {
+  :host /deep/ {
+    padding-top: 50px;
+  }
+}
+
+

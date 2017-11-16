@@ -46,6 +46,7 @@
     "ng2-select": "^1.2.0",
     "ng2-translate": "^5.0.0",
     "ngx-bootstrap": "^1.9.3",
+    "ngx-facebook": "^2.4.0",
     "ngx-tabs": "0.0.13",
     "reselect": "^3.0.1",
     "reset-css": "^2.2.0",

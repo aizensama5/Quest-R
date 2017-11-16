@@ -40,11 +40,13 @@ import { HttpService } from "./service/http/http.service";
 import {LocaleResolverService} from "./service/locale-resolver.service";
 import {UserHistoryService} from "./service/user-history.service";
 import {UserFavoritesService} from "./service/user-favorites.service";
+import {NotFoundModule} from "./not-found/not-found.module";
+import {FacebookModule, FacebookService} from "ngx-facebook";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,10 +60,12 @@ import {UserFavoritesService} from "./service/user-favorites.service";
     AppRoutingModule,
     RoomModule,
     ServiceModule.forRoot(),
+    FacebookModule.forRoot(),
     MainModule,
     StoreModule.provideStore(reducersMain.reducer),
     CabinetModule,
     AdminModule,
+    NotFoundModule,
     BrowserAnimationsModule,
     GuardModule,
     PipeModule,
@@ -77,7 +81,8 @@ import {UserFavoritesService} from "./service/user-favorites.service";
     HttpService,
     LocaleResolverService,
     UserHistoryService,
-    UserFavoritesService
+    UserFavoritesService,
+    FacebookService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,6 @@
 @import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/_mixins";
+@import "../../../../../assets/styles/_mixins";
 
 :host /deep/ {
   width: 100%;
@@ -107,8 +109,70 @@
       padding: 8px 0 10px;
       text-align: center;
     }
+    &__button-right {
+      right: 24px;
+    }
     &__button-left {
-      left: 0;
+      left: 4px;
+    }
+  }
+}
+
+:host /deep/ {
+  @media #{$tablet-x1} {
+    .swiper-calendar {
+      position: relative;
+      width: 500px;
+      padding-left: 40px;
+      padding-right: 40px;
+      right: 40px;
+      .swiper-container-horizontal {
+        padding-bottom: 70px;
+      }
+    }
+    .reservation-table {
+      left: 40px;
+      &__item-day {
+        margin-bottom: 18px;
+        th {
+          left: 2px;
+          font-size: 14px;
+        }
+      }
+      &__item-wrap {
+        width: 40px;
+        height: 39px;
+        margin: 0 17px 9px 0;
+      }
+      &__item {
+        width: 40px;
+        height: 39px;
+        &-info {
+          @include text-mixin(#012c6a, 12px, $font-gotham-pro-medium);
+          &--price {
+            padding: 6px 0 2px;
+          }
+        }
+      }
+      &__item-non-active {
+        width: 40px;
+        height: 39px;
+      }
+      &__time-wrap {
+        margin: 30px 9px 0 0;
+      }
+      &__time {
+        margin: 0 0 11px;
+        width: 60px;
+        top: 16px;
+        height: 38px;
+        @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
+      }
+      &__button {
+        font-size: 14px;
+        padding: 6px 0 8px;
+        max-width: 120px;
+      }
     }
   }
 }

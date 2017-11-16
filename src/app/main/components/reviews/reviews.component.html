@@ -17,4 +17,7 @@
 <h4 class="reviews__auth">
   {{ 'You must log in to mark the room' | translateS | async }}
 </h4>
-<a class="share-button" (click)="facebookLogin()">{{ 'Sign in with Facebook' | translateS | async }}</a>
+<a class="share-button" (click)="facebookLogin()">
+  <i class="fa fa-facebook-square share-button-icon" aria-hidden="true"></i>
+  {{ 'Sign in with Facebook' | translateS | async }}
+</a>

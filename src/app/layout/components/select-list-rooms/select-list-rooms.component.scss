@@ -1,4 +1,6 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/_mixins";
+
 
 :host /deep/ {
   .reserved-select {
@@ -39,5 +41,12 @@
     md-option {
       font-family: $font-gotham-pro-regular;
     }
+  }
+}
+@media #{$tablet-x2} {
+  .reserved-select {
+    width: 250px;
+    height: 30px;
+    font-size: 14px;
   }
 }

@@ -36,6 +36,7 @@ import { UserRoomHistoryService } from '../service/http/user-room-history.servic
 import {PipeModule} from "../pipe/pipe.module";
 import {UserHistoryResolverService} from "../service/user-history-resolver.service";
 import {UserHistoryService} from "../service/user-history.service";
+import {FacebookModule, FacebookService} from "ngx-facebook";
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import {UserHistoryService} from "../service/user-history.service";
 
     CabinetRoutingModule,
     SwiperModule,
-    PipeModule
+    PipeModule,
+    FacebookModule
   ],
   declarations: [
     CabinetMainComponent,
@@ -73,7 +75,7 @@ import {UserHistoryService} from "../service/user-history.service";
     UserRoomHistoryService,
     GalleryService,
     UserHistoryResolverService,
-    UserHistoryService
+    UserHistoryService,
   ]
 })
 export class CabinetModule {
