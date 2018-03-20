@@ -1,4 +1,5 @@
 @import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/mixins";
 
 :host /deep/ {
   width: 100%;
@@ -38,8 +39,12 @@
     &__list-item {
       width: 100%;
       @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
-      &:not(:last-child) { margin-bottom: 5px; }
-      &:last-child { margin-top: auto; }
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+      &:last-child {
+        margin-top: auto;
+      }
     }
 
     &__list-item-price {
@@ -79,5 +84,25 @@
     margin: 0;
     top: 115px;
     left: 250px;
+  }
+}
+
+@media #{$mobile} {
+  :host /deep/ {
+    .reserved-form {
+      &__title {
+        display: none;
+      }
+      &__room {
+        display: none;
+      }
+      &-label {
+        margin-bottom: 8px;
+      }
+      &__label,
+      &__input {
+        font-size: 14px;
+      }
+    }
   }
 }

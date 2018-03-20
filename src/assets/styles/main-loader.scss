@@ -2,11 +2,11 @@
   &:before {
     content: '';
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.97);
     z-index: 9999999;
-    background-image: url('/assets/images/loader.gif');
+    background-image: url('/assets/images/logo.png');
     background-position: center;
-    background-size: 200px 200px;
+    background-size: 205px 35px;
     left: 0;
     right: 0;
     height: 100%;

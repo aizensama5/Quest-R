@@ -1,0 +1,13 @@
+<div *ngIf="userFriends.length" class="friends-wrapper" [class.main-loader]="isShowLoader">
+    <div  class="friend" *ngFor="let friend of userFriends">
+      <div class="friend__photo" [ngStyle]="{'background-image': 'url(' + friend.profilePhoto + ')'}"></div>
+      <div class="friend__name">
+        <p class="friend__name--firstname">{{ friend?.firstName }}</p>
+        <p class="friend__name--lastname">{{ friend?.lastName }}</p>
+      </div>
+      <a class="friend__facebook" href="{{ friend.facebookLink }}"
+                 alt="look at facebook profile" target="_blank>">{{ 'Profile' | translateS | async }}<i class="fa fa-facebook"></i></a>
+    </div>
+</div>
+<p *ngIf="!userFriends.length" class="no-history no-history-with-padding">
+  {{ 'You do not have Facebook friends registered in the application' | translateS | async }}</p>

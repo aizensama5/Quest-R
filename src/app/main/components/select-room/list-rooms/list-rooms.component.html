@@ -1,3 +1,17 @@
-<ng-container *ngFor="let room of rooms">
+<div *ngIf="!isMobile" class="main-list-rooms-wrap">
+  <ng-container *ngFor="let room of rooms">
     <app-main-room [room]="room"></app-main-room>
-</ng-container>
+  </ng-container>
+</div>
+
+<div *ngIf="isMobile && sliderConfig" style="margin: 44px auto 0;">
+  <swiper [config]="sliderConfig" class="swiper-list-rooms">
+    <div class="swiper-wrapper" id="swiper-rooms-wrapper">
+      <ng-container *ngFor="let room of rooms">
+        <div class="swiper-slide swiper-list-rooms__slide">
+          <app-main-room [room]="room"></app-main-room>
+        </div>
+      </ng-container>
+    </div>
+  </swiper>
+</div>

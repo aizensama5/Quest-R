@@ -10,6 +10,7 @@ import {CompanySecurityService} from './company-security.service';
 import {environment} from '../../../environments/environment.prod';
 import {LoginModel} from "../../admin/components/login/login.model";
 import {FacebookService, InitParams} from "ngx-facebook";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class AuthenticationService {
@@ -17,18 +18,22 @@ export class AuthenticationService {
   allUsers: UserModel[] = [];
   locale: string = '';
   loginStatus: LoginModel;
+  twitterHeaders: object = {
+
+  };
 
   constructor(private af: AngularFireAuth,
               private userService: UserService,
               public router: Router,
+              private http: Http,
               private companySecurityService: CompanySecurityService,
-              private fb: FacebookService) {
+              private fb: FacebookService
+  ) {
     const facebookInitParams: InitParams = {
       appId: '1418986268208478',
       xfbml: true,
       version: 'v2.10'
     };
-    console.log(this.fb);
     this.fb.init(facebookInitParams);
 
     userService.all().subscribe((users: UserModel[]) => {
@@ -49,17 +54,40 @@ export class AuthenticationService {
     });
   }
 
+  getFacebookFriends(authData): Promise<any> {
+    return new Promise((resolve) => {
+      const fbFriends = this.http.get("https://graph.facebook.com/v2.11/me?fields=friends&access_token="+authData.accessToken);
+      fbFriends.subscribe((friends) => {
+        resolve(friends);
+      });
+    });
+  }
+
+  getTwitterFriends(authInfo): Promise<any> {
+    return new Promise((resolve) => {
+      const twitterHeaders: object = {
+        userName: authInfo.user.displayName
+      };
+      console.log(twitterHeaders['userName']);
+      console.log(authInfo);
+      const twFriends = this.http.get('https://api.twitter.com/1.1/friends/list.json?screen_name=' + twitterHeaders['userName'] + '&count=30');
+      console.log(twFriends);
+      twFriends.subscribe((friends) => {
+        resolve(friends);
+      });
+    });
+  }
+
   facebookLogin(redirectUrl?: string): void {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
     provider.addScope('user_friends');
     firebase.auth().signInWithPopup(provider).then((authInfo) => {
-      console.log(authInfo.credential);
-      console.log(authInfo.user);
+      localStorage.setItem('authStatus', JSON.stringify(authInfo.credential));
       if (!redirectUrl) {
-        window.location.href = this.locale + '/cabinet/';
+        this.router.navigate([this.locale + '/cabinet/']);
       } else {
-        window.location.href = this.locale + redirectUrl;
+        this.router.navigate([this.locale + redirectUrl]);
       }
     }, (error) => {
       console.log(error);
@@ -68,8 +96,12 @@ export class AuthenticationService {
 
   twitterLogin(): void {
     const provider = new firebase.auth.TwitterAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(() => {
-      window.location.href = this.locale + '/cabinet/';
+    firebase.auth().signInWithPopup(provider).then((authInfo) => {
+      localStorage.setItem('authStatus', JSON.stringify(authInfo));
+      // this.getTwitterFriends(authInfo).then((friends) => {
+      //   console.log(friends);
+      // });
+      this.router.navigate([this.locale + '/cabinet/']);
     }, (error) => {
       console.log(error);
     });
@@ -79,53 +111,15 @@ export class AuthenticationService {
     return this.af.authState;
   }
 
-  fbLoginWithOptions() {
-    const loginOptions: any = {
-      enable_profile_selector: true,
-      return_scopes: true,
-      scope: 'public_profile,user_friends,email,pages_show_list'
-    };
-
-    this.fb.login(loginOptions)
-      .then((res: any) => {
-        // localStorage.setItem('userFriends', JSON.stringify(this.fbGetFriends()));
-        console.log(this.fbGetFriends());
-        this.fbGetFriends()
-          .then((res) => {
-            console.log(res);
-            this.facebookLogin();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  fbGetFriends(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.fb.api('/me/friends')
-        .then((res: any) => {
-          resolve(res);
-        })
-        .catch((error) => {
-          reject(error);
-        });
+  authStatus(): Promise<any> {
+    return new Promise((resolve) => {
+      resolve(localStorage.getItem('authStatus'));
     });
-  }
-
-  getFacebookFriends() {
-    console.log(this.fb);
-    this.fb.api('/me', "get").then((response: any) => {
-      console.log(response);
-    });
-
   }
 
   logout(): void {
     this.af.auth.signOut().then(() => {
+      localStorage.removeItem('authStatus');
       this.router.navigate(['/' + this.locale]);
     });
   }

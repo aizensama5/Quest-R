@@ -19,21 +19,24 @@
           id="message-contact-2"
           #message
         ></textarea>
-        <input class="btn btn--full-width map__btn" type="submit" (click)="send(email, message)" value="{{ 'Send' | translateS | async }}">
+        <input class="btn btn--full-width map__btn" type="submit" (click)="send(email, message)"
+               value="{{ 'Send' | translateS | async }}">
       </form>
-      <div>
-        <h4 class="title">{{ 'E-MAIL' | translateS | async }}:</h4>
-        <a href="mailto:{{ companyInfo.email }}" class="map__text">{{ companyInfo?.email }}</a>
-      </div>
-      <div>
-        <h4 class="title">{{ 'PHONE' | translateS | async }}:</h4>
-        <a href="tel:{{ companyInfo.phone }}" class="map__text">{{ companyInfo?.phone }}</a>
-      </div>
-      <div>
-        <h4 class="title">{{ 'ADDRESS' | translateS | async }}:</h4>
-        <p class="map__text">
-          {{ companyInfo?.address | translateD }}
-        </p>
+      <div class="map__contact-info">
+        <div>
+          <h4 class="title">{{ 'E-MAIL' | translateS | async }}:</h4>
+          <a href="mailto:{{ companyInfo.email }}" class="map__text">{{ companyInfo?.email }}</a>
+        </div>
+        <div>
+          <h4 class="title">{{ 'PHONE' | translateS | async }}:</h4>
+          <a href="tel:{{ companyInfo.phone }}" class="map__text">{{ companyInfo?.phone }}</a>
+        </div>
+        <div>
+          <h4 class="title">{{ 'ADDRESS' | translateS | async }}:</h4>
+          <p class="map__text">
+            {{ companyInfo?.address | translateD }}
+          </p>
+        </div>
       </div>
       <ul class="map__list-icon">
         <li class="map__list-icon-item">

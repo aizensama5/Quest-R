@@ -28,4 +28,15 @@
       }
     }
   }
+  @media #{$mobile} {
+    .main {
+      &__description {
+        min-width: 170px;
+        width: 50%;
+        padding-top: 0;
+        line-height: 1.5;
+        font-size: 14px;
+      }
+    }
+  }
 }

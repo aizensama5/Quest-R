@@ -1,16 +1,8 @@
-<select *ngIf="!isOpenedRoomPage"
-        (change)="onSelectedRoom()"
-        class="reserved-select"
-        [(ngModel)]="sRoom">
-          <option [disabled]="true"
-                  selected="true"
-          >
-            {{ 'Select a room' | translateS | async }}
-          </option>
-          <option
-            *ngFor="let room of rooms"
-            [ngValue]="room"
-            [selected]="preSelectedRoom?.id === room?.id">
-              {{ room?.name.def }}
-          </option>
-</select>
+<label class="mobile-calendar__label label" *ngIf="isMobile">{{'Select a room' | translateS | async}}</label>
+<ng-select *ngIf="!isOpenedRoomPage && isOptionsReady"
+           (selected)="onSelectedRoom()"
+           id="reserved-select"
+           [options]="options"
+           class="reserved-select"
+           [(ngModel)]="sRoom">
+</ng-select>

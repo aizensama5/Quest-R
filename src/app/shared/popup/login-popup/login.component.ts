@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../../../service/http/authentication.service';
 
 

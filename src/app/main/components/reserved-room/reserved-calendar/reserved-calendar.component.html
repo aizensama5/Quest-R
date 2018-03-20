@@ -1,4 +1,4 @@
-<div *ngIf="showReservationTable">
+<div *ngIf="showReservationTable && !isMobile">
   <table class="reservation-table">
     <div class="reservation-table__time-wrap">
       <p class="reservation-table__time" *ngFor="let tm of timeList">{{ tm }}</p>
@@ -13,7 +13,7 @@
             <tr class="reservation-table__items">
               <td *ngFor="let tm of timeList;">
                 <div class="reservation-table__item-wrap" *ngIf="rsrv[3]">
-                <div *ngFor="let rsrvItem of rsrv[3];">
+                  <div *ngFor="let rsrvItem of rsrv[3];">
                     <div *ngIf="rsrvItem.time && tm == rsrvItem.time">
                       <div class="reservation-table__item"
                            *ngIf="rsrvItem.isActive"
@@ -41,4 +41,27 @@
       </div>
     </swiper>
   </table>
+</div>
+
+<div *ngIf="isMobile">
+  <div class="mobile-calendar">
+    <div class="mobile-calendar__wrap">
+      <div class="mobile-calendar__item" *ngIf="reservationDays && reservationDays.length">
+        <label class="mobile-calendar__label label">{{'Choose date' | translateS | async}}</label>
+        <ng-datepicker [options]="options"
+                       class="mobile-calendar__item-datepicker"
+                       [(ngModel)]="selectedDatePickerDate"
+                       (ngModelChange)="onSelectedDateMobile()"
+        ></ng-datepicker>
+      </div>
+      <div class="mobile-calendar__item" *ngIf="isDisplayMobileTimeList">
+        <label class="mobile-calendar__label label">{{'Choose time' | translateS | async}}</label>
+        <ng-select (selected)="onSelectedTimeMobile()"
+                   [options]="mobileTimeOptions"
+                   class="mobile-calendar__item-select"
+                   [(ngModel)]="mobileSelectedTime">
+        </ng-select>
+      </div>
+    </div>
+  </div>
 </div>

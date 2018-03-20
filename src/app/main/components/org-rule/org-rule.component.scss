@@ -76,7 +76,7 @@
           position: relative;
           width: 32.5%;
           margin: 0 auto;
-          padding-right: 100px;
+          padding-right: 70px;
           &::before {
             position: absolute;
             top: -75px;
@@ -91,7 +91,7 @@
           }
           &::after {
             position: absolute;
-            top: 89px;
+            top: 145px;
             left: 160px;
             content: '';
             display: block;
@@ -262,3 +262,175 @@
     }
   }
 }
+
+@media #{$tablet-x1} {
+  :host /deep/ {
+    padding-top: 85px;
+    .org-rule {
+      &__title {
+        margin-bottom: 55px;
+        line-height: 1.2;
+        font-size: 18px;
+        padding: 0 20px;
+      }
+      &__item {
+        line-height: 1.2;
+        font-size: 12px;
+        &--lock {
+          &::after {
+            top: 140px;
+            left: 10px;
+          }
+        }
+
+        &--bag {
+          top: 12px;
+          p {
+            width: 50%;
+            padding-right: 70px;
+            &::before {
+              top: -58px;
+              left: -62px;
+              width: 100px;
+            }
+            &::after {
+              top: 78px;
+              left: 111px;
+            }
+          }
+        }
+
+        &--key-2 {
+          &::after {
+            top: 78px;
+            left: auto;
+            right: -168px;
+          }
+        }
+
+        &--binoculars {
+          top: 20px;
+          width: 35%;
+          padding-top: 10px;
+          margin-left: auto;
+          right: 10px;
+          &::before {
+            top: -47px;
+            left: -5px;
+            display: block;
+            width: 110px;
+            height: 50px;
+          }
+        }
+      }
+      &__arrow-first {
+        bottom: -21px;
+        right: -10px;
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  :host /deep/ {
+    padding-top: 69px;
+    .org-rule {
+      &__title {
+        margin-bottom: 72px;
+        line-height: 1.2;
+        font-size: 18px;
+        text-align: left;
+        padding: 0 36px;
+      }
+      &__wrapper {
+        display: block;
+        width: 80%;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+      &__item {
+        line-height: 1.5;
+        font-size: 12px;
+        &--lock {
+          padding-top: 37px;
+          width: 277px;
+          &::before {
+            width: 85px;
+            left: 115px;
+          }
+          &::after {
+            transform: rotate(0deg);
+            top: 195px;
+            left: 188px;
+          }
+        }
+
+        &--key {
+          padding: 0 27px;
+          width: 277px;
+          &::before {
+            left: 20px;
+          }
+        }
+
+        &--bag {
+          top: 125px;
+          p {
+            width: 250px;
+            margin: 0;
+            padding-right: 0;
+            top: 30px;
+            &::before {
+              width: 124px;
+              top: -92px;
+              left: -10px;
+            }
+            &::after {
+              transform: rotate(5deg);
+              top: 115px;
+              width: 62px;
+              left: -18px;
+            }
+          }
+        }
+
+        &--key-2 {
+          width: 253px;
+          padding-top: 265px !important;
+          top: 230px;
+          &::after {
+            width: 160px;
+            left: 100px;
+            transform: rotate(-5deg);
+            top: 152px;
+          }
+          &:before {
+            top: 181px;
+            left: -10px;
+          }
+        }
+
+        &--binoculars {
+          top: -83px;
+          width: 223px;
+          padding-top: 20px;
+          margin-left: auto;
+          right: 0;
+          &::before {
+            top: -47px;
+            left: 32px;
+            display: block;
+            width: 131px;
+            height: 61px;
+          }
+        }
+      }
+      &__arrow-first {
+        left: 195px;
+        bottom: -7px;
+        transform: rotate(-36deg) scale(-1, 1);
+      }
+    }
+  }
+}
+

@@ -172,6 +172,59 @@
   }
 }
 
+@media #{$mobile} {
+  :host /deep/ {
+    width: 294px;
+    height: 287px;
+    .room {
+      &__header {
+        display: flex;
+        padding: 12px 14px 0;
+        .fa {
+          font-size: 22px;
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+        }
+      }
+      &__wrapper {
+        top: 56%;
+      }
+      &__title {
+        font-size: 18px;
+        letter-spacing: 1px;
+        line-height: 33px;
+      }
+      &__details {
+        display: flex;
+        padding: 0 10px;
+        margin-top: 30px;
+        &__item {
+          &:not(:last-child) {
+            margin-right: 4px;
+          }
+        }
+        &-icon {
+          height: 20px;
+          position: relative;
+          bottom: 5px;
+        }
+        &-text {
+          font-size: 11px;
+          padding-top: 7px;
+        }
+      }
+      &__btn {
+        display: block;
+        width: 170px;
+        padding: 12px 0 11px;
+        margin: 23px auto 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
 :host:hover {
   .room {
     &__header {

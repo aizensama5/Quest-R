@@ -42,6 +42,8 @@ import {UserHistoryService} from "./service/user-history.service";
 import {UserFavoritesService} from "./service/user-favorites.service";
 import {NotFoundModule} from "./not-found/not-found.module";
 import {FacebookModule, FacebookService} from "ngx-facebook";
+import {LoaderService} from "./service/loader.service";
+import {SharedModule} from "./shared/shared.module";
 
 
 @NgModule({
@@ -69,7 +71,8 @@ import {FacebookModule, FacebookService} from "ngx-facebook";
     BrowserAnimationsModule,
     GuardModule,
     PipeModule,
-    SwiperModule
+    SwiperModule,
+    SharedModule
   ],
   providers: [
     GenreService,
@@ -82,7 +85,8 @@ import {FacebookModule, FacebookService} from "ngx-facebook";
     LocaleResolverService,
     UserHistoryService,
     UserFavoritesService,
-    FacebookService
+    FacebookService,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

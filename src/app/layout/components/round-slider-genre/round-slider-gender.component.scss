@@ -92,3 +92,47 @@
     }
   }
 }
+
+@media #{$mobile} {
+  :host /deep/ {
+    display: block;
+    .round-slider-genre {
+      &__wrapper {
+        padding: 40px 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 350px;
+        margin: auto;
+        min-width: 320px;
+        width: 90%;
+        flex-direction: initial;
+      }
+      &__container {
+        margin: 0 auto;
+      }
+      &__text {
+        padding-left: 10px;
+        font-size: 14px;
+      }
+      &__color {
+        width: 20px;
+        height: 20px;
+      }
+      &__item {
+        width: 50%;
+        &:not(:last-child) { margin-bottom: 16.5px; }
+        &:nth-child(2n) {
+          justify-content: flex-start;
+          flex-direction: row-reverse;
+          .round-slider-genre__text {
+            padding-right: 10px;
+          }
+        }
+        .round-slider-genre__text {
+          position: relative;
+          top: 3px;
+        }
+      }
+    }
+  }
+}

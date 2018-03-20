@@ -44,3 +44,14 @@
     }
   }
 }
+
+@media #{$mobile} {
+  :host /deep/ {
+    .reserved-room {
+      &__title {
+        font-size: 18px;
+        margin: 62px auto 25px;
+      }
+    }
+  }
+}

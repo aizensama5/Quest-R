@@ -5,7 +5,9 @@
   padding-top: 70px;
   display: block;
   position: relative;
-  .swiper-container { padding-bottom: 60px; }
+  .swiper-container {
+    padding-bottom: 60px;
+  }
   .swiper-pagination {
     .swiper-pagination-bullet {
       width: 10px;
@@ -44,17 +46,23 @@
       width: 25% !important;
       height: 370px !important;
 
-      .swiper-room__btn { display: none; }
+      .swiper-room__btn {
+        display: none;
+      }
       .swiper-room__title {
         font-size: 24px;
       }
     }
     &-next {
       left: -4%;
-      .swiper-room__title { padding-left: 10%; }
+      .swiper-room__title {
+        padding-left: 10%;
+      }
     }
     &-prev {
-      .swiper-room__title { padding-right: 10%; }
+      .swiper-room__title {
+        padding-right: 10%;
+      }
     }
   }
 
@@ -91,6 +99,7 @@
       @include text-mixin($color-white, 36px, $font-gotham-pro-bold);
       text-align: center;
       padding-top: 70px;
+      white-space: nowrap;
     }
 
     &__btn {
@@ -125,6 +134,7 @@
     }
   }
 }
+
 @media #{$tablet-x1} {
   :host /deep/ {
     .swiper-wrapper {
@@ -148,6 +158,60 @@
     }
     .swiper-pagination {
       bottom: 0;
+    }
+  }
+}
+
+@media #{$mobile} {
+  :host /deep/ {
+    padding-top: 33px;
+    .swiper-wrapper {
+      .swiper-slide {
+        height: 199px !important;
+        .swiper-room__title {
+          display: none;
+        }
+        .swiper-room__btn {
+          display: none;
+        }
+      }
+      .swiper-slide.swiper-slide-active {
+        width: 74% !important;
+        left: 0;
+        .swiper-room__darkened {
+          box-shadow: 0 10px 12px 0 rgba(0, 0, 0, 0.46);
+          background-color: rgba(232, 232, 232, 0.1);
+        }
+        .swiper-room__title {
+          display: block;
+          padding-top: 49px;
+          font-size: 18px;
+          line-height: 1.78;
+          letter-spacing: 1px;
+          text-shadow: 0 2px 7px rgba(0, 0, 0, 0.5);
+          font-family: $font-gotham-pro-regular;
+        }
+        .swiper-room__btn {
+          display: block;
+          width: 170px;
+          bottom: 32px;
+        }
+      }
+      .swiper-slide.swiper-slide-next,
+      .swiper-slide.swiper-slide-prev {
+        width: 10% !important;
+        top: 0;
+      }
+      .swiper-slide.swiper-slide-next {
+        padding-left: 3%;
+        left: 0;
+      }
+      .swiper-slide.swiper-slide-prev {
+        padding-right: 3%;
+      }
+    }
+    .swiper-pagination {
+      display: none;
     }
   }
 }

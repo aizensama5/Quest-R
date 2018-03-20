@@ -53,3 +53,47 @@
     }
   }
 }
+
+@media #{$mobile} {
+ :host /deep/ {
+   .filter-rooms {
+     &__list {
+       display: block;
+     }
+     &__item {
+       padding: 16px 0;
+       font-size: 18px;
+       display: block;
+       &-wrap {
+         display: flex;
+         justify-content: center;
+       }
+       &-arrow {
+         position: relative;
+         top: 6px;
+         width: 20px;
+         height: 8px;
+         display: block;
+         padding-left: 25px;
+         background-image: url("../../../../../assets/images/triangle.svg");
+         background-repeat: no-repeat;
+         background-position: center;
+         transform: scaleY(-1);
+         transition: transform 0.5s;
+
+         &--active {
+           transform: rotate(0deg);
+         }
+       }
+     }
+     &__item-complexity,
+     &__item-marking {
+        font-size: 18px;
+       .filter-rooms__item-wrap {
+         display: flex;
+         justify-content: center;
+       }
+     }
+   }
+ }
+}

@@ -22,6 +22,8 @@ export class FilterRoomsComponent implements OnInit {
   rooms: RoomModel[] = [];
   displayedInitiallyRooms: RoomModel[] = [];
 
+  isMobile = false;
+
   filterArray: FilterModel = new FilterModel();
 
   complexity: ComplexityModel[] = [];
@@ -47,6 +49,12 @@ export class FilterRoomsComponent implements OnInit {
     radius: 93,
     thick: 32
   };
+  mobileCircleParams: any = {
+    width: 220,
+    height: 220,
+    radius: 93,
+    thick: 32
+  };
   tabletWidth = {
     max: 949,
     min: 757
@@ -54,6 +62,10 @@ export class FilterRoomsComponent implements OnInit {
   miniTabletWidth = {
     max: 756,
     min: 529
+  };
+  mobileWidth = {
+    max: 529,
+    min: 280
   };
 
   @Output() filteredRooms: EventEmitter<RoomModel[]> = new EventEmitter<RoomModel[]>();
@@ -88,7 +100,7 @@ export class FilterRoomsComponent implements OnInit {
     this.roomService.filterRooms(this.rooms, this.filterArray)
       .then((filteredRooms: RoomModel[]) => {
         this.filteredRooms.emit(filteredRooms);
-      })
+      });
   }
 
   displayPlayersCircle() {
@@ -107,6 +119,18 @@ export class FilterRoomsComponent implements OnInit {
     this.isDisplayPriceCircle = true;
     this.isDisplayPlayersCircle = false;
     this.isDisplayGenreCircle = false;
+  }
+
+  togglePlayersCircle() {
+    this.isDisplayPlayersCircle = !this.isDisplayPlayersCircle;
+  }
+
+  toggleGenreCircle() {
+    this.isDisplayGenreCircle = !this.isDisplayGenreCircle;
+  }
+
+  togglePriceCircle() {
+    this.isDisplayPriceCircle = !this.isDisplayPriceCircle;
   }
 
   onChangeGenre(genre: GenreModel) {
@@ -164,12 +188,22 @@ export class FilterRoomsComponent implements OnInit {
       this.initialRoundCircleParams = this.tabletRoundCircleParams;
     } else if (this.windowWidth >= this.miniTabletWidth.min && this.windowWidth <= this.miniTabletWidth.max) {
       this.initialRoundCircleParams = this.miniTabletCircleParams;
+    } else if (this.windowWidth >= this.mobileWidth.min && this.windowWidth <= this.mobileWidth.max) {
+      this.initialRoundCircleParams = this.mobileCircleParams;
     } else {
       this.initialRoundCircleParams = this.desktopRoundCircleParams;
+    }
+    console.log(this.initialRoundCircleParams);
+  }
+
+  keepTrackOfWindowSize() {
+    if (window.innerWidth <= this.mobileWidth.max) {
+      this.isMobile = true;
     }
   }
 
   ngOnInit() {
+    this.keepTrackOfWindowSize();
     this.windowWidth = window.innerWidth;
     this.checkRoundCircleParams();
   }

@@ -140,3 +140,36 @@
   }
 }
 
+@media #{$mobile} {
+  :host /deep/ {
+    margin-top: 56px;
+    margin-bottom: 40px;
+    .filter-circle {
+      margin: 10px auto 40px;
+      &__small-circle {
+        width: 155px;
+        height: 155px;
+      }
+      &__count-players,
+      &__price {
+        margin: 21px auto;
+        .filter-circle__title,
+        .filter-circle__description {
+          margin-bottom: 24px;
+          font-size: 15px;
+        }
+      }
+      &__title {
+        font-size: 16px;
+      }
+      &__input {
+        width: 70px;
+        font-size: 34px;
+        height: 40px;
+        margin: auto;
+        display: block;
+      }
+    }
+  }
+}
+

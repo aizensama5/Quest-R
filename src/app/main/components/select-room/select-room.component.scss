@@ -10,4 +10,7 @@
   @media #{$tablet-x1} {
     margin-top: 70px !important;
   }
+  @media #{$mobile} {
+    margin-top: 0 !important;
+  }
 }

@@ -2,14 +2,16 @@
   <div class="room-info">
     <div class="room-info__image"
          (click)="onGalleryOpen()"
-         [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"
-    ></div>
-    <app-gallery-slider *ngIf="isShowRoomGallery"
-                        [galleryData]="room.gallery"
-                        (onGalleryClose)="onGalleryClose($event)"
-    ></app-gallery-slider>
-    <div class="room-info__info">
-      <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{ room?.name | translateD }}"</h3>
+         [ngStyle]="{'background-image': 'url(' + room?.img + ')'}">
+    <div class="room-info__image-wrap"></div>
+  </div>
+  <app-gallery-slider *ngIf="isShowRoomGallery"
+                      [galleryData]="room.gallery"
+                      (onGalleryClose)="onGalleryClose($event)"
+  ></app-gallery-slider>
+  <div class="room-info__info">
+    <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{ room?.name | translateD }}"</h3>
+    <div class="inverted-mobile">
       <p class="room-info__info-description">
         {{ room?.description | translateD }}
       </p>
@@ -29,10 +31,18 @@
           </span>
         </div>
       </div>
+    </div>
+    <div *ngIf="!isMobile">
       <div class="room-info__details-item room-info__details-additional" *ngFor="let mark of room?.marking">
         <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
         <span class="room-info__details-text">{{ mark?.marking | translateD }}</span>
       </div>
     </div>
+
+    <div *ngIf="isMobile" class="room-info__details-item room-info__details-additional">
+      <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
+      <span class="room-info__details-text">{{ room?.address | translateD }}</span>
+    </div>
   </div>
+</div>
 </div>

@@ -37,9 +37,12 @@ export class ReservedRoomComponent implements OnInit {
   roomId: number;
   isOpenedRoomPage: boolean;
   reservationDays: any[];
+  mobileReservationDays = [];
   isRoomExist = false;
   currentDayOfWeek: number;
   roomOrders: OrderModel[] = [];
+  isMobile = false;
+  isFormSubmited = false;
 
   constructor(private roomService: RoomService,
               private reservationService: ReservationService,
@@ -50,6 +53,11 @@ export class ReservedRoomComponent implements OnInit {
               public pricesTypesService: PricesTypesService,
               public timeService: TimeService,
               public orderService: OrderService) {
+
+    if (window.innerWidth <= 529) {
+      this.isMobile = true;
+    }
+
     const roomId = +this.route.snapshot.params.id;
     this.getAllRooms().then((rooms: RoomModel[]) => {
       this.rooms = rooms;
@@ -94,12 +102,29 @@ export class ReservedRoomComponent implements OnInit {
         this.currentDayOfWeek = this.reservationService.getCurrentDayOfWeek(this.reservationDays[0].day);
         this.roomReservationData = this.reservationService.prepareReservationData(reservationData, this.currentDayOfWeek);
         this.timeList = this.getTime(this.getTimeList());
+        this.setMobileRoomReservationDays();
         this.onSelectRoom(this.room);
       });
   }
 
+  setMobileRoomReservationDays() {
+    let dayId = this.currentDayOfWeek;
+    let weekId = 0;
+    let index = 0;
+    this.reservationDays.forEach((day) => {
+      this.mobileReservationDays[index] = {
+        day: day.day,
+        dayId: dayId,
+        weekId: weekId
+      };
+      dayId = dayId < 7 ? ++dayId : 1;
+      weekId = dayId === this.currentDayOfWeek && index > 0 ? ++weekId : weekId;
+      index++;
+    });
+  }
+
   isReservationSlotActive(timeSlotId: string): boolean {
-    let isActive: boolean = true;
+    let isActive = true;
     const timeSlotTimestamp = timeSlotId ? timeSlotId.split('_')[1] : this.timeService.uniqueIdByTimestamp() + 1;
     if (this.timeService.uniqueIdByTimestamp() > +timeSlotTimestamp) {
       isActive = false;
@@ -115,7 +140,7 @@ export class ReservedRoomComponent implements OnInit {
 
   generateReservationTable(): Promise<any[]> {
     return new Promise((resolve) => {
-      let reservationData: any[] = [];
+      const reservationData = [];
       this.daysSettingsService.roomDaysSettings(this.room.id).subscribe((daysSettings: DaysModel[]) => {
         this.pricesTypesService.all().subscribe((priceType: PricesTypesModel[]) => {
           let reservationIndex = 0;
@@ -158,7 +183,7 @@ export class ReservedRoomComponent implements OnInit {
 
   getTime(timeList: string[]) {
     timeList = timeList.slice().sort();
-    let sortedTimeList: string[] = [];
+    const sortedTimeList = [];
     for (let i = 0; i < timeList.length - 1; i++) {
       if (timeList[i - 1] !== timeList[i]) {
         sortedTimeList.push(timeList[i]);
@@ -205,7 +230,7 @@ export class ReservedRoomComponent implements OnInit {
 
   setTimeSlotId(day: string, time: TimeModel[]): any[] {
     let timeIndex = 0;
-    let reservationData: any[] = [];
+    const reservationData = [];
     time.forEach((tm: TimeModel) => {
       reservationData.push({
         currency: 'złoty',
@@ -231,5 +256,9 @@ export class ReservedRoomComponent implements OnInit {
   onSelectItem(item: ReservationModel) {
     this.reserveData = item;
     this.showOrderingTable = true;
+  }
+
+  onFormSubmit(event) {
+    this.isFormSubmited = event;
   }
 }

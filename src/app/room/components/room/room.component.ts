@@ -2,8 +2,6 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {RoomModel} from '../../../models/room.model';
 import {RoomService} from '../../../service/http/room.service';
 import {ActivatedRoute} from '@angular/router';
-import {MarkingModel} from '../../../models/marking.model';
-import {UserRoomHistoryService} from "../../../service/http/user-room-history.service";
 import {UserHistoryService} from "../../../service/user-history.service";
 import {UserHistoryModel} from "../../../models/user-history.model";
 import {UserService} from "../../../service/http/user.service";
@@ -22,13 +20,15 @@ export class RoomInfoComponent implements OnInit {
   rooms: RoomModel[] = [];
   isShowRoomGallery = false;
   isExistRoom = false;
+  isMobile = false;
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
               private userHistoryService: UserHistoryService,
-              private userService: UserService) {
+              private userService: UserService
+  ) {
     this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
-      this.rooms = rooms;
+      console.log(this.rooms);
       let roomId = +this.route.snapshot.params.id;
       rooms.forEach((room: RoomModel) => {
         if (room.id === roomId) {
@@ -38,6 +38,7 @@ export class RoomInfoComponent implements OnInit {
       if (this.isExistRoom) {
         this.roomService.roomById(roomId).subscribe((room: RoomModel[]) => {
           this.room = room[0];
+          console.log(this.room);
           this.userService.all().subscribe((users: UserModel[]) => {
             if (users) {
               users.forEach((user: UserModel) => {
@@ -77,6 +78,9 @@ export class RoomInfoComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (window.innerWidth <= 529) {
+      this.isMobile = true;
+    }
   }
 
   onGalleryOpen() {

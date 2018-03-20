@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {RoomModel} from '../../../../models/room.model';
 import {OrderModel} from '../../../../models/order.model';
 import {ReservationService} from '../../../../service/http/reservation.service';
@@ -16,6 +16,7 @@ import {ActivatedRoute} from "@angular/router";
 import {RoomService} from "../../../../service/http/room.service";
 import {AvailableHoursModel} from "../../../../models/available-hours.model";
 import {PriceCountPlayersDependenceModel} from "../../../../models/price-countPlayers-dependence.model";
+import {EmailValidator} from "@angular/forms";
 
 @Component({
   moduleId: module.id,
@@ -25,11 +26,13 @@ import {PriceCountPlayersDependenceModel} from "../../../../models/price-countPl
 })
 export class ReservedFormComponent implements OnInit {
 
+  @Output() onFormSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() room: RoomModel;
   @Input() reserveData: any;
   @Input() showOrderingTable: boolean;
+  @Input() isMobile: boolean;
   orderData: OrderModel = new OrderModel();
-  maxCountOfPlayers: number = 8;
+  maxCountOfPlayers = 8;
   roomDaySetting: DaysModel[] = [];
   countOfPeople: number;
   pricesTypes: PricesTypesModel[] = [];
@@ -38,7 +41,9 @@ export class ReservedFormComponent implements OnInit {
   notificationPopupMessage = '';
   areErrors: boolean;
 
-  scrollTarget: string = 'reserve-calendar';
+  mailsTo: any[] = [];
+
+  scrollTarget = 'reserve-calendar';
 
   user$: Observable<firebase.User>;
   private user: any;
@@ -51,7 +56,9 @@ export class ReservedFormComponent implements OnInit {
               public pricesTypesService: PricesTypesService,
               public daySettings: DaysSettingsService,
               private route: ActivatedRoute,
-              public roomService: RoomService) {
+              public roomService: RoomService,
+              private confService: ConfigService
+  ) {
   }
 
   ngOnInit() {
@@ -70,6 +77,9 @@ export class ReservedFormComponent implements OnInit {
     this.configService.maxCountOfPlayers().subscribe((count: any[]) => {
       this.maxCountOfPlayers = count[0].$value;
     });
+    this.configService.receivingMessages().subscribe((mailsTo: any) => {
+      this.mailsTo = mailsTo[0].$value.split('\n');
+    });
   }
 
   getRoomDaySettings() {
@@ -87,9 +97,9 @@ export class ReservedFormComponent implements OnInit {
   checkCountOfPlayersPriceDep() {
     this.getRoomDaySettings()
       .then((daySet: DaysModel[]) => {
-        daySet.forEach((daySet: DaysModel) => {
-          if (daySet.id === this.reserveData.dayId) {
-            daySet.availableHours.forEach((avHour: AvailableHoursModel) => {
+        daySet.forEach((set: DaysModel) => {
+          if (set.id === this.reserveData.dayId) {
+            set.availableHours.forEach((avHour: AvailableHoursModel) => {
               if (this.reserveData.time.time === avHour.hour) {
                 this.pricesTypes.forEach((priceType: PricesTypesModel) => {
                   if (priceType.id === avHour.priceTypeId) {
@@ -101,7 +111,7 @@ export class ReservedFormComponent implements OnInit {
                           document.getElementById('list-item-price').style.transform = 'scale(1)';
                         }, 200);
                       }
-                    })
+                    });
                   }
                 });
               }
@@ -158,7 +168,8 @@ export class ReservedFormComponent implements OnInit {
             this.isShowNotificationPopup = true;
             this.reserveData.time.isActive = false;
             this.notificationPopupMessage = 'Order was adding! Our manager contact You as soon as possible! Thank you!';
-          }, () => {
+            this.onFormSubmit.emit(true);
+            }, () => {
             this.isShowNotificationPopup = true;
             this.areErrors = true;
             this.notificationPopupMessage = 'Something was wrong!';

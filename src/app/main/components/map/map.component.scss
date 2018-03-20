@@ -1,7 +1,6 @@
 @import "../../../../assets/styles/variables";
 @import "../../../../assets/styles/_mixins";
 
-
 :host /deep/ {
   height: 800px;
   width: 100%;
@@ -65,19 +64,25 @@
       margin-bottom: 25px;
       text-decoration: none;
       display: block;
-      &:last-child { line-height: 24px; }
+      &:last-child {
+        line-height: 24px;
+      }
     }
 
     &__list-icon {
       display: flex;
       justify-content: center;
       &-item {
-        &:not(:last-child) { margin-right: 25px; }
+        &:not(:last-child) {
+          margin-right: 25px;
+        }
         a i.fa {
           color: $color-white;
           font-size: 27.5px;
           transition: color 0.5s;
-          &:hover { color: $color-yellow; }
+          &:hover {
+            color: $color-yellow;
+          }
         }
       }
     }
@@ -92,6 +97,106 @@
       }
       .map__text {
         font-size: 16px;
+      }
+    }
+  }
+}
+
+@media #{$tablet-x1} {
+  :host /deep/ {
+    .map__wrapper {
+      .title {
+        font-size: 16px;
+      }
+      .map__text {
+        font-size: 16px;
+      }
+    }
+    .map__contact {
+      height: 470px;
+      width: 220px;
+    }
+    .map__title {
+      font-size: 16px;
+    }
+    .map__form {
+      width: 180px;
+      margin: 10px auto 0;
+      .label {
+        font-size: 12px;
+        margin-top: 10px;
+      }
+      .input {
+        padding: 0 6px;
+        height: 30px;
+        font-size: 12px;
+      }
+      .input--textarea {
+        padding: 6px;
+        height: 54px;
+      }
+      .btn {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        padding: 7px;
+      }
+    }
+    .map__contact-info {
+      .title {
+        font-size: 14px;
+      }
+      .map__text {
+        font-size: 11px;
+        margin-bottom: 12px;
+        &:last-child {
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  :host /deep/ {
+    height: 720px;
+    agm-map {
+      display: none;
+    }
+    .map__bg {
+      background-color: initial;
+      .map__contact {
+        background-image: initial;
+        width: 100%;
+        .map__title {
+          width: 90%;
+          margin: auto;
+          font-size: 18px;
+          text-align: left;
+          min-width: 250px;
+        }
+        .map__form {
+          width: 90%;
+          margin: 18px auto 0;
+          min-width: 250px;
+          .label {
+            font-size: 14px;
+          }
+          .map__label {
+            margin-top: 10px;
+          }
+          .map__btn {
+            padding: 11px;
+            margin-bottom: 38px;
+          }
+        }
+        &-info {
+          width: 80%;
+          margin: auto;
+        }
+
+        .map__list-icon {
+          padding: 16px 0 34px;
+        }
       }
     }
   }

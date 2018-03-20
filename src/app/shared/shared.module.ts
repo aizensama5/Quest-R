@@ -14,6 +14,7 @@ import { TabsetInputComponent } from './tabset-input/tabset-input.component';
 import { GallerySliderComponent } from './gallery-slider/gallery-slider.component';
 import { SwiperModule } from "angular2-useful-swiper";
 import { NotificationPopupComponent } from './notification-popup/notification-popup.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule ({
@@ -31,7 +32,8 @@ import { NotificationPopupComponent } from './notification-popup/notification-po
     LanguageTabsetComponent,
     TabsetInputComponent,
     GallerySliderComponent,
-    NotificationPopupComponent
+    NotificationPopupComponent,
+    LoaderComponent
   ],
   exports: [
     LoginComponent,
@@ -39,7 +41,8 @@ import { NotificationPopupComponent } from './notification-popup/notification-po
     UploadImageComponent,
     LanguageTabsetComponent,
     GallerySliderComponent,
-    NotificationPopupComponent
+    NotificationPopupComponent,
+    LoaderComponent
   ],
   providers: [
     PopupNotificationService,
