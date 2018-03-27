@@ -1,4 +1,4 @@
-<div class="create-review-wrapper">
+<div class="create-review-wrapper" [class.main-loader]="isShowLoader">
   <h1 class="create-review-wrapper__title">{{ 'ADD A REVIEW' | translateS | async }}</h1>
   <div class="create-review">
     <div class="create-review__left">
@@ -6,20 +6,29 @@
         <label class="label">{{ 'Name of room' | translateS | async }}</label>
         <select [(ngModel)]="newReview.roomId"
                 class="create-review__select"
-        ><option name="review-room-option"
-              *ngFor="let room of rooms"
-              [value]="room.id">
-            {{ room.name }}
+                (ngModelChange)="onRoomSelected()"
+        >
+          <option name="review-room-option" [value]="0">{{'  '}}</option>
+          <option name="review-room-option"
+                  *ngFor="let room of rooms"
+                  [value]="room.id">
+            {{ room.name.en }}
           </option>
         </select>
       </div>
       <div class="create-review__select-date create-review__left-field">
         <label class="label">{{ 'Date of passage' | translateS | async }}</label>
-        <input [(ngModel)]="newReview.visited"
-               class="create-review__date"
-               name="review-date"
-               type="date"
-        />
+        <select [(ngModel)]="newReview.visited"
+                class="create-review__select"
+        >
+          <option name="review-room-option">{{'  '}}</option>
+          <option name="review-room-option"
+                  *ngFor="let dateOfVisit of datesOfVisit"
+                  [disabled]="!newReview.roomId"
+                  [value]="dateOfVisit">
+            {{ dateOfVisit | date:'dd-MM-yyyy' }}
+          </option>
+        </select>
       </div>
     </div>
     <div class="create-review__right">
@@ -31,6 +40,12 @@
     </div>
   </div>
   <button class="create-review__submit"
-         (click)="save()"
-  >{{ 'Add' | translateS | async }}</button>
+          (click)="save()"
+  >{{ 'Add' | translateS | async }}
+  </button>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

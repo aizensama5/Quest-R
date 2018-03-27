@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import {PricesTypesModel} from '../models/prices-types.model';
+import {PriceModel} from "../models/price.model";
+import {PriceCountPlayersDependenceModel} from "../models/price-countPlayers-dependence.model";
 
 @Injectable()
 export class PricesTypesService {
@@ -18,6 +20,18 @@ export class PricesTypesService {
   all(): FirebaseListObservable<PricesTypesModel[]> {
     return <FirebaseListObservable<PricesTypesModel[]>>this.databaseService
       .list(PricesTypesService.dataBaseName);
+  }
+
+  getPriceTypeByPriceTypeId(priceTypes: PricesTypesModel[], priceTypeId: number) {
+    return priceTypes.filter((priceType: PricesTypesModel) => priceType.id === priceTypeId)[0];
+  }
+
+  getMinPriceFromPriceList(priceList: PriceCountPlayersDependenceModel[]): number {
+    let prices: number[] = [];
+    priceList.forEach((price: PriceCountPlayersDependenceModel) => {
+      prices.push(price.price);
+    });
+    return Math.max.apply(null, prices);
   }
 
   deletePriceType(id: number): Promise<void> {

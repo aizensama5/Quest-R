@@ -1,4 +1,4 @@
-<div class="history-wrapper wrap">
+<div class="history-wrapper wrap" *ngIf="historyData && historyData.length">
   <table class="history-table">
     <tr class="history-table__header-wrapper">
       <th class="history-table__header">{{ 'Name of room' | translateS | async }}</th>
@@ -8,11 +8,24 @@
       <th class="history-table__header">{{ 'Photo' | translateS | async }}</th>
     </tr>
     <tr *ngFor="let history of historyData" class="history-table__content-wrapper">
-      <td class="history-table__content" align="left">{{ history.roomName }}</td>
-      <td class="history-table__content" align="center">{{ history.date }}</td>
-      <td class="history-table__content" align="center">{{ history.passingTime }}</td>
-      <td class="history-table__content" align="center">{{ history.review }}</td>
-      <td class="history-table__content" align="center">{{ history.photo }}</td>
+      <td class="history-table__content" align="center">{{ history?.roomId | roomName | async }}</td>
+      <td class="history-table__content" align="center">{{ history.bookingDate | date:'dd-MM-yyyy' }}</td>
+      <td class="history-table__content" align="center">{{ history?.duration }}</td>
+      <!--<td class="history-table__content" align="center">{{ history.review }}</td>-->
+      <td class="history-table__content history-table__content-underline" *ngIf="history.review" align="center">
+        <a [routerLink]="'/cabinet/reviews/'">See review</a>
+      </td>
+      <td class="history-table__content history-table__content-add" *ngIf="!history.review" align="center">
+        <a [routerLink]="'/cabinet/reviews/'">Add review</a>
+      </td>
+      <td class="history-table__content history-table__content-underline" *ngIf="history.photos && history.photos.length" align="center">
+        <a [routerLink]="'/cabinet/gallery/'">See photos</a>
+      </td>
+      <td class="history-table__content history-table__content-add" *ngIf="!history.photos" align="center">
+        <a [routerLink]="'/cabinet/gallery/'">Add photos</a>
+      </td>
     </tr>
   </table>
 </div>
+<p *ngIf="!historyData.length" class="no-history no-history-with-padding">{{ 'You have not been to any room yet' | translateS | async }}</p>
+

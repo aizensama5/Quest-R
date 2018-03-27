@@ -19,13 +19,15 @@ export class RoomModel {
   level: string;
   openingDate: string;
   position: Marker;
+  address: LanguageModel;
   ganre: GenreModel;
   displayOnMain: boolean;
   countPlayers: PlayerModel;
   price: PriceModel;
-  complexity: ComplexityModel[];
+  complexity: ComplexityModel;
   marking: MarkingModel[];
   gallery: PhotoModel[];
+  isFavorite?: boolean;
 
   static fromJSON(values) {
     const room = new RoomModel();
@@ -57,11 +59,12 @@ export class RoomModel {
     this.level = '';
     this.openingDate = '';
     this.position = new Marker();
+    this.address = new LanguageModel();
     this.ganre = new GenreModel();
     this.displayOnMain = false;
     this.countPlayers = new PlayerModel();
     this.price = new PriceModel();
-    this.complexity = [];
+    this.complexity = new ComplexityModel();
     this.marking = [];
     this.gallery = [];
   }

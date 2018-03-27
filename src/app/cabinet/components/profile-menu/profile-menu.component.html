@@ -1,20 +1,9 @@
 <div class="profile-menu-wrapper">
   <div class="profile-menu-wrapper__left-transition"></div>
   <ul class="profile-menu">
-    <li routerLinkActive="active" class="profile-menu__menu-item">
-      <a [routerLink]="'./history'">{{ 'History' | translateS | async }}</a>
-    </li>
-    <li routerLinkActive="active" class="profile-menu__menu-item">
-      <a [routerLink]="'./gallery'">{{ 'Gallery' | translateS | async }}</a>
-    </li>
-    <li routerLinkActive="active" class="profile-menu__menu-item">
-      <a [routerLink]="'./favorites'">{{ 'Favorites' | translateS | async }}</a>
-    </li>
-    <li routerLinkActive="active" class="profile-menu__menu-item">
-      <a [routerLink]="'./friends'">{{ 'My friends' | translateS | async }}</a>
-    </li>
-    <li routerLinkActive="active" class="profile-menu__menu-item">
-      <a [routerLink]="'./reviews'">{{ 'Reviews' | translateS | async }}</a>
+    <li routerLinkActive="active" class="profile-menu__menu-item" *ngFor="let menuItem of profileMenuItems">
+      <a [routerLink]="'./'+menuItem.url+''" (click)="checkActiveMenuItem()" [class.active-profile-menu-item]="menuItem.isActive">
+        {{ menuItem.name | translateS | async }}</a>
     </li>
   </ul>
   <div class="profile-menu-wrapper__right-transition"></div>

@@ -1,0 +1,17 @@
+@import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/admin-templates";
+
+:host /deep/ {
+  .non-auth-user {
+    @include text-mixin(#000, 24px, $font-source-sans-pro-regular);
+    text-align: center;
+    line-height: 50vh;
+  }
+  .admin {
+    &__title {
+      a {
+        @include text-mixin(#000, 24px, $font-source-sans-pro-regular);
+      }
+    }
+  }
+}

@@ -1,22 +1,59 @@
-<div class="gallery-wrapper">
-  <div class="gallery" *ngFor="let gallery of galleryData">
+<div class="gallery-wrapper" *ngIf="historyData && historyData.length" [class.main-loader]="isShowLoader">
+  <div class="gallery" *ngFor="let gallery of historyData; let j = index">
     <div class="gallery__top">
-      <p class="gallery__room-name">{{ gallery.roomName }}</p>
-      <p class="gallery__date">{{ gallery.date }}</p>
-      <button class="gallery__add-photo">{{ 'Add photo' | translateS | async }}</button>
+      <p class="gallery__room-name">{{ gallery.roomId | roomName | async }}</p>
+      <p class="gallery__date">{{ gallery.bookingDate | date: "dd.MM.yyyy" }}</p>
+      <label class="gallery__add-photo" (click)="addPhotos(gallery.id)">{{ 'Add photo' | translateS | async }}
+        <app-upload-image id="swiper-wrapper-user-gallery"
+                          (onImagesUploaded)="onImagesUploaded($event)"
+                          [isMultiple]="true"
+                          [withStyling]="true">
+        </app-upload-image>
+      </label>
     </div>
     <div class="gallery__bottom">
-      <swiper [config]="sliderConfig" class="gallery-swiper" #swiperClass>
-        <div class="swiper-wrapper gallery__bottom-swiper">
-          <div class="swiper-slide gallery__bottom-swiper--slide" *ngFor="let photo of gallery.photo">
-            <div class="gallery__image" [ngStyle]="{'background-image': 'url(' + photo.path + ')'}"></div>
-          </div>
-        </div>
-        <div class="swiper-button-prev gallery-swiper-button-prev"></div>
-        <div class="swiper-button-next gallery-swiper-button-next"></div>
-      </swiper>
+      <div *ngIf="gallery.photos && gallery.photos.length">
+        <swiper [config]="sliderConfig" class="gallery-swiper" #swiperClass>
+            <div class="swiper-wrapper gallery__bottom-swiper">
+              <div class="swiper-slide gallery__bottom-swiper--slide" *ngFor="let photo of gallery.photos; let i = index;">
+                <div class="gallery__image" *ngIf="photo.path" id="slide-{{i}}"
+                     [ngStyle]="{'background-image': 'url(' + photo?.path + ')'}"
+                     (click)="onGalleryOpen(i, gallery.photos)"
+                ></div>
+                <i class="fa fa-close delete-icon gallery__bottom-swiper--slide-delete-icon" (click)="deleteImage(photo.path, i)"></i>
+              </div>
+            </div>
+          <div class="swiper-button-prev gallery-swiper-button-prev" (click)="checkLastSlide(false)"></div>
+          <div class="swiper-button-next gallery-swiper-button-next" (click)="checkLastSlide(true)"></div>
+        </swiper>
+      </div>
+      <div *ngIf="!gallery.photos">
+        <label class="gallery__image gallery__image-add-photos" (click)="addPhotos(gallery.id)">
+          <app-upload-image id="swiper-wrapper-user-gallery"
+                            (onImagesUploaded)="onImagesUploaded($event)"
+                            [isMultiple]="true"
+                            [withStyling]="true">
+          </app-upload-image>
+          <span>+</span>
+        </label>
+      </div>
     </div>
   </div>
 </div>
+
+<app-gallery-slider *ngIf="isShowRoomGallery"
+                    [galleryData]="galleryPhotos"
+                    [startSlide]="startSlide"
+                    (onGalleryClose)="onGalleryClose($event)"
+></app-gallery-slider>
+
+<p *ngIf="!historyData.length" class="no-history no-history-with-padding">{{ 'You have not been to any room yet' | translateS | async }}</p>
+
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>
+
 
 

@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { ComplexityModel } from '../../../../../models/complexity.model';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {ComplexityModel} from '../../../../../models/complexity.model';
 
 @Component({
   moduleId: module.id,
@@ -11,15 +11,15 @@ export class FilterComplexityComponent {
 
   @Input() placeholder: string;
   @Input() listOptions: any[];
+  @Input() filterComplexity: ComplexityModel;
 
-  @Output() onChangeComplexity: EventEmitter<ComplexityModel[]> = new EventEmitter<ComplexityModel[]>();
+  @Output() onChangeComplexity: EventEmitter<ComplexityModel> = new EventEmitter<ComplexityModel>();
 
   private _isShowListOptions = false;
   private _listChecked: ComplexityModel[] = [];
 
-  constructor(
-    private eRef: ElementRef,
-  ) {}
+  constructor(private eRef: ElementRef,) {
+  }
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
@@ -32,41 +32,25 @@ export class FilterComplexityComponent {
     this.listOptions.forEach((list) => {
       list.checked = false;
     });
-    this.findCheckedValues();
+    if (!this.filterComplexity.id) {
+      this._listChecked = [];
+    } else {
+      this.findCheckedValues();
+    }
     this.isShowListOptions = !this.isShowListOptions;
   }
 
   updateListOptions(res: any, item: ComplexityModel) {
-    let indexForDeleting = 0;
-    const complexity: ComplexityModel[] = [];
-
-    if (res.target.checked) {
-      this._listChecked.push(item);
-      this._listChecked.forEach((comp: ComplexityModel) => {
-        if (comp.id === item.id) {
-          complexity.push(item);
-        }
-      });
-    } else {
-      indexForDeleting = this.findIndexForDeleting(item.id);
-      this.deleteRepetativeValues(indexForDeleting);
-    }
-
-    if (complexity.length > 1) {
-      this.deleteRepetativeValues(this._listChecked.length - 1);
-    }
-
+    this._listChecked.push(item);
     this.findCheckedValues();
-    this.onChangeComplexity.emit(this._listChecked);
+    this.onChangeComplexity.emit(item);
   }
 
   findCheckedValues(): void {
     this.listOptions.forEach((opt: any) => {
-      this._listChecked.forEach((list: ComplexityModel) => {
-        if (opt.id === list.id) {
-          opt.checked = true;
-        }
-      });
+      if (opt.id === this._listChecked[this._listChecked.length - 1].id) {
+        opt.checked = true;
+      }
     });
   }
 

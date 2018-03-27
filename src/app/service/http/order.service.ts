@@ -10,23 +10,42 @@ export class OrderService {
 
   addOrder(order: OrderModel): Promise<void> {
     return <Promise<void>>this.dataBaseService
-      .object(OrderService.dataBaseName + order.roomId + '_' + order.id)
+      .object(OrderService.dataBaseName + order.roomId + '/' + order.id)
       .set(order);
   }
 
-  userOrders(orderList: OrderModel[], userId: string): OrderModel[] {
-    const userOrdersInfo: OrderModel[] = [];
-    orderList.forEach((order: OrderModel) => {
-      if (order.bookerData.userId === userId && order.is_passed) {
-        userOrdersInfo.push(order);
-      }
-    });
-    return userOrdersInfo;
+  orderById(roomId: number, orderId: string): FirebaseListObservable<OrderModel[]> {
+    return <FirebaseListObservable<OrderModel[]>>this.dataBaseService
+      .list(OrderService.dataBaseName + roomId, {
+        query: {
+          orderByChild: 'id',
+          equalTo: orderId
+        }
+      });
   }
 
-  all(): FirebaseListObservable<OrderModel[]> {
+  roomOrders(roomId: number): FirebaseListObservable<OrderModel[]> {
     return <FirebaseListObservable<OrderModel[]>>this.dataBaseService
+      .list(OrderService.dataBaseName + roomId);
+  }
+
+  userOrders(orderList: OrderModel[], userId: string): Promise<OrderModel[]> {
+    return new Promise((resolve) => {
+      const userOrdersInfo: OrderModel[] = [];
+      console.log(orderList);
+      orderList.forEach((order: any) => {
+        for (let o in order) {
+          if (order[o].bookerData.userId === userId) {
+            userOrdersInfo.push(order[o]);
+          }
+        }
+        resolve(userOrdersInfo);
+      });
+    });
+  }
+
+  all(): FirebaseListObservable<any[]> {
+    return <FirebaseListObservable<any[]>>this.dataBaseService
       .list(OrderService.dataBaseName)
-      .map((items) => items.map(OrderModel.fromJSON));
   }
 }

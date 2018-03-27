@@ -20,8 +20,8 @@ export class FilterPlayersComponent implements OnInit {
   @ViewChild('inputPlayers') input: ElementRef;
   @Input() initValue = 0;
 
-  private _value = 0;
-  private _valueFixed = 0;
+  private _value: number = 0;
+  private _valueFixed: number = 0;
 
   set value(value: number) {
     this.checkValue(value);
@@ -32,7 +32,7 @@ export class FilterPlayersComponent implements OnInit {
 
   @Input()
   get value(): number {
-    return this._value;
+    return +this._value;
   }
 
   set valueOnFixedPos(value: number) {
@@ -44,7 +44,7 @@ export class FilterPlayersComponent implements OnInit {
   }
 
   get valueOnFixedPos(): number {
-    return this._valueFixed;
+    return +this._valueFixed;
   }
 
   checkValue (value: number): void {

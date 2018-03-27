@@ -54,18 +54,7 @@ export class CompanyDataComponent {
     }
   }
 
-  onImageUploaded(image: any) {
-    if (!image.error && image.src) {
-      this.companyData.logo = image.src;
-      this.areErrors = false;
-    } else {
-      this.areErrors = true;
-    }
-  }
 
-  deleteImage() {
-    this.companyData.logo = '';
-  }
 
   closePopup () {
     this.isShowNotificationPopup = false;

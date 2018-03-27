@@ -96,17 +96,14 @@
         <div class="admin-btn-wrap">
           <button class="btn btn-primary admin-btn" (click)="addNewType()">Save</button>
         </div>
-        <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
-          <div class="popup">
-            <i class="popup-close fa fa-close" (click)="closePopup()"></i>
-            <div class="popup-content">
-              <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
-              <div class="popup-confirmation" *ngIf="deletedTypeId" (click)="confirmDeleteType(deletedTypeId)">ДА</div>
-            </div>
-            <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        [isShowConfirmButton]="deletedTypeId"
+                        (onConfirmEvent)="confirmDeleteType(deletedTypeId)"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DescriptionService } from '../../../service/description.service';
 import { LanguageModel } from "../../../models/language.model";
+import { LoaderService } from "../../../service/loader.service";
 
 @Component({
     moduleId: module.id,
@@ -10,14 +11,17 @@ import { LanguageModel } from "../../../models/language.model";
 })
 export class MainComponent implements OnInit {
   description: LanguageModel = new LanguageModel();
-  constructor(public descService: DescriptionService) {
+  constructor(
+    public descService: DescriptionService,
+    public loaderService: LoaderService
+  ) {
+    this.loaderService.show();
     descService.getCurrentDescription().subscribe((description: LanguageModel[]) => {
       this.description = description[0];
     });
   }
 
   ngOnInit() {
-    document.body.style.backgroundColor = 'none';
-    document.body.style.backgroundImage = 'linear-gradient(214deg, #000000, #2a2c2e 54%, #131313);';
+    this.loaderService.hide(2500);
   }
 }

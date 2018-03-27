@@ -10,14 +10,32 @@
       @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
       line-height: 28px;
       padding-top: 50px;
-      padding-bottom: 75px;
     }
   }
   @media #{$tablet-x2} {
     .main {
       &__description {
-        padding-top: 40px;
-        padding-bottom: 70px;
+        padding-top: 10px;
+      }
+    }
+  }
+  @media #{$tablet-x1} {
+    .main {
+      &__description {
+        font-size: 15px;
+        line-height: 24px;
+        padding-top: 10px;
+      }
+    }
+  }
+  @media #{$mobile} {
+    .main {
+      &__description {
+        min-width: 170px;
+        width: 50%;
+        padding-top: 0;
+        line-height: 1.5;
+        font-size: 14px;
       }
     }
   }

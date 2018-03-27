@@ -1,20 +1,42 @@
-<swiper *ngIf="rooms.length" [config]="config">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let room of rooms">
-            <div class="swiper-room__slide" [ngStyle]="{'background-image': 'url(' + room.img + ')'}">
-              <div class="swiper-room__darkened">
-                <div class="swiper-room__content">
-                  <h3 class="swiper-room__title">
-                    {{ 'ROOM' | translateS | async }}<br>
-                    "{{ room.name.def }}"
-                  </h3>
-                  <button class="btn swiper-room__btn" [routerLink]="['/room/'+room.id]">
-                    {{ 'Read more' | translateS | async }}
-                  </button>
-                </div>
-              </div>
-            </div>
+<swiper *ngIf="rooms.length && rooms.length > 1" [config]="config" #swiperRooms>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let room of rooms">
+      <div class="swiper-room__slide" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}">
+        <div class="swiper-room__darkened">
+          <div class="swiper-room__content" *ngIf="langObj">
+            <h3 class="swiper-room__title">
+              {{ langObj[locale]['room'] }}<br>
+              "{{ room.name | translateD }}"
+            </h3>
+            <button class="btn swiper-room__btn" [routerLink]="['./room/' + room?.id]">
+              {{ langObj[locale]['readMore'] }}
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="swiper-pagination"></div>
+  </div>
+  <div class="swiper-area">
+    <div class="swiper-area-prev swiper-area-pagination"></div>
+    <div class="swiper-area-next swiper-area-pagination"></div>
+  </div>
+  <div class="swiper-pagination"></div>
 </swiper>
+
+<div class="swiper-wrapper" *ngIf="rooms.length && rooms.length <= 1">
+  <div class="swiper-slide" *ngFor="let room of rooms">
+    <div class="swiper-room__slide" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}">
+      <div class="swiper-room__darkened">
+        <div class="swiper-room__content" *ngIf="langObj">
+          <h3 class="swiper-room__title">
+            {{ langObj[locale]['room'] }}<br>
+            "{{ room.name | translateD }}"
+          </h3>
+          <button class="btn swiper-room__btn" [routerLink]="['./room/' + room?.id]">
+            {{ langObj[locale]['readMore'] }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

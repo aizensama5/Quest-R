@@ -37,11 +37,18 @@ import { WebDocumentService } from './service/http/web-document.service';
 import { LanguageService } from "./service/language.service";
 import { DescriptionService } from "./service/description.service";
 import { HttpService } from "./service/http/http.service";
+import {LocaleResolverService} from "./service/locale-resolver.service";
+import {UserHistoryService} from "./service/user-history.service";
+import {UserFavoritesService} from "./service/user-favorites.service";
+import {NotFoundModule} from "./not-found/not-found.module";
+import {FacebookModule, FacebookService} from "ngx-facebook";
+import {LoaderService} from "./service/loader.service";
+import {SharedModule} from "./shared/shared.module";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,14 +62,17 @@ import { HttpService } from "./service/http/http.service";
     AppRoutingModule,
     RoomModule,
     ServiceModule.forRoot(),
+    FacebookModule.forRoot(),
     MainModule,
     StoreModule.provideStore(reducersMain.reducer),
     CabinetModule,
     AdminModule,
+    NotFoundModule,
     BrowserAnimationsModule,
     GuardModule,
     PipeModule,
-    SwiperModule
+    SwiperModule,
+    SharedModule
   ],
   providers: [
     GenreService,
@@ -71,7 +81,12 @@ import { HttpService } from "./service/http/http.service";
     WebDocumentService,
     LanguageService,
     DescriptionService,
-    HttpService
+    HttpService,
+    LocaleResolverService,
+    UserHistoryService,
+    UserFavoritesService,
+    FacebookService,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

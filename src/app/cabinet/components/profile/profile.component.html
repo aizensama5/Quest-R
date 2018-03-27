@@ -8,21 +8,12 @@
       </div>
     </div>
     <div class="profile-block">
-      <div class="profile-block__text profile-block__text--font-medium">{{ 'Your level' | translateS | async }}:</div>
-      <div class="level">
-        <div class="level__text level__text--left">{{ 'Beginner' | translateS | async }}</div>
-        <div class="level__progress-container">
-          <div class="level__progress-maximum"></div>
-          <div class="level__progress"></div>
-        </div>
-        <div class="level__text level__text--right">{{ 'Experts' | translateS | async }}</div>
-      </div>
-
       <div class="profile-block__text profile-block__text--font-medium">{{ 'Passed rooms' | translateS | async }}:</div>
-      <div class="rooms-passed">
-        <div class="rooms-passed__image"></div>
-        <div class="rooms-passed__image"></div>
-        <div class="rooms-passed__image"></div>
+      <div class="rooms-passed" *ngIf="userHistories && userHistories.length">
+        <div class="rooms-passed__image" *ngFor="let passedRooms of userHistories"></div>
+      </div>
+      <div class="rooms-passed no-passed" *ngIf="!userHistories.length">
+        <p>{{ 'There are no passed rooms' | translateS | async }}</p>
       </div>
     </div>
   </div>

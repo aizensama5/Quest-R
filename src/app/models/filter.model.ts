@@ -4,7 +4,7 @@ import { MarkingModel } from './marking.model';
 import { EventEmitter } from '@angular/core';
 
 export class FilterModel {
-  private _complexity: ComplexityModel[] = [];
+  private _complexity: ComplexityModel = new ComplexityModel();
   private _countPlayers = 0;
   private _genre: GenreModel = new GenreModel();
   private _price = 0;
@@ -23,11 +23,11 @@ export class FilterModel {
     this.filterChange.emit(this);
   }
 
-  get complexity(): ComplexityModel[] {
+  get complexity(): ComplexityModel {
     return this._complexity;
   }
 
-  set complexity(value: ComplexityModel[]) {
+  set complexity(value: ComplexityModel) {
     this._complexity = value;
     this.filterChange.emit(this);
   }

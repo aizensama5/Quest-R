@@ -1,7 +1,109 @@
+@import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/_mixins";
+
 :host /deep/ {
-  display: flex;
-  flex-wrap: wrap;
   max-width: 960px;
   margin: 0 auto;
-  justify-content: space-between;
+  .main-list-rooms-wrap {
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .swiper-list-rooms {
+    height: 308px;
+    .swiper-wrapper {
+      padding-top: 308px;
+    }
+    .swiper-slide-active {
+      visibility: visible !important;
+      height: 297px !important;
+      .room__bg--darkened {
+        background-color: rgba(3, 3, 2, 0.5);
+      }
+    }
+    .swiper-slide-prev {
+      visibility: visible !important;
+      app-main-room {
+        width: 275px !important;
+        margin: auto;
+        .room__bg--darkened {
+          background-color: rgba(0, 0, 0, 0.49) !important;
+        }
+      }
+    }
+
+    .swiper-slide {
+      //visibility: visible !important;
+      //height: 11px !important;
+      //app-main-room {
+      //  width: 257px;
+      //  margin: auto;
+      //  .room__bg--darkened {
+      //    background-color: rgba(246, 246, 246, 0.52);
+      //    box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.5);
+      //  }
+      //}
+      app-main-room {
+        width: 297px;
+        margin: 0 auto;
+      }
+      .room__bg--darkened {
+        background-color: initial;
+        box-shadow: initial;
+      }
+    }
+  }
+  @media #{$mobile} {
+    .swiper-list-rooms {
+      .swiper-wrapper {
+        position: relative;
+        padding-top: 0;
+      }
+      .swiper-slide {
+        position: relative;
+        top: 616px;
+        app-main-room {
+          width: 254px;
+          margin: 0 auto;
+        }
+        .room__bg {
+          border-radius: 4px;
+        }
+        .room__bg--darkened {
+          border-radius: 4px;
+          //background-color: rgba(246, 246, 246, 0.52);
+          //box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.5);
+        }
+      }
+      .swiper-slide-active {
+        visibility: visible !important;
+        height: 287px !important;
+        z-index: 2;
+        top: 21px;
+        app-main-room {
+          width: 297px;
+          opacity: 1;
+        }
+        .room__bg--darkened {
+          background-color: rgba(3, 3, 2, 0.5);
+          box-shadow: none;
+        }
+      }
+      .swiper-slide-prev {
+        position: relative;
+        z-index: 1;
+        top: 318px;
+        visibility: visible !important;
+        app-main-room {
+          width: 277px !important;
+          margin: auto;
+          .room__bg--darkened {
+            box-shadow: none;
+            background-color: rgba(0, 0, 0, 0.49) !important;
+          }
+        }
+      }
+    }
+  }
 }
+

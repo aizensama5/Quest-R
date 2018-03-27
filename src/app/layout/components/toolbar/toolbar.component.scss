@@ -55,7 +55,11 @@
     transition: max-height 0.5s;
 
     .menu__link {
+      outline: none;
       @include text-mixin($color-white, 18px, $font-gotham-pro-medium);
+    }
+    .menu {
+      outline: none;
     }
   }
 
@@ -73,6 +77,7 @@
   }
 
   &__lang {
+    outline: none;
     flex-grow: 1;
     text-align: right;
     display: flex;

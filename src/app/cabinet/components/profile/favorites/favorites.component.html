@@ -1,27 +1,43 @@
-<ng-container *ngFor="let favoriteRoom of favoritesData" class="favorites-rooms-wrapper">
+<ng-container *ngFor="let favoriteRoom of favoritesRooms" class="favorites-rooms-wrapper">
   <div class="room__bg" [ngStyle]="{'background-image': 'url(' + favoriteRoom.img + ')'}">
     <div class="room__bg-darkened"></div>
     <div class="room__wrapper">
       <h3 class="room__title">
         {{ 'ROOM' | translateS | async }} <br>
-        "{{ favoriteRoom.name }}"
+        "{{ favoriteRoom.name | translateD }}"
       </h3>
       <div class="room__details">
         <div class="room__details-item">
-          <img class="room__details-icon clock" src="../../../../../../assets/images/clock.svg" alt="img details clock">
-          <span class="room__details-text">{{ favoriteRoom.duration }}</span>
+          <div class="room__details-item-img">
+            <img class="room__details-icon clock" src="../../../../../../assets/images/clock.svg"
+                 alt="img details clock">
+          </div>
+          <div class="room__details-item-text">
+            <span class="room__details-text">{{ favoriteRoom.duration }} {{ 'minutes' | translateS | async }}</span>
+          </div>
         </div>
         <div class="room__details-item">
-          <img class="room__details-icon person" src="../../../../../../assets/images/person.svg" alt="img details person">
-          <span class="room__details-text">{{ favoriteRoom.countPerson }} {{ 'people' | translateS | async }}</span>
+          <div class="room__details-item-img">
+            <img class="room__details-icon person" src="../../../../../../assets/images/person.svg"
+                 alt="img details person">
+          </div>
+          <div class="room__details-item-text">
+          <span class="room__details-text">
+            {{ favoriteRoom.countPlayers.minCountPlayers }}-{{ favoriteRoom.countPlayers.maxCountPlayers }} {{ 'people' | translateS | async }}
+          </span>
+          </div>
         </div>
         <div class="room__details-item">
-          <img class="room__details-icon genre" src="../../../../../../assets/images/clock.svg" alt="img details genre">
-          <span class="room__details-text">{{ favoriteRoom.level }}</span>
+          <div class="room__details-item-img">
+            <img class="room__details-icon genre" src="../../../../../../assets/images/clock.svg"
+                 alt="img details genre">
+          </div>
+          <div class="room__details-item-text">
+            <span class="room__details-text">{{ favoriteRoom.complexity.complexity | translateD }}</span>
+          </div>
         </div>
       </div>
-
-      <button class="btn room__btn">{{ 'Book' | translateS | async }}</button>
+      <button class="btn room__btn" (click)="reserve(favoriteRoom)">{{ 'Book' | translateS | async }}</button>
     </div>
   </div>
 </ng-container>

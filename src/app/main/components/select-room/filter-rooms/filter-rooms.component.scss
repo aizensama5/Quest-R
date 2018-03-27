@@ -19,41 +19,6 @@
       position: relative;
     }
   }
-  .filter-hint.filter-hint-players {
-    left: 87px;
-    bottom: -12px;
-    i {
-      top: 12px;
-    }
-  }
-  .filter-hint.filter-hint-genre {
-    left: 84px;
-  }
-  .filter-hint.filter-hint-price {
-    left: 57px;
-    bottom: -12px;
-    i {
-      top: 12px;
-    }
-  }
-  .filter-hint.filter-hint-marking {
-    left: 170px;
-    bottom: -12px;
-    li {
-      &:not(:last-child) {
-        display: none;
-      }
-    }
-  }
-  .filter-hint.filter-hint-complexity {
-    left: 160px;
-    bottom: -12px;
-    li {
-      &:not(:last-child) {
-        display: none;
-      }
-    }
-  }
   @media #{$tablet-x2} {
     .filter-rooms {
       &__list {
@@ -67,15 +32,68 @@
       }
     }
   }
-  .filter-hint.filter-hint-genre {
-    left: 60px;
-    bottom: 0;
+}
+
+@media #{$tablet-x1} {
+  :host /deep/ {
+    .filter-rooms {
+      &__list {
+        max-width: 529px;
+      }
+      &__item {
+        span {
+          font-size: 15px;
+        }
+      }
+      &__item-complexity,
+      &__item-marking {
+        position: relative;
+        top: 4px;
+      }
+    }
   }
-  .filter-hint.filter-hint-genre,
-  .filter-hint.filter-hint-complexity,
-  .filter-hint.filter-hint-genre
-  {
-    left: 0;
-    bottom: auto;
-  }
+}
+
+@media #{$mobile} {
+ :host /deep/ {
+   .filter-rooms {
+     &__list {
+       display: block;
+     }
+     &__item {
+       padding: 16px 0;
+       font-size: 18px;
+       display: block;
+       &-wrap {
+         display: flex;
+         justify-content: center;
+       }
+       &-arrow {
+         position: relative;
+         top: 6px;
+         width: 20px;
+         height: 8px;
+         display: block;
+         padding-left: 25px;
+         background-image: url("../../../../../assets/images/triangle.svg");
+         background-repeat: no-repeat;
+         background-position: center;
+         transform: scaleY(-1);
+         transition: transform 0.5s;
+
+         &--active {
+           transform: rotate(0deg);
+         }
+       }
+     }
+     &__item-complexity,
+     &__item-marking {
+        font-size: 18px;
+       .filter-rooms__item-wrap {
+         display: flex;
+         justify-content: center;
+       }
+     }
+   }
+ }
 }

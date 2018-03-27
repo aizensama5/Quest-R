@@ -16,8 +16,8 @@
     <div class="filter-circle__count-players">
       <h2 class="filter-circle__title">{{ 'PRICE' | translateS | async }}</h2>
       <input
-        (input)="value = $event.target.value;
-          valueOnFixedPos = $event.target.value"
+        (input)="value = +$event.target.value;
+          valueOnFixedPos = +$event.target.value"
         type="number"
         class="filter-circle__input filter-circle__input-price"
         #inputPrice

@@ -13,6 +13,8 @@ export class BookingRoomComponent implements OnInit {
   @Output() selectedDate: EventEmitter<string> = new EventEmitter<string>();
 
   rooms: RoomModel[] = [];
+  isRoomPageOpened = false;
+  timeList: any[] = [];
 
   constructor(
     private roomService: RoomService,

@@ -1,10 +1,12 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/modules";
+@import "../../../../assets/styles/_mixins";
+
 
 :host /deep/ {
   .reserved-select {
     width: 309px;
     height: 40px;
-    padding: 0 6px;
     border-radius: 3px;
     border: 1px solid $color-white;
     background-color: transparent;
@@ -18,26 +20,31 @@
       height: 25px;
     }
   }
-  md-select {
-    .mat-select-placeholder {
-      @include text-mixin($color-grey, 16px, $font-gotham-pro-regular);
-      padding-left: 10px;
+}
+
+@media #{$tablet-x2} {
+  :host /deep/ {
+    .reserved-select {
+      width: 250px;
+      height: 40px;
+      font-size: 14px;
     }
-    .mat-select-arrow {
-      background-image: url("../../../../assets/images/arrow.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      width: 10px;
-      height: 6px;
-      border: none;
-      margin-right: 15px;
-    }
-    .mat-select-value-text {
-      padding-left: 10px;
-      @include text-mixin($color-white, 16px, $font-gotham-pro-regular);
-    }
-    md-option {
-      font-family: $font-gotham-pro-regular;
+    .mobile-calendar__label {
+      font-size: 14px;
     }
   }
 }
+
+@media #{$mobile} {
+  :host /deep/ {
+    .reserved-select {
+      width: 250px;
+      height: 40px;
+      font-size: 14px;
+    }
+    .mobile-calendar__label {
+      font-size: 14px;
+    }
+  }
+}
+

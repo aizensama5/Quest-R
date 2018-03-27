@@ -1,12 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ComplexityModel } from '../../../../models/complexity.model';
-import { MarkingModel } from '../../../../models/marking.model';
-import { MarkingService } from '../../../../service/marking.service';
-import { ComplexityService } from '../../../../service/complexity.service';
-import { GenreModel } from '../../../../models/genre.model';
-import { FilterModel } from '../../../../models/filter.model';
-import { RoomModel } from '../../../../models/room.model';
-import { RoomService } from '../../../../service/http/room.service';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {ComplexityModel} from '../../../../models/complexity.model';
+import {MarkingModel} from '../../../../models/marking.model';
+import {MarkingService} from '../../../../service/marking.service';
+import {ComplexityService} from '../../../../service/complexity.service';
+import {GenreModel} from '../../../../models/genre.model';
+import {FilterModel} from '../../../../models/filter.model';
+import {RoomModel} from '../../../../models/room.model';
+import {RoomService} from '../../../../service/http/room.service';
 
 @Component({
   moduleId: module.id,
@@ -20,6 +20,9 @@ export class FilterRoomsComponent implements OnInit {
   isDisplayPriceCircle = false;
   isDisplayGenreCircle = true;
   rooms: RoomModel[] = [];
+  displayedInitiallyRooms: RoomModel[] = [];
+
+  isMobile = false;
 
   filterArray: FilterModel = new FilterModel();
 
@@ -40,38 +43,64 @@ export class FilterRoomsComponent implements OnInit {
     radius: 132,
     thick: 55
   };
+  miniTabletCircleParams: any = {
+    width: 220,
+    height: 220,
+    radius: 93,
+    thick: 32
+  };
+  mobileCircleParams: any = {
+    width: 220,
+    height: 220,
+    radius: 93,
+    thick: 32
+  };
   tabletWidth = {
     max: 949,
+    min: 757
+  };
+  miniTabletWidth = {
+    max: 756,
     min: 529
+  };
+  mobileWidth = {
+    max: 529,
+    min: 280
   };
 
   @Output() filteredRooms: EventEmitter<RoomModel[]> = new EventEmitter<RoomModel[]>();
 
-  constructor(
-    private markingService: MarkingService,
-    private complexityService: ComplexityService,
-    private roomService: RoomService
-  ) {
+  constructor(private markingService: MarkingService,
+              private complexityService: ComplexityService,
+              private roomService: RoomService) {
     markingService.all().subscribe((marking: MarkingModel[]) => {
       this.marking = marking;
     });
     complexityService.all().subscribe((complexity: ComplexityModel[]) => {
       this.complexity = complexity;
     });
-    roomService.allActive().subscribe((rooms: RoomModel[]) => {
+    this.roomService.allActive().subscribe((rooms: RoomModel[]) => {
       this.rooms = rooms;
+    });
+    this.roomService.displayedOnMainPage().subscribe((rooms: RoomModel[]) => {
+      this.displayedInitiallyRooms = rooms;
     });
 
     this.filterArray.filterChange.subscribe((filter: FilterModel) => {
       this.filterArray = filter;
-      this.filterRooms();
+      if (!this.filterArray.marking.length && !this.filterArray.complexity.id && !this.filterArray.genre.id && !this.filterArray.price && !this.filterArray.countPlayers) {
+        this.filteredRooms.emit(this.displayedInitiallyRooms);
+      } else {
+        this.filterRooms();
+      }
     });
   }
 
   filterRooms(): void {
-    this.roomService.filterRooms(this.rooms, this.filterArray).subscribe((filteredRooms: RoomModel[]) => {
-      this.filteredRooms.emit(filteredRooms);
-    });
+    this.roomService.filterRooms(this.rooms, this.filterArray)
+      .then((filteredRooms: RoomModel[]) => {
+        this.filteredRooms.emit(filteredRooms);
+      });
   }
 
   displayPlayersCircle() {
@@ -92,6 +121,18 @@ export class FilterRoomsComponent implements OnInit {
     this.isDisplayGenreCircle = false;
   }
 
+  togglePlayersCircle() {
+    this.isDisplayPlayersCircle = !this.isDisplayPlayersCircle;
+  }
+
+  toggleGenreCircle() {
+    this.isDisplayGenreCircle = !this.isDisplayGenreCircle;
+  }
+
+  togglePriceCircle() {
+    this.isDisplayPriceCircle = !this.isDisplayPriceCircle;
+  }
+
   onChangeGenre(genre: GenreModel) {
     this.filterArray.genre = genre;
   }
@@ -104,7 +145,7 @@ export class FilterRoomsComponent implements OnInit {
     this.filterArray.countPlayers = countPlayers;
   }
 
-  onChangeComplexity(complexity: ComplexityModel[]) {
+  onChangeComplexity(complexity: ComplexityModel) {
     this.filterArray.complexity = complexity;
   }
 
@@ -125,12 +166,16 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   deleteFilterComplexity() {
-    this.filterArray.complexity = [];
+    this.filterArray.complexity = new ComplexityModel();
+  }
+
+  deleteFilterMarking() {
+    this.filterArray.marking = [];
   }
 
   deleteFilterMarkingItem(markingId: number) {
     const indexToRemove = this.filterArray.marking.findIndex(obj => obj.id === markingId);
-    this.filterArray.marking.splice(indexToRemove , 1);
+    this.filterArray.marking.splice(indexToRemove, 1);
   }
 
   onResize(event: any) {
@@ -139,10 +184,26 @@ export class FilterRoomsComponent implements OnInit {
   }
 
   checkRoundCircleParams() {
-    this.initialRoundCircleParams = this.windowWidth > this.tabletWidth.min && this.windowWidth < this.tabletWidth.max ? this.tabletRoundCircleParams : this.desktopRoundCircleParams;
+    if (this.windowWidth >= this.tabletWidth.min && this.windowWidth <= this.tabletWidth.max) {
+      this.initialRoundCircleParams = this.tabletRoundCircleParams;
+    } else if (this.windowWidth >= this.miniTabletWidth.min && this.windowWidth <= this.miniTabletWidth.max) {
+      this.initialRoundCircleParams = this.miniTabletCircleParams;
+    } else if (this.windowWidth >= this.mobileWidth.min && this.windowWidth <= this.mobileWidth.max) {
+      this.initialRoundCircleParams = this.mobileCircleParams;
+    } else {
+      this.initialRoundCircleParams = this.desktopRoundCircleParams;
+    }
+    console.log(this.initialRoundCircleParams);
+  }
+
+  keepTrackOfWindowSize() {
+    if (window.innerWidth <= this.mobileWidth.max) {
+      this.isMobile = true;
+    }
   }
 
   ngOnInit() {
+    this.keepTrackOfWindowSize();
     this.windowWidth = window.innerWidth;
     this.checkRoundCircleParams();
   }

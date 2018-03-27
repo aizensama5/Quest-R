@@ -1,29 +1,48 @@
-<div class="room-info-wrapper">
+<div class="room-info-wrapper" *ngIf="room">
   <div class="room-info">
-    <div class="room-info__image" [ngStyle]="{'background-image': 'url(' + room?.img + ')'}"></div>
-    <div class="room-info__info">
-      <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{room?.name.def}}"</h3>
+    <div class="room-info__image"
+         (click)="onGalleryOpen()"
+         [ngStyle]="{'background-image': 'url(' + room?.img + ')'}">
+    <div class="room-info__image-wrap"></div>
+  </div>
+  <app-gallery-slider *ngIf="isShowRoomGallery"
+                      [galleryData]="room.gallery"
+                      (onGalleryClose)="onGalleryClose($event)"
+  ></app-gallery-slider>
+  <div class="room-info__info">
+    <h3 class="room-info__info-name">{{ 'ROOM' | translateS | async }} "{{ room?.name | translateD }}"</h3>
+    <div class="inverted-mobile">
       <p class="room-info__info-description">
-        {{ room?.description.def }}
+        {{ room?.description | translateD }}
       </p>
       <div class="room-info__details">
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/clock.svg" alt="img details genre">
-          <span class="room-info__details-text">{{room?.duration}}</span>
+          <span class="room-info__details-text">{{room?.duration}} {{ 'minutes' | translateS | async }}</span>
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/clock.svg" alt="img details clock">
-          <span class="room-info__details-text">{{room?.level}}</span>
+          <span class="room-info__details-text">{{ room?.complexity.complexity | translateD }}</span>
         </div>
         <div class="room-info__details-item">
           <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-          <span class="room-info__details-text">{{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} people</span>
+          <span class="room-info__details-text">
+            {{room?.countPlayers?.minCountPlayers}}-{{room?.countPlayers?.maxCountPlayers}} {{ 'people' | translateS | async }}
+          </span>
         </div>
       </div>
+    </div>
+    <div *ngIf="!isMobile">
       <div class="room-info__details-item room-info__details-additional" *ngFor="let mark of room?.marking">
         <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
-        <span class="room-info__details-text">{{ mark?.marking }}</span>
+        <span class="room-info__details-text">{{ mark?.marking | translateD }}</span>
       </div>
     </div>
+
+    <div *ngIf="isMobile" class="room-info__details-item room-info__details-additional">
+      <img class="room-info__details-icon" src="../../../../assets/images/person.svg" alt="img details person">
+      <span class="room-info__details-text">{{ room?.address | translateD }}</span>
+    </div>
   </div>
+</div>
 </div>

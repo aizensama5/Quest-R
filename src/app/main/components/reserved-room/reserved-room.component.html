@@ -1,16 +1,24 @@
 <h3 class="reserved-room__title title">{{ 'BOOK' | translateS | async }}</h3>
 <app-layout-select-list-rooms [preSelectedRoom$]="selectedRoom$"
-                              (selectedRoom)="onSelectRoom($event)"
                               [isOpenedRoomPage]="isOpenedRoomPage"
+                              [isMobile]="isMobile"
+                              [isFormSubmited]="isFormSubmited"
 ></app-layout-select-list-rooms>
-<app-main-reserved-calendar (selectedItem)="onSelectItem($event)"
+<app-main-reserved-calendar id="reserve-calendar"
+                            [isMobile]="isMobile"
+                            [mobileReservationDays]="mobileReservationDays"
+                            (selectedItem)="onSelectItem($event)"
                             [showReservationTable]="showReservationTable"
                             [room]="selectedRoom"
                             [roomReservationData]="roomReservationData"
                             [timeList]="timeList"
                             [reservationDays]="reservationDays"
-></app-main-reserved-calendar>
-<app-main-reserved-form [reserveData]="reserveData"
+                            [isFormSubmited]="isFormSubmited"
+></app-main-reserved-calendar >
+<app-main-reserved-form id="reserved-form"
+                        [isMobile]="isMobile"
+                        (onFormSubmit)="onFormSubmit($event)"
+                        [reserveData]="reserveData"
                         [showOrderingTable]="showOrderingTable"
                         [room]="selectedRoom"
 ></app-main-reserved-form>

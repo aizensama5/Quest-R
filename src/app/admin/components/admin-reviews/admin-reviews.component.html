@@ -5,7 +5,7 @@
       <div class="admin__content">
         <p class="admin__content-title">Reviews</p>
           <div class="admin__top">
-            <table *ngIf="reviews.length"
+            <table *ngIf="reviews && reviews.length"
                    datatable
                    id="review-table"
                    class="table table-striped table-bordered table-hover dataTable no-footer"
@@ -26,7 +26,7 @@
                   <p>{{ review?.id }}</p>
                 </td>
                 <td class="text-center">
-                  <p>{{ review?.roomId | roomName: review?.roomId }}</p>
+                  <p>{{ review.roomId | roomName | async }}</p>
                 </td>
                 <td class="text-center">
                   <p>{{ review?.userId | userName: review?.userId }}</p>
@@ -51,16 +51,12 @@
         <div class="admin-btn-wrap">
           <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
         </div>
-        <div *ngIf="isShowNotificationPopup" id="notification-popup" style="width: 100%; height: 100%;">
-          <div class="popup">
-            <i class="popup-close fa fa-close" (click)="closePopup()"></i>
-            <div class="popup-content">
-              <p [ngStyle]="{'color': !areErrors | popupColor: !areErrors }">{{ notificationPopupMessage }}</p>
-            </div>
-            <div class="popup-footer" [ngStyle]="{'background-color': !areErrors | popupColor: !areErrors }"></div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

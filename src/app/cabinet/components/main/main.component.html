@@ -1,4 +1,5 @@
 <app-layout-toolbar></app-layout-toolbar>
+<div id="cabinet-content">
   <div *ngIf="(user | async)">
     <h2 class="cabinet__title">{{ 'Personal profile' | translateS | async }}</h2>
     <app-cabinet-profile></app-cabinet-profile>
@@ -8,5 +9,6 @@
   <div *ngIf="!(user | async)">
     <app-login></app-login>
   </div>
+</div>
 <app-layout-footer></app-layout-footer>
 

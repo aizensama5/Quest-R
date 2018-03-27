@@ -12,4 +12,7 @@
       margin: 0 auto;
     }
   }
+  #cabinet-content {
+    min-height: calc(100vh - 138px);
+  }
 }

@@ -1,15 +1,17 @@
 export class TimeModel {
-  timeSlotId: number;
+  timeSlotId: string;
   time: string;
   price: number;
-  currency: string;
-  background: string;
+  currency?: string;
+  background?: string;
+  isActive: boolean;
 
   constructor () {
-    this.timeSlotId = null;
+    this.timeSlotId = '';
     this.time = '';
     this.price = null;
-    this.currency = '';
-    this.background = '';
+    this.currency = 'złoty';
+    this.background = '#ff9200';
+    this.isActive = true;
   }
 }

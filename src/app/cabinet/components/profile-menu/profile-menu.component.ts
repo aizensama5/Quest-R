@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../../service/http/user.service';
-import {HttpClient} from '../../../service/http.client';
+import {ProfileMenuModel} from "../../../models/profile/profile-menu.model";
 
 
 @Component({
@@ -12,10 +10,47 @@ import {HttpClient} from '../../../service/http.client';
 })
 
 export class ProfileMenuComponent {
-  id: number;
+  activeMenuItem: string;
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.id = this.activatedRoute.snapshot.params.id;
+  profileMenuItems: ProfileMenuModel[] = [
+    {
+      url: 'history',
+      name: 'History',
+      isActive: false
+    },
+    {
+      url: 'gallery',
+      name: 'Gallery',
+      isActive: false
+    },
+    {
+      url: 'favorites',
+      name: 'Favorites',
+      isActive: false
+    },
+    {
+      url: 'friends',
+      name: 'My friends',
+      isActive: false
+    },
+    {
+      url: 'reviews',
+      name: 'Reviews',
+      isActive: false
+    },
+  ];
+
+  constructor() {
+    this.checkActiveMenuItem();
+  }
+
+  checkActiveMenuItem() {
+    setTimeout(() => {
+      this.activeMenuItem = window.location.pathname.split('/')[2];
+      this.profileMenuItems.forEach((menuItem: ProfileMenuModel) => {
+        menuItem.isActive = menuItem.url === this.activeMenuItem;
+      });
+    }, 100);
   }
 }
 

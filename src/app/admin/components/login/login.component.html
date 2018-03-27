@@ -1,36 +1,37 @@
-<div class="admin-login">
-  <h1 class="admin-login__title">Panel firmowy <b>QUEST-R</b></h1>
+<div class="admin-login" [class.main-loader]="isShowLoader">
+  <h1 class="admin-login__title">{{ 'Company panel' | translateS | async }}<b> QUEST-R</b></h1>
   <div class="admin-login__box">
-    <h2 class="admin-login__box-title">Zaloguj się do panelu firmowego</h2>
+    <h2 class="admin-login__box-title">{{ 'Log in to the company panel' | translateS | async }}</h2>
     <form class="form-signin admin-login__form">
       <div class="form-group admin-login__form-field">
         <input #email type="email" id="email" class="form-control" placeholder="E-mail*" required autofocus>
         <span class="admin-login__form-field--feedback form-control-feedback"></span>
       </div>
       <div class="form-group admin-login__form-field">
-        <input #password type="password" id="password" class="form-control" placeholder="Hasło" required autofocus>
+        <input #password type="password" id="password" class="form-control" placeholder="{{ 'Password' | translateS | async }}" required autofocus>
         <span class="admin-login__form-field--feedback form-control-feedback before-password"></span>
       </div>
       <button type="button" class="admin-login__form-button"
               (click)="adminLogin(email.value, password.value)">
-        Zaloguj się</button>
+        {{ 'Sign in' | translateS | async }}</button>
     </form>
-    <p class="admin-login__separate"> - LUB - </p>
-    <div class="admin-login__social" (click)="adminFacebookLogin()">
-      <i class="fa fa-facebook"></i>
-      <p>Zaloguj przez Facebook</p>
-    </div>
     <div class="dropdown admin-login__language">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         <i class="fa fa-globe fa-fw"></i>
-        Język:
-        <strong>Polski</strong>
+        <span class="hidden-xs"></span>
+        {{ 'Language' | translateS | async }}:
+        <strong>{{ selectedLang.name }}</strong>
       </a>
-      <!--<ul class="dropdown-menu">-->
-        <!--<li><a title="Engligh">English</a></li>-->
-        <!--<li><a title="Polski">Polski</a></li>-->
-      <!--</ul>-->
+      <ul class="dropdown-menu">
+        <li><a #en title="Engligh" (click)="onSelectLang('en')">English</a></li>
+        <li><a #pl title="Polski" (click)="onSelectLang('pl')">Polski</a></li>
+      </ul>
     </div>
   </div>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>
 

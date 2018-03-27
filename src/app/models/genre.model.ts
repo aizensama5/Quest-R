@@ -5,6 +5,7 @@ export class GenreModel {
   id: number;
   legend: LanguageModel;
   color: string;
+  selected?: boolean;
 
   static fromJSON(values) {
     const genre = new GenreModel();

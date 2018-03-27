@@ -97,7 +97,7 @@
                 <a #roomDaySettingsLink class="router-link" #a [routerLink]="'/admin/dashboard/days-settings/' + room.id"
                    (click)="fixActiveSubMenuItem()">
                   <i class="fa fa-circle-o"></i>
-                  {{ room?.name }}
+                  {{ room?.name.def }}
                 </a>
               </li>
             </ul>

@@ -1,0 +1,66 @@
+<div class="admin" [class.main-loader]="isShowLoader">
+  <h1 class="admin__title">
+      <span><a [routerLink]="'/admin/dashboard/bookings'">Bookings</a>
+      </span> / User ({{ order.bookerData?.name }}) history for room ( {{ order.roomId | roomName | async }} )
+  </h1>
+  <div *ngIf="order.bookerData.userId">
+    <div class="admin__row row">
+      <div class="col-md-12">
+        <div class="admin__content">
+          <p class="admin__content-title">
+            Change or add user history info
+          </p>
+          <div class="admin__data">
+            <div class="admin__data-item">
+              <label class="admin-label" for="duration">
+                Duration of passing room (user will can see this room history if duration is filled)
+              </label>
+              <input [(ngModel)]="userHistory.duration" id="duration" class="admin-input" type="time" step="1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="admin__row row">
+      <div class="col-md-12">
+        <div class="admin__content">
+          <p class="admin__content-title">Add images to user gallery</p>
+          <div class="admin__data">
+            <div class="admin__data-item" *ngIf="userHistory.photos.length">
+              <p class="admin__data-item-title">Images</p>
+              <swiper [config]="sliderConfig" #swiperClass class="swiper">
+                <div class="swiper-wrapper swiper__wrapper" id="swiper-wrapper-user-gallery">
+                  <div class="swiper-slide swiper__swiper-slide"
+                       id="swiper-slide-user-photo"
+                       *ngFor="let photo of userHistory.photos; let i = index;">
+                    <div class="swiper__data-item-logo swiper__data-item-logo-gallery"
+                         [ngStyle]="{'background-image': 'url(' + photo?.path + ')'}">
+                      <i class="fa fa-close delete-icon" (click)="deleteImage(photo.path, i)"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-button-prev gallery-swiper-button-prev"></div>
+                <div class="swiper-button-next gallery-swiper-button-next"></div>
+              </swiper>
+            </div>
+            <app-upload-image [companyLogo]=""
+                              (onImagesUploaded)="onImagesUploaded($event)"
+                              [isMultiple]="true">
+            </app-upload-image>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="admin-btn-wrap admin-rooms-edit__btn">
+      <button class="btn btn-primary admin-btn" (click)="save()">Save</button>
+    </div>
+  </div>
+  <div *ngIf="!order.bookerData.userId">
+    <p class="non-auth-user">User "{{order.bookerData.name}}" is not registered</p>
+  </div>
+</div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

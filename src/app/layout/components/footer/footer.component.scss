@@ -58,17 +58,20 @@
 }
 
 @media (max-width: $mobile) {
-  .footer {
-    &__wrapper {
-      padding-top: 20px;
-      padding-bottom: 20px;
-      justify-content: center;
-    }
-    &__logo {
-      margin-right: 15px;
-    }
-    &__dev {
-      display: none;
+  :host /deep/ {
+    display: none;
+    .footer {
+      &__wrapper {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: center;
+      }
+      &__logo {
+        margin-right: 15px;
+      }
+      &__dev {
+        display: none;
+      }
     }
   }
 }

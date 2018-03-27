@@ -78,24 +78,19 @@
           margin-bottom: 10px;
         }
       }
+      &-item-position {
+        display: flex;
+        justify-content: space-between;
+        & > div {
+          width: 48%;
+        }
+      }
     }
     &__row {
       margin-top: 20px;
     }
     &__btn {
       padding: 25px 10px 10px;
-    }
-    swiper {
-      width: 80%;
-      max-width: 600px;
-      min-width: 480px;
-      margin: auto;
-    }
-    &__swiper-wrapper {
-      transform: translate3d(0,0,0);
-    }
-    &__swiper-slide {
-      width: 100% !important;
     }
   }
 }

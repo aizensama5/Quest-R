@@ -1,5 +1,5 @@
 <h3 class="title shares__title">{{ 'PROMOTIONS' | translateS | async }}</h3>
-<swiper *ngIf="shares.length > 0" [config]="config">
+<swiper *ngIf="shares.length > 0" [config]="config" class="shares-swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let share of shares">
             <img class="shares__img swiper-lazy"  [attr.data-src]="share?.img">
@@ -7,7 +7,7 @@
                 <span class="spinner-preload__inner"></span>
             </div>
             <p class="shares__description">
-                {{ share?.descriptions.def }}
+                {{ share?.descriptions | translateD }}
             </p>
         </div>
     </div>

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { RoomModel } from '../../../models/room.model';
 import { RoomService } from '../../../service/http/room.service';
+import {LanguageService} from "../../../service/language.service";
+import {SwiperComponent} from "angular2-useful-swiper";
+import {event} from "d3-selection";
 
 @Component({
   moduleId: module.id,
@@ -8,30 +11,69 @@ import { RoomService } from '../../../service/http/room.service';
   templateUrl: 'swiper-room.component.html',
   styleUrls: ['swiper-room.component.scss']
 })
-export class SwiperRoomComponent implements OnInit {
+export class SwiperRoomComponent implements OnInit, AfterViewInit {
 
   rooms: RoomModel[] = [];
+  pathname: string;
+  locale: string = 'en';
 
-  config: Object = {
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    loop: true,
-    loopedSlides: 3,
-    slidesPerView: 3,
-    centeredSlides: true,
-    speed: 1000,
-    lazyLoading: true
-  };
+  // object with translated words;
+  // created for fixing translations async logic in slider.
+  langObj: any;
+  config: Object;
 
-  constructor(private _roomService: RoomService) {}
+  @Output() swiper = new EventEmitter<{ swClass: any }>();
+  @ViewChild('swiperRooms') swiperRooms: SwiperComponent;
+
+
+  constructor(
+    private _roomService: RoomService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
-    this.roomsCollection();
+    this.langObj  = {
+      en: {
+        room: 'ROOM',
+        readMore: 'Read more'
+      },
+      pl: {
+        room: 'POKÓJ',
+        readMore: 'Czytaj więcej'
+      }
+    };
+    this.languageService.getCurrentLocale().subscribe((locale: any[]) => {
+      this.pathname = window.location.pathname;
+      this.locale = this.pathname.split('/')[1] ? this.pathname.split('/')[1] : locale[0].$value;
+    });
   }
 
-  roomsCollection(): void {
-    this._roomService.allActive().subscribe((rooms: RoomModel[]) => {
+  ngAfterViewInit() {
+    this.roomsCollection().then((rooms: RoomModel[]) => {
       this.rooms = rooms;
+      this.config = {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        loopedSlides: this.rooms.length,
+        slidesPerView: 3,
+        centeredSlides: true,
+        speed: 1000,
+        nextButton: '.swiper-area .swiper-area-next',
+        prevButton: '.swiper-area .swiper-area-prev',
+        loop: true,
+      };
+
+      setTimeout(() => {
+        this.swiperRooms.config.effect = 'coverflow';
+      });
+    });
+  }
+
+  roomsCollection(): Promise<RoomModel[]> {
+    return new Promise((resolve) => {
+      this._roomService.allActive().subscribe((rooms: RoomModel[]) => {
+        resolve(rooms);
+      });
     });
   }
 }

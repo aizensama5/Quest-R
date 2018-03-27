@@ -1,3 +1,5 @@
+@import "../../../../../assets/styles/variables";
+
 .gallery-wrapper {
   max-width: 960px;
   margin: 41px auto 0;
@@ -6,52 +8,56 @@
     height: auto;
     width: 100%;
     &__room-name {
-      color: #fff;
-      font-size: 18px;
-      font-family: GothamProLight;
+      @include text-mixin($color-white, 18px, $font-gotham-pro-light);
       display: inline-block;
       float: left;
     }
     &__date {
+      @include text-mixin($color-white, 16px, $font-roboto-regular);
       display: inline-block;
       padding-left: 17px;
-      color: #fff;
-      font-size: 16px;
       float: left;
-      font-family: Roboto;
+      position: relative;
+      top: 1px;
     }
     &__add-photo {
+      @include text-mixin(#c21313, 14px, $font-gotham-pro-light);
       position: relative;
-      bottom: 11px;
+      bottom: 8px;
+      outline: none;
       cursor: pointer;
-      color: #c21313;
-      font-size: 14px;
       width: 170px;
       border: 2px solid #ffce0e;
       background-color: #ffce0e;
       border-radius: 5px;
       line-height: 1.29;
-      font-family: GothamProLight;
       text-align: center;
       padding: 11px 0;
       display: inline-block;
       float: right;
+      -webkit-appearance: none;
     }
     &__bottom {
-      padding: 49px 0 44px;
-      //display: flex;
+      padding: 49px 0;
+      &-swiper {
+        transform: translate3d(0,0,0);
+        -webkit-transform: translate3d(0, 0, 0);
+      }
       .gallery-swiper {
-
+        &__wrap {
+          overflow: hidden;
+        }
         .swiper-slide-disable {
           display: none;
         }
       }
       &-swiper {
-        position: relative;
-        right: 384px;
         width: 860px;
         &--slide {
           width: 175px !important;
+          &-delete-icon {
+            right: 15px;
+          }
         }
 
       }
@@ -77,10 +83,31 @@
       }
     }
     &__image {
+      cursor: pointer;
       display: inline-block;
       height: 160px;
       width: 160px;
       margin-right: 15px;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    &__image-add-photos {
+      display: flex;
+      cursor: pointer;
+      justify-content: center;
+      border: 1px solid #fff;
+      span {
+        @include text-mixin($color-white, 76px, $font-gotham-pro-light);
+        display: block;
+        transition: .2s ease-in;
+        margin: auto;
+      }
+      &:hover {
+        span {
+          transform: scale(1.2);
+        }
+      }
     }
   }
 }

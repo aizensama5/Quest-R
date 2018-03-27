@@ -20,6 +20,12 @@ export class ReviewService {
       .set(reviews);
   }
 
+  orderByIdDESC(reviews: ReviewModel[]): ReviewModel[] {
+    return reviews.sort(function(a, b) {
+      return b.id - a.id;
+    });
+  }
+
   all(): FirebaseListObservable<ReviewModel[]> {
     return <FirebaseListObservable<ReviewModel[]>>this.dataBaseService
       .list(ReviewService.dataBaseName);
@@ -36,21 +42,31 @@ export class ReviewService {
     return 0;
   }
 
-  userReviews(userId: string): FirebaseListObservable<ReviewModel[]> {
-    return <FirebaseListObservable<ReviewModel[]>>this.dataBaseService
-      .list(ReviewService.dataBaseName + userId)
-      .map((items) => items.map(ReviewModel.fromJSON));
+  userReviews(reviews: ReviewModel[], userId: string): Promise<ReviewModel[]> {
+    return new Promise((resolve) => {
+      let userReviews: ReviewModel[] = [];
+      reviews.forEach((review: ReviewModel) => {
+        if (review.userId === userId) {
+          userReviews.push(review);
+        }
+      });
+      resolve(userReviews);
+    });
   }
 
-  roomReviews (roomId: number, reviews?: ReviewModel[]) {
-    let allReviews: ReviewModel[] = [];
-    if (reviews.length) {
-      allReviews = reviews;
-    } else {
-      this.all().subscribe((rev: ReviewModel[]) => {
-        allReviews = rev;
+  userReviewByOrderId(reviews: ReviewModel[], userId: string, orderId: string): ReviewModel {
+    return reviews.filter((review: ReviewModel) => review.userId === userId && review.visited === orderId)[0];
+  }
+
+  roomReviews (roomId: number, reviews?: ReviewModel[]): Promise<ReviewModel[]> {
+    return new Promise((resolve) => {
+      let roomReviews: ReviewModel[] = [];
+      reviews.forEach((review: ReviewModel) => {
+        if (+review.roomId === roomId) {
+          roomReviews.push(review);
+        }
       });
-    }
-    return allReviews.filter((rev: ReviewModel) => rev.roomId === roomId)[0];
+      resolve(roomReviews);
+    });
   }
 }

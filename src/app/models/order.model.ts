@@ -2,9 +2,13 @@ import { BookerInfoModel } from './booker-info.model';
 import { FirebaseUtils } from '../shared/firebase.utils';
 
 export class OrderModel {
-  id: number;
+  id: string;
   roomId: number;
   is_passed: boolean;
+  creationDate: string;
+  bookingDate?: string;
+  confirmed: boolean;
+  price: number;
   bookerData: BookerInfoModel;
 
   static fromJSON(values) {
@@ -30,6 +34,9 @@ export class OrderModel {
     this.id = null;
     this.roomId = null;
     this.is_passed = false;
+    this.price = null;
+    this.confirmed = true;
+    this.creationDate = '';
     this.bookerData = new BookerInfoModel();
   }
 }

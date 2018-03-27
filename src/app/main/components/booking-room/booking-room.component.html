@@ -1,8 +1,8 @@
-<h3 class="booking__title">ЗАБРОНИРОВАТЬ КОМНАТУ</h3>
+<h3 class="booking__title">{{ 'ЗАБРОНИРОВАТЬ КОМНАТУ' | translateS | async }}</h3>
 <div class="booking">
-  <div class="booking__room-select">
-    <label class="label">Выберите комнату</label>
-    <select placeholder="Выберите комнату" (change)="onSelectedRoom($event)" class="reserved-select">
+  <div class="booking__room-select booking__item" *ngIf="!isRoomPageOpened">
+    <label class="label">{{ 'Выберите комнату' | translateS | async}}</label>
+    <select (change)="onSelectedRoom($event)" class="reserved-select">
     <option
       *ngFor="let room of rooms"
       [value]="room"
@@ -11,13 +11,80 @@
     </option>
   </select>
   </div>
-  <div class="booking__date-select">
-    <label class="label">Выберите дату</label>
-    <input class="create-review__date"
-           name="review-date"
-           type="date"
-           #date
-    />
+  <div class="booking__date-select booking__item">
+    <label class="label">{{ 'Выберите дату' | translateS | async }}</label>
+    // calendar plugin here
   </div>
-  <input type="submit" class="btn reserved-form__btn booking__button" value="Rezervuj" (click)="reserve(date)">
+  <div class="booking__time-select booking__item">
+    <label class="label">{{ 'Выберите время' | translateS | async }}</label>
+    <select (change)="onSelectedTime($event)" class="reserved-select">
+      <option
+        *ngFor="let timeItem of timeList"
+        [value]="timeItem"
+      >
+        {{ timeItem }}
+      </option>
+    </select>
+  </div>
+  <form class="booking__form">
+    <label for="booking__form-name" class="reserved-form__label">{{ 'Your name' | translateS | async }}</label>
+    <input class="booking__form-name-input"
+           value="{{(user$ | async)?.displayName}}"
+           id="booking__form-name"
+           name="name"
+           required
+           ngModel
+           #name
+    >
+
+    <label for="booking__form-tel" class="reserved-form__label">{{ 'Your phone' | translateS | async }}</label>
+    <input class="booking__form-input"
+           value="{{(user$ | async)?.phoneNumber}}"
+           id="booking__form-tel"
+           name="phone"
+           [required]="true"
+           ngModel
+           #phone
+    >
+
+    <label for="booking__form-email" class="reserved-form__label">{{ 'E-Mail' | translateS | async }}</label>
+    <input
+      type="email"
+      class="booking__form-input"
+      value="{{(user$ | async)?.email}}"
+      id="booking__form-email"
+      name="email"
+      required
+      ngModel
+      #email
+    >
+
+    <label for="booking__form-count-of-players" class="reserved-form__label">{{ 'Count of players' | translateS | async }}</label>
+    <input
+      [(ngModel)]="countOfPeople"
+      type="number"
+      class="booking__form-input"
+      id="booking__form-count-of-players"
+      (ngModelChange)="checkCountOfPlayersPriceDep()"
+      name="number"
+      min="1"
+      max="{{maxCountOfPlayers}}"
+      required
+      ngModel
+      #countOfPlayers
+    >
+
+    <label for="booking__form-comment" class="reserved-form__label">{{ 'Your comment' | translateS | async }}</label>
+    <textarea
+      type="email"
+      class="booking__form-input"
+      id="booking__form-comment"
+      name="email"
+      required
+      ngModel
+      #email
+    ></textarea>
+
+    <input type="submit" class="btn reserved-form__btn booking__button" value="{{ 'Book' | translateS | async }}" (click)="order(name, phone, email, countOfPlayers)">
+  </form>
 </div>

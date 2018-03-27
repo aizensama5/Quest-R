@@ -1,9 +1,9 @@
-<div *ngIf="showReservationTable">
+<div *ngIf="showReservationTable && !isMobile">
   <table class="reservation-table">
     <div class="reservation-table__time-wrap">
       <p class="reservation-table__time" *ngFor="let tm of timeList">{{ tm }}</p>
     </div>
-    <swiper [config]="sliderConfig" class="swiper">
+    <swiper [config]="sliderConfig" class="swiper-calendar">
       <div class="swiper-wrapper">
         <div class="swiper-slide reservation-table__slide" *ngFor="let res of roomReservationData; let i = index;">
           <div class="reservation-table__wrap" *ngFor="let rsrv of res">
@@ -11,13 +11,21 @@
               <th>{{convert(rsrv[2])}}</th>
             </tr>
             <tr class="reservation-table__items">
-              <td *ngFor="let rsrvItem of rsrv[1].time">
-                <div class="reservation-table__item" (click)="onSelectedItem(rsrvItem, rsrv[2])"
-                     [ngStyle]="{'background-color': rsrvItem?.background }">
-                  <div class="reservation-table__item-info"
-                       *ngIf="!rsrvItem?.is_booked && !rsrvItem?.is_bought && !rsrvItem?.is_past">
-                    <p class="reservation-table__item-info--price">{{rsrvItem?.price}}</p>
-                    <p class="reservation-table__item-info--currency">{{rsrvItem?.currency}}</p>
+              <td *ngFor="let tm of timeList;">
+                <div class="reservation-table__item-wrap" *ngIf="rsrv[3]">
+                  <div *ngFor="let rsrvItem of rsrv[3];">
+                    <div *ngIf="rsrvItem.time && tm == rsrvItem.time">
+                      <div class="reservation-table__item"
+                           *ngIf="rsrvItem.isActive"
+                           (click)="onSelectedItem(rsrvItem, rsrv[2], rsrv[1].dayId)"
+                           [ngStyle]="{'background-color': rsrvItem?.background }">
+                        <div class="reservation-table__item-info">
+                          <p class="reservation-table__item-info--price">{{rsrvItem?.price}}</p>
+                          <p class="reservation-table__item-info--currency">{{rsrvItem?.currency}}</p>
+                        </div>
+                      </div>
+                      <div *ngIf="!rsrvItem.isActive" class="reservation-table__item-non-active"></div>
+                    </div>
                   </div>
                 </div>
               </td>
@@ -25,8 +33,35 @@
           </div>
         </div>
       </div>
-      <div class="swiper-button-prev reservation-table__button reservation-table__button-left">{{ 'Previous Days' | translateS | async }}</div>
-      <div class="swiper-button-next reservation-table__button reservation-table__button-right">{{ 'Next Days' | translateS | async }}</div>
+      <div class="swiper-button-prev reservation-table__button reservation-table__button-left">{{ 'Previous Days' |
+        translateS | async }}
+      </div>
+      <div class="swiper-button-next reservation-table__button reservation-table__button-right">{{ 'Next Days' |
+        translateS | async }}
+      </div>
     </swiper>
   </table>
+</div>
+
+<div *ngIf="isMobile">
+  <div class="mobile-calendar">
+    <div class="mobile-calendar__wrap">
+      <div class="mobile-calendar__item" *ngIf="reservationDays && reservationDays.length">
+        <label class="mobile-calendar__label label">{{'Choose date' | translateS | async}}</label>
+        <ng-datepicker [options]="options"
+                       class="mobile-calendar__item-datepicker"
+                       [(ngModel)]="selectedDatePickerDate"
+                       (ngModelChange)="onSelectedDateMobile()"
+        ></ng-datepicker>
+      </div>
+      <div class="mobile-calendar__item" *ngIf="isDisplayMobileTimeList">
+        <label class="mobile-calendar__label label">{{'Choose time' | translateS | async}}</label>
+        <ng-select (selected)="onSelectedTimeMobile()"
+                   [options]="mobileTimeOptions"
+                   class="mobile-calendar__item-select"
+                   [(ngModel)]="mobileSelectedTime">
+        </ng-select>
+      </div>
+    </div>
+  </div>
 </div>

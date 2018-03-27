@@ -16,6 +16,7 @@ export class UploadImageComponent implements OnInit {
   };
   @Input() companyLogo: string;
   @Input() isMultiple = false;
+  @Input() withStyling = false;
   @Output() onImageUploaded: EventEmitter<any> = new EventEmitter<any>();
   @Output() onImagesUploaded: EventEmitter<any> = new EventEmitter<any>();
 
@@ -39,8 +40,8 @@ export class UploadImageComponent implements OnInit {
   onUploadPhoto(event: Event) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     for (let i = 0; i < fileList.length; i++) {
-      this.fileInfo.filename = (<File>fileList[i]).name;
-      this.imageService.uploadFile(fileList[i], (downloadURL) => {
+      this.fileInfo.filename = window.btoa((<File>fileList[i]).name).split('=')[0];
+      this.imageService.uploadFile(this.fileInfo.filename, fileList[i], (downloadURL) => {
         this.fileInfo.src = downloadURL;
         this.fileInfo.progress = 0;
         this.fileInfo.uploaded = true;

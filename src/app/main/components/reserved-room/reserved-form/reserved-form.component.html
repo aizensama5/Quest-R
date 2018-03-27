@@ -4,10 +4,12 @@
       <div class="reserved-form__room" [ngStyle]="{'background-image': 'url(' + room.img + ')'}">
         <div class="reserved-form__room-darkened">
           <ul class="reserved-form__list" *ngIf="room && reserveData">
-              <li class="reserved-form__list-item">{{ 'ROOM' | translateS | async }}: {{room?.name.def || ''}}</li>
+              <li class="reserved-form__list-item">{{ 'ROOM' | translateS | async }}: {{room?.name | translateD }}</li>
               <li class="reserved-form__list-item">{{ 'Beginning of the game' | translateS | async }}: {{convert(reserveData?.day)}} {{reserveData?.time?.time}}</li>
-              <li class="reserved-form__list-item">{{ 'Cost' | translateS | async }}: {{reserveData?.time?.price + ' ' + reserveData?.time?.currency}}</li>
-              <li class="reserved-form__list-item">{{room?.position?.latitude + ' ' +room?.position?.longitude}}</li>
+            <li class="reserved-form__list-item">{{ 'Cost' | translateS | async }}:
+              <span class="reserved-form__list-item-price" id="list-item-price">{{reserveData?.time?.price}}</span>
+              {{' ' + reserveData?.time?.currency}}</li>
+              <li class="reserved-form__list-item">{{room?.address | translateD }}</li>
           </ul>
         </div>
       </div>
@@ -44,7 +46,26 @@
             #email
           >
 
-          <input type="submit" class="btn reserved-form__btn" value="Book" (click)="order(name, phone, email)">
+          <label for="reserved-form__form-count-of-players" class="reserved-form__label">{{ 'Count of players' | translateS | async }}</label>
+          <input
+            [(ngModel)]="countOfPeople"
+            type="number"
+            class="reserved-form__input"
+            id="reserved-form__form-count-of-players"
+            (ngModelChange)="checkCountOfPlayersPriceDep()"
+            name="number"
+            min="1"
+            max="{{maxCountOfPlayers}}"
+            required
+            ngModel
+            #countOfPlayers
+          >
+        <input type="submit" class="btn reserved-form__btn" value="Book" (click)="order(name, phone, email, countOfPlayers)">
       </form>
   </div>
 </div>
+<app-notification-popup [isShowNotificationPopup]="isShowNotificationPopup"
+                        [notificationPopupMessage]="notificationPopupMessage"
+                        [areErrors]="areErrors"
+                        (onClosePopup)="closePopup()">
+</app-notification-popup>

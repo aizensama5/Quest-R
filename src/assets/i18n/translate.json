@@ -20,6 +20,7 @@
     "room": "room",
     "Room": "Room",
     "Book": "Book",
+    "BOOK": "BOOK",
     "Book it": "Book it",
     "Read more": "Read more",
     "Personal profile": "Personal profile",
@@ -64,7 +65,18 @@
     "Favorites": "Favorites",
     "My friends": "My friends",
     "Private Office": "Private Office",
-    "Implementation": "Implementation"
+    "Implementation": "Implementation",
+    "Company panel": "Company panel",
+    "Log in to the company panel": "Log in to the company panel",
+    "Sign in": "Sign in",
+    "Password": "Password",
+    "Language": "Language",
+    "Count of players": "Count of players",
+    "minutes": "minutes",
+    "You have not been to any room yet": "You have not been to any room yet",
+    "You don't have Facebook friends registered in the application": "You don't have Facebook friends registered in the application",
+    "There are no passed rooms": "There are no passed rooms",
+    "You must authorize before adding to your favorites": "You must authorize before adding to your favorites"
   },
   "pl": {
     "Quests": "Zadania",
@@ -87,6 +99,7 @@
     "room": "pokój",
     "Room": "Pokój",
     "Book": "Rezerwuj",
+    "BOOK": "REZERWUJ",
     "Book it": "Rezerwuj",
     "Read more": "Czytaj więcej",
     "Personal profile": "Profil osobisty",
@@ -131,6 +144,17 @@
     "Favorites": "Ulubione",
     "My friends": "Moi przyjaciele",
     "Private Office": "Pulpit Nawigacyjny",
-    "Implementation": "Realizacja"
+    "Implementation": "Realizacja",
+    "Company panel": "Panel firmowy",
+    "Log in to the company panel": "Zaloguj się do panelu firmowego",
+    "Sign in": "Zaloguj się",
+    "Password": "Hasło",
+    "Language": "Język",
+    "Count of players": "Liczba graczy",
+    "minutes": "minuty",
+    "You have not been to any room yet": "Nie byłeś jeszcze w żadnym pokoju",
+    "You do not have Facebook friends registered in the application": "Nie masz znajomych z Facebooka zarejestrowanych w aplikacji",
+    "There are no passed rooms": "Nie ma przejechanych pokoi",
+    "You must authorize before adding to your favorites": "Musisz autoryzować przed dodaniem do ulubionych"
   }
 }

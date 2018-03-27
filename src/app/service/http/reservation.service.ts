@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { MainReservationModel } from '../../models/main-reservation.model';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {Injectable} from '@angular/core';
+import {MainReservationModel} from '../../models/main-reservation.model';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import * as moment from 'moment';
 import {ReservationModel} from '../../models/reservation.model';
 
@@ -10,6 +10,7 @@ export class ReservationService {
   static readonly RESERVATION_DAYS_COUNT = 28;
   static readonly RESERVATION_DAYS_IN_WEEKS_COUNT = 7;
   static readonly RESERVATION_WEEKS_COUNT = 4;
+
   static getMonthsName() {
     return [
       'января',
@@ -27,11 +28,11 @@ export class ReservationService {
     ];
   }
 
-  static checkDayMonthFormat (el) {
+  static checkDayMonthFormat(el) {
     return el.length > 1 ? el : '0' + el;
   }
 
-  convertDateSeparatedBySlash (date: string) {
+  convertDateSeparatedBySlash(date: string) {
     const fullDate = new Date(date);
     let day = fullDate.getDate().toString(10),
       month = (fullDate.getMonth() + 1).toString(10);
@@ -40,7 +41,7 @@ export class ReservationService {
     return day + '/' + month;
   }
 
-  convertDateToString (date: string) {
+  convertDateToString(date: string) {
     const fullDate = new Date(date);
     let day = fullDate.getDate().toString(10);
     const monthIndex = fullDate.getMonth(),
@@ -49,22 +50,19 @@ export class ReservationService {
     return day + ' ' + monthsName[monthIndex];
   }
 
-  prepareReservationData (reservationData: MainReservationModel[], dayStart: number): MainReservationModel[] {
-    let roomIndex = 0;
-    reservationData.forEach((resData: MainReservationModel) => {
-      resData.reservation.forEach((resDataReserv: ReservationModel) => {
-        if (resDataReserv.dayId === dayStart) {
-          resData.reservation = resData.reservation
-            .concat(resData.reservation
-              .splice(0, resData.reservation.length - (ReservationService.RESERVATION_DAYS_IN_WEEKS_COUNT - dayStart + 1)));
-        }
-      });
-      roomIndex++;
+  prepareReservationData(reservationData: ReservationModel[], dayStart: number): ReservationModel[] {
+    dayStart = dayStart === 0 ? 7 : dayStart;
+    reservationData.forEach((resDataReserv: ReservationModel) => {
+      if (resDataReserv.dayId === dayStart) {
+        reservationData = reservationData
+          .concat(reservationData
+            .splice(0, reservationData.length - (ReservationService.RESERVATION_DAYS_IN_WEEKS_COUNT - dayStart + 1)));
+      }
     });
     return reservationData;
   }
 
-  days () {
+  days() {
     const days = [{
       day: ''
     }];
@@ -82,7 +80,8 @@ export class ReservationService {
     return new Date(day).getDay();
   }
 
-  constructor(private dataBaseService: AngularFireDatabase) {}
+  constructor(private dataBaseService: AngularFireDatabase) {
+  }
 
   addReservation(reservation: MainReservationModel): Promise<void> {
     return <Promise<void>>this.dataBaseService.object(ReservationService.dataBaseName + reservation.roomId).set(reservation.toJSON());

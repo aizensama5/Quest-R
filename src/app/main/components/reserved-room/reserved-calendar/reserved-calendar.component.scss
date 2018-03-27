@@ -1,9 +1,10 @@
 @import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/_mixins";
+@import "../../../../../assets/styles/modules";
 
 :host /deep/ {
   width: 100%;
-  overflow: hidden;
-  .swiper {
+  .swiper-calendar {
     position: relative;
     width: 720px;
     padding-left: 65px;
@@ -34,11 +35,15 @@
         @include text-mixin($color-white, 16px, $font-gotham-pro-medium);
       }
     }
+    &__item-wrap {
+      width: 64px;
+      height: 61px;
+      margin: 0 19px 11px 0;
+    }
     &__item {
       width: 64px;
       height: 61px;
       border-radius: 2px;
-      margin: 0 19px 11px 0;
       transition: .3s ease-in;
       cursor: pointer;
       &-info {
@@ -55,6 +60,14 @@
           color: #fff;
         }
       }
+    }
+    &__item-non-active {
+      background-color: #949494;
+      width: 64px;
+      height: 61px;
+      border-radius: 2px;
+      transition: .3s ease-in;
+      cursor: not-allowed;
     }
     td {
       vertical-align: -webkit-baseline-middle;
@@ -95,8 +108,194 @@
       padding: 8px 0 10px;
       text-align: center;
     }
+    &__button-right {
+      right: 24px;
+    }
     &__button-left {
-      left: 0;
+      left: 4px;
+    }
+  }
+}
+
+:host /deep/ {
+  @media #{$tablet-x1} {
+    .swiper-calendar {
+      position: relative;
+      width: 500px;
+      padding-left: 40px;
+      padding-right: 40px;
+      right: 40px;
+      .swiper-container-horizontal {
+        padding-bottom: 70px;
+      }
+    }
+    .reservation-table {
+      left: 40px;
+      &__item-day {
+        margin-bottom: 18px;
+        th {
+          left: 2px;
+          font-size: 14px;
+        }
+      }
+      &__item-wrap {
+        width: 40px;
+        height: 39px;
+        margin: 0 17px 9px 0;
+      }
+      &__item {
+        width: 40px;
+        height: 39px;
+        &-info {
+          @include text-mixin(#012c6a, 12px, $font-gotham-pro-medium);
+          &--price {
+            padding: 6px 0 2px;
+          }
+        }
+      }
+      &__item-non-active {
+        width: 40px;
+        height: 39px;
+      }
+      &__time-wrap {
+        margin: 30px 9px 0 0;
+      }
+      &__time {
+        margin: 0 0 11px;
+        width: 60px;
+        top: 16px;
+        height: 38px;
+        @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
+      }
+      &__button {
+        font-size: 14px;
+        padding: 6px 0 8px;
+        max-width: 120px;
+      }
+    }
+  }
+
+  .mobile-calendar {
+    padding-top: 10px;
+    &__wrap {
+      margin: 0 30px;
+      display: flex;
+      flex-direction: column;
+    }
+    &__label {
+      font-size: 14px;
+    }
+    &__item {
+      margin: 0 auto 10px;
+      &-label {
+        @include text-mixin($color-white, 14px, $font-gotham-pro-regular);
+      }
+      &-select,
+      &-datepicker {
+        width: 250px;
+        background-color: transparent;
+        height: 40px;
+        @include text-mixin($color-white, 14px, $font-gotham-pro-medium);
+        line-height: 1.31px;
+        margin: auto;
+        &::-webkit-input-placeholder {
+          color: #6c6c6c;
+        }
+      }
+      &-select {
+        border: 1px solid #fff;
+        border-radius: 3px;
+      }
+      &-datepicker {
+        .ngx-datepicker-container {
+          position: relative;
+          &:before {
+            font: normal normal normal 14px/1 FontAwesome;
+            content: '\f107';
+            font-size: 18px;
+            color: #fff;
+            top: 0;
+            right: 18px;
+            position: absolute;
+            line-height: 40px;
+            transform: scaleX(1.5);
+            z-index: 1;
+          }
+        }
+        .topbar-container {
+          background-color: #F6AE2D !important;
+          border-bottom: none !important;
+          height: auto !important;
+          padding: 15px 15px 10px !important;
+          svg {
+            g {
+              fill: #fff !important;
+            }
+          }
+        }
+        .topbar-title {
+          font-size: 14px !important;
+          color: #fff !important;
+          font-family: $font-roboto-regular !important;
+        }
+        .ngx-datepicker-calendar-container {
+          position: initial !important;
+          width: 250px !important;
+          margin-top: 5px !important;
+          &:before {
+            font: normal normal normal 14px/1 FontAwesome;
+            content: '\f107';
+            font-size: 18px;
+            color: #fff;
+            top: 0;
+            right: 18px;
+            position: absolute;
+            line-height: 40px;
+            transform: scaleX(1.5) rotate(180deg);
+            background-color: #292B2D;
+            z-index: 2;
+          }
+        }
+        .ngx-datepicker-input {
+          width: 250px !important;
+          background-color: transparent;
+          height: 40px;
+          border-radius: 3px;
+          border: 1px solid $color-white !important;
+          color: #fff !important;
+          font-size: 14px !important;
+          font-family: $font-gotham-pro-medium !important;
+          position: relative;
+          z-index: 3;
+        }
+        .main-calendar-container {
+          padding: 0 !important;
+        }
+        .main-calendar-day-names {
+          padding: 15px 0 10px !important;
+          background-color: #F6AE2D !important;
+          color: #fff !important;
+          font-size: 10px !important;
+          font-family: $font-roboto-medium;
+        }
+        .main-calendar-days {
+          padding: 0 0 2px !important;
+          span {
+            border-radius: 0 !important;
+            height: 32px !important;
+            border-right: solid 1px #f7f7f7;
+            border-bottom: solid 1px #f7f7f7;
+            //color: #4a4a4a !important;
+          }
+          span.is-selected {
+            background-color: #FFCE0E !important;
+          }
+        }
+      }
+      &-option {
+        color: #000;
+        height: 20px;
+      }
     }
   }
 }
